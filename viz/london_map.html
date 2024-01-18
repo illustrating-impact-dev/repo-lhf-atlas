@@ -1,0 +1,1520 @@
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title></title>
+<link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" rel="stylesheet" />
+
+<style type="text/css">
+    body {
+        font-size: 0.875rem;
+    }
+
+  
+    .container-fluid {
+        max-width: 1920px;
+        margin: 15px auto;
+    }
+
+    .chart-title-main,
+    .map-text {
+        font-size: 1rem;
+        color: #00aaff;
+    }
+
+    .map-text {
+        font-weight: bold;
+    }
+
+    .metric-name {
+        color: #00aaff;
+    }
+
+    .chart-title-sub,
+    .chart-footer,
+    .map-legend,
+    .chart-svg {
+        font-size: 0.75rem;
+    }
+
+    .chart-title-sub,
+    .chart-footer {
+        color: #6c757d;
+    }
+
+    #buttons {
+        display: flex;
+        justify-content: flex-end
+    }
+
+
+    .btn__svg {
+        text-align: left;
+        text-indent: -9999px;
+        font-size: 0;
+        line-height: 0px;
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-size: contain;
+        border: 0;
+        background-color: transparent;
+        height: 40px;
+        width: 40px;
+        padding: 0;
+        margin-right: 5px;
+        position: relative;
+    }
+
+    .btn__svg:hover::after {
+        opacity: 1;
+    }
+
+    .btn__svg::after {
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-size: contain;
+        content: "";
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        -webkit-transition: opacity 0.1s cubic-bezier(0.3, 0.65, 0.72, 0.63);
+        -o-transition: opacity 0.1s cubic-bezier(0.3, 0.65, 0.72, 0.63);
+        transition: opacity 0.1s cubic-bezier(0.3, 0.65, 0.72, 0.63);
+        background-color: #fff;
+    }
+
+    #buttons {
+        display: flex;
+        justify-content: flex-end
+    }
+
+    .btn__export--pdf {
+        background-image: url(https://www.lhfatlas.org.uk/sites/default/files/images/pdf-black.png);
+    }
+
+    .btn__export--pdf::after {
+        background-image: url(https://www.lhfatlas.org.uk/sites/default/files/images/pdf-blue.png);
+    }
+
+    .btn__export--csv {
+        background-image: url(https://www.lhfatlas.org.uk/sites/default/files/images/csv-black.png);
+    }
+
+    .btn__export--csv::after {
+        background-image: url(https://www.lhfatlas.org.uk/sites/default/files/images/csv-blue.png);
+    }
+
+    .btn__copy {
+        background-image: url(https://www.lhfatlas.org.uk/sites/default/files/images/url-black.png);
+    }
+
+    .btn__copy::after {
+        background-image: url(https://www.lhfatlas.org.uk/sites/default/files/images/url-blue.png);
+    }
+
+    .chart-header {
+        display: flex;
+        align-items: flex-start;
+    }
+
+    .chart-header-icon {
+        width: 36px;
+        height: 36px;
+        margin-top: 4px;
+        margin-right: 8px;
+    }
+
+    .chart-svg {
+        display: block;
+        width: 100%;
+        cursor: grab;
+    }
+
+    .chart-svg.panning {
+        cursor: grabbing;
+    }
+
+    .map-path {
+        stroke: #6c757d;
+        stroke-width: 0.5;
+        stroke-linejoin: round;
+        stroke-linecap: round;
+        vector-effect: non-scaling-stroke;
+    }
+
+    .map-label {
+        pointer-events: none;
+    }
+
+    .map-label,
+    .bar-value {
+        fill: currentColor;
+        stroke: #fff;
+        stroke-width: 3px;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        paint-order: stroke;
+    }
+
+    .bar-value .circle-item {
+        fill: #febe7d;
+    }
+
+    .bar-value,
+    .map-label-value {
+        font-weight: bold;
+    }
+
+    .map-location {
+        fill-opacity: 0.8;
+        stroke: #fff;
+        stroke-width: 0.5;
+        cursor: pointer;
+        vector-effect: non-scaling-stroke;
+    }
+
+    .map-circle {
+        fill: none;
+        stroke: #febe7d;
+        stroke-width: 2;
+        vector-effect: non-scaling-stroke;
+    }
+
+    .map-path.highlighted,
+    .bar-rect.highlighted,
+    .map-location.highlighted {
+        stroke: #212529;
+        stroke-width: 2;
+    }
+
+    .map-container {
+        position: relative;
+    }
+
+    .map-control {
+        position: absolute;
+        top: 8px;
+        left: 8px;
+        border: 2px solid rgba(0, 0, 0, 0.2);
+        background-clip: padding-box;
+        border-radius: 4px;
+    }
+
+    .map-control .map-zoom-in,
+    .map-control .map-zoom-out {
+        display: flex;
+        width: 30px;
+        height: 30px;
+        background-color: #fff;
+        justify-content: center;
+        align-items: center;
+        text-decoration: none;
+        color: black;
+        font: bold 22px "Lucida Console", Monaco, monospace;
+    }
+
+    .map-control .map-zoom-in:hover,
+    .map-control .map-zoom-out:hover {
+        background-color: #f4f4f4;
+    }
+
+    .map-control .map-zoom-in {
+        border-top-left-radius: 2px;
+        border-top-right-radius: 2px;
+        border-bottom: 1px solid #ccc;
+    }
+
+    .map-control .map-zoom-out {
+        border-bottom-left-radius: 2px;
+        border-bottom-right-radius: 2px;
+    }
+
+    .legend-items {
+        display: flex;
+        flex-flow: row wrap;
+    }
+
+    .legend-title {
+        text-transform: uppercase;
+    }
+
+    .legend-item {
+        display: flex;
+        align-items: center;
+        margin-right: 16px;
+    }
+
+    .legend-swatch {
+        width: 12px;
+        height: 12px;
+        border: 1px solid #6c757d;
+        margin-right: 8px;
+    }
+
+    .legend-item.circle-item .legend-swatch {
+        border-radius: 50%;
+        border-width: 2px;
+        border-color: #febe7d;
+    }
+
+    .chart-tooltip {
+        position: fixed;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+        background-color: rgba(255, 255, 255, 0.9);
+        border: 1px solid rgba(0, 0, 0, 0.125);
+        border-radius: 0.25rem;
+        padding: 0.75rem 1.25rem;
+        max-width: 100vw;
+        opacity: 0;
+        transition: opacity 0.15s linear;
+    }
+
+    .chart-tooltip p {
+        margin-bottom: 0.5rem;
+    }
+
+    .chart-tooltip p:last-of-type {
+        margin-bottom: 0;
+    }
+
+    .chart-tooltip.show {
+        opacity: 1;
+    }
+
+    .polygon-background {
+        background-color: #f0f6fa;
+        position: relative;
+    }
+
+    @media (min-width: 992px) {
+        .polygon-background::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -36px;
+            width: 36px;
+            height: 100%;
+            background-image: linear-gradient(to top left, #f0f6fa 50%, transparent 50%);
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .chart-tooltip {
+            transition: none;
+        }
+    }
+
+    @media (min-width: 480px) {
+        .chart-tooltip {
+            max-width: 480px;
+        }
+    }
+
+    @media (min-width: 800px) {
+        #london-map-map {
+            position: relative;
+        }
+
+        .map-label {
+            display: inline;
+        }
+
+        .map-text {
+            position: absolute;
+            right: 3rem;
+            top: 2rem;
+            max-width: 200px;
+            text-align: right;
+            z-index: 100;
+        }
+
+        .map-legend {
+            position: absolute;
+            left: 8px;
+            bottom: 8px;
+            z-index: 100;
+        }
+
+        .legend-items {
+            display: block;
+        }
+    }
+    .btn:after {
+        content: "";
+        display: inline-block !important;
+        position: relative !important;
+        width: 82px !important;
+        height: 32px !important;
+        transition: opacity .1s cubic-bezier(.3,.65,.72,.63);
+        background-color: #fff
+    }
+
+    .no-grid-padding .grid [class*=col-] {
+    padding: 0px!important; /* Or set it to the specific padding you need */
+    }   
+
+</style>
+<script>window.$searchInput = {autocomplete:function(){}}
+</script>
+<div class="container-fluid px-sm-5 no-grid-padding">
+    <div class="embedded no-grid-padding">
+    <div class="alert alert-danger d-none" role="alert">Failed to retrieve the data. Please refresh the page to reload.</div>
+
+    <div class="row control-row">
+        <div class="col-12 col-lg-4" style="padding-top:3px; padding-bottom:3px">
+            <div class="form-group"><label for="metric-select">Select main measure for map and bar chart:</label> <select class="form-control custom-select custom-select-sm" id="metric-select"></select></div>
+        </div>
+
+        <div class="col-12 col-lg-4" style="padding-top:3px; padding-bottom:3px">
+            <div class="form-group"><label for="service-select">Show locations on map (optional):</label> <select class="form-control custom-select custom-select-sm" id="service-select"></select></div>
+        </div>
+
+        <div class="col-12 col-lg-4 d-flex flex-column" style="padding-top:3px; padding-bottom:3px">
+            <div class="flex-grow-1">&nbsp;</div>
+            <div class="btn-group form-group" id="buttons" style="visibility: visible">
+                <button class="btn__export btn__export--pdf btn__svg" onclick="printPDF()" title="Export button label">Export to PDF</button>
+                <!-- <button class="btn__export btn__export--csv btn__svg">Export Data</button> -->
+                <button class="btn__copy btn__svg" onclick="CopyURL()" title="Copy URL label">Copy URL</button></div>
+        </div>
+    </div>
+
+    <div class="row chart-row d-none">
+        <div class="col-12 col-lg-8" style="padding-top:3px; padding-bottom:3px">
+            <div class="chart-header">
+                <img alt="metric icon" class="chart-header-icon" />
+                <div class="chart-title">
+                    <div class="chart-title-main">&nbsp;</div>
+
+                    <div class="chart-title-sub">&nbsp;</div>
+                </div>
+            </div>
+
+            <div id="london-map-map">
+                <div class="map-text">&nbsp;</div>
+
+                <div class="map-container">
+                    <svg class="chart-svg"></svg>
+
+                    <div class="map-control"><a aria-label="Zoom in" class="map-zoom-in" href="#" role="button" title="zoom-in">+</a> <a aria-label="Zoom out" class="map-zoom-out" href="#" role="button" title="zoom-out">-</a></div>
+                </div>
+
+                <div class="map-legend">
+                    <div class="legend-title">Key</div>
+
+                    <div class="legend-items">&nbsp;</div>
+                </div>
+            </div>
+
+            <div class="chart-footer">&nbsp;</div>
+        </div>
+
+        <div class="col-12 col-lg-4 mt-3 mt-lg-0 py-2 polygon-background">
+            <div id="london-map-bar-chart"><svg class="chart-svg"></svg></div>
+        </div>
+    </div>
+</div>
+</div>
+
+<div class="chart-tooltip">&nbsp;</div>
+
+
+<script src="https://d3js.org/d3.v5.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+        <script src="https://unpkg.com/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js"></script>
+<script>
+    var params = new URLSearchParams(window.location.search.substring(1));
+    function loadData() {
+        $(".custom-select").each(function (index) {
+            if (params != "") {
+                var id = $(this).attr('id');
+                var val1 = params.get(id)
+                if (!val1) {
+                    return
+                }
+
+                //$('#'+id).val(val1).change();
+                var sortBySelect = document.querySelector('#' + id);
+                sortBySelect.value = val1;
+                sortBySelect.dispatchEvent(new Event("change"));
+                d3.select('#' + id).select('option[value="' + val1 + '"]').attr('selected', 'selected');
+            }
+        });
+    }
+
+    $('.custom-select').on('change', function () {
+
+        var parametr = '';
+
+        $(".custom-select").each(function (index) {
+            var values = jQuery(this).val(); // get selected value
+            var id = $(this).attr('id');
+            parametr += "&" + id + "=" + values;
+
+        });
+
+        var query = window.location.search.substring(1);
+
+        // is there anything there ?
+        if (query.length) {
+            // are the new history methods available ?
+            if (window.history != undefined && window.history.pushState != undefined) {
+                // if pushstate exists, add a new state to the history, this changes the url without reloading the page
+
+                window.history.pushState({}, document.title, window.location.pathname);
+
+            }
+        }
+        var location = document.URL + "?" + parametr;
+        window.history.replaceState(null, null, location);
+        if (window.self !== window.top) { // checking if it is an iframe
+            window.parent.postMessage(`{"command" : "updateQuery","value":"${parametr}"}`, '*')
+        }
+    });
+
+    function CopyURL() {
+        navigator.clipboard.writeText(window.location.href)
+            .then(() => {
+                alert('URL successfully copied to clipboard!');
+            })
+            .catch(err => {
+                alert('Failed to copy URL. See console for error.');
+                console.error('Could not copy URL: ', err);
+            });
+    }
+
+
+    function printPDF() {
+    let chartRow = document.querySelector('.row.chart-row');
+    if (!chartRow) {
+        console.error("Element '.row.chart-row' not found.");
+        return;
+    }
+
+    html2canvas(chartRow, { useCORS: true }).then(canvas => {
+        try {
+            let pdf = new jsPDF('l', 'mm', 'a4'); // landscape orientation
+            let imgData = canvas.toDataURL('image/png');
+
+            // Adjust the dimensions for landscape
+            let pdfWidth = 297; // A4 width in mm
+            let pdfHeight = 210; // A4 height in mm
+            let imgWidth = canvas.width;
+            let imgHeight = canvas.height;
+            let ratio = Math.min(pdfWidth / imgWidth, pdfHeight / imgHeight);
+
+            let newWidth = imgWidth * ratio;
+            let newHeight = imgHeight * ratio;
+            let xOffset = (pdfWidth - newWidth) / 2;
+            let yOffset = (pdfHeight - newHeight) / 2;
+
+            pdf.addImage(imgData, 'PNG', xOffset, yOffset, newWidth, newHeight);
+            pdf.save('download.pdf');
+        } catch (e) {
+            console.error("Error generating PDF: ", e);
+        }
+    }).catch(error => {
+        console.error("Error in html2canvas: ", error);
+    });
+}
+
+
+
+</script>
+
+<script>
+    (function () {
+        const METRICS_URL = "https://raw.githubusercontent.com/illustrating-impact-dev/atlas/main/metrics_json.json";
+        const METRICS_DATA_URL = "https://raw.githubusercontent.com/illustrating-impact-dev/atlas/main/services_borough_summ_long.json";
+        const METRICS_MAP_TEXT_URL = "https://raw.githubusercontent.com/illustrating-impact-dev/atlas/main/londonmap_totals.json";
+        const METRICS_MAP_LEGEND = "https://raw.githubusercontent.com/illustrating-impact-dev/atlas/main/map_color_legend.json";
+        const SERVICES_URL = "https://raw.githubusercontent.com/illustrating-impact-dev/atlas/main/services_json.json";
+        const SERVICES_DATA_URL = "https://raw.githubusercontent.com/illustrating-impact-dev/atlas/main/services_singlerow.json";
+        const LONDON_GEO_URL = "https://raw.githubusercontent.com/illustrating-impact-dev/atlas/main/boroughs.json";
+
+        const METRICS_GROUPS = [
+            { group: "ROUGH SLEEPING", metricIds: [0, 16, 8, 14] },
+            { group: "SERVICES", metricIds: [1, 7, 6, 3, 15, 2, 10, 11] },
+        ];
+
+        const LONDON_GSS = "E12000007";
+        const TRANSITION_DURATION = 750;
+
+
+        let selected = {
+            metric: null,
+            service: null,
+            get withCircle() {
+                return this.metric && accessor.metrics.id(this.metric) === 7;
+            },
+            get withNoNumValue() {
+                return (
+                    this.metric &&
+                    (accessor.metrics.id(this.metric) === 2 ||
+                        accessor.metrics.id(this.metric) === 7)
+                );
+            },
+            get withTextLabel() {
+                return this.metric && accessor.metrics.id(this.metric) === 2;
+            },
+        };
+        let options = {
+            metrics: [],
+            services: [],
+        };
+        let data = {
+            metrics: {},
+            services: {},
+        };
+
+        const accessor = {
+            metrics: {
+                id: (d) => d.ID,
+                name: (d) => d.metric_name,
+                json: (d) => d.json_url,
+                image: (d) => d.image_url.replace(/#/, ""),
+                source: (d) => d.datasource,
+                footnote: (d) => d.footnote,
+            },
+            services: {
+                id: (d) => d.ID,
+                name: (d) => d.service_type_name,
+                json: (d) => d.json_url,
+                color: (d) => `#${d.marker_hex}`,
+                footnote: (d) => d.footnote,
+            },
+            geo: {
+                id: (d) => d.properties.GSS_CODE,
+                name: (d) => d.properties.NAME,
+            },
+            metric: {
+                id: (d) => d.borough_gss,
+                color: (d) =>
+                    (d.hex && `#${d.hex}`) ||
+                    (d.Hex && `#${d.Hex}`) ||
+                    (d.colour_hex && `#${d.colour_hex}`),
+                key: (d) => d.value_keycolour || d.value_text,
+                valueText: (d) => d.value_text,
+                shortName: (d) => d.borough_shortname,
+                name: (d) => d.borough_name,
+                value: (d) => d.value_num,
+            },
+            service: {
+                id: (d) => `${d.longitude}-${d.latitude}`,
+                location: (d) => [d.longitude, d.latitude],
+                name: (d) => d.service_name,
+                provider: (d) => d.service_provider,
+                borough: (d) => d.service_borough,
+                text: (d) => [d.service_text_1, d.service_text_2, d.service_text_3],
+                link: (d) => d.URL_link,
+            },
+            mapLegend: {
+                key: (d) => d.colour_value,
+                value: (d) => `#${d.colour_hex}`,
+            },
+        };
+
+        const formatCount = d3.format(",");
+
+        const gssToName = {
+            [LONDON_GSS]: "London",
+        };
+
+        const dispatch = d3.dispatch(
+            "entermetric",
+            "leavemetric",
+            "enterservice",
+            "leaveservice",
+            "move"
+        );
+
+        let metricsData;
+        let metricsMapText;
+        let metricsMapLegend;
+        let servicesData;
+        // Init
+        const alert = setupAlert();
+        Promise.all([
+            d3.json(LONDON_GEO_URL),
+            d3.json(METRICS_URL, d3.autoType),
+            d3.json(METRICS_DATA_URL, d3.autoType),
+            d3.json(METRICS_MAP_TEXT_URL),
+            d3.json(METRICS_MAP_LEGEND, d3.autoType),
+            d3.json(SERVICES_URL, d3.autoType),
+            d3.json(SERVICES_DATA_URL, d3.autoType),
+        ])
+            .then(([london, metrics, metricsD, metricsMapT, metricsMapL, services, servicesD]) => {
+                alert.hide();
+                metricsData = d3.nest().key(d => d.metric_id).object(metricsD);
+                metricsMapText = d3.nest().key(d => d.metric_id).object(metricsMapT);
+                metricsMapLegend = d3.nest().key(d => d.metric_id).object(metricsMapL);
+                servicesData = d3.nest().key(d => d.service_type_id).object(servicesD);
+                london.features.forEach((d) => {
+                    gssToName[accessor.geo.id(d)] = accessor.geo.name(d);
+                });
+                console.log(london)
+
+                options.metrics = metrics;
+                options.services = [
+                    {
+                        ID: "",
+                        service_type_name: "-",
+                        footnote: "",
+                    },
+                ].concat(services);
+
+                d3.select(".chart-row").classed("d-none", false);
+
+                const headerFooter = renderHeaderFooter();
+                const tooltip = renderTooltip(d3.select(".chart-tooltip"));
+                const map = renderMap(d3.select("#london-map-map"), dispatch, london);
+                const bar = renderBar(d3.select("#london-map-bar-chart"), dispatch);
+
+                dispatch.on("entermetric", (d) => {
+                    map.highlightMetric(d);
+                    bar.highlightMetric(d);
+                    tooltip.show(metricTooltipContent(d), accessor.metric.color(d));
+                });
+
+                dispatch.on("leavemetric", (d) => {
+                    map.resetHighlightMetric();
+                    bar.resetHighlightMetric();
+                    tooltip.hide();
+                });
+
+                dispatch.on("enterservice", (d) => {
+                    map.highlightService(d);
+                    const color = accessor.services.color(selected.service);
+                    tooltip.show(serviceTooltipContent(d, color), color);
+                });
+
+                dispatch.on("leaveservice", (d) => {
+                    map.resetHighlightService(d);
+                    tooltip.hide();
+                });
+                dispatch.on("move", (d) => {
+                    tooltip.move();
+                });
+                d3.select("#metric-select")
+                    .call((select) =>
+                        select
+                            .selectAll("optgroup")
+                            .data(METRICS_GROUPS)
+                            .join("optgroup")
+                            .attr("label", (d) => d.group)
+                            .selectAll("option")
+                            .data((d) =>
+                                d.metricIds.map((id) =>
+                                    options.metrics.find((e) => accessor.metrics.id(e) === id)
+                                )
+                            )
+                            .join("option")
+                            .attr("value", accessor.metrics.id)
+                            .text(accessor.metrics.name)
+                    )
+                    .on("change", function () {
+                        tooltip.hide();
+                        selected.metric = options.metrics.find(
+                            (d) => accessor.metrics.id(d) == this.value
+                        );
+                        headerFooter.update();
+                        if (data.metrics[this.value]) {
+                            map.updateMetric(data.metrics[this.value]);
+                            bar.updateMetric(data.metrics[this.value]);
+                        } else {
+                            alert.hide();
+                            const id = accessor.metrics.id(selected.metric);
+                            json = {
+                                data: metricsData[id],
+                                mapLegend: metricsMapLegend[id] || [],
+                                mapText: metricsMapText[id] ? metricsMapText[id][0].total_text : ''
+                            }
+                            json.data.forEach((d) => {
+                                if (d.borough_gss === "LONDON") {
+                                    d.borough_gss = LONDON_GSS;
+                                }
+                            });
+
+                            data.metrics[this.value] = json;
+                            map.updateMetric(data.metrics[this.value]);
+                            bar.updateMetric(data.metrics[this.value]);
+                        }
+                    })
+                    .each(function (index) {
+                        this.dispatchEvent(new Event("change"));
+                    });
+
+                d3.select("#service-select")
+                    .call((select) =>
+                        select
+                            .selectAll("option")
+                            .data(options.services)
+                            .join("option")
+                            .attr("value", accessor.services.id)
+                            .attr("selected", (d, i) => (i == 0 ? "selected" : null))
+                            .text(accessor.services.name)
+                    )
+                    .on("change", function () {
+                        tooltip.hide();
+                        selected.service = options.services.find(
+                            (d) => accessor.services.id(d) == this.value
+                        );
+                        headerFooter.update();
+                        if (!accessor.services.id(selected.service)) {
+                            map.updateService([]);
+                        } else if (data.services[this.value]) {
+                            map.updateService(data.services[this.value]);
+                        } else {
+                            alert.hide();
+                            data.services[this.value] = servicesData[selected.service.servicetypeid];
+                            map.updateService(data.services[this.value]);
+                        }
+                    })
+                    .each(function () {
+                        this.dispatchEvent(new Event("change"));
+                    });
+                loadData();
+            })
+            .catch((err) => {
+                console.error(err);
+                alert.show();
+            });
+
+        // Controls
+        function setupAlert() {
+            const alert = d3.select(".alert-danger");
+            function show() {
+                alert.classed("d-none", false);
+            }
+            function hide() {
+                alert.classed("d-none", true);
+            }
+            return {
+                show,
+                hide,
+            };
+        }
+
+        function setupSelectControl(select, type) {
+            select
+                .selectAll("option")
+                .data(options[type])
+                .join("option")
+                .attr("value", accessor[type].id)
+                .attr("selected", (d, i) => (i == 0 ? "selected" : null))
+                .text(accessor[type].name);
+        }
+
+        // Header/Footer
+        function renderHeaderFooter() {
+            const headerIcon = d3.select(".chart-header-icon");
+            const headerMainTitle = d3.select(".chart-title-main");
+            const headerSubTitle = d3.select(".chart-title-sub");
+            const footer = d3.select(".chart-footer");
+            function update() {
+                if (!selected.metric || !selected.service) return;
+                headerIcon.attr("src", accessor.metrics.image(selected.metric));
+                headerMainTitle.text(accessor.metrics.name(selected.metric));
+                headerSubTitle.text(
+                    `Data Source: ${accessor.metrics.source(
+                        selected.metric
+                    )} ${accessor.services.footnote(selected.service)}`
+                );
+                footer.text(`© ${accessor.metrics.footnote(selected.metric)}`);
+            }
+            return {
+                update,
+            };
+        }
+
+        // Map
+        function renderMap(container, dispatch, london) {
+            let svgWidth, svgHeight;
+            const margin = 12;
+
+            const projection = d3.geoMercator();
+            const geoPath = d3.geoPath(projection);
+
+            const zoom = d3.zoom().scaleExtent([1, 8]).on("zoom", zoomed);
+
+            const mapTextContainer = container.select(".map-text");
+            const svg = container.select(".chart-svg");
+            svg
+                .on("mousedown", function () {
+                    svg.classed("panning", true);
+                })
+                .on("mouseup", function () {
+                    svg.classed("panning", false);
+                });
+
+            const fontSize = +window
+                .getComputedStyle(svg.node())
+                .getPropertyValue("font-size")
+                .slice(0, -2);
+
+            const g = svg.append("g");
+            const gPath = g.append("g").attr("class", "map-paths");
+            const gLabel = g.append("g").attr("class", "map-labels");
+            const gCircle = g.append("g").attr("class", "map-circles");
+            const gLocation = g.append("g").attr("class", "map-locations");
+            const legend = container.select(".legend-items");
+
+            resize();
+            window.addEventListener("resize", resize);
+
+            svg.call(zoom).on("wheel.zoom", null);
+            container.select(".map-zoom-in").on("click", zoomIn);
+            container.select(".map-zoom-out").on("click", zoomOut);
+
+            function resize() {
+                svgWidth = container.node().clientWidth;
+                svgHeight = Math.round((svgWidth / 390) * 300);
+                projection.fitExtent(
+                    [
+                        [margin, margin],
+                        [svgWidth - margin, svgHeight - margin],
+                    ],
+                    london
+                );
+                svg.attr("width", svgWidth).attr("height", svgHeight);
+                gPath
+                    .selectAll(".map-path")
+                    .data(london.features, accessor.geo.id)
+                    .join((enter) =>
+                        enter.append("path").attr("class", "map-path").attr("fill", "#fff")
+                    )
+                    .attr("d", geoPath);
+                gLabel
+                    .selectAll(".map-label")
+                    .data(london.features, accessor.geo.id)
+                    .join((enter) =>
+                        enter
+                            .append("text")
+                            .attr("class", "map-label")
+                            .attr("text-anchor", "middle")
+                            .call((g) => g.append("tspan").attr("class", "map-label-name"))
+                            .call((g) =>
+                                g
+                                    .append("tspan")
+                                    .attr("class", "map-label-value")
+                                    .attr("dy", "1.1em")
+                                    .attr("x", 0)
+                            )
+                    )
+                    .attr("transform", (d) => `translate(${geoPath.centroid(d)})`);
+                gCircle
+                    .selectAll(".map-circle")
+                    .data(london.features, accessor.geo.id)
+                    .join((enter) => enter.append("circle").attr("class", "map-circle"))
+                    .attr(
+                        "transform",
+                        (d) =>
+                            `translate(${geoPath.centroid(d)[0]},${geoPath.centroid(d)[1]})`
+                    );
+                gLocation
+                    .selectAll(".map-location")
+                    .attr(
+                        "transform",
+                        (d) => `translate(${projection(accessor.service.location(d))})`
+                    );
+            }
+
+            function updateMetric({ data, mapLegend, mapText }) {
+                gPath
+                    .selectAll(".map-path")
+                    .each(function (d) {
+                        const e = data.find(
+                            (e) => accessor.metric.id(e) == accessor.geo.id(d)
+                        );
+                        d3.select(this)
+                            .on("mouseenter", () => {
+                                dispatch.call("entermetric", this, e);
+                            })
+                            .on("mouseleave", () => {
+                                dispatch.call("leavemetric", this, e);
+                            })
+                            .on("mousemove", () => {
+                                dispatch.call("move", this, e);
+                            });
+                    })
+                    .transition()
+                    .duration(TRANSITION_DURATION)
+                    .attr("fill", (d) => {
+                        const e = data.find(
+                            (e) => accessor.metric.id(e) == accessor.geo.id(d)
+                        );
+                        if (e) {
+                            return accessor.metric.color(e);
+                        } else {
+                            return "#fff";
+                        }
+                    });
+
+                gLabel.selectAll(".map-label").each(function (d) {
+                    const e = data.find((e) => accessor.metric.id(e) == accessor.geo.id(d));
+                    d3.select(this)
+                        .call((text) =>
+                            text.select(".map-label-name").text(function () {
+                                const shortName = d3.select(this).text();
+                                return shortName || accessor.metric.shortName(e);
+                            })
+                        )
+                        .call((text) =>
+                            text.select(".map-label-value").text(() => {
+                                if (selected.withTextLabel) {
+                                    return accessor.metric.valueText(e);
+                                } else {
+                                    return e
+                                        ? formatCount(accessor.metric.value(e))
+                                        : formatCount(0);
+                                }
+                            })
+                        );
+                });
+
+                if (!selected.withCircle) {
+                    gLabel
+                        .selectAll(".map-label")
+                        .call((g) => g.select(".map-label-value").style("display", "inline"))
+                        .call((g) => g.select(".map-label-name").attr("dy", null));
+                    gCircle.selectAll(".map-circle").attr("r", 0);
+                } else {
+                    const t = d3.zoomTransform(svg.node());
+                    gLabel
+                        .selectAll(".map-label")
+                        .call((g) => g.select(".map-label-value").style("display", "none"))
+                        .call((g) => g.select(".map-label-name").attr("dy", "0.35em"));
+                    gCircle.selectAll(".map-circle").each(function (d) {
+                        const e = data.find(
+                            (e) => accessor.metric.id(e) == accessor.geo.id(d)
+                        );
+                        d3.select(this).attr(
+                            "r",
+                            e && accessor.metric.value(e) === 1 ? 20 / t.k : 0
+                        );
+                    });
+                }
+
+                mapTextContainer.text(mapText);
+
+                const legendItems = mapLegend.map((d) => ({
+                    key: accessor.mapLegend.key(d),
+                    value: accessor.mapLegend.value(d),
+                }));
+                legend
+                    .selectAll(".legend-item")
+                    .data(
+                        selected.withCircle
+                            ? [...legendItems, { value: "#fff", key: "Also Rapid Response" }]
+                            : legendItems
+                    )
+                    .join((enter) =>
+                        enter
+                            .append("div")
+                            .attr("class", "legend-item")
+                            .call((div) => div.append("div").attr("class", "legend-swatch"))
+                            .call((div) => div.append("div").attr("class", "legend-label"))
+                    )
+                    .classed(
+                        "circle-item",
+                        (d) => selected.withCircle && d.key === "Also Rapid Response"
+                    )
+                    .call((div) =>
+                        div.select(".legend-swatch").style("background-color", (d) => d.value)
+                    )
+                    .call((div) => div.select(".legend-label").text((d) => d.key));
+            }
+
+            function updateService(data) {
+                const t = d3.zoomTransform(svg.node());
+                gLocation
+                    .attr(
+                        "fill",
+                        selected.service ? accessor.services.color(selected.service) : "none"
+                    )
+                    .selectAll(".map-location")
+                    .data(data, accessor.service.id)
+                    .join((enter) => enter.append("circle").attr("class", "map-location"))
+                    .attr(
+                        "transform",
+                        (d) => `translate(${projection(accessor.service.location(d))})`
+                    )
+                    .on("mouseenter", function (d) {
+                        dispatch.call("enterservice", this, d);
+                    })
+                    .on("mouseleave", function (d) {
+                        dispatch.call("leaveservice", this, d);
+                    })
+                    .on("mousemove", function (d) {
+                        dispatch.call("move", this, d);
+                    })
+                    .on("click", (d) => {
+                        window.open(accessor.service.link(d), "_blank");
+                    })
+                    .attr("r", 0)
+                    .transition()
+                    .duration(TRANSITION_DURATION)
+                    .attr("r", 5 / t.k);
+            }
+
+            function highlightMetric(d) {
+                gPath.selectAll(".map-path").each(function (e) {
+                    if (accessor.geo.id(e) === accessor.metric.id(d)) {
+                        d3.select(this).raise().classed("highlighted", true);
+                    }
+                });
+            }
+
+            function resetHighlightMetric() {
+                gPath.selectAll(".map-path").classed("highlighted", false);
+            }
+
+            function highlightService(d) {
+                gLocation.selectAll(".map-location").each(function (e) {
+                    if (accessor.service.id(e) === accessor.service.id(d)) {
+                        d3.select(this).raise().classed("highlighted", true);
+                    }
+                });
+            }
+
+            function resetHighlightService() {
+                gLocation.selectAll(".map-location").classed("highlighted", false);
+            }
+
+            function zoomed() {
+                const t = d3.event.transform;
+                g.attr("transform", t);
+                gLabel
+                    .selectAll("text")
+                    .style("font-size", `${fontSize / t.k}px`)
+                    .style("stroke-width", `${3 / t.k}px`);
+                gCircle.selectAll(".map-circle").attr("r", function () {
+                    const r = +d3.select(this).attr("r") !== 0;
+                    return r ? 20 / t.k : 0;
+                });
+                gLocation.selectAll(".map-location").attr("r", 5 / t.k);
+            }
+
+            function zoomIn() {
+                svg.transition().call(zoom.scaleBy, 1.6);
+            }
+
+            function zoomOut() {
+                svg.transition().call(zoom.scaleBy, 1 / 1.6);
+            }
+
+            return {
+                updateMetric,
+                updateService,
+                highlightMetric,
+                resetHighlightMetric,
+                highlightService,
+                resetHighlightService,
+            };
+        }
+
+        // Bar
+        function renderBar(container, dispatch) {
+            let svgWidth, width;
+            const margin = { top: 1, right: 1, bottom: 1, left: 180 };
+            const svgHeight = 20 * 33 + margin.top + margin.bottom;
+            const height = svgHeight - margin.top - margin.bottom;
+
+            const x = d3.scaleLinear();
+            const y = d3
+                .scaleBand()
+                .range([0, height])
+                .paddingInner(0.25)
+                .paddingOuter(0.125);
+
+            const svg = container.select(".chart-svg").attr("height", svgHeight);
+            const g = svg
+                .append("g")
+                .attr("class", "bars")
+                .attr("transform", `translate(${margin.left},${margin.top})`);
+
+            resize();
+            window.addEventListener("resize", resize);
+
+            function resize() {
+                svgWidth = container.node().clientWidth;
+                width = svgWidth - margin.left - margin.right;
+                svg.attr("width", svgWidth);
+                x.range([0, width]);
+                g.selectAll(".bar-rect").attr("width", (d) =>
+                    x(accessor.metric.value(d))
+                );
+                g.selectAll(".bar-value").attr(
+                    "x",
+                    selected.withNoNumValue ? x(0.5) : -8
+                );
+            }
+
+            function updateMetric({ data }) {
+                const barData = data.filter((d) => accessor.metric.id(d) !== LONDON_GSS);
+                barData.sort((a, b) =>
+                    d3.descending(accessor.metric.value(a), accessor.metric.value(b))
+                );
+
+                if (selected.withNoNumValue) {
+                    x.domain([0, 1]);
+                } else {
+                    x.domain([0, d3.max(barData, accessor.metric.value)]);
+                }
+                y.domain(barData.map(accessor.metric.id));
+
+                g.selectAll(".bar")
+                    .data(barData, accessor.metric.id)
+                    .join((enter) =>
+                        enter
+                            .append("g")
+                            .attr("class", "bar")
+                            .attr(
+                                "transform",
+                                (d) => `translate(0,${y(accessor.metric.id(d))})`
+                            )
+                            .call((g) =>
+                                g
+                                    .append("text")
+                                    .attr("class", "bar-name")
+                                    .attr("x", -margin.left)
+                                    .attr("y", y.bandwidth() / 2)
+                                    .attr("dy", "0.32em")
+                                    .text((d) => accessor.metric.name(d))
+                            )
+                            .call((g) =>
+                                g
+                                    .append("rect")
+                                    .attr("class", "bar-rect")
+                                    .attr("height", y.bandwidth())
+                                    .attr("fill", "#fff")
+                            )
+                            .call((g) =>
+                                g
+                                    .append("text")
+                                    .attr("class", "bar-value")
+                                    .attr("y", y.bandwidth() / 2)
+                                    .attr("dy", "0.32em")
+                            )
+                    )
+                    .call((g) =>
+                        g
+                            .transition()
+                            .duration(TRANSITION_DURATION)
+                            .delay((d, i) => i * 20)
+                            .attr(
+                                "transform",
+                                (d) => `translate(0,${y(accessor.metric.id(d))})`
+                            )
+                    )
+                    .call((g) =>
+                        g
+                            .select(".bar-value")
+                            .attr("text-anchor", selected.withNoNumValue ? "middle" : "end")
+                            .attr("x", selected.withNoNumValue ? x(0.5) : -8)
+                            .html((d) => {
+                                const text = accessor.metric.valueText(d);
+                                if (text) {
+                                    if (selected.withCircle) {
+                                        const plusIndex = text.indexOf("+");
+                                        if (plusIndex !== -1) {
+                                            return `<tspan>${text.slice(
+                                                0,
+                                                plusIndex
+                                            )}<tspan><tspan class="circle-item">${text.slice(
+                                                plusIndex
+                                            )}<tspan>`;
+                                        } else {
+                                            return `<tspan>${text}<tspan>`;
+                                        }
+                                    } else {
+                                        return `<tspan>${text}<tspan>`;
+                                    }
+                                } else {
+                                    return `<tspan>${formatCount(accessor.metric.value(d))}<tspan>`;
+                                }
+                            })
+                    )
+                    .call((g) =>
+                        g
+                            .select(".bar-rect")
+                            .on("mouseenter", function (d) {
+                                dispatch.call("entermetric", this, d);
+                            })
+                            .on("mouseleave", function (d) {
+                                dispatch.call("leavemetric", this, d);
+                            })
+                            .on("mousemove", function (d) {
+                                dispatch.call("move", this, d);
+                            })
+                            .transition()
+                            .duration(TRANSITION_DURATION)
+                            .attr("fill", d => {
+                                return accessor.metric.color(d)
+                            })
+                            .attr("width", (d) => {
+                                if (selected.withNoNumValue) {
+                                    return x(1);
+                                } else {
+                                    return x(accessor.metric.value(d));
+                                }
+                            })
+                    );
+            }
+
+            function highlightMetric(d) {
+                g.selectAll(".bar-rect").each(function (e) {
+                    if (accessor.metric.id(e) == accessor.metric.id(d)) {
+                        d3.select(this).classed("highlighted", true);
+                    }
+                });
+            }
+
+            function resetHighlightMetric() {
+                g.selectAll(".bar-rect").classed("highlighted", false);
+            }
+
+            return {
+                updateMetric,
+                highlightMetric,
+                resetHighlightMetric,
+            };
+        }
+
+        // Tooltip
+        function renderTooltip(tooltip) {
+            let width, height;
+            const padding = 8;
+
+            function show(content, color) {
+                tooltip.style("border-color", color).html(content);
+                const bcr = tooltip.node().getBoundingClientRect();
+                width = bcr.width;
+                height = bcr.height;
+                tooltip.classed("show", true);
+            }
+
+            function hide() {
+                tooltip.classed("show", false);
+            }
+
+            function move() {
+                let x = d3.event.clientX - width / 2;
+                if (x < 0) {
+                    x = 0;
+                } else if (x + width > window.innerWidth) {
+                    x = window.innerWidth - width;
+                }
+                let y = d3.event.clientY - height - padding;
+                if (y < 0) {
+                    y = 0;
+                }
+                tooltip.style("transform", `translate(${x}px,${y}px)`);
+            }
+
+            return {
+                show,
+                hide,
+                move,
+            };
+        }
+
+        function metricTooltipContent(d) {
+            return `
+      <p>${accessor.metric.name(d)}</p>
+      <p class="metric-name">${accessor.metrics.name(selected.metric)}</p>
+      <p>${accessor.metric.valueText(d) || formatCount(accessor.metric.value(d))
+            }</p>
+    `;
+        }
+
+        function serviceTooltipContent(d, color) {
+            const texts = accessor.service.text(d);
+            const capacity = texts[0];
+            return `
+      <p style="color: ${color}">${accessor.service.name(d)}</p>
+      <p>${accessor.service.provider(d)} in ${gssToName[accessor.service.borough(d)]
+            }</p>
+      ${texts
+                .filter((e) => e)
+                .map(
+                    (e) => `<p ${e == capacity ? `style="color: ${color}"` : ""}>${e}</p>`
+                )
+                .join("")}
+      <p><em>Click dot to view service website</em></p>
+    `;
+        }
+    })();
+
+</script>
+
+<script>
+    (function () {
+        const CSV_LINKS_URL = "https://raw.githubusercontent.com/illustrating-impact-dev/atlas/main/csv_downloads";
+
+        const modalWidth = 320;
+
+        d3.json(CSV_LINKS_URL).then((csvLinks) => {
+            const modal = d3
+                .select("body")
+                .append("div")
+                .attr("class", "modal fade")
+                .attr("id", "csv-modal")
+                .attr("tabindex", "-1");
+
+            const modalDialog = modal
+                .append("div")
+                .attr("class", "modal-dialog m-0")
+                .style("width", `${modalWidth}px`);
+
+            const modalContent = modalDialog
+                .append("div")
+                .attr("class", "modal-content");
+
+            const modalHeader = modalContent
+                .append("div")
+                .attr("class", "modal-header")
+                .call((header) =>
+                    header.append("h6").attr("class", "modal-title").text("CSV Download")
+                )
+                .call((header) =>
+                    header
+                        .append("button")
+                        .attr("type", "button")
+                        .attr("class", "close")
+                        .attr("data-dismiss", "modal")
+                        .attr("aria-label", "Close")
+                        .append("span")
+                        .attr("aria-hidden", "true")
+                        .html("&times;")
+                );
+
+            const form = modalContent
+                .append("div")
+                .attr("class", "modal-body")
+                .append("form");
+            form
+                .append("div")
+                .attr("class", "form-group")
+                .call((group) =>
+                    group
+                        .append("label")
+                        .attr("for", "csv-source-select")
+                        .text("Which data source would you like to download?")
+                )
+                .call((group) =>
+                    group
+                        .append("select")
+                        .attr("class", "form-control custom-select-url custom-select-sm")
+                        .attr("id", "csv-source-select")
+                        .selectAll("option")
+                        .data(csvLinks)
+                        .join("option")
+                        .attr("value", (d) => d.url)
+                        .text((d) => d.name)
+                );
+            form
+                .append("button")
+                .attr("type", "submit")
+                .attr("class", "btn-sm btn-primary")
+                .text("Download") // Set text first
+                .on("click", downloadCSV);
+
+            const csvButton = d3
+                .select(".btn__export--csv")
+                .attr("data-toggle", "modal")
+                .attr("data-target", "#csv-modal")
+                .on("click", positionModal);
+
+            d3.select("body").append("style").text(`
+    .modal-backdrop.show {
+    opacity: 0.2;
+    }
+    `);
+
+            const {
+                width: buttonWidth,
+                height: buttonHeight,
+            } = csvButton.node().getBoundingClientRect();
+
+            $("#csv-modal").on("show.bs.modal", positionModal);
+            window.addEventListener("resize", resize);
+
+            function downloadCSV() {
+                d3.event.preventDefault();
+                const url = d3.select("#csv-source-select").node().value;
+
+                if (url) {
+                    fetch(url)
+                        .then(response => response.json())
+                        .then(data => {
+                            const csvData = jsonToCSV(data);
+                            triggerDownload(csvData, 'data.csv');
+                        })
+                        .catch(error => console.error('Error fetching JSON:', error));
+                }
+            }
+
+            function jsonToCSV(json) {
+                const replacer = (key, value) => value === null ? '' : value;
+                const header = Object.keys(json[0]);
+                const csv = [
+                    header.join(','),
+                    ...json.map(row => header.map(fieldName => JSON.stringify(row[fieldName], replacer)).join(','))
+                ].join('\r\n');
+
+                return csv;
+            }
+
+            function triggerDownload(csvData, filename) {
+                const blob = new Blob([csvData], { type: 'text/csv;charset=utf-8;' });
+                const link = document.createElement("a");
+
+                if (link.download !== undefined) { // feature detection
+                    // Browsers that support HTML5 download attribute
+                    const url = URL.createObjectURL(blob);
+                    link.setAttribute("href", url);
+                    link.setAttribute("download", filename);
+                    link.style.visibility = 'hidden';
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                }
+            }
+
+            function positionModal() {
+                let { left, top } = csvButton.node().getBoundingClientRect();
+                left = left + buttonWidth / 2 - modalWidth / 2;
+                if (left < 0) left = 0;
+                if (left + modalWidth > window.innerWidth)
+                    left = window.innerWidth - modalWidth;
+                top = top + buttonHeight;
+                modalDialog.style("left", `${left}px`).style("top", `${top}px`);
+            }
+
+            function resize() {
+                if (modal.classed("show")) {
+                    positionModal();
+                }
+            }
+
+            positionModal(); // Call positionModal immediately after appending the modal to body
+        });
+    })();
+
+
+</script>
+<script>
+class Choices{
+constructor(selector, options){}
+}
+</script>

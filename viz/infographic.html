@@ -1,0 +1,1449 @@
+<meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title></title>
+<link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" rel="stylesheet" />
+<script src="https://unpkg.com/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js"></script>
+<style type="text/css">body {
+    font-size: 0.875rem;
+  }
+
+  .container-fluid {
+    max-width: 1920px;
+    margin: 15px auto;
+  }
+
+  .chart-header {
+    display: flex;
+    align-items: flex-start;
+  }
+
+  .chart-header-icon {
+    width: 36px;
+    height: 36px;
+    margin-top: 4px;
+    margin-right: 8px;
+  }
+
+  .chart-title-main {
+    font-size: 1rem;
+    color: #00aaff;
+    font-weight: bold;
+  }
+
+  .chart-title-main span {
+    font-weight: normal;
+    font-style: italic;
+  }
+
+  .chart-title-sub,
+  .chart-footer {
+    font-size: 0.75rem;
+  }
+
+  .chart-title-sub,
+  .chart-footer {
+    color: #6c757d;
+  }
+
+  .btn__svg {
+    text-align: left;
+    text-indent: -9999px;
+    font-size: 0;
+    line-height: 0px;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    border: 0;
+    background-color: transparent;
+    height: 36px;
+    width: 30px;
+    padding: 0;
+    margin-right: 5px;
+    position: relative;
+  }
+
+  .btn__svg:hover::after {
+    opacity: 1;
+  }
+
+  .btn__svg::after {
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    -webkit-transition: opacity 0.1s cubic-bezier(0.3, 0.65, 0.72, 0.63);
+    -o-transition: opacity 0.1s cubic-bezier(0.3, 0.65, 0.72, 0.63);
+    transition: opacity 0.1s cubic-bezier(0.3, 0.65, 0.72, 0.63);
+    background-color: #fff;
+  }
+  
+   #buttons {
+    display: flex;
+    justify-content: flex-end
+  }
+
+
+  .btn__export--pdf {
+    background-image: url(https://www.illustrate.studio/sites/default/files/svgicon/file-pdf.svg);
+  }
+
+  .btn__export--pdf::after {
+    background-image: url(https://www.illustrate.studio/sites/default/files/svgicon/file-pdf-blue.svg);
+  }
+
+  .btn__export--csv {
+    background-image: url(https://www.illustrate.studio/sites/default/files/svgicon/file-csv.svg);
+  }
+
+  .btn__export--csv::after {
+    background-image: url(https://www.illustrate.studio/sites/default/files/svgicon/file-csv-blue.svg);
+  }
+
+  .btn__copy {
+    background-image: url(https://www.illustrate.studio/sites/default/files/svgicon/copy-url.svg);
+  }
+
+  .btn__copy::after {
+    background-image: url(https://www.illustrate.studio/sites/default/files/svgicon/copy-url-blue.svg);
+  }
+
+  .chart-tooltip {
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    background-color: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    border-radius: 0.25rem;
+    padding: 0.75rem 1.25rem;
+    max-width: 100vw;
+    opacity: 0;
+    transition: opacity 0.15s linear;
+  }
+
+  .chart-tooltip p {
+    margin-bottom: 0.5rem;
+  }
+
+  .chart-tooltip p:last-of-type {
+    margin-bottom: 0;
+  }
+
+  .chart-tooltip.show {
+    opacity: 1;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .chart-tooltip {
+      transition: none;
+    }
+  }
+
+  @media (min-width: 600px) {
+    .chart-tooltip {
+      max-width: 600px;
+    }
+  }
+
+  .chart-container,
+  .infographic-chart {
+    position: relative;
+  }
+
+  .infographic-summary .summary-title {
+    font-size: 1rem;
+    font-weight: bold;
+  }
+
+  .infographic-summary span {
+    font-size: 1.25rem;
+    font-weight: bold;
+  }
+
+  .infographic-chart .blocks-col {
+    line-height: 0;
+  }
+
+  .infographic-chart .label-col {
+    line-height: 15px!important;
+  }
+
+  .infographic-chart .block {
+    stroke-width: 1;
+    stroke: #fff;
+  }
+
+  .infographic-chart .block:hover {
+    stroke-width: 2;
+    stroke: #000;
+  }
+
+  .infographic-chart .pan-london-container {
+    width: 120px;
+  }
+
+  .infographic-chart .pan-london-label {
+    color: #00aaff;
+    font-weight: bold;
+    line-height: 1.1;
+  }
+
+  .infographic-chart .pan-london-svg {
+    display: block;
+    width: 100%;
+    height: 60px;
+  }
+
+  @media (min-width: 768px) {
+    .infographic-chart .pan-london-container {
+      position: absolute;
+      left: 50%;
+      bottom: 10%;
+    }
+  }
+
+  @media (min-width: 1200px) {
+    .infographic-summary {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      text-align: right;
+    }
+  }
+
+  .chart-tooltip .service-name {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #00aaff;
+  }
+
+  .chart-tooltip .service-capacity {
+    color: #ff4e80;
+    font-weight: bold;
+  }
+
+  .chart-tooltip span {
+    color: #4e79a8;
+  }
+
+      /* Add this new rule */
+.my-embedded-content {
+    padding: 3px!important;
+}
+
+.blocks-col.col-12.col-md {
+  padding-top : 0px;
+  padding-bottom : 0px;
+  padding-right : 5px;
+}
+
+.label-col.col-auto.d-flex.justify-content-between {
+  padding-top : 0px;
+  padding-bottom : 0px;
+  padding-right : 5px;
+}
+
+.infographic-chart-header-unit.label-col.col-auto.text-right {
+  padding-top : 0px;
+  padding-bottom : 3px;
+  padding-right : 0px;
+}
+
+
+</style>
+<div class="my-embedded-content">
+<div class="container-fluid px-sm-5">
+<div class="alert alert-danger d-none" role="alert">Failed to retrieve the data. Please try again later.</div>
+
+<div class="row control-row">
+<div class="col-12 col-lg-3"  style="padding-top:3px; padding-bottom:3px">
+<div class="form-group"><label for="group-by-select">Group by borough or provider?</label> <select class="form-control custom-select custom-select-sm" id="group-by-select"><option value="borough">Borough</option><option value="provider">Provider</option> </select></div>
+</div>
+
+<div class="col-12 col-lg-3"  style="padding-top:3px; padding-bottom:3px">
+<div class="form-group"><label for="size-by-select">Focus on accommodation?</label> <select class="form-control custom-select custom-select-sm" id="size-by-select"><option value="service">No - All services</option><option value="bed">Yes - Accommodation by size</option> </select></div>
+</div>
+
+<div class="col-12 col-lg-3"  style="padding-top:3px; padding-bottom:3px">
+<div class="form-group"><label for="highlight-by-select">Highlight specific services:</label> <select class="form-control custom-select custom-select-sm" id="highlight-by-select"> <optgroup label="ALL SERVICES"><option value="london">All London</option> </optgroup> <optgroup label="CLIENT GROUPS"><option value="women">Women's services</option><option value="young">Young People's services</option> </optgroup> </select></div>
+</div>
+
+<div class="col-12 col-lg-3 d-flex flex-column"  style="padding-top:3px; padding-bottom:3px">
+<div class="flex-grow-1">&nbsp;</div>
+
+<div class="btn-group form-group" id="buttons" style="visibility: visible"><button class="btn__export btn__export--pdf btn__svg" onclick="printPDF()" title="Export button label">Export to PDF</button>
+ <!-- <button class="btn__export btn__export--csv btn__svg">Export Data</button> -->
+<button class="btn__copy btn__svg" onclick="CopyURL()" title="Copy URL label">Copy URL</button></div>
+</div>
+</div>
+
+<div class="row">
+<div class="col-12"  style="padding-top:3px; padding-bottom:3px">
+<div class="chart-header"><img alt="icon" class="chart-header-icon" src="https://www.illustrate.studio/sites/default/files/img/Services_icon2.png" />
+<div class="chart-title">
+<div class="chart-title-main">&nbsp;</div>
+
+<div class="chart-title-sub">Data source: Services data is the latest from Homeless Link information team.</div>
+
+<div class="chart-intro">Hover over a block for extra information</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="row">
+<div class="col-12 chart-container" style="padding-top:3px; padding-bottom:3px">
+<div class="mt-3" id="infographic-summary"></div>
+
+<div class="mt-3" id="infographic-chart"></div>
+</div>
+</div>
+
+<div class="row">
+<div class="col-12">
+<div class="chart-footer">© LHF Atlas 2023 - see <a href="https://www.lhfatlas.org.uk" target="_blank">www.lhfatlas.org.uk</a> for full details</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="chart-tooltip">&nbsp;</div>
+<script src="https://d3js.org/d3.v5.min.js"></script><script src="https://d3js.org/d3-array.v2.min.js"></script><script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+  integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script><script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+  integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script><script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+  integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script><script>
+  var params = new URLSearchParams(window.location.search.substring(1));
+  function loadData() {
+    $(".custom-select").each(function (index) {
+      if (params != "") {
+        var id = $(this).attr('id');
+        var val1 = params.get(id)
+        if (!val1) {
+          return
+        }
+
+        //$('#'+id).val(val1).change();
+        var sortBySelect = document.querySelector('#' + id);
+        sortBySelect.value = val1;
+        sortBySelect.dispatchEvent(new Event("change"));
+        d3.select('#' + id).select('option[value="' + val1 + '"]').attr('selected', 'selected');
+      }
+    });
+  }
+
+  $('.custom-select').on('change', function () {
+
+    var parametr = '';
+
+    $(".custom-select").each(function (index) {
+      var values = jQuery(this).val(); // get selected value
+      var id = $(this).attr('id');
+      parametr += "&" + id + "=" + values;
+
+    });
+
+    var query = window.location.search.substring(1);
+
+    // is there anything there ?
+    if (query.length) {
+      // are the new history methods available ?
+      if (window.history != undefined && window.history.pushState != undefined) {
+        // if pushstate exists, add a new state to the history, this changes the url without reloading the page
+
+        window.history.pushState({}, document.title, window.location.pathname);
+
+      }
+    }
+    var location = document.URL + "?" + parametr;
+    window.history.replaceState(null, null, location);
+    if (window.self !== window.top) { // checking if it is an iframe
+      window.parent.postMessage(`{"command" : "updateQuery","value":"${parametr}"}`, '*')
+    }
+  });
+
+  function CopyURL() {
+    window.parent.postMessage(`{"command" : "copyURL"}`, '*')
+  }
+
+  function printPDF() {
+    let chartRow = document.querySelector('.my-embedded-content');
+    if (!chartRow) {
+        console.error("Element '.row.chart-row' not found.");
+        return;
+    }
+
+    html2canvas(chartRow, { useCORS: true }).then(canvas => {
+        try {
+            let pdf = new jsPDF('l', 'mm', 'a4'); // landscape orientation
+            let imgData = canvas.toDataURL('image/png');
+
+            // Adjust the dimensions for landscape
+            let pdfWidth = 297; // A4 width in mm
+            let pdfHeight = 210; // A4 height in mm
+            let imgWidth = canvas.width;
+            let imgHeight = canvas.height;
+            let ratio = Math.min(pdfWidth / imgWidth, pdfHeight / imgHeight);
+
+            let newWidth = imgWidth * ratio;
+            let newHeight = imgHeight * ratio;
+            let xOffset = (pdfWidth - newWidth) / 2;
+            let yOffset = (pdfHeight - newHeight) / 2;
+
+            pdf.addImage(imgData, 'PNG', xOffset, yOffset, newWidth, newHeight);
+            pdf.save('download.pdf');
+        } catch (e) {
+            console.error("Error generating PDF: ", e);
+        }
+    }).catch(error => {
+        console.error("Error in html2canvas: ", error);
+    });
+}
+
+</script><script>
+  (function () {
+    const BASE_URL = "https://www.illustrate.studio/sites/default/files/";
+    const BASE_URL_G = "https://docs.google.com/spreadsheets/u/0/d/1eJRhHKm5McKV6lYE7mJiVDGKOYaAQIReLw_XTDVB33s/export?gid==id=&format=csv";
+    const SERVICES_URL = "https://raw.githubusercontent.com/illustrating-impact-dev/atlas/main/services_multirow.json";
+    const PROVIDERS_URL = "https://raw.githubusercontent.com/illustrating-impact-dev/atlas/main/services_singlerow.json";
+    const TOTALS_URL = "https://raw.githubusercontent.com/illustrating-impact-dev/atlas/main/services_borough_summary.json";
+    const COLORS_URL = "https://raw.githubusercontent.com/illustrating-impact-dev/atlas/main/lkp_colours.json";
+    const COLORS_URL_G = "https://raw.githubusercontent.com/illustrating-impact-dev/atlas/main/lkp_colours.json";
+    const TRANSITION_DURATION = 750;
+
+    const selected = {
+      groupBy: "borough",
+      sizeBy: "service",
+      highlightBy: "london",
+    };
+
+    const touchable = isTouchDevice();
+
+    let data;
+
+    const accessor = {
+      services: {
+        id: (d) => d.id,
+        serviceName: (d) => d["LHF Atlas Service Level Name"],
+        providerName: (d) => d.Provider,
+        providerGroup: {
+          service: (d) => d.providerGroupService,
+          bed: (d) => d.providerGroupBed,
+        },
+        recordTypeId: (d) => d["Record Type ID"],
+        beds: (d) => d["Total Bed Spaces"],
+        highlight: {
+          london: () => 1,
+          women: (d) => (d["Women's service"] ? 1 : 0),
+          young: (d) => (d["Young people's service"] ? 1 : 0),
+        },
+        borough: (d) => d.la_name,
+        website: (d) =>
+          d.Website && d.Website.slice(0, 4) !== "http"
+            ? `https://${d.Website}`
+            : d.Website,
+        serviceType: (d) => d.serviceType,
+        text: (d) => [d.ServiceText1, d.ServiceText2, d.ServiceText3],
+      },
+      totals: {
+        key: (d) => d.gss,
+      },
+      colors: {
+        infographicRelated: (d) => d.colour_key === 4,
+        recordTypeId: (d) => d.colour_value,
+        color: (d) => `#${d.colour_hex.slice(0, 6)}`,
+        serviceType: (d) => d.note,
+      },
+    };
+
+   
+
+    const colorByServiceType = d3.scaleOrdinal();
+    const serviceTypeByRecordTypeId = d3.scaleOrdinal().unknown("Unknown");
+
+    const formatCount = d3.format(",");
+
+    const dispatch = d3.dispatch("update");
+
+    // Init
+    const alert = setupAlert();
+    const tooltip = renderTooltip(d3.select(".chart-tooltip"));
+
+    function extractValues(response, func) {
+      return response.feed.entry.map(d => {
+        const prefix = 'gsx$';
+        const keys = Object.keys(d).filter(k => k.startsWith(prefix)).map(k => k.replace(prefix, ''));
+        const entry = {};
+        keys.forEach(k => {
+          entry[k] = d[prefix + k]['$t']
+        })
+        return entry
+      }).map(func);
+    }
+
+    const bools = {
+      "false": false,
+      "true": true
+    }
+    const servicesFunc = function (d) {
+      delete d.columns
+      d = d3.autoType(d);
+      return {
+        ...d,
+        serviceType: d["service_type"],
+        "Record Type ID": d["id"],
+        "la_name": d["laname"],
+        "LHF Atlas Service Level Name": d["service"],
+        "mb": d["mb"] ? bools[d["mb"].toLowerCase()] : false,
+        "women": d["women"] ? bools[d["women"].toLowerCase()] : false,
+        "yp": d["yp"] ? bools[d["yp"].toLowerCase()] : false
+      }
+    }
+
+    Promise.all([
+    d3.json(SERVICES_URL),
+    d3.json(PROVIDERS_URL),
+    d3.json(TOTALS_URL),
+    d3.json(COLORS_URL_G)
+])
+.then(([servicesData, providersData, totalsData, colorsData]) => {
+    // Transform servicesData
+    let services = servicesData.map(d => ({
+        "LHF Atlas Service Level Name": d["service"],
+        "Provider": d["Provider"],
+        "Provider1or2": d["Provider"],
+        "Record Type ID": d["Id"],
+        "ServiceText1": d["service_text_1"],
+        "ServiceText2": d["service_text_2"],
+        "ServiceText3": d["service_text_3"],
+        "Total Bed Spaces": +d["beds"],
+        "Women's service": d["women"],
+        "Website": d["URL_link"],
+        "Young people's service": d["yp"],
+        "Shelter": +d["shelter"],
+        "geo_code": d["GSS_Code_list__c"],
+        "la_name": d["la_name"],
+        "serviceType": d['service_type']
+    }));
+
+    // Transform providersData
+    let providers = providersData.map(d => ({
+        "LHF Atlas Service Level Name": d["service_name"],
+        "Provider": d["Provider1or2"],
+        "Provider1or2": d["Provider1or2"],
+        "Record Type ID": d["record_type_id"],
+        "ServiceText1": d["service_text_1"],
+        "ServiceText2": d["service_text_2"],
+        "ServiceText3": d["service_text_3"],
+        "Total Bed Spaces": +d["beds"],
+        "Website": d["URL_link"],
+        "Women's service": d["women"],
+        "Young people's service": d["yp"],
+        "geo_code": d["service_borough"],
+        "housing_subregion": d["housing_subregion"],
+        "id": d["id"],
+        "la_name": d["la_name"],
+        "serviceType": d["service_type"]
+    }));
+
+    // Use totalsData and colorsData as is
+    let totals = totalsData;
+    let colors = colorsData.filter(d => d.note && isNaN(d.note));
+
+    // Continue with your existing logic
+    alert.hide();
+    providers = providers.filter(d => d.Provider);
+    data = processData(services, providers, totals, colors);
+    console.log(services, providers, totals, colors);
+    setupGroupBySelectControl();
+    setupSizeBySelectControl();
+    setupHighlightBySelectControl();
+    renderHeader();
+    renderSummary();
+    renderChart();
+    dispatch.call("update");
+})
+.catch((err) => {
+    console.error(err);
+    alert.show();
+});
+
+    // Summary
+    function renderSummary() {
+      const container = d3
+        .select("#infographic-summary")
+        .classed("infographic-summary", true);
+
+      dispatch.on("update.summary", () => {
+        let highlightBy;
+        switch (selected.highlightBy) {
+          case "london":
+            highlightBy = "all London";
+            break;
+          case "women":
+            highlightBy = "women's services";
+            break;
+          case "young":
+            highlightBy = "young People's services";
+            break;
+          default:
+            break;
+        }
+        const d = data.totals[selected.highlightBy];
+        /* html */
+        container.html(`
+        <div class="summary-title">Summary of services for ${highlightBy}</div>
+        <div><span style='color: ${colorByServiceType(
+          "Day_Centre"
+        )}'>${formatCount(d.daycentreservices)}</span> day centres</div>
+        <div><span style='color: ${colorByServiceType(
+          "Assessment_Centre"
+        )}'>${formatCount(
+          d.assessmentcentreservices
+        )}</span> assessment services</div>
+        <div><span style='color: ${colorByServiceType(
+          "Housing_First"
+        )}'>${formatCount(d.hfunits)}</span> Housing First units</div>
+        <div><span style='color: ${colorByServiceType(
+          "Nightshelter_Wintershelter"
+        )}'>${formatCount(
+          d.shelterspaces
+        )}</span> spaces in Winter Shelters</div>
+        <div><span style='color: ${colorByServiceType(
+          "Clearing_House"
+        )}'>${formatCount(d.chflats)}</span> Clearing House flats</div>
+        <div><span style='color: ${colorByServiceType(
+          "Accommodation"
+        )}'>${formatCount(
+          d.accomspaces
+        )}</span> beds in <span style='color: ${colorByServiceType(
+          "Accommodation"
+        )}'>${formatCount(d.accomservices)}</span> accommodation services</div>
+      <div><span style='color: ${colorByServiceType(
+          "Outreach"
+        )}'>Outreach</span> ${d.outreach}</div>
+      `);
+      });
+    }
+
+    // Chart
+    function renderChart() {
+      let svgWidth, width;
+      let svg;
+
+      const labelColWidth = {
+        borough: 240,
+        provider: 340,
+      };
+      const svgHeight = 14;
+      const margin = {
+        top: 0,
+        right: 1,
+        bottom: 1,
+        left: 0,
+      };
+      const height = svgHeight - margin.top - margin.bottom;
+
+      const x = d3.scaleLinear();
+
+      const container = d3
+        .select("#infographic-chart")
+        .classed("infographic-chart", true);
+
+      const headerRow = container
+        .append("div")
+        .attr("class", "infographic-chart-header row");
+      const unit = headerRow
+        .append("div")
+        .attr(
+          "class",
+          "infographic-chart-header-unit label-col col-auto text-right"
+        );
+      const blocksContainer = headerRow
+        .append("div")
+        .attr("class", "col-12 col-md blocks-col")
+        .append("div");
+
+      const chartRows = container.append("div");
+
+      const panLondonContainer = container
+        .append("div")
+        .attr("class", "pan-london-container")
+        .call((div) =>
+          div
+            .append("div")
+            .attr("class", "pan-london-label mb-1")
+            .text("Pan-London Services")
+        )
+        .call((div) =>
+          div
+            .append("svg")
+            .attr("class", "pan-london-svg")
+            .each(function () {
+              const box = this.getBoundingClientRect();
+              d3.select(this).attr("width", box.width).attr("height", box.height);
+            })
+            .call((svg) =>
+              svg
+                .append("g")
+                .attr("transform", `translate(${margin.left},${margin.top})`)
+            )
+        );
+
+      updateDimension();
+
+      dispatch.on("update", update);
+      window.addEventListener("resize", resize);
+
+      function updateDimension() {
+        unit.style("width", `${labelColWidth[selected.groupBy]}px`);
+        svgWidth = blocksContainer.node().clientWidth;
+        width = svgWidth - margin.left - margin.right;
+        x.range([0, width]);
+      }
+
+      function update() {
+        updateDimension();
+        unit.text(`# of ${selected.sizeBy}s`);
+
+        const transition = d3.transition().duration(TRANSITION_DURATION);
+
+        let rowsData = data.services[selected.groupBy][selected.sizeBy];
+        let panLondonServiceData;
+        if (selected.groupBy === "borough") {
+          panLondonServiceData = rowsData[rowsData.length - 1];
+          rowsData = rowsData.slice(0, -1);
+        }
+
+
+        x.domain([0, d3.max(rowsData, (d) => d.total[selected.sizeBy])]);
+
+        const chartRow = chartRows
+          .selectAll(".infographic-chart-row")
+          .data(rowsData, (d) => d.key)
+          .join((enter) =>
+            enter
+              .append("div")
+              .attr("class", "infographic-chart-row row align-items-center mb-1")
+              .call((div) =>
+                div
+                  .append("div")
+                  .attr(
+                    "class",
+                    "label-col col-auto d-flex justify-content-between"
+                  )
+                  .call((div) => div.append("span").attr("class", "row-name"))
+                  .call((div) => div.append("span").attr("class", "row-total"))
+              )
+              .call((div) =>
+                div
+                  .append("div")
+                  .attr("class", "blocks-col col-12 col-md")
+                  .append("svg")
+                  .attr("class", "blocks-svg")
+                  .attr("height", svgHeight)
+                  .append("g")
+                  .attr("transform", `translate(${margin.left},${margin.top})`)
+              )
+          )
+          .call((div) =>
+            div
+              .select(".label-col")
+              .style("width", `${labelColWidth[selected.groupBy]}px`)
+          )
+          .call((div) => div.select(".row-name").text((d) => d.key))
+          .call((div) =>
+            div
+              .select(".row-total")
+              .text((d) => formatCount(d.total[selected.sizeBy]))
+          );
+
+        svg = chartRow.select(".blocks-svg").attr("width", svgWidth);
+
+        svg
+          .select("g")
+          .selectAll(".block")
+          .data((d) => stack(d.items), accessor.services.id)
+          .join((enter) =>
+            enter
+              .append("rect")
+              .attr("class", "block")
+              .attr("height", height)
+              .attr("width", 0)
+              .attr("x", (d) => x(0))
+              .attr("fill", blockColor)
+              .on("mouseenter", entered)
+              .on("mouseleave", left)
+              .on("mousemove", moved)
+              .on("click", (d) => clicked(d)) // Add this line
+              
+          )
+          .transition(transition)
+          .attr("width", (d) => x(d.stack[1]) - x(d.stack[0]))
+          .attr("x", (d) => x(d.stack[0]))
+          .attr("fill", blockColor);
+
+        if (selected.groupBy === "borough") {
+          panLondonContainer.classed("d-none", false);
+          const svg = panLondonContainer.select(".pan-london-svg");
+          const width = +svg.attr("width") - margin.left - margin.right;
+          const height = +svg.attr("height") - margin.top - margin.bottom;
+          let root;
+          const items = panLondonServiceData.items.map((d) =>
+            Object.assign({}, d)
+          );
+          if (selected.sizeBy === "service") {
+            root = {
+              children: d3
+                .groups(items, accessor.services.serviceType)
+                .map(([name, children]) => ({ name, children })),
+            };
+          } else {
+            root = {
+              children: items,
+            };
+          }
+          root = d3
+            .hierarchy(root)
+            .sum((d) =>
+              selected.sizeBy === "service" ? 1 : accessor.services.beds(d)
+            )
+            .sort((a, b) => b.value - a.value);
+          d3.treemap().size([width, height]).round(true).tile(d3.treemapBinary)(
+            root
+          );
+
+          svg
+            .select("g")
+            .selectAll(".block")
+            .data(root.leaves(), (d) => accessor.services.id(d.data))
+            .join((enter) =>
+              enter
+                .append("rect")
+                .attr("class", "block")
+                .attr("fill", (d) => blockColor(d.data))
+                .on("mouseenter", function (d) {
+                  entered.call(this, d.data);
+                })
+                .on("mouseleave", (d) => left(d.data))
+                .on("mousemove", (d) => moved(d.data))
+                .on("click", (d) => clicked(d.data))
+            )
+            .transition(transition)
+            .attr("x", (d) => d.x0)
+            .attr("y", (d) => d.y0)
+            .attr("width", (d) => d.x1 - d.x0)
+            .attr("height", (d) => d.y1 - d.y0)
+            .attr("fill", (d) => blockColor(d.data));
+        } else {
+          panLondonContainer.classed("d-none", true);
+        }
+      }
+
+      function entered(d) {
+        d3.select(this).raise();
+        tooltip.show(blockTooltipContent(d), blockColor(d));
+      }
+
+      function left() {
+        tooltip.hide();
+      }
+
+      function moved() {
+        tooltip.move();
+      }
+
+      function clicked(d) {
+        console.log(accessor.services.website(d))
+    if (accessor.services.website(d) === "") return;
+    window.open(accessor.services.website(d), "_blank");
+}
+
+
+      function resize() {
+        updateDimension();
+        svg
+          .attr("width", svgWidth)
+          .selectAll(".block")
+          .attr("width", (d) => x(d.stack[1]) - x(d.stack[0]))
+          .attr("x", (d) => x(d.stack[0]));
+      }
+
+      function blockColor(d) {
+    
+        
+
+    let highlightResult = accessor.services.highlight[selected.highlightBy](d);
+   
+
+
+    if (highlightResult) {
+       
+        
+        if (selected.sizeBy === "service") {
+          
+            let color = colorByServiceType(accessor.services.serviceType(d));        
+            return color;
+        } else {
+            let color = colorByServiceType("Accommodation");
+
+            return color;
+        }
+    } else {
+        return "#D3D3D3";
+    }
+}
+
+      const serviceTypes = [
+        "Clearing_House",
+        "Nightshelter_Wintershelter",
+        "Housing_First",
+        "Outreach",
+        "Assessment_Centre",
+        "Day_Centre",
+        "Accommodation",
+      ];
+
+      function stack(items) {
+        let stacked = items.map((d) => Object.assign({}, d));
+        let acc = 0;
+        switch (selected.sizeBy) {
+          case "service":
+            stacked.sort(
+              (a, b) => d3.descending(
+                accessor.services.highlight[selected.highlightBy](a),
+                accessor.services.highlight[selected.highlightBy](b)
+              ) || d3.ascending(
+                serviceTypes.indexOf(accessor.services.serviceType(a)),
+                serviceTypes.indexOf(accessor.services.serviceType(b))
+              )
+            );
+            stacked.forEach((d) => (d.stack = [acc, ++acc]));
+            break;
+          case "bed":
+            stacked.sort(
+              (a, b) =>
+                d3.descending(
+                  accessor.services.highlight[selected.highlightBy](a),
+                  accessor.services.highlight[selected.highlightBy](b)
+                ) ||
+                d3.descending(
+                  accessor.services.beds(a),
+                  accessor.services.beds(b)
+                )
+            );
+            stacked.forEach(
+              (d) => (d.stack = [acc, (acc += accessor.services.beds(d))])
+            );
+            break;
+          default:
+            break;
+        }
+        return stacked;
+      }
+    }
+
+    // Controls
+    function setupGroupBySelectControl() {
+      d3.select("#group-by-select").on("change", function () {
+        selected.groupBy = this.value;
+        dispatch.call("update");
+      });
+    }
+
+    function setupSizeBySelectControl() {
+      d3.select("#size-by-select").on("change", function () {
+        selected.sizeBy = this.value;
+        dispatch.call("update");
+      });
+    }
+
+    function setupHighlightBySelectControl() {
+      d3.select("#highlight-by-select").on("change", function () {
+        selected.highlightBy = this.value;
+        dispatch.call("update");
+      });
+    }
+
+    // Header
+    function renderHeader() {
+      const headerMainTitle = d3.select(".chart-title-main");
+      dispatch.on("update.header", () => {
+        let title = "";
+
+        switch (selected.sizeBy) {
+          case "service":
+            title += "Service";
+            break;
+          case "bed":
+            title += "Accommodation (hostel/supported) by bed spaces";
+            break;
+          default:
+            break;
+        }
+
+        title += ", divided by ";
+
+        switch (selected.groupBy) {
+          case "borough":
+            title += "borough";
+            break;
+          case "provider":
+            title += "provider";
+            break;
+          default:
+            break;
+        }
+
+        title += ", with summary information for ";
+
+        switch (selected.highlightBy) {
+          case "london":
+            title += "all London";
+            break;
+          case "women":
+            title += "women's services";
+            break;
+          case "young":
+            title += "young People's services";
+            break;
+          default:
+            break;
+        }
+
+        headerMainTitle.text(title);
+      });
+    }
+
+    // Process data
+    function processData(services, providers, totals, colors) {
+      const data = {};
+
+      data.colors = colors.filter(accessor.colors.infographicRelated);
+      colorByServiceType
+        .domain(data.colors.map(accessor.colors.serviceType))
+        .range(data.colors.map(accessor.colors.color));
+      serviceTypeByRecordTypeId
+        .domain(data.colors.map(accessor.colors.recordTypeId))
+        .range(data.colors.map(accessor.colors.serviceType));
+      const serviceTypeMap = {
+        "Clearing House": "Clearing_House",
+        "Night Shelter or Winter Shelter": "Nightshelter_Wintershelter",
+        "Housing First": "Housing_First",
+        "Outreach": "Outreach",
+        "Assessment Centre": "Assessment_Centre",
+        "Day Centre": "Day_Centre",
+        "Accommodation": "Accommodation"
+      }
+
+      const validServiceTypes = Object.values(serviceTypeMap);
+
+      services.forEach((d, i) => {
+        d.id = i;
+        d.serviceType = serviceTypeMap[d.serviceType];
+      });
+      providers.forEach((d, i) => {
+        d.id = i;
+        d.serviceType = serviceTypeByRecordTypeId(d["Record Type ID"]);
+      });
+
+      const servicesByBoroughSortedByService = (() => {
+          servicesByBorough = d3.groups(
+              // Filter services based on the values in validServiceTypes
+              services.filter(d => validServiceTypes.includes(d.serviceType)),
+              accessor.services.borough
+          )
+          .map(([key, value]) => ({
+            key,
+            total: {
+              service: value.length,
+              bed: d3.sum(value, accessor.services.beds),
+            },
+            items: value,
+          }));
+        const panLondonService = servicesByBorough.find(
+          (d) => d.key === "Pan-London"
+        );
+        const nonPanLondServices = servicesByBorough.filter(
+          (d) => d.key !== "Pan-London"
+        );
+        return [
+          ...nonPanLondServices.sort(
+            (a, b) =>
+              d3.descending(a.total.service, b.total.service) ||
+              d3.ascending(a.key, b.key)
+          ),
+          panLondonService,
+        ];
+      })();
+
+      const servicesByBoroughSortedByBed = (() => {
+        servicesByBorough = d3
+          .groups(
+            services.filter(
+              (d) => accessor.services.serviceType(d) === "Accommodation"
+            ),
+            accessor.services.borough
+          )
+          .map(([key, value]) => ({
+            key,
+            total: {
+              service: value.length,
+              bed: d3.sum(value, accessor.services.beds),
+            },
+            items: value,
+          }));
+        const panLondonService = servicesByBorough.find(
+          (d) => d.key === "Pan-London"
+        );
+        const nonPanLondServices = servicesByBorough.filter(
+          (d) => d.key !== "Pan-London"
+        );
+        return [
+          ...nonPanLondServices.sort(
+            (a, b) =>
+              d3.descending(a.total.bed, b.total.bed) ||
+              d3.ascending(a.key, b.key)
+          ),
+          panLondonService,
+        ];
+      })();
+
+      const servicesByProviderSortedByService = (() => {
+        d3.group(
+        providers.filter(
+            d => validServiceTypes.includes(accessor.services.serviceType(d))
+        ),
+        accessor.services.providerName
+    ).forEach((value, key) => {
+          if (value.length > 2) {
+            value.forEach(
+              (d) => (d.providerGroupService = accessor.services.providerName(d))
+            );
+          } else {
+            value.forEach(
+              (d) => (d.providerGroupService = "PROVIDERS WITH 1 OR 2 SERVICES")
+            );
+          }
+        });
+
+        
+        const servicesByProvider = d3.groups(
+    providers.filter(
+        d => validServiceTypes.includes(accessor.services.serviceType(d))
+    ),
+    accessor.services.providerGroup.service
+          )
+          .map(([key, value]) => ({
+            key,
+            total: {
+              service: value.length,
+              bed: d3.sum(value, accessor.services.beds),
+            },
+            items: value,
+          }));
+        return servicesByProvider.sort((a, b) =>
+          d3.descending(a.total.service, b.total.service)
+        );
+      })();
+
+      const servicesByProviderSortedByBed = (() => {
+        d3.group(
+          providers.filter(
+            (d) => accessor.services.recordTypeId(d) === "012A00000012r8gIAA"
+          ),
+          accessor.services.providerName
+        ).forEach((value, key) => {
+          if (value.length > 2) {
+            value.forEach(
+              (d) => (d.providerGroupBed = accessor.services.providerName(d))
+            );
+          } else {
+            value.forEach(
+              (d) => (d.providerGroupBed = "PROVIDERS WITH 1 OR 2 SERVICES")
+            );
+          }
+        });
+
+        const servicesByProvider = d3
+          .groups(
+            providers.filter(
+              (d) => accessor.services.recordTypeId(d) === "012A00000012r8gIAA"
+            ),
+            accessor.services.providerGroup.bed
+          )
+          .map(([key, value]) => ({
+            key,
+            total: {
+              service: value.length,
+              bed: d3.sum(value, accessor.services.beds),
+            },
+            items: value,
+          }));
+        return servicesByProvider.sort((a, b) =>
+          d3.descending(a.total.bed, b.total.bed)
+        );
+      })();
+
+      data.services = {
+        borough: {
+          service: servicesByBoroughSortedByService,
+          bed: servicesByBoroughSortedByBed,
+        },
+        provider: {
+          service: servicesByProviderSortedByService,
+          bed: servicesByProviderSortedByBed,
+        },
+      };
+
+      data.totals = [
+        { key: "london", longKey: "LONDON" },
+        { key: "women", longKey: "Women's services" },
+        { key: "young", longKey: "Young People's services" },
+      ].reduce((acc, cur) => {
+        const total = totals.find((d) => accessor.totals.key(d) === cur.longKey);
+        acc[cur.key] = total;
+        return acc;
+      }, {});
+
+      Object.keys(data.totals).forEach((key) => {
+        const d = data.totals[key];
+        switch (key) {
+          case "london":
+            d.chflats = 3800;
+            d.outreach = "commissioned by individual boroughs and the GLA";
+            break;
+          case "women":
+            d.chflats = 0;
+            d.outreach = "provided through standard services";
+            break;
+          case "young":
+            d.chflats = 0;
+            d.outreach = "provided through standard services";
+            break;
+          default:
+            break;
+        }
+      });
+
+      return data;
+    }
+
+    // Tooltip
+    function renderTooltip(tooltip) {
+      let width, height;
+      const padding = 8;
+
+      function show(content, color) {
+        tooltip.style("border-color", color).html(content);
+        const bcr = tooltip.node().getBoundingClientRect();
+        width = bcr.width;
+        height = bcr.height;
+        tooltip.classed("show", true);
+      }
+
+      function hide() {
+        tooltip.classed("show", false);
+      }
+
+      function move() {
+        let x = d3.event.clientX - width / 2;
+        if (x < 0) {
+          x = 0;
+        } else if (x + width > window.innerWidth) {
+          x = window.innerWidth - width;
+        }
+        let y = d3.event.clientY - height - padding;
+        if (y < 0) {
+          y = 0;
+        }
+        tooltip.style("transform", `translate(${x}px,${y}px)`);
+      }
+
+      return {
+        show,
+        hide,
+        move,
+      };
+    }
+
+    function blockTooltipContent(d, color) {
+    const texts = accessor.services.text(d);
+    const capacity = texts[0];
+    return `
+        <p class="service-name">${accessor.services.serviceName(d)}</p>
+        <p>${accessor.services
+            .serviceType(d)
+            .replace("_", " ")} - Provided in <span>${accessor.services.borough(
+              d
+            )}</span> by <span>${accessor.services.providerName(d)}</span></p>
+        ${texts
+            .filter((e) => e)
+            .map(
+                (e) =>
+                `<p ${e == capacity ? `class="service-capacity"` : ""}>${e}</p>`
+            )
+            .join("")}
+        <p><em>Click dot to view service website</em></p>
+    `;
+}
+
+    // Alert
+    function setupAlert() {
+      const alert = d3.select(".alert-danger");
+      function show() {
+        alert.classed("d-none", false);
+      }
+      function hide() {
+        alert.classed("d-none", true);
+      }
+      return {
+        show,
+        hide,
+      };
+    }
+
+    // Is touch
+    // https://github.com/airbnb/is-touch-device/blob/master/src/index.js
+    function isTouchDevice() {
+      return (
+        !!(
+          typeof window !== "undefined" &&
+          ("ontouchstart" in window ||
+            (window.DocumentTouch &&
+              typeof document !== "undefined" &&
+              document instanceof window.DocumentTouch))
+        ) ||
+        !!(
+          typeof navigator !== "undefined" &&
+          (navigator.maxTouchPoints || navigator.msMaxTouchPoints)
+        )
+      );
+    }
+  })();
+
+
+</script><script>
+  (function () {
+    const CSV_LINKS_URL = "https://www.illustrate.studio/sites/default/files/json/csv_links_20220908.json";
+
+    const modalWidth = 320;
+
+    d3.json(CSV_LINKS_URL).then((csvLinks) => {
+      const modal = d3
+        .select("body")
+        .append("div")
+        .attr("class", "modal fade")
+        .attr("id", "csv-modal")
+        .attr("tabindex", "-1");
+
+      const modalDialog = modal
+        .append("div")
+        .attr("class", "modal-dialog m-0")
+        .style("width", `${modalWidth}px`);
+
+      const modalContent = modalDialog
+        .append("div")
+        .attr("class", "modal-content");
+
+      const modalHeader = modalContent
+        .append("div")
+        .attr("class", "modal-header")
+        .call((header) =>
+          header.append("h6").attr("class", "modal-title").text("CSV Download")
+        )
+        .call((header) =>
+          header
+            .append("button")
+            .attr("type", "button")
+            .attr("class", "close")
+            .attr("data-dismiss", "modal")
+            .attr("aria-label", "Close")
+            .append("span")
+            .attr("aria-hidden", "true")
+            .html("&times;")
+        );
+
+      const form = modalContent
+        .append("div")
+        .attr("class", "modal-body")
+        .append("form");
+      form
+        .append("div")
+        .attr("class", "form-group")
+        .call((group) =>
+          group
+            .append("label")
+            .attr("for", "csv-source-select")
+            .text("Which data source would you like to download?")
+        )
+        .call((group) =>
+          group
+            .append("select")
+            .attr("class", "form-control custom-select-url custom-select-sm")
+            .attr("id", "csv-source-select")
+            .selectAll("option")
+            .data(csvLinks)
+            .join("option")
+            .attr("value", (d) => d.url)
+            .text((d) => d.name)
+        );
+      form
+        .append("button")
+        .attr("type", "submit")
+        .attr("class", "btn btn-sm btn-primary")
+        .text("Download")
+        .on("click", downloadCSV);
+
+      const csvButton = d3
+        .select(".btn__export--csv")
+        .attr("data-toggle", "modal")
+        .attr("data-target", "#csv-modal");
+
+      d3.select("body").append("style").text(`
+      .modal-backdrop.show {
+        opacity: 0.2;
+      }
+    `);
+
+      const {
+        width: buttonWidth,
+        height: buttonHeight,
+      } = csvButton.node().getBoundingClientRect();
+
+      $("#csv-modal").on("show.bs.modal", positionModal);
+      window.addEventListener("resize", resize);
+
+      function downloadCSV() {
+        d3.event.preventDefault();
+        const url = d3.select("#csv-source-select").node().value;
+        if (url) {
+          window.location = url;
+        }
+      }
+
+      function positionModal() {
+        let { left, top } = csvButton.node().getBoundingClientRect();
+        left = left + buttonWidth / 2 - modalWidth / 2;
+        if (left < 0) left = 0;
+        if (left + modalWidth > window.innerWidth)
+          left = window.innerWidth - modalWidth;
+        top = top + buttonHeight;
+        modalDialog.style("left", `${left}px`).style("top", `${top}px`);
+      }
+
+      function resize() {
+        if (modal.classed("show")) {
+          positionModal();
+        }
+      }
+    });
+  })();
+</script>
+<script>window.Choices = {}</script>

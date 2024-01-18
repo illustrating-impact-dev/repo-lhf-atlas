@@ -1,0 +1,2296 @@
+
+<link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" rel="stylesheet" />
+<style type="text/css">
+    .container-fluid {
+        max-width: 1300px;
+        margin: 15px auto;
+    }
+
+    .drop-down-title {
+        font-weight: 600;
+    }
+
+    .chart-header {
+        display: flex;
+        align-items: center;
+    }
+
+    .chart-header-icon {
+        width: 36px;
+        height: 36px;
+        margin-right: 8px;
+    }
+
+    .chart-title-main {
+        font-size: 1rem;
+        color: #00aaff;
+    }
+
+    .sub-region-title-main {
+        font-size: 1rem;
+        color: black;
+        font-weight: bold;
+    }
+
+
+    .sub-region-header-icon {
+        width: 36px;
+        height: 36px;
+        margin-right: 8px;
+    }
+
+    .sub-region-header {
+        display: flex;
+        align-items: center;
+    }
+
+    /*sleeping*/
+    .sleeping-title-main {
+        font-size: 1rem;
+        color: #6B7fA2;
+        font-weight: bold;
+    }
+
+
+    .sleeping-header-icon {
+        width: 36px;
+        height: 36px;
+        margin-right: 8px;
+    }
+
+    .sleeping-header {
+        display: flex;
+        align-items: center;
+    }
+
+
+    .selected-borough {
+        font-size: 1.2rem;
+        color: #00aaff;
+        font-weight: 500;
+    }
+
+    .chart-title-sub,
+    .sub-region-title-sub,
+    .sleeping-title-sub {
+        
+        font-size: 12px;
+        line-height: 14px;
+        color: #666666;
+        font-weight: normal;
+        font-style: normal;
+        text-decoration: none;
+    }
+
+    .summary-container {
+        font-size: .75em;
+        color: #262626;
+        padding: 16px;
+    }
+
+    #day_centres {
+        color: #B07AA1;
+        font-size: 1.6em;
+        font-weight: bold;
+    }
+
+    #beds,
+    #beds_services {
+        color: #2DB5C0;
+        font-size: 1.6em;
+        font-weight: bold;
+    }
+
+    #shelter_spaces {
+        color: #F28E2C;
+        font-size: 1.6em;
+        font-weight: bold;
+    }
+
+    #house_flats {
+        color: #E74BCD;
+        font-size: 1.6em;
+        font-weight: bold;
+    }
+    #assessment_centre_services, #assessment_centre_services_plural {
+        color:  rgb(184, 203, 42);
+        font-size: 1.6em;
+        font-weight: bold;
+    }
+    .d-none{
+        display: none !important;
+    }
+    #assessment-centre{
+        font-size: 1em;
+        color: #262626;
+    }
+
+    #outreach {
+        color: #4E79A7;
+        font-size: 1.1em;
+        font-weight: bold;
+    }
+
+    #hf_units {
+        color: #E25759;
+        font-size: 1.6em;
+        font-weight: bold;
+    }
+	
+		  #e_in {
+        color: #2a6153;
+        font-size: 1.6em;
+        font-weight: bold;
+    }
+	
+	  #e_in2 {
+        color: #2a6153;
+        font-size: 1.6em;
+        font-weight: bold;
+    }
+	
+	  #e_in3 {
+        color: #2a6153;
+        font-size: 1.6em;
+        font-weight: bold;
+    }
+
+    .chart-footer {
+        color: #6c757d;
+        font-size: 0.75rem;
+        margin-top: 12px;
+        text-align: right;
+    }
+
+    .summary-item {
+        margin-top: 4px;
+    }
+
+    .map-description {
+
+        font-size: .75em;
+        line-height: 18px;
+        color: rgb(0, 170, 255);
+        font-weight: normal;
+        font-style: normal;
+        text-decoration: none;
+    }
+
+    #map-table {}
+
+    .map-container {
+        height: 500px;
+        overflow: auto;
+    }
+
+    .table-item {
+        display: flex;
+        font-size: .7em;
+    }
+
+    .table-item-key {
+        flex: 1;
+        cursor: pointer;
+    }
+
+    .table-item-value-capacity {
+        min-width: 50px;
+        text-align: center;
+        cursor: pointer;
+        color: #C59DBB;
+        display: table-cell;
+        vertical-align: middle;
+    }
+
+    .table-item-value-filled {
+        background-color: #f0f2ba;
+    }
+
+    .table-item-value-spaces {
+        min-width: 50px;
+        text-align: center;
+        cursor: pointer;
+        color: #31B6C1;
+        display: table-cell;
+        vertical-align: middle;
+    }
+
+    .table-item-value-spaces-filled {
+        background-color: #BBE4F3;
+    }
+
+    .table-item-key:hover {
+        background: #cccccc;
+    }
+
+    .table-item-value-capacity:hover {
+        border: 1px solid #C59DBB;
+    }
+
+    .table-item-value-space:hover {
+        border: 1px solid #31B6C1;
+    }
+
+    .btn__svg {
+        text-align: left;
+        text-indent: -9999px;
+        font-size: 0;
+        line-height: 0px;
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-size: contain;
+        border: 0;
+        background-color: transparent;
+        height: 36px;
+        width: 30px;
+        padding: 0;
+        margin-right: 5px;
+        position: relative;
+    }
+
+    .btn__svg:hover::after {
+        opacity: 1;
+    }
+
+    .btn__svg::after {
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-size: contain;
+        content: "";
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        -webkit-transition: opacity 0.1s cubic-bezier(0.3, 0.65, 0.72, 0.63);
+        -o-transition: opacity 0.1s cubic-bezier(0.3, 0.65, 0.72, 0.63);
+        transition: opacity 0.1s cubic-bezier(0.3, 0.65, 0.72, 0.63);
+        background-color: #fff;
+    }
+
+    .btn__export--pdf {
+        background-image: url(https://www.illustrate.studio/sites/default/files/svgicon/file-pdf.svg);
+    }
+
+    .btn__export--pdf::after {
+        background-image: url(https://www.illustrate.studio/sites/default/files/svgicon/file-pdf-blue.svg);
+    }
+
+    .btn__export--csv {
+        background-image: url(https://www.illustrate.studio/sites/default/files/svgicon/file-csv.svg);
+    }
+
+    .btn__export--csv::after {
+        background-image: url(https://www.illustrate.studio/sites/default/files/svgicon/file-csv-blue.svg);
+    }
+
+    .btn__copy {
+        background-image: url(https://www.illustrate.studio/sites/default/files/svgicon/copy-url.svg);
+    }
+
+    .btn__copy::after {
+        background-image: url(https://www.illustrate.studio/sites/default/files/svgicon/copy-url-blue.svg);
+    }
+
+    .chart-tooltip {
+        position: fixed;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+        background-color: rgba(255, 255, 255, 0.9);
+        border: 1px solid rgba(0, 0, 0, 0.125);
+        border-radius: 0.25rem;
+        padding: 0.75rem 1.25rem;
+        max-width: 100vw;
+        opacity: 0;
+        transition: opacity 0.15s linear;
+        z-index: 99999;
+    }
+
+    .chart-tooltip p {
+        margin-bottom: 0.5rem;
+    }
+
+    .chart-tooltip p:last-of-type {
+        margin-bottom: 0;
+    }
+
+    .chart-tooltip.show {
+        opacity: 1;
+    }
+
+
+    .tip-header {
+        font-family: 'Nirmala UI';
+        font-size: 1.1em;
+        color: #00aeef;
+        font-weight: bold;
+        font-style: normal;
+        text-decoration: none;
+    }
+
+    /*
+        Right section
+        */
+    .right-container {
+        max-height: 365px;
+        overflow: hidden;
+    }
+
+    .sleeping-content {
+        position: relative;
+        top: -385px;
+        padding-left: 6%;
+    }
+
+    .sleeping-container {
+        width: 110%;
+        top: -9%;
+        right: -9px;
+        height: 395px;
+        transform: rotate(2deg);
+        position: relative;
+        background: #F0F6FA
+    }
+
+    .year-difference {
+        font-size: .75rem;
+        text-align: center;
+        cursor: pointer;
+        padding: 16px 4px;
+        max-height: 100px;
+    }
+
+    .year-difference>#yoy_diff {
+        font-weight: bold;
+        color: #6B7fA2;
+    }
+
+    .year-difference:hover {
+        border: 1px solid black;
+    }
+
+
+    .circle {
+        cursor: pointer;
+        fill: #6B7fA2;
+    }
+
+    .domain,
+    .line {
+        stroke: #6B7fA2;
+    }
+
+    .circle:hover {
+        stroke: black;
+        stroke-width: 2;
+    }
+
+    .sleep-value {
+        text-anchor: middle;
+        font-size: .65rem;
+        fill: #6B7fA2;
+        font-weight: bold;
+    }
+
+
+
+    .sub-region-content {
+        position: relative;
+        top: -365px;
+        padding-left: 6%;
+        overflow: hidden;
+    }
+
+    .sub-region-container {
+        width: 110%;
+        top: -5%;
+        right: -.5%;
+        height: 375px;
+        transform: rotate(2deg);
+        position: relative;
+        background: #FAFAFA
+    }
+
+    #sub-region-select {
+        width: 100%;
+        display: inline-block;
+    }
+
+    .change-data {
+        margin-top: 12px;
+        font-size: .75rem;
+        text-align: right;
+    }
+
+    .sub-region-item {
+        font-size: .7rem;
+        height: 20px;
+        display: flex;
+    }
+
+    .sub-region-item-key {
+        flex: 1;
+    }
+
+    .sub-region-item-node {
+        color: #666666;
+        cursor: pointer;
+        line-height: 20px;
+        padding-left: 6px;
+        padding-right: 6px;
+        white-space: nowrap;
+    }
+
+    .sub-region-item-node:hover {
+        background: #cccccc;
+        color: black;
+    }
+
+    .bar {
+        fill: #BDD4E9;
+        cursor: pointer;
+    }
+
+    .barSelected {
+        fill: #A4BCE5;
+    }
+
+    .bar>rect:hover {
+        stroke: black;
+        stroke-width: 1;
+    }
+
+    .bar-label {
+        font-size: .75rem;
+        fill: white;
+        pointer-events: none;
+    }
+
+
+    @media (max-width: 760px) {
+        .summary-item {
+            margin-top: 16px;
+        }
+
+        .chart-header-icon {
+            display: none;
+        }
+
+        .change-data {
+            text-align: left;
+        }
+
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .chart-tooltip {
+            transition: none;
+        }
+    }
+
+    @media (min-width: 480px) {
+        .chart-tooltip {
+            max-width: 480px;
+        }
+    }
+
+    /*
+        Markers section
+         */
+    .blue-marker {
+        height: 20px;
+        width: 16px;
+        overflow: hidden;
+        cursor: pointer;
+    }
+
+    .purple-marker {
+        height: 20px;
+        width: 16px;
+        overflow: hidden;
+        cursor: pointer;
+    }
+
+    .img {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+        right: -9999px;
+        bottom: -9999px;
+        margin: auto;
+        width: 25px;
+         height: 25px;
+    }
+
+    .pagebreak {
+        display: none;
+    }
+
+    @media print {
+        .mapboxgl-ctrl-top-right {
+            display: none;
+        }
+
+        .pagebreak {
+            display: block;
+        }
+
+        /*.order-lg-first {*/
+        /*   order: 1 !important;*/
+        /*    flex: 0 0 50%;*/
+        /*    max-width: 50%;*/
+        /*}*/
+        /*.order-lg-last{*/
+        /*    order: 2 !important;*/
+        /*    flex: 0 0 50%;*/
+        /*    max-width: 50%;*/
+        /*}*/
+        .map-container {
+            height: auto;
+        }
+
+        .right-container-parent {
+            flex: 0 0 50%;
+            max-width: 50%;
+        }
+    }
+
+    /* Add this new rule */
+.grid .no-padding, .no-padding {
+    padding: 3px;
+}
+
+</style>
+<script src='https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js'></script>
+<link href="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css" rel="stylesheet" />
+<script src="https://unpkg.com/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js"></script>
+<div class="container-fluid">
+    <div class="my-embedded-content">
+    <div class="alert alert-danger d-none" role="alert">Failed to retrieve the data. Please try again later.</div>
+
+    <div class="row"  style="padding-top:3px; padding-bottom:3px">
+        <div class="col-12 col-lg-4" style="padding-top:3px; padding-bottom:3px">
+            <div class="form-group"><label class="drop-down-title" for="borough-select">Select a Borough to focus
+                    on:</label> <select class="form-control custom-select custom-select-sm"
+                    id="borough-select"></select></div>
+        </div>
+
+        <div class="col-12 col-lg-4" style="padding-top:3px; padding-bottom:3px">
+            <div class="form-group"><label class="drop-down-title" for="service-select">On map show services that
+                    are:</label> <select class="form-control custom-select custom-select-sm"
+                    id="service-select"></select></div>
+        </div>
+
+        <div class="col-12 col-lg-4 d-flex flex-column" style="padding-top:3px; padding-bottom:3px">
+            <div class="flex-grow-1">&nbsp;</div>
+
+            <div class="btn-group form-group" id="buttons" style="visibility: visible"><button
+                    class="btn__export btn__export--pdf btn__svg" onclick="printPDF()"
+                    title="Export button label">Export to PDF</button>
+                    <!-- <button class="btn__export btn__export--csv btn__svg">Export Data</button> -->
+                    <button class="btn__copy btn__svg"
+                    onclick="CopyURL()" title="Copy URL label">Copy URL</button></div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12 col-lg-8">
+            <div class="header-embed">
+                <div class="chart-header">
+                    <img class="chart-header-icon" alt="metric icon" src="https://www.illustrate.studio/sites/default/files/img/Accom_Icon.png"><div class="chart-title">
+                        <div class="chart-title-main"><span class="selected-borough">Barking and Dagenham</span> homelessness
+                            services
+                            summary</div>
+                        <div class="chart-title-sub">Data source: Latest data from Homeless Link, DLUHC and London Councils</div>
+                    </div>
+                </div>
+                <div class="row summary-container"   style="padding-top:3px; padding-bottom:3px">
+                    <div class=" summary-item col-12 col-lg-4 order-lg-first order-last"style="padding-top:3px; padding-bottom:8px">
+                        <div>
+                            <span id="day_centres"></span> day centres
+                        </div>
+                        <div>
+                            <span id="beds"></span> beds in <span id="beds_services"></span> accommodation
+                            services
+                        </div>
+						<div>
+                            <span id="e_in2"></span> in 'Everyone In' emergency accommodation June '20
+                        </div>
+                    </div>
+                    <div class="summary-item col-12 col-lg-4 order-sm-12" style="padding-top:3px; padding-bottom:8px">
+                        <div>
+                            <span id="shelter_spaces"></span> Winter Shelter spaces
+                        </div>
+                        <div>
+                            <span id="house_flats"></span> Clearing House flats
+                        </div>
+                        <div id="assessment_centre_services-container" class="d-none">
+                            <span id="assessment_centre_services" ></span> Assessment Centre
+                        </div>
+                        <div id="assessment_centre_services_plural-container" class="d-none">
+                            <span id="assessment_centre_services_plural"></span> Assessment Centres
+                        </div>
+						
+                    </div>
+                    <div class="col-12 summary-item col-lg-4  order-lg-last order-first" style="padding-top:3px; padding-bottom:8px">
+                        <div>
+                            Outreach -&nbsp;<span id="outreach"></span>
+                        </div>
+                        <div style="margin-top: .4em;">
+                            <span id="hf_units"></span> Housing First units
+                        </div>
+					
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12"  style="padding-top:3px; padding-bottom:3px">
+                    <div class="map-description">Day centres, and accommodations with <span
+                            style="color:#B382A6">capacity</span>. These are shown on the map unless they are a
+                        confidential location.</div>
+                </div>
+            </div>
+
+            <div class="row style="margin-top: 12px;">
+                <div class="col-lg-5 col-sm-12 map-container order-last order-lg-first"  style="padding-top:3px; padding-bottom:3px">
+                    <div id="map-table">&nbsp;</div>
+                </div>
+
+                <div class="col-lg-7 col-sm-12 map-container order-first order-lg-last" style="padding-top:3px; padding-bottom:3px">
+                    <div id="map" style="width: 100%; height: 492px;">&nbsp;</div>
+                </div>
+            </div>
+
+            <div class="chart-footer">© LHF Atlas 2023 - see <a href="https://www.lhfatlas.org.uk"
+                    target="_blank">www.lhfatlas.org.uk </a>for full details</div>
+        </div>
+
+        <div class="pagebreak">&nbsp;</div>
+
+        <div class="col-12 col-lg-4 right-parents">
+            <div class="right-container right-container-parent" style="padding-left: 5px">
+                <div class="sleeping-container">&nbsp;</div>
+
+                <div class="sleeping-content">
+                    <div class="header-embed">
+                        <div class="sleeping-header"><img alt="sleeping icon" class="sleeping-header-icon" />
+                            <div class="sleeping-title">
+                                <div class="sleeping-title-main">Rough sleeping in this borough</div>
+
+                                <div class="sleeping-title-sub">CHAIN data for 2017/18 to 2022/23</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-right: 12px;">
+                        <div class="col-9" id="chain-line-chart">&nbsp;</div>
+
+                        <div class="col-3 year-difference" style="padding-top:60px; padding-bottom:3px; padding-left:3px; padding-right:3px;">
+                            <div id="yoy_diff">&nbsp;</div>
+
+                            <div>compared to<br />
+                                prior year</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="right-container right-container-parent">
+                <div class="sub-region-container">&nbsp;</div>
+
+                <div class="sub-region-content">
+                    <div class="header-embed">
+                        <div class="sub-region-header"><img alt="sub-region icon" class="sub-region-header-icon" />
+                            <div class="sub-region-title">
+                                <div class="sub-region-title-main">Explore within same sub-region</div>
+
+                                <div class="sub-region-title-sub"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12" style="padding-top:3px; padding-bottom:3px;">
+                            <div class="form-group change-data">
+                                <div class="row" style="padding-right: 12px; padding-top:0px; padding-bottom:0px;">
+                                    <div class="col-lg-4 col-sm-12" style=" line-height: 34px; padding-top:0px; padding-bottom:0px; padding-left:0px; padding-right:3px;">Change data</div>
+
+                                    <div class="col-lg-8 col-sm-12" style="padding-top:0px; padding-bottom:0px; padding-left:1px; padding-right:1px;"><select class="form-control" id="sub-region-select"
+                                            style="font-size: .875em; margin-right: 2px; padding-top:0px; padding-bottom:0px"> </select></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row" style="padding-right: 18px; overflow: hidden;">
+                        <div class="col-6 col-sm-6" id="borough-list" style="padding-top:3px; padding-bottom:3px; padding-left:3px; padding-right:15px;"></div>
+
+                        <div class="col-6 col-sm-6" id="borough-bars" style="padding-top:3px; padding-bottom:3px; padding-left:3px; padding-right:15px;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<div class="chart-tooltip">&nbsp;</div>
+<script src="https://d3js.org/d3.v5.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+    integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+    crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+    integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+    crossorigin="anonymous"></script>
+<script>
+    var params = new URLSearchParams(window.location.search.substring(1));
+    function loadData() {
+        $(".custom-select").each(function (index) {
+            if (params != "") {
+                var id = $(this).attr('id');
+                var val1 = params.get(id)
+                if (!val1) {
+                    return
+                }
+
+                //$('#'+id).val(val1).change();
+                var sortBySelect = document.querySelector('#' + id);
+                sortBySelect.value = val1;
+                sortBySelect.dispatchEvent(new Event("change"));
+                d3.select('#' + id).select('option[value="' + val1 + '"]').attr('selected', 'selected');
+            }
+        });
+    }
+
+    $('.custom-select').on('change', function () {
+
+        var parametr = '';
+
+        $(".custom-select").each(function (index) {
+            var values = jQuery(this).val(); // get selected value
+            var id = $(this).attr('id');
+            parametr += "&" + id + "=" + values;
+
+        });
+
+        var query = window.location.search.substring(1);
+
+        // is there anything there ?
+        if (query.length) {
+            // are the new history methods available ?
+            if (window.history != undefined && window.history.pushState != undefined) {
+                // if pushstate exists, add a new state to the history, this changes the url without reloading the page
+
+                window.history.pushState({}, document.title, window.location.pathname);
+
+            }
+        }
+        var location = document.URL + "?" + parametr;
+        window.history.replaceState(null, null, location);
+        if (window.self !== window.top) { // checking if it is an iframe
+            window.parent.postMessage(`{"command" : "updateQuery","value":"${parametr}"}`, '*')
+        }
+    });
+
+
+    function CopyURL() {
+        window.parent.postMessage(`{"command" : "copyURL"}`, '*')
+    }
+
+    
+    function printPDF() {
+    let chartRow = document.querySelector('.my-embedded-content');
+    if (!chartRow) {
+        console.error("Element '.my-embedded-content' not found.");
+        return;
+    }
+
+    html2canvas(chartRow, { useCORS: true }).then(canvas => {
+        try {
+            let pdf = new jsPDF('l', 'mm', 'a4'); // landscape orientation
+            let imgData = canvas.toDataURL('image/png');
+
+            // Adjust the dimensions for landscape
+            let pdfWidth = 297; // A4 width in mm
+            let pdfHeight = 210; // A4 height in mm
+            let imgWidth = canvas.width;
+            let imgHeight = canvas.height;
+            let ratio = Math.min(pdfWidth / imgWidth, pdfHeight / imgHeight);
+
+            let newWidth = imgWidth * ratio;
+            let newHeight = imgHeight * ratio;
+            let xOffset = (pdfWidth - newWidth) / 2;
+            let yOffset = (pdfHeight - newHeight) / 2;
+
+            pdf.addImage(imgData, 'PNG', xOffset, yOffset, newWidth, newHeight);
+            pdf.save('download.pdf');
+        } catch (e) {
+            console.error("Error generating PDF: ", e);
+        }
+    }).catch(error => {
+        console.error("Error in html2canvas: ", error);
+    });
+}
+
+</script>
+<script>
+    (function () {
+        const BASE_URL = "https://www.illustrate.studio/sites/default/files/";
+        const BASE_URL_G = "https://docs.google.com/spreadsheets/u/0/d/1eJRhHKm5McKV6lYE7mJiVDGKOYaAQIReLw_XTDVB33s/export?gid==id=&format=csv";
+        const HOME_IMAGE_URL = "https://www.lhfatlas.org.uk/sites/default/files/images/accom_icon.png";
+        const ROUGH_SLEEPING_IMAGE_URL = "https://www.lhfatlas.org.uk/sites/default/files/images/rsblue.png";
+        const SUB_REGION_IMAGE_URL = "https://www.lhfatlas.org.uk/sites/default/files/images/areagrey.png";
+        
+        const GEO_JSON = "https://raw.githubusercontent.com/illustrating-impact-dev/atlas/main/boroughs.json";
+
+        const SLEEPING_DATA = "https://raw.githubusercontent.com/illustrating-impact-dev/atlas/main/rs_sf.json";
+        const MAP_DATA = "https://raw.githubusercontent.com/illustrating-impact-dev/atlas/main/bf_map.json";
+        const SUMMARY = "https://raw.githubusercontent.com/illustrating-impact-dev/atlas/main/services_borough_summary.json";
+
+
+        const PURPLE_MARKER = "https://www.lhfatlas.org.uk/sites/default/files/images/marker_purple.png";
+        const BLUE_MARKER ="https://www.lhfatlas.org.uk/sites/default/files/images/blue_marker.png";
+        const GREY_MARKER = "https://www.lhfatlas.org.uk/sites/default/files/images/grey_marker.png";
+
+        const PURPLE_ID = '012A00000012r8lIAA';
+        const BLUE_ID = '012A00000012r8gIAA';
+        const MAP_BOX_ACCESS_TOKEN = 'pk.eyJ1IjoiYmxlc3NvY2hhbXBpb24iLCJhIjoiY2tlYWhmMzhpMDBvbjJxcXlqajNiOXAxcCJ9.qqc2Lh_D0fzbg9szW3nxgw';
+
+
+
+        // The geo_code and la_name of boroughs
+        let BOROUGHS = [
+            {
+                ge_code: "E09000001",
+                la_name: "City of London"
+            },
+            {
+                ge_code: "E09000002",
+                la_name: "Barking and Dagenham"
+            },
+            {
+                ge_code: "E09000003",
+                la_name: "Barnet"
+            },
+            {
+                ge_code: "E09000004",
+                la_name: "Bexley"
+            },
+            {
+                ge_code: "E09000005",
+                la_name: "Brent"
+            },
+            {
+                ge_code: "E09000006",
+                la_name: "Bromley"
+            },
+            {
+                ge_code: "E09000007",
+                la_name: "Camden"
+            },
+            {
+                ge_code: "E09000008",
+                la_name: "Croydon"
+            },
+            {
+                ge_code: "E09000009",
+                la_name: "Ealing"
+            },
+            {
+                ge_code: "E09000010",
+                la_name: "Enfield"
+            },
+            {
+                ge_code: "E09000011",
+                la_name: "Greenwich"
+            },
+            {
+                ge_code: "E09000012",
+                la_name: "Hackney"
+            },
+            {
+                ge_code: "E09000013",
+                la_name: "Hammersmith and Fulham"
+            },
+            {
+                ge_code: "E09000014",
+                la_name: "Haringey"
+            },
+            {
+                ge_code: "E09000015",
+                la_name: "Harrow"
+            },
+            {
+                ge_code: "E09000016",
+                la_name: "Havering"
+            },
+            {
+                ge_code: "E09000017",
+                la_name: "Hillingdon"
+            },
+            {
+                ge_code: "E09000018",
+                la_name: "Hounslow"
+            },
+            {
+                ge_code: "E09000019",
+                la_name: "Islington"
+            },
+            {
+                ge_code: "E09000020",
+                la_name: "Kesington and Chelsea"
+            },
+            {
+                ge_code: "E09000021",
+                la_name: "Kingston upon Thames"
+            },
+            {
+                ge_code: "E09000022",
+                la_name: "Lambeth"
+            },
+            {
+                ge_code: "E09000023",
+                la_name: "Lewisham"
+            },
+            {
+                ge_code: "E09000024",
+                la_name: "Merton"
+            },
+            {
+                ge_code: "E09000025",
+                la_name: "Newham"
+            },
+            {
+                ge_code: "E09000026",
+                la_name: "Redbridge"
+            },
+            {
+                ge_code: "E09000027",
+                la_name: "Richmond upon Thames"
+            },
+            {
+                ge_code: "E09000028",
+                la_name: "Southwark"
+            },
+            {
+                ge_code: "E09000029",
+                la_name: "Sutton"
+            },
+            {
+                ge_code: "E09000030",
+                la_name: "Tower Hamlets"
+            },
+            {
+                ge_code: "E09000031",
+                la_name: "Waltham Forest"
+            },
+            {
+                ge_code: "E09000032",
+                la_name: "Wandsworth"
+            },
+            {
+                ge_code: "E09000033",
+                la_name: "Westminster"
+            }
+        ]
+            .sort(function (a, b) {
+                return a['la_name'].localeCompare(b['la_name'])
+            })
+
+        // services location
+        let SERVICES = [
+            {
+                name: "In this borough",
+                group: [1]
+            },
+            // {
+            //     name: "Within 3km of borough center",
+            //     group: [1, 2]
+            // },
+            {
+                name: "In neighbouring borough",
+                group: [2]
+            }
+        ];
+
+        //subregion dropdown
+        let subRegions = [
+            {
+                name: "Rough sleeping (CHAIN 2022/23)",
+                key: "chain_roughsleeping",
+                source: 'CHAIN',
+                sortType: 'value'
+            },
+            {
+                name: "Rough sleeping (Street counts/estimates 2022)",
+                key: "roughsleeping_count",
+                source: 'MHCLG',
+                sortType: 'value'
+            },
+            {
+                name: "Accommodation (hostels/supported) bed spaces",
+                key: "accomspaces",
+                source: 'Homeless Link information team',
+                sortType: 'value'
+            },
+            {
+                name: "Type of outreach commissioning",
+                key: "accomservices",
+                source: 'Homeless Link information team',
+                sortType: 'name',
+                includeName: true,
+                accessorKey: 'outreach'
+            },
+            {
+                name: "Clearing House flats (banded)",
+                key: "ch_band",
+                source: 'Homeless Link information team',
+                sortType: 'name',
+                includeName: true,
+                accessorKey: 'ch_band'
+            },
+            {
+                name: "Winter Shelter bed spaces",
+                key: "shelterspaces",
+                source: 'Homeless Link information team',
+                sortType: 'value'
+            }, {
+                name: "Housing First provision",
+                key: "hfunits",
+                source: 'Homeless Link information team',
+                sortType: 'value'
+            }, {
+                name: "Number of day centres",
+                key: "daycentreservices",
+                source: 'Homeless Link information team',
+                sortType: 'value'
+            }
+        ]
+
+
+        let selected = {
+            borough: null,
+            service: null,
+            summary: null,
+            subRegion: null
+        };
+
+        let options = {
+            boroughs: [],
+            services: [],
+            subRegions: subRegions
+        };
+
+        let accessor = {
+            boroughs: {
+                gssCode: d => d['ge_code'],
+                name: d => d['la_name']
+            },
+            services: {
+                name: d => d['name'],
+                group: d => d['group']
+            },
+            sleeping: {
+                measure: d => d['Measure'],
+                gssCode: d => d['Gss Code'],
+                yearDate: d => new Date(d['Year Date'].split(" ")[0]),
+                value: d => d['Value'],
+                yearDifference: d => d['yoy_diff']
+            },
+            summary: {
+                subRegion: d => d['housing_subregion'],
+                gssCode: d => d['gss'],
+                dayCenter: d => d['daycentreservices'],
+                beds: d => d['accomspaces'],
+                bedsServices: d => d['accomservices'],
+                shelterSpaces: d => d['shelterspaces'],
+                houseFlats: d => d['ch_band'],
+                assessmentCentreServices: d => d['assessmentcentreservices'],
+                outreach: d => d['outreach'],
+                housingFirstUnit: d => d['hfunits'],
+				e_in: d => d['EverybodyIn_Settled_and_Supported_Jan_21'],
+				e_in2: d => d['EverybodyIn_Emergency_26_06_20'],
+				e_in3: d => d['EverybodyIn_Emergency_04_02_21'],
+                name: d => d['la_name']
+            },
+            map: {
+                longitude: d => d['Longitude'],
+                latitude: d => d['Latitude'],
+                gssCode: d => d['gss code'],
+                propertiesGssCode: d => d['properties']['GSS_CODE'],
+                type: d => d['type'],
+                service: d => d['service'],
+                serviceText: d => d['service_text_1'],
+                provider: d => d['Provider'],
+                serviceTextOne: d => d['service_text_1'],
+                providedIn: d => d['provided_in'],
+                serviceTextTwo: d => d['service_text_2'],
+                website: d => d['Website'],
+                serviceTextThree: d => d['service_text_3'],
+                serviceTextValue: d => {
+                    const val = d['service_text_1'];
+                    if (!val)
+                        return ""
+                    return val.split(" ")[0];
+                },
+                tableData: (data, accessor, values) => {
+                    return data.filter(d => values.includes(accessor(d)))
+                },
+                longLat: d => {
+                    return [d['Longitude'], d['Latitude']]
+                },
+                recordTypeID: d => d['Record Type ID'],
+                mapTableID: d => {
+                    return `${d['gss code']}${String(d['Longitude']).replace('.', "").replace('-', "")}${String(d['Longitude']).replace('.', "").replace('-', "")}`
+                }
+            },
+            subRegions: {
+                subRegion: d => d['housing_subregion'],
+                name: d => d['name'],
+                source: d => d['source'],
+                key: d => d['key'],
+                value: d => d['value']
+            }
+        }
+
+        let data = {
+            boroughs: {},
+            services: {},
+            summary: [],
+            mapData: []
+        };
+
+        const formatCount = d3.format(",");
+        const gssToName = {
+        };
+        let boroughBySubRegion = {}
+
+
+        const dispatch = d3.dispatch(
+            "leaveborough",
+            "move"
+        );
+
+
+        // Init
+        const alert = setupAlert();
+        let tooltip;
+        Promise.all([
+        d3.json(SLEEPING_DATA),
+        d3.json(GEO_JSON),
+        d3.json(MAP_DATA),
+        d3.json(SUMMARY),
+        ]).then(([sleepData, locationData, mapData, summary]) => {
+            sleepData = d3.nest().key(d => d.Measure__c).object(sleepData)["chain_roughsleeping"];
+            sleepData = sleepData.map(d => {
+
+                return {
+                    "Gss Code": d["Gss_Code__c"],
+                    "Measure": d["Measure__c"],
+                    "Value": +d["Value__c"],
+                    "Year Date": d["Year_Date__c"],
+                    "yoy_diff": null
+                }
+            })
+
+            console.log(mapData)
+
+            sleepData.sort((a, b) => new Date(accessor.sleeping.yearDate(a) - accessor.sleeping.yearDate(b)))
+
+            //convert the data to type format
+            const dataColumns = ["id", "record_type_id", "gss", "service", "Provider", "service_text_1", "service_text_2", "service_text_3", "Website", "provided_in", "type", "longitude", "latitude"];
+            const dataColumnOld = ["id", "Record Type ID", "gss code", "service", "Provider", "service_text_1", "service_text_2", "service_text_3", "Website", "provided_in", "type", "Longitude", "Latitude"];
+            const sampleObject = mapData[0];
+            const boroughs = Object.keys(sampleObject).filter(key => !dataColumns.includes(key));
+            console.log(boroughs)
+            let finalDataMap = {};
+            boroughs.forEach(b => {
+                let data = mapData.filter(d => {
+                    d.type = +d[b];
+                    return +d[b] > 0 && +d[b] < 3;
+                });
+                data = data.map(d => {
+                    const e = {}
+                    dataColumnOld.forEach((c, index) => {
+                        e[c] = d[dataColumns[index]];
+                    })
+                    return e;
+                });
+                finalDataMap[b] = data;
+            })
+            data.locationData = {};
+            data.summary = summary;
+            data.mapData = finalDataMap
+            // end of conversion
+            locationData.features.forEach(feature => {
+                data.locationData[accessor.map.propertiesGssCode(feature)] = feature;
+            })
+            options.boroughs = BOROUGHS;
+            options.services = SERVICES;
+            // map the gssCode to name
+            BOROUGHS.forEach(b => {
+                gssToName[accessor.boroughs.gssCode(b)] = accessor.boroughs.name(b)
+            });
+
+            boroughBySubRegion = d3.nest().key(accessor.subRegions.subRegion).object(summary);
+            delete boroughBySubRegion[undefined];
+
+            //sleeping section
+            data.sleeping = d3.nest().key(accessor.sleeping.gssCode).object(sleepData);
+            Object.keys(data.sleeping).forEach(k => {
+                let d = data.sleeping[k];
+                d[d.length - 1].yoy_diff = accessor.sleeping.value(d[d.length - 1]) - accessor.sleeping.value(d[d.length - 2])
+            })
+
+            const headerFooter = renderHeaderFooter();
+            tooltip = renderTooltip(d3.select(".chart-tooltip"));
+            const map = renderMap();
+            const table = renderTable(map);
+
+
+            dispatch.on("move", (d) => {
+                tooltip.move();
+            });
+            dispatch.on("leaveborough", (d) => {
+                tooltip.hide()
+            });
+            const sleeping = renderSleeping();
+            const subRegion = renderSubRegion();
+
+            d3.select("#borough-select")
+                .call(setupSelectControl, "boroughs")
+                .on("change", function () {
+                    tooltip.hide();
+                    selected.borough = options.boroughs.find(
+                        (d) => accessor.boroughs.name(d) === this.value
+                    );
+                    headerFooter.update();
+                    table.update();
+                    sleeping.update()
+                    subRegion.update();
+                })
+                .each(function () {
+                    this.dispatchEvent(new Event("change"));
+                });
+
+
+            d3.select("#service-select")
+                .call(setupSelectControl, "services")
+                .on("change", function () {
+                    tooltip.hide();
+                    selected.service = options.services.find(
+                        (d) => accessor.services.name(d) === this.value
+                    );
+                    headerFooter.update();
+                    table.update();
+                })
+                .each(function () {
+                    this.dispatchEvent(new Event("change"));
+                });
+            loadData()
+        })
+            .catch((err) => {
+                console.error(err);
+                alert.show();
+            });
+
+
+
+        // Controls
+        function setupAlert() {
+            const alert = d3.select(".alert-danger");
+            function show() {
+                alert.classed("d-none", false);
+            }
+            function hide() {
+                alert.classed("d-none", true);
+            }
+            return {
+                show,
+                hide,
+            };
+        }
+
+        function setupSelectControl(select, type) {
+            select
+                .selectAll("option")
+                .data(options[type])
+                .join("option")
+                .attr("value", accessor[type].name)
+                .attr("selected", (d, i) => (i === 0 ? "selected" : null))
+                .text(accessor[type].name);
+        }
+
+
+        // Header/Footer
+        function renderHeaderFooter() {
+            const headerIcon = d3.select(".chart-header-icon")
+                .attr("src", HOME_IMAGE_URL);
+            const selectedBorough = d3.select(".selected-borough");
+            const dayCentres = d3.select('#day_centres');
+            const beds = d3.select('#beds');
+            const bedsServices = d3.select('#beds_services');
+            const shelterSpaces = d3.select('#shelter_spaces');
+            const houseFlats = d3.select('#house_flats');
+            const assessmentCentre = d3.select('#assessment_centre_services');
+            const assessmentCentrePlural = d3.select('#assessment_centre_services_plural');
+            const assessmentCentreContainer = d3.select('#assessment_centre_services-container');
+            const assessmentCentrePluralContainer = d3.select('#assessment_centre_services_plural-container');
+            const outreach = d3.select('#outreach');
+            const housingFirstUnit = d3.select('#hf_units');
+			const e_in = d3.select('#e_in');
+			const e_in2 = d3.select('#e_in2');
+			const e_in3 = d3.select('#e_in3');
+            function update() {
+                if (!selected.borough || !selected.service) return;
+                const name = accessor.boroughs.name(selected.borough);
+                const gssCode = accessor.boroughs.gssCode(selected.borough);
+                selectedBorough.text(name);
+                const summaryData = data.summary.find(d => accessor.summary.gssCode(d) === gssCode)
+                dayCentres.text(accessor.summary.dayCenter(summaryData));
+                beds.text(accessor.summary.beds(summaryData));
+				
+				e_in2.text(accessor.summary.e_in2(summaryData));
+				
+                bedsServices.text(accessor.summary.bedsServices(summaryData));
+                shelterSpaces.text(accessor.summary.shelterSpaces(summaryData));
+                houseFlats.text(accessor.summary.houseFlats(summaryData));
+                const noOfAssessment = accessor.summary.assessmentCentreServices(summaryData)
+                if(noOfAssessment > 0){
+                    if(noOfAssessment > 1){
+                        assessmentCentrePluralContainer.classed('d-none', false);
+                        assessmentCentreContainer.classed('d-none', true);
+                        assessmentCentrePlural.text(`${noOfAssessment}`);
+                    }else{
+                        assessmentCentrePluralContainer.classed('d-none', true);
+                        assessmentCentreContainer.classed('d-none', false);
+                        assessmentCentre.text(`${noOfAssessment}`);
+                    }
+                }else{
+                    assessmentCentreContainer.classed('d-none', true);
+                    assessmentCentrePluralContainer.classed('d-none', true);
+                }
+                outreach.text(accessor.summary.outreach(summaryData))
+                housingFirstUnit.text(accessor.summary.housingFirstUnit(summaryData))
+
+            }
+            return {
+                update,
+            };
+        }
+
+        //render map table
+        function renderTable(map) {
+
+            const table = d3.select('#map-table');
+            const purpleContainer = table.append('div').style('border-bottom', '1px solid black').style('margin-bottom', '16px');
+            const blueContainer = table.append('div').style('border-bottom', '1px solid black');
+
+            function update() {
+                if (!selected.borough || !selected.service) return;
+                const gssCode = accessor.boroughs.gssCode(selected.borough);
+                const tableData = data.mapData[gssCode]
+                const serviceGroup = accessor.services.group(selected.service);
+                let filteredData = accessor.map.tableData(tableData,
+                    accessor.map.type
+                    , serviceGroup);
+                const purpleData = filteredData.filter(d => accessor.map.recordTypeID(d) === PURPLE_ID).sort(function (a, b) {
+                    return accessor.map.provider(a) > accessor.map.provider(b) ? 1 : -1;
+                });
+
+                purpleContainer.selectAll('.table-item')
+                    .data(purpleData)
+                    .join((enter) => {
+                        const item = enter.append('div')
+                            .attr('class', 'table-item')
+                            .on("mouseenter", (d) => {
+                                if (accessor.map.longitude(d) && accessor.map.latitude(d)) {
+                                    map.showHighlight(d);
+                                }
+                                tooltip.show(boroughToolTipContent(d), d);
+                            })
+                            .on("mouseleave", () => {
+                                dispatch.call("leaveborough", this);
+                                map.resetMarker();
+                            })
+                            .on("mousemove", (d) => {
+                                dispatch.call("move", this);
+                            })
+                            .on(
+                                "touchstart",
+                                (d) => {
+                                    tooltip.show(boroughToolTipContent(d), d);
+                                },
+                                { passive: true }
+                            )
+                            .on("touchend", () => {
+                                dispatch.call("leaveborough", this);
+                            }).on('click', (d) => {
+                                const website = accessor.map.website(d);
+                                if (website) {
+                                    let prefix = ""
+                                    if (!website.includes('://')) {
+                                        prefix = "//"
+                                    }
+                                    window.open(prefix + website, '_blank')
+                                }
+                            });
+                        item.append('div')
+                            .attr('class', 'table-item-key').text(accessor.map.service);
+                        item.append('div')
+                            .attr('class', (d) => {
+                                return `table-item-value-capacity ${accessor.map.mapTableID(d)}-value`
+                            }).text(accessor.map.serviceTextValue)
+
+
+
+                    }, (update) => {
+                        update.select('.table-item-key').text(accessor.map.service);
+                        update.select('.table-item-value-capacity').text(accessor.map.serviceTextValue);
+
+                    }, (exit) => {
+                        exit.remove();
+                    });
+
+                const blueData = filteredData.filter(d => accessor.map.recordTypeID(d) === BLUE_ID).sort(function (a, b) {
+                    return accessor.map.provider(a) > accessor.map.provider(b) ? 1 : -1;
+                });
+                blueContainer.selectAll('.table-item')
+                    .data(blueData)
+                    .join((enter) => {
+                        const item = enter.append('div')
+                            .attr('class', 'table-item')
+                            .on("mouseenter", (d) => {
+                                if (accessor.map.longitude(d) && accessor.map.latitude(d)) {
+                                    map.showHighlight(d);
+                                }
+                                tooltip.show(boroughToolTipContent(d), d);
+                            })
+                            .on("mouseleave", () => {
+                                dispatch.call("leaveborough", this);
+                                map.resetMarker();
+                            })
+                            .on("mousemove", () => {
+                                dispatch.call("move", this);
+                            })
+                            .on(
+                                "touchstart",
+                                (d) => {
+                                    tooltip.show(boroughToolTipContent(d), d);
+                                },
+                                { passive: true }
+                            )
+                            .on("touchend", () => {
+                                dispatch.call("leaveborough", this);
+                            }).on('click', (d) => {
+                                const website = accessor.map.website(d);
+                                if (website) {
+                                    let prefix = ""
+                                    if (!website.includes('://')) {
+                                        prefix = "//"
+                                    }
+                                    window.open(prefix + website, '_blank')
+                                }
+                            });
+                        item.append('div')
+                            .attr('class', 'table-item-key').text(accessor.map.service);
+                        item.append('div')
+                            .attr('class', (d) => {
+                                return `table-item-value-spaces ${accessor.map.mapTableID(d)}-value`
+                            }).text(accessor.map.serviceTextValue)
+
+
+
+                    }, (update) => {
+                        update.select('.table-item-key').text(accessor.map.service);
+                        update.select('.table-item-value-spaces').text(accessor.map.serviceTextValue);
+
+                    }, (exit) => {
+                        exit.remove();
+                    });
+                //if both data are not available, hide the borders
+                if (purpleData.length < 1 && blueData.length < 1) {
+                    purpleContainer.style('opacity', 0);
+                    blueContainer.style('opacity', 0);
+                } else {
+                    purpleContainer.style('opacity', 1);
+                    blueContainer.style('opacity', 1);
+                }
+                //remove invalid location from the data
+                filteredData = filteredData.filter(d => accessor.map.longitude(d) && accessor.map.latitude(d))
+                map.update(filteredData)
+            }
+
+            return {
+                update
+            }
+        }
+
+
+        //render map
+        function renderMap() {
+            mapboxgl.accessToken = MAP_BOX_ACCESS_TOKEN;
+            var map = new mapboxgl.Map({
+                container: 'map',
+                style: 'mapbox://styles/mapbox/light-v9',
+                center: [-0.27091, 51.50675],
+                zoom: 10
+            });
+            map.addControl(new mapboxgl.NavigationControl());
+            let loaded = false;
+            var hoveredStateId = null;
+            var clickedStateId = null;
+            var mapData;
+            var markers = {};
+            var popup = new mapboxgl.Popup({
+                closeButton: false,
+                closeOnClick: false
+            });
+            var markersMap = {};
+
+            map.on('load', function () {
+                map.boxZoom.disable();
+                map.scrollZoom.disable();
+                map.dragRotate.disable();
+                map.doubleClickZoom.disable();
+                map.touchZoomRotate.disable();
+                map.style.stylesheet.layers.forEach(function (layer) {
+                    if (layer.type === 'symbol') {
+                        map.removeLayer(layer.id);
+                    }
+                });
+                loaded = true;
+                update(mapData)
+            });
+            function update(d) {
+                mapData = d || mapData;
+                if (!loaded)
+                    return
+                const gssCode = accessor.boroughs.gssCode(selected.borough);
+
+                const purpleData = mapData.filter(d =>
+                    accessor.map.recordTypeID(d) === PURPLE_ID);
+
+                const blueData = mapData.filter(d =>
+                    accessor.map.recordTypeID(d) === BLUE_ID);
+
+                //add the purple marker layer
+                let iconGeoJSONPurple = {
+                    'type': 'geojson',
+                    data: {
+                        type: 'FeatureCollection',
+                        features: purpleData.map(d => {
+                            return {
+                                type: 'Feature',
+                                geometry: {
+                                    type: 'Point',
+                                    coordinates: accessor.map.longLat(d)
+                                },
+                                properties: {
+                                    data: d,
+                                    description: boroughToolTipContent(d, true),
+                                    icon: {
+                                        iconSize: [50, 50], // size of the icon
+                                        iconAnchor: [25, 25], // point of the icon which will correspond to marker's location
+                                        popupAnchor: [0, -25], // point from which the popup should open relative to the iconAnchor
+                                        className: 'dot'
+                                    }
+                                }
+                            }
+                        })
+                    }
+                };
+
+
+                //add the blue marker layer
+                let iconGeoJSONBlue = {
+                    'type': 'geojson',
+                    data: {
+                        type: 'FeatureCollection',
+                        features: blueData.map(d => {
+                            return {
+                                type: 'Feature',
+                                geometry: {
+                                    type: 'Point',
+                                    coordinates: accessor.map.longLat(d)
+                                },
+                                properties: {
+                                    data: d,
+                                    description: boroughToolTipContent(d, true)
+                                }
+                            }
+                        })
+                    }
+                };
+
+                if (map.getLayer('borough-fills')) {
+                    map.removeLayer('borough-fills');
+                }
+                if (map.getLayer('borough-line')) {
+                    map.removeLayer('borough-line');
+                }
+                if (map.getSource('borough')) {
+                    map.removeSource('borough')
+                }
+                data.locationData[gssCode].id = 23;
+                map.addSource('borough', {
+                    'type': 'geojson',
+                    data: data.locationData[gssCode],
+                });
+
+                map.addLayer({
+                    'id': 'borough-line',
+                    'type': 'line',
+                    'source': 'borough',
+                    'layout': {},
+                    'paint': {
+                        'line-color': '#00aaff',
+                        'line-width': 3
+                    }
+                });
+
+                map.addLayer({
+                    'id': 'borough-fills',
+                    'type': 'fill',
+                    'source': 'borough',
+                    'layout': {},
+                    'paint': {
+                        'fill-color': 'transparent'
+                    }
+                });
+
+
+                function openURLInNewTab(data) {
+                    const website = accessor.map.website(data);
+                    if (website) {
+                        let prefix = ""
+                        if (!website.includes('://')) {
+                            prefix = "//"
+                        }
+                        window.open(prefix + website, '_blank')
+                    }
+                }
+
+                /**
+                 * MARKERS SECTION
+                 */
+                function setMarkers(data, className, url) {
+                    d3.selectAll('.' + className).remove();
+                    data.forEach(function (d) {
+                        var icon = document.createElement('div');
+                        var img = document.createElement('img')
+                        icon.classList.add(className);
+                        //icon.style.backgroundImage = `url(${url})`;
+                        img.setAttribute('src', url);
+                        img.setAttribute('id', 'marker-' + d.location.join('-').replace(/\./g, '-'))
+                        img.classList.add('img')//`url(${url})`;
+                        icon.append(img)
+                        const marker = new mapboxgl.Marker(icon, {
+                            anchor: 'bottom',
+                            offset: [0, 6]
+                        })
+                            .setLngLat(d.location)
+                            .addTo(map);
+                        icon.addEventListener('mousemove', function (e) {
+                            tooltip.show(boroughToolTipContent(d.properties.data, true));
+                            tooltip.move(e);
+                            const data = d.properties.data;
+                            d3.selectAll(`.${accessor.map.mapTableID(data)}-value`).classed('table-item-value-filled', true)
+                        });
+                        icon.addEventListener('mouseout', function () {
+                            tooltip.hide();
+                            const data = d.properties.data;
+                            d3.selectAll(`.${accessor.map.mapTableID(data)}-value`).classed('table-item-value-filled', false)
+                        });
+                        icon.addEventListener('click', function () {
+                            openURLInNewTab(d.properties.data);
+                        })
+                    });
+                }
+
+                const blueLocations = iconGeoJSONBlue.data.features.map(function (d) {
+                    return {
+                        location: d.geometry.coordinates,
+                        properties: d.properties
+                    }
+                });
+                const purpleLocations = iconGeoJSONPurple.data.features.map(function (d) {
+                    return {
+                        location: d.geometry.coordinates,
+                        properties: d.properties
+                    }
+                });
+
+                setMarkers(blueLocations, 'blue-marker', BLUE_MARKER);
+                setMarkers(purpleLocations, 'purple-marker', PURPLE_MARKER);
+
+                // fit the borough to the map
+                const allCoordinates = [];
+                data.locationData[gssCode].geometry.coordinates.forEach(function (d) {
+                    if (Array.isArray(d[0][0])) {
+                        d.forEach(function (e) {
+                            allCoordinates.push(...e);
+                        })
+                    } else {
+                        allCoordinates.push(...d);
+                    }
+                });
+                mapData.forEach(function (d) {
+                    allCoordinates.push([accessor.map.longitude(d), accessor.map.latitude(d)]);
+                })
+                var coordinates = allCoordinates;
+                var bounds = coordinates.reduce(function (bounds, coord) {
+                    return bounds.extend(coord);
+                }, new mapboxgl.LngLatBounds(coordinates[0], coordinates[0]));
+                map.fitBounds(bounds, {
+                    padding: 20
+                });
+            }
+
+            function showHighlight(u) {
+                d3.selectAll('.purple-marker').select('img').attr('src', GREY_MARKER);
+                d3.selectAll('.blue-marker').select('img').attr('src', GREY_MARKER);
+                const location = [accessor.map.longitude(u), accessor.map.latitude(u)];
+                let url;
+                const purpleData = mapData.filter(d =>
+                    accessor.map.recordTypeID(d) === PURPLE_ID && JSON.stringify(u) === JSON.stringify(d));
+                if (purpleData.length > 0)
+                    url = PURPLE_MARKER;
+                const blueData = mapData.filter(d =>
+                    accessor.map.recordTypeID(d) === BLUE_ID && JSON.stringify(u) === JSON.stringify(d));
+                if (blueData.length > 0)
+                    url = BLUE_MARKER;
+                d3.select('#marker-' + location.join('-').replace(/\./g, '-')).attr('src', url)
+            }
+
+            function resetMarker() {
+                d3.selectAll('.purple-marker').select('img').attr('src', PURPLE_MARKER);
+                d3.selectAll('.blue-marker').select('img').attr('src', BLUE_MARKER);
+            }
+
+            return {
+                update,
+                showHighlight,
+                resetMarker
+            }
+        }
+
+
+
+        //sleeping
+
+        function renderSleeping() {
+            const headerIcon = d3.select(".sleeping-header-icon")
+                .attr("src", ROUGH_SLEEPING_IMAGE_URL);
+            const yoyDiff = d3.select('#yoy_diff');
+            const height = 160;
+            const margin = { top: 20, right: 50, bottom: 40, left: 20 };
+            let svg = d3.select('#chain-line-chart').append('svg')
+                .attr('width', '100%')
+                .attr('height', height + margin.bottom)
+            const width = svg.node().getBoundingClientRect().width - margin.right;
+            svg = svg.append('g')
+                .attr('transform', `translate(${margin.left},${margin.top})`);
+            const x = d3.scaleBand().range([width,0])
+
+            const xAxis = svg.append("g")
+                .attr('class', 'x-axis')
+                .attr("transform", "translate(0," + (height) + ")")
+
+
+            var y = d3.scaleLinear().range([height, 0]);
+            const radius = 3;
+
+            function update() {
+                const gssCode = accessor.boroughs.gssCode(selected.borough);
+                let sleepData = data.sleeping[gssCode];
+                 /* 01-09-2022: Pick only the most recent 5 years */
+                 const yearsCount = Math.min(5, sleepData.length);
+                const mostRecentData = []
+                for(let i = sleepData.length-1; i >=  (Math.max(0, sleepData.length-yearsCount)); i--){
+                    mostRecentData.push(sleepData[i]);
+                }
+                sleepData = mostRecentData
+                let yoy_diff;
+                sleepData.forEach(d => {
+                    if (accessor.sleeping.yearDifference(d)) {
+                        yoy_diff = accessor.sleeping.yearDifference(d);
+                    }
+                });
+                yoyDiff.text(`${yoy_diff > 0 ? '+' : ''}${yoy_diff}`);
+                x.domain(sleepData.map(accessor.sleeping.yearDate))
+                y.domain([0, d3.max(sleepData, accessor.sleeping.value)]);
+            
+                svg.select('.x-axis').html("")
+                const xAxis = svg.select('.x-axis').call(d3.axisBottom(x).tickFormat(d => {
+                    return d3.timeFormat('%Y')(d);
+                }))
+                xAxis.selectAll('.tick>line').remove();
+                const xOffset = x.bandwidth() / 2;
+                svg.select('.line').remove()
+                svg.append("path")
+                    .datum(sleepData)
+                    .attr('class', 'line')
+                    .attr("fill", "none")
+                    .attr("stroke-width", 1.5)
+                    .attr("d", d3.line()
+                        .x(d => x(accessor.sleeping.yearDate(d)) + xOffset)
+                        .y(d => y(accessor.sleeping.value(d)))
+                    );
+                svg.selectAll('.circle').remove();
+                svg.selectAll('.circle')
+                    .data(sleepData)
+                    .enter()
+                    .append('circle')
+                    .attr('class', 'circle')
+                    .attr('cx', d => x(accessor.sleeping.yearDate(d)) + xOffset)
+                    .attr('cy', d => y(accessor.sleeping.value(d)))
+                    .attr('r', radius);
+                svg.selectAll('.sleep-value').remove()
+                svg.selectAll('.sleep-value')
+                    .data(sleepData)
+                    .enter()
+                    .append('text')
+                    .attr('class', 'sleep-value')
+                    .attr('x', d => x(accessor.sleeping.yearDate(d)) + xOffset)
+                    .attr('y', d => y(accessor.sleeping.value(d)) + 20)
+                    .text(d => {
+                        return String(accessor.sleeping.value(d))
+                    })
+
+
+
+            }
+            return {
+                update
+            }
+        }
+
+
+        //subregion
+        function renderSubRegion() {
+            const headerIcon = d3.select(".sub-region-header-icon")
+                .attr("src", SUB_REGION_IMAGE_URL);
+            const source = d3.select('#sub-region-data-source')
+            const bars = renderBars();
+            const boroughList = renderBoroughList();
+            let value;
+
+
+            function renderBoroughList() {
+                const list = d3.select('#borough-list');
+                function update() {
+                    if (!value)
+                        return
+                    selected.subRegion = options.subRegions.find(
+                        (d) => accessor.subRegions.name(d) === value
+                    );
+                    if (!selected.borough)
+                        return
+                    const sourceText = accessor.subRegions.source(selected.subRegion);
+                    source.text(sourceText);
+                    const gssCode = accessor.boroughs.gssCode(selected.borough)
+                    const boroughData = data.summary.find(d => accessor.summary.gssCode(d) === gssCode);
+                    const subRegion = accessor.subRegions.subRegion(boroughData);
+
+                    const listData = boroughBySubRegion[subRegion].map(d => {
+                        return {
+                            data: d,
+                            name: accessor.summary.name(d),
+                            key: accessor.subRegions.key(selected.subRegion),
+                            value: d[accessor.subRegions.key(selected.subRegion)]
+                        }
+                    });
+
+                    //sort the list
+                    listData.sort((a, b) => {
+                        if (selected.subRegion.sortType === 'value') {
+                            return b[selected.subRegion.sortType] - a[selected.subRegion.sortType]
+                        }
+                        return 1;
+                    });
+                    list.selectAll('.sub-region-item')
+                        .data(listData)
+                        .join((enter) => {
+                            const item = enter.append('div')
+                                .attr('class', 'sub-region-item')
+                            item.append('div')
+                                .attr('class', 'sub-region-item-key sub-region-item-node').text(accessor.subRegions.name);
+                            const value = selected.subRegion.includeName ? (d) => "" : accessor.subRegions.value
+                            item.append('div')
+                                .attr('class', (d) => {
+                                    return `sub-region-item-value sub-region-item-node`
+                                }).text(value)
+                                .on("mouseenter", (d) => {
+
+                                })
+                                .on("mouseleave", () => {
+                                    dispatch.call("leaveborough", this);
+                                })
+                                .on("mousemove", () => {
+
+                                })
+                                .on(
+                                    "touchstart",
+                                    () => {
+
+                                    },
+                                    { passive: true }
+                                )
+                                .on("touchend", () => {
+                                    dispatch.call("leaveborough", this);
+                                }).on('click', (d) => {
+
+                                });
+
+
+                        }, (update) => {
+                            const value = selected.subRegion.includeName ? (d) => "" : accessor.subRegions.value
+                            update.select('.sub-region-item-key').text(accessor.subRegions.name);
+                            update.select('.sub-region-item-value').text(value);
+
+                        }, (exit) => {
+                            exit.remove();
+                        });
+                    bars.update(listData)
+                }
+                return { update }
+            }
+
+
+            function renderBars() {
+                const rowHeight = 20;
+                const svg = d3.select('#borough-bars').append('svg')
+                    .attr('width', '100%')
+                const x = d3.scaleLinear();
+                var y = d3.scaleBand().padding(.07);
+
+
+                function listenForMouse(selection) {
+                    selection.on("mouseenter", (d) => {
+                        tooltip.show(subRegionTipContent(d));
+                    })
+                        .on("mouseleave", () => {
+                            dispatch.call("leaveborough", this);
+                        })
+                        .on("mousemove", () => {
+                            dispatch.call("move", this);
+                        })
+                        .on(
+                            "touchstart",
+                            (d) => {
+                                tooltip.show(subRegionTipContent(d));
+                            },
+                            { passive: true }
+                        )
+                        .on("touchend", () => {
+                            dispatch.call("leaveborough", this);
+                        }).on('click', (d) => {
+
+                        });
+                }
+
+                function update(data) {
+                    const height = data.length * rowHeight
+                    svg.attr('height', height);
+                    const width = svg.node().getBoundingClientRect().width;
+                    x.range([2, width])
+                        .domain([0, d3.max(data, function (d) {
+                            return d.value;
+                        })]);
+                    y.range([height, 0])
+                        .domain(data.map(function (d) {
+                            return d.name;
+                        }).reverse());
+
+                    var bars = svg.selectAll(".bar")
+                        .data(data)
+                        .join((enter) => {
+                            const g = enter.append('g')
+                                .attr('transform', d => `translate(2,${y(d.name)})`)
+                                .attr('class', 'bar')
+                            g.append('rect')
+                                .attr('width', d => {
+                                    if (selected.subRegion.sortType !== 'value') {
+                                        return width;
+                                    }
+                                    return x(d.value);
+                                })
+                                .attr('height', y.bandwidth())
+                                .classed('barSelected', d => {
+                                    const name = accessor.boroughs.name(selected.borough);
+                                    return name == d.name
+                                });
+                            g.selectAll('.bar-label').remove();
+                            if (selected.subRegion.includeName) {
+                                g.append('text')
+                                    .attr('class', 'bar-label')
+                                    .attr('x', '50%')
+                                    .attr('y', 13)
+                                    .style('text-anchor', 'middle').text(d => d.data[selected.subRegion.accessorKey])
+                            }
+
+                            g.call(listenForMouse);
+
+                        }, (update) => {
+
+                            const g = update.attr('transform', d => `translate(2,${y(d.name)})`)
+                            g.select('rect').attr('width', d => {
+                                if (selected.subRegion.sortType !== 'value') {
+                                    return width;
+                                }
+                                return x(d.value);
+                            })
+                                .attr('height', y.bandwidth())
+                                .classed('barSelected', d => {
+                                    const name = accessor.boroughs.name(selected.borough);
+                                    return name === d.name
+                                });
+                            g.selectAll('.bar-label').remove();
+                            if (selected.subRegion.includeName) {
+                                g.append('text').attr('class', 'bar-label')
+                                    .attr('x', '50%')
+                                    .attr('y', 13)
+                                    .style('text-anchor', 'middle')
+                                    .text(d => d.data[selected.subRegion.accessorKey])
+                            }
+
+                        }, (exit) => {
+                            exit.remove()
+                        });
+
+                }
+                return {
+                    update
+                }
+            }
+
+            d3.select("#sub-region-select")
+                .call(setupSelectControl, "subRegions")
+                .on("change", function () {
+                    value = this.value;
+                    boroughList.update();
+                })
+                .each(function () {
+                    this.dispatchEvent(new Event("change"));
+                });
+
+
+            function update() {
+                boroughList.update();
+            }
+            return {
+                update
+            }
+
+        }
+
+
+
+
+
+        // tooltip content
+        function boroughToolTipContent(d, fromMap) {
+            const serviceProvider = accessor.map.providedIn(d) //accessor.boroughs.name(selected.borough);
+            const provider = accessor.map.provider(d);
+            const serviceText1 = accessor.map.serviceTextOne(d);
+            const serviceText2 = accessor.map.serviceTextTwo(d);
+            const serviceText3 = accessor.map.serviceTextThree(d);
+            const clickDot = fromMap ? (accessor.map.website(d) && accessor.map.website(d).length > 0 ? "Click dot to view service website" : "") : ""
+            return `
+                <div style="text-align:center">
+                <div class="tip-header">
+                ${accessor.map.service(d) || ""}
+                </div>
+                <div style="text-align:center;">
+                <span style="font-family:'Nirmala UI';font-size:13px;color:#333333;font-weight:normal;font-style:normal;text-decoration:none;">
+                Provided in </span><span style="font-family:'Nirmala UI';font-size:13px;color:#7085a9;font-weight:bold;font-style:normal;text-decoration:none;">
+                ${serviceProvider || ""}</span><span style="font-family:'Nirmala UI';font-size:13px;color:#ff5500;font-weight:bold;font-style:normal;text-decoration:none;">&nbsp;</span><span style="font-family:'Nirmala UI';font-size:13px;color:#333333;font-weight:normal;font-style:normal;text-decoration:none;">
+                by </span><span style="font-family:'Nirmala UI';font-size:13px;color:#7085a9;font-weight:bold;font-style:normal;text-decoration:none;">
+                ${provider || ""}</span><span style="font-family:'Nirmala UI';font-size:13px;color:#7085a9;font-weight:normal;font-style:normal;text-decoration:none;">&nbsp;</span></div>
+                <div style="text-align:center;margin-top:8px;"><span style="font-family:'Nirmala UI';font-size:15px;color:#ff557f;font-weight:bold;font-style:normal;text-decoration:none;">${serviceText1 || ""}</span></div>
+                <div style="text-align:center;margin-top:8px;"><span style="font-family:'Nirmala UI';font-size:12px;color:#333333;font-weight:normal;font-style:italic;text-decoration:none;">${serviceText2 || ""}</span></div>
+                <div style="text-align:center;margin-top:8px;"><span style="font-family:'Nirmala UI';font-size:12px;color:#333333;font-weight:normal;font-style:italic;text-decoration:none;">${serviceText3 || ""}</span></div>
+                <div style="color:#B07AA1; margin-top:12px">${clickDot}</div>
+                </div>
+
+                `
+        }
+
+
+        function subRegionTipContent(d) {
+            const value = selected.subRegion.includeName ? d.data[selected.subRegion.accessorKey] : d.value;
+            return `<div>
+                <div style="color:#8EA0BA; font-size:.75rem">${d.name}</div>
+                <div style="font-size:.75rem">${accessor.subRegions.name(selected.subRegion)}</div>
+                <div style="color:#E74BCD; font-size:.9rem">${value}</div>
+                </div>`
+        }
+
+
+        // Tooltip
+        function renderTooltip(tooltip) {
+            let width, height;
+            const padding = 8;
+
+            function show(content, color) {
+                tooltip.style("border-color", color).html(content);
+                const bcr = tooltip.node().getBoundingClientRect();
+                width = bcr.width;
+                height = bcr.height;
+                tooltip.classed("show", true);
+            }
+
+            function hide() {
+                tooltip.classed("show", false);
+            }
+
+            function move(e) {
+                let x = (e || d3.event).clientX - width * .75;
+                if (x < 0) {
+                    x = 0;
+                } else if (x + width > window.innerWidth) {
+                    x = window.innerWidth - width;
+                }
+                let y = (e || d3.event).clientY - height - padding;
+                if (y < 0) {
+                    y = 0;
+                }
+                tooltip.style("transform", `translate(${x}px,${y - 10}px)`);
+            }
+
+            return {
+                show,
+                hide,
+                move,
+            };
+        }
+    }())
+</script>
+<script>
+        (function () {
+            const CSV_LINKS_URL = "https://www.illustrate.studio/sites/default/files/json/csv_links_20220908.json";
+
+            const modalWidth = 320;
+
+            d3.json(CSV_LINKS_URL).then((csvLinks) => {
+                const modal = d3
+                    .select("body")
+                    .append("div")
+                    .attr("class", "modal fade")
+                    .attr("id", "csv-modal")
+                    .attr("tabindex", "-1");
+
+                const modalDialog = modal
+                    .append("div")
+                    .attr("class", "modal-dialog m-0")
+                    .style("width", `${modalWidth}px`);
+
+                const modalContent = modalDialog
+                    .append("div")
+                    .attr("class", "modal-content");
+
+                const modalHeader = modalContent
+                    .append("div")
+                    .attr("class", "modal-header")
+                    .call((header) =>
+                        header.append("h6").attr("class", "modal-title").text("CSV Download")
+                    )
+                    .call((header) =>
+                        header
+                            .append("button")
+                            .attr("type", "button")
+                            .attr("class", "close")
+                            .attr("data-dismiss", "modal")
+                            .attr("aria-label", "Close")
+                            .append("span")
+                            .attr("aria-hidden", "true")
+                            .html("&times;")
+                    );
+
+                const form = modalContent
+                    .append("div")
+                    .attr("class", "modal-body")
+                    .append("form");
+                form
+                    .append("div")
+                    .attr("class", "form-group")
+                    .call((group) =>
+                        group
+                            .append("label")
+                            .attr("for", "csv-source-select")
+                            .text("Which data source would you like to download?")
+                    )
+                    .call((group) =>
+                        group
+                            .append("select")
+                            .attr("class", "form-control custom-select-url custom-select-sm")
+                            .attr("id", "csv-source-select")
+                            .selectAll("option")
+                            .data(csvLinks)
+                            .join("option")
+                            .attr("value", (d) => d.url)
+                            .text((d) => d.name)
+                    );
+                form
+                    .append("button")
+                    .attr("type", "submit")
+                    .attr("class", "btn btn-sm btn-primary")
+                    .text("Download")
+                    .on("click", downloadCSV);
+
+                const csvButton = d3
+                    .select(".btn__export--csv")
+                    .attr("data-toggle", "modal")
+                    .attr("data-target", "#csv-modal");
+
+                d3.select("body").append("style").text(`
+      .modal-backdrop.show {
+        opacity: 0.2;
+      }
+    `);
+
+                const {
+                    width: buttonWidth,
+                    height: buttonHeight,
+                } = csvButton.node().getBoundingClientRect();
+
+                $("#csv-modal").on("show.bs.modal", positionModal);
+                window.addEventListener("resize", resize);
+
+                function downloadCSV() {
+                    d3.event.preventDefault();
+                    const url = d3.select("#csv-source-select").node().value;
+                    if (url) {
+                        window.location = url;
+                    }
+                }
+
+                function positionModal() {
+                    let { left, top } = csvButton.node().getBoundingClientRect();
+                    left = left + buttonWidth / 2 - modalWidth / 2;
+                    if (left < 0) left = 0;
+                    if (left + modalWidth > window.innerWidth)
+                        left = window.innerWidth - modalWidth;
+                    top = top + buttonHeight;
+                    modalDialog.style("left", `${left}px`).style("top", `${top}px`);
+                }
+
+                function resize() {
+                    if (modal.classed("show")) {
+                        positionModal();
+                    }
+                }
+            });
+        })();
+</script>
+<script>window.Choices = {}</script>

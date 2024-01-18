@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Webpage</title>
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+
+    <style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        .container {
+            display: flex;
+        }
+
+        .container {
+            display: flex;
+        }
+
+        .column {
+            flex: 1;
+            padding: 10px;
+        }
+
+        .dropdown-container {
+            text-align: left;
+        }
+
+        .dropdown-title {
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .map-placeholder {
+            width: 400px;
+            height: 400px;
+            background-color: grey;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        #geojsonMap {
+            width: 450px; /* Responsive width */
+            height: 400px; /* Maintain aspect ratio */
+        }
+
+        .section-header {
+            font-weight: bold;
+            font-size: 1.1em;
+            color: #00aaff;
+            margin-bottom: 10px;
+        }
+
+        .tooltip {
+            position: absolute;
+            text-align: center;
+            width: auto;
+            height: auto;
+            padding: 2px;
+            font: 12px sans-serif;
+            background: lightsteelblue;
+            border: 0px;
+            border-radius: 8px;
+            pointer-events: none;
+        }
+
+        .dropdown-container {
+            text-align: left;
+        }
+
+
+
+        td {
+            background-color: white !important; /* Overriding other styles */
+            /* For table headers */
+        }
+
+        th {
+            background-color: white !important; /* Overriding other styles */
+            color: #010a0f !important; /* For table headers */
+        }
+
+        table {
+            width: 100%; /* Makes sure the table takes the full width of its container */
+        }
+
+        th, td {
+            text-align: left; /* Aligns the text to the left. You can change it as per your requirement */
+        }
+
+            th:first-child, td:first-child {
+                width: 75%; /* Sets the width of the first column */
+            }
+
+            th:nth-child(2), td:nth-child(2),
+            th:nth-child(3), td:nth-child(3) {
+                width: 25%; /* Sets the width of the second and third columns */
+            }
+
+        .container {
+            margin-top: 20px; /* Adds space at the top of the page */
+        }
+
+        .section-header {
+            margin-top: 20px; /* Adds space between the header and the next table */
+        }
+
+        .dropdown-title {
+            font-size: 18px; /* Adjust the size for the title */
+            margin-bottom: 5px;
+        }
+
+        .choices__item--selectable {
+            font-size: 16px; /* Adjust the size for the selected item */
+        }
+
+        .choices__list--dropdown .choices__item--choice {
+            font-size: 16px /* Adjust the size for the dropdown items */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- First Column -->
+        <div class="column">
+            <div class="dropdown-container">
+                <div class="dropdown-group">
+                    <div class="dropdown-title">Select the area or service type to view active providers</div>
+                    <select class="form-control custom-select custom-select-sm"
+                            id="laDropdown"></select>
+                </div>
+            </div>
+            <svg id="geojsonMap" width="550" height="450"></svg>
+        </div>
+
+        <!-- Second Column -->
+        <div class="column">
+            <div class="section-header">Day Centres</div>
+            <table id="centresTable">
+                <thead>
+                    <tr>
+                        <th>Provider</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Table rows will be added here -->
+                </tbody>
+            </table>
+
+            <div class="section-header">Winter Shelters</div>
+            <table id="shelterTable">
+                <thead>
+                    <tr>
+                        <th>Provider</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Table rows will be added here -->
+                </tbody>
+            </table>
+
+            <div class="section-header">Outreach</div>
+            <table id="outreachTable">
+                <thead>
+                    <tr>
+                        <th>Provider</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Table rows will be added here -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Third Column -->
+        <div class="column">
+            <div class="section-header">Accommodation/Assessment Centre</div>
+            <table id="accommodationTable">
+                <thead>
+                    <tr>
+                        <th>Provider</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Table rows will be added here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+    <!-- JavaScript Goes Here -->
+    <script>
+
+
+        let accommodationData = [];
+        let svg; // Declare svg globally
+        let choices; // Declare Choices.js instance globally
+
+        document.addEventListener('DOMContentLoaded', function () {
+            // Initialize the SVG map
+            svg = d3.select("#geojsonMap");
+            var width = +svg.attr("width");
+            var height = +svg.attr("height");
+
+            var projection = d3.geoMercator()
+                .center([-0.00, 51.480])
+                .scale(30000)
+                .translate([width / 2, height / 2]);
+
+            var path = d3.geoPath().projection(projection);
+
+            var tooltip = d3.select("body").append("div")
+                .attr("class", "tooltip")
+                .style("opacity", 0);
+
+            d3.json('https://raw.githubusercontent.com/illustrating-impact-dev/atlas/main/boroughs.json').then(function (geojson) {
+                svg.selectAll("path")
+                    .data(geojson.features)
+                    .enter().append("path")
+                    .attr("d", path)
+                    .attr("fill", "white")
+                    .attr("stroke", "#9fa0a1")
+                    .on("mouseover", function (event, d) {
+                        tooltip.transition()
+                            .duration(200)
+                            .style("opacity", .9);
+                        tooltip.html(d.properties.NAME)
+                            .style("left", (event.pageX) + "px")
+                            .style("top", (event.pageY - 28) + "px");
+                    })
+                    .on("mouseout", function (d) {
+                        tooltip.transition()
+                            .duration(500)
+                            .style("opacity", 0);
+                    })
+                    .on("click", function (event, d) {
+                        updateDropdownFromMap(d.properties.GSS_CODE);
+                        updateAccommodationTable(d.properties.GSS_CODE);
+                        updateOutreachTable(d.properties.GSS_CODE);
+                        updateCentresTable(d.properties.GSS_CODE);
+                        updateShelterTable(d.properties.GSS_CODE);
+                        updateMapHighlight(d.properties.GSS_CODE);
+                    });
+
+                updateMapHighlight(); // Call this function after the map is fully set up
+            });
+
+            // Initialize Choices.js dropdown
+            const dropdownElement = document.getElementById('laDropdown');
+            Promise.all([
+                fetch('https://raw.githubusercontent.com/illustrating-impact-dev/atlas/main/dropdown.json')
+                    .then(response => response.json()),
+                fetch('https://raw.githubusercontent.com/illustrating-impact-dev/atlas/main/charter.json')
+                    .then(response => response.json())
+            ]).then(([dropdownData, accommodationDataResponse]) => {
+                const choicesOptions = dropdownData.map(item => {
+                    return { value: item.GSS, label: item.la_name };
+                });
+
+
+
+                choices = new Choices(dropdownElement, {
+                   searchEnabled: false,
+                   itemSelectText: '',
+                   removeItemButton: false,
+                  choices: choicesOptions
+                });
+
+
+
+
+                const westminsterOptionIndex = choicesOptions.findIndex(opt => opt.label === 'Westminster');
+                if (westminsterOptionIndex !== -1) {
+                    choices.setChoiceByValue(choicesOptions[westminsterOptionIndex].value);
+                }
+
+                accommodationData = accommodationDataResponse;
+
+                if (choicesOptions.length > 0) {
+                    const selectedValue = choices.getValue(true);
+                    updateAccommodationTable(selectedValue);
+                    updateOutreachTable(selectedValue);
+                    updateCentresTable(selectedValue);
+                    updateShelterTable(selectedValue);
+                    updateMapHighlight(selectedValue);
+                }
+
+                // Find the outer dropdown element
+                var outerDropdown = document.querySelector('.choices[data-type="select-one"][role="combobox"]');
+
+                // Find the inner dropdown element
+                var innerDropdown = outerDropdown.querySelector('.choices[data-type="select-one"][role="listbox"]');
+
+                // Replace the outer dropdown with the inner dropdown
+                if (outerDropdown && innerDropdown) {
+                    outerDropdown.parentNode.replaceChild(innerDropdown, outerDropdown);
+                }
+
+            }).catch(error => {
+                console.error('Error loading data:', error);
+            });
+
+            // Event listener for dropdown change
+            dropdownElement.addEventListener('change', function (event) {
+                const selectedValue = event.detail.value;
+                updateAccommodationTable(selectedValue);
+                updateOutreachTable(selectedValue);
+                updateCentresTable(selectedValue);
+                updateShelterTable(selectedValue);
+                updateMapHighlight(selectedValue);
+            });
+        });
+
+        // Function to update the dropdown from the map click event
+        function updateDropdownFromMap(value) {
+            choices.setChoiceByValue(value);
+        }
+
+
+
+        function updateAccommodationTable(value) {
+            const tableBody = document.getElementById('accommodationTable').getElementsByTagName('tbody')[0];
+            tableBody.innerHTML = ''; // Clear existing rows
+
+            let filteredData;
+
+            if (value === "WOMEN") {
+                // Filter for "WOMEN" GSS code
+                filteredData = accommodationData.filter(item =>
+                    item.Women === true &&
+                    (item.ServiceType === 'Accommodation' || item.ServiceType === 'Assessment_Centre') &&
+                    item.Provider.trim() !== ''
+                );
+            } else if (value === "YOUNG") {
+                // Filter for "YOUNG" GSS code
+                filteredData = accommodationData.filter(item =>
+                    item.Young === true &&
+                    (item.ServiceType === 'Accommodation' || item.ServiceType === 'Assessment_Centre') &&
+                    item.Provider.trim() !== ''
+                );
+            } else {
+                // Original filter logic for other GSS codes
+                filteredData = accommodationData.filter(item =>
+                    item.GSS === value &&
+                    (item.ServiceType === 'Accommodation' || item.ServiceType === 'Assessment_Centre') &&
+                    item.Provider.trim() !== ''
+                );
+            }
+
+            // Get unique providers and sort them alphabetically
+            const uniqueProviders = Array.from(new Set(filteredData.map(item => item.Provider)))
+                .sort((a, b) => a.localeCompare(b)); // Sorting alphabetically
+
+            uniqueProviders.forEach(provider => {
+                const providerData = filteredData.find(item => item.Provider === provider);
+                const row = tableBody.insertRow();
+                const cell1 = row.insertCell(0); // Provider
+                const cell2 = row.insertCell(1); // Website
+
+
+                cell1.textContent = provider;
+
+
+                // Provider URL (only if not blank or "0")
+                const providerURL = providerData.ProviderURL;
+                if (providerURL && providerURL !== "0") {
+                    cell2.innerHTML = `<a href="${providerURL}" target="_blank">View site</a>`;
+                }
+            });
+        }
+
+        function updateOutreachTable(value) {
+            const tableBody = document.getElementById('outreachTable').getElementsByTagName('tbody')[0];
+            tableBody.innerHTML = ''; // Clear existing rows
+
+            let filteredData;
+
+            if (value === "WOMEN") {
+                // Filter for "WOMEN" GSS code
+                filteredData = accommodationData.filter(item =>
+                    item.Women === true &&
+                    item.ServiceType === 'Outreach' &&
+                    item.Provider.trim() !== ''
+                );
+            } else if (value === "YOUNG") {
+                // Filter for "YOUNG" GSS code
+                filteredData = accommodationData.filter(item =>
+                    item.Young === true &&
+                    item.ServiceType === 'Outreach' &&
+                    item.Provider.trim() !== ''
+                );
+            } else {
+                // Original filter logic for other GSS codes
+                filteredData = accommodationData.filter(item =>
+                    item.GSS === value &&
+                    item.ServiceType === 'Outreach' &&
+                    item.Provider.trim() !== ''
+                );
+            }
+            // Get unique providers and sort them alphabetically
+            const uniqueProviders = Array.from(new Set(filteredData.map(item => item.Provider)))
+                .sort((a, b) => a.localeCompare(b)); // Sorting alphabetically
+
+            uniqueProviders.forEach(provider => {
+                const providerData = filteredData.find(item => item.Provider === provider);
+                const row = tableBody.insertRow();
+                const cell1 = row.insertCell(0); // Provider
+                const cell2 = row.insertCell(1); // Website
+
+
+                cell1.textContent = provider;
+
+
+                // Provider URL (only if not blank or "0")
+                const providerURL = providerData.ProviderURL;
+                if (providerURL && providerURL !== "0") {
+                    cell2.innerHTML = `<a href="${providerURL}" target="_blank">View site</a>`;
+                }
+            });
+        }
+
+        function updateCentresTable(value) {
+            const tableBody = document.getElementById('centresTable').getElementsByTagName('tbody')[0];
+            tableBody.innerHTML = ''; // Clear existing rows
+
+            let filteredData;
+
+            if (value === "WOMEN") {
+                // Filter for "WOMEN" GSS code
+                filteredData = accommodationData.filter(item =>
+                    item.Women === true &&
+                    item.ServiceType === 'Day_Centre' &&
+                    item.Provider.trim() !== ''
+                );
+            } else if (value === "YOUNG") {
+                // Filter for "YOUNG" GSS code
+                filteredData = accommodationData.filter(item =>
+                    item.Young === true &&
+                    item.ServiceType === 'Day_Centre' &&
+                    item.Provider.trim() !== ''
+                );
+            } else {
+                // Original filter logic for other GSS codes
+                filteredData = accommodationData.filter(item =>
+                    item.GSS === value &&
+                    item.ServiceType === 'Day_Centre' &&
+                    item.Provider.trim() !== ''
+                );
+            }
+            // Get unique providers and sort them alphabetically
+            const uniqueProviders = Array.from(new Set(filteredData.map(item => item.Provider)))
+                .sort((a, b) => a.localeCompare(b)); // Sorting alphabetically
+
+            uniqueProviders.forEach(provider => {
+                const providerData = filteredData.find(item => item.Provider === provider);
+                const row = tableBody.insertRow();
+                const cell1 = row.insertCell(0); // Provider
+                const cell2 = row.insertCell(1); // Website
+
+
+                cell1.textContent = provider;
+
+
+                // Provider URL (only if not blank or "0")
+                const providerURL = providerData.ProviderURL;
+                if (providerURL && providerURL !== "0") {
+                    cell2.innerHTML = `<a href="${providerURL}" target="_blank">View site</a>`;
+                }
+            });
+        }
+
+        function updateShelterTable(value) {
+            const tableBody = document.getElementById('shelterTable').getElementsByTagName('tbody')[0];
+            tableBody.innerHTML = ''; // Clear existing rows
+
+            let filteredData;
+
+            if (value === "WOMEN") {
+                // Filter for "WOMEN" GSS code
+                filteredData = accommodationData.filter(item =>
+                    item.Women === true &&
+                    item.ServiceType === 'Nightshelter_Wintershelter' &&
+                    item.Provider.trim() !== ''
+                );
+            } else if (value === "YOUNG") {
+                // Filter for "YOUNG" GSS code
+                filteredData = accommodationData.filter(item =>
+                    item.Young === true &&
+                    item.ServiceType === 'Nightshelter_Wintershelter' &&
+                    item.Provider.trim() !== ''
+                );
+            } else {
+                // Original filter logic for other GSS codes
+                filteredData = accommodationData.filter(item =>
+                    item.GSS === value &&
+                    item.ServiceType === 'Nightshelter_Wintershelter' &&
+                    item.Provider.trim() !== ''
+                );
+            }
+            // Get unique providers and sort them alphabetically
+            const uniqueProviders = Array.from(new Set(filteredData.map(item => item.Provider)))
+                .sort((a, b) => a.localeCompare(b)); // Sorting alphabetically
+
+            uniqueProviders.forEach(provider => {
+                const providerData = filteredData.find(item => item.Provider === provider);
+                const row = tableBody.insertRow();
+                const cell1 = row.insertCell(0); // Provider
+                const cell2 = row.insertCell(1); // Website
+
+
+                cell1.textContent = provider;
+
+
+                // Provider URL (only if not blank or "0")
+                const providerURL = providerData.ProviderURL;
+                if (providerURL && providerURL !== "0") {
+                    cell2.innerHTML = `<a href="${providerURL}" target="_blank">View site</a>`;
+                }
+            });
+        }
+
+
+        function updateMapHighlight(value) {
+            svg.selectAll("path").attr('fill', function (d) {
+                return d.properties.GSS_CODE === value ? '#00aaff' : 'white';
+            });
+        }
+
+    </script>
+</body>
+</html>

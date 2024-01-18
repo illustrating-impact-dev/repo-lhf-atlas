@@ -1,0 +1,130 @@
+[{
+		"id": 1,
+		"colour_key": 1,
+		"colour_value": "1-100",
+		"colour_hex": "ddefe9"
+	},{
+		"id": 2,
+		"colour_key": 1,
+		"colour_value": "101-200",
+		"colour_hex": "8ad1d9"
+	},{
+		"id": 3,
+		"colour_key": 1,
+		"colour_value": "201-300",
+		"colour_hex": "56b4c7"
+	},{
+		"id": 4,
+		"colour_key": 1,
+		"colour_value": "301-500",
+		"colour_hex": "3d94bc"
+	},{
+		"id": 5,
+		"colour_key": 1,
+		"colour_value": "501+",
+		"colour_hex": "3a77b0"
+	},{
+		"id": 6,
+		"colour_key": 2,
+		"colour_value": "0 spaces",
+		"colour_hex": "ffffff"
+	},{
+		"id": 7,
+		"colour_key": 2,
+		"colour_value": "1-100 spaces",
+		"colour_hex": "f4e3b9"
+	},{
+		"id": 8,
+		"colour_key": 2,
+		"colour_value": "101-200 spaces",
+		"colour_hex": "c3c55d"
+	},{
+		"id": 9,
+		"colour_key": 2,
+		"colour_value": "201-400 spaces",
+		"colour_hex": "76af56"
+	},{
+		"id": 10,
+		"colour_key": 2,
+		"colour_value": "401-500 spaces",
+		"colour_hex": "398a4c"
+	},{
+		"id": 11,
+		"colour_key": 2,
+		"colour_value": "501+ spaces",
+		"colour_hex": "146c36"
+	},{
+		"id": 12,
+		"colour_key": 3,
+		"colour_value": 0,
+		"colour_hex": "ffffff"
+	},{
+		"id": 13,
+		"colour_key": 3,
+		"colour_value": 1,
+		"colour_hex": "d1e2ec"
+	},{
+		"id": 14,
+		"colour_key": 3,
+		"colour_value": 2,
+		"colour_hex": "7aa9d0"
+	},{
+		"id": 15,
+		"colour_key": 3,
+		"colour_value": 3,
+		"colour_hex": "5486b2"
+	},{
+		"id": 16,
+		"colour_key": 3,
+		"colour_value": 4,
+		"colour_hex": "42698f"
+	},{
+		"id": 17,
+		"colour_key": 0,
+		"colour_value": "012A00000012r8gIAA\r\n012A00000012rBlIAI\r\n012A00000012rBqIAI\r\n012A00000012r8lIAA\r\n0122G000001DbadQAC\r\n012A00000012rAsIAI\r\n012A00000012r8qIAA\r\n012A00000012rBWIAY",
+		"colour_hex": "b8cb2a\r\n012A00000012rBlIAI\r\n012A00000012rBqIAI\r\n012A00000012r8lIAA\r\n0122G000001DbadQAC\r\n012A00000012rAsIAI\r\n012A00000012r8qIAA\r\n012A00000012rBWIAY",
+		"note": "Accommodation"
+	},{
+		"id": 18,
+		"colour_key": 0,
+		"colour_value": "012A00000012rBlIAI",
+		"colour_hex": "f8b11f",
+		"note": "Assessment_Centre"
+	},{
+		"id": 19,
+		"colour_key": 0,
+		"colour_value": "012A00000012rBqIAI",
+		"colour_hex": "c2c8c6",
+		"note": "Clearing_House"
+	},{
+		"id": 20,
+		"colour_key": 0,
+		"colour_value": "012A00000012r8lIAA",
+		"colour_hex": "25b392",
+		"note": "Day_Centre"
+	},{
+		"id": 21,
+		"colour_key": 0,
+		"colour_value": "0122G000001DbadQAC",
+		"colour_hex": "f8b11f",
+		"note": "Health"
+	},{
+		"id": 22,
+		"colour_key": 0,
+		"colour_value": "012A00000012rAsIAI",
+		"colour_hex": "b361b2",
+		"note": "Housing_First"
+	},{
+		"id": 23,
+		"colour_key": 0,
+		"colour_value": "012A00000012r8qIAA",
+		"colour_hex": "55aaff",
+		"note": "Nightshelter_Wintershelter"
+	},{
+		"id": 24,
+		"colour_key": 0,
+		"colour_value": "012A00000012rBWIAY",
+		"colour_hex": "f9608b",
+		"note": "Outreach"
+	}
+]

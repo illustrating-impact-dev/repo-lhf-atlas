@@ -1,0 +1,1007 @@
+<meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title></title>
+<link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" rel="stylesheet" />
+<script src="https://unpkg.com/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js"></script>
+<style type="text/css">body {
+    font-size: 0.875rem;
+}
+
+.container-fluid {
+    max-width: 1920px;
+    margin: 15px auto;
+}
+
+.chart-header {
+    display: flex;
+    align-items: flex-start;
+}
+
+.chart-header-icon {
+    width: 36px;
+    height: 36px;
+    margin-top: 4px;
+    margin-right: 8px;
+}
+
+.chart-title-main {
+    font-size: 1rem;
+    color: #00aaff;
+    font-weight: bold;
+}
+
+.chart-title-main span {
+    font-weight: normal;
+    font-style: italic;
+}
+
+.chart-title-sub,
+.chart-footer {
+    font-size: 0.75rem;
+}
+
+.chart-title-sub,
+.chart-footer {
+    color: #6c757d;
+}
+
+.btn__svg {
+    text-align: left;
+    text-indent: -9999px;
+    font-size: 0;
+    line-height: 0px;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    border: 0;
+    background-color: transparent;
+    height: 40px;
+    width: 40px;
+    padding: 0;
+    margin-right: 5px;
+    position: relative;
+}
+
+.btn__svg:hover::after {
+    opacity: 1;
+}
+
+.btn__svg::after {
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    -webkit-transition: opacity 0.1s cubic-bezier(0.3, 0.65, 0.72, 0.63);
+    -o-transition: opacity 0.1s cubic-bezier(0.3, 0.65, 0.72, 0.63);
+    transition: opacity 0.1s cubic-bezier(0.3, 0.65, 0.72, 0.63);
+    background-color: #fff;
+}
+
+.btn__export--pdf {
+    background-image: url(https://www.lhfatlas.org.uk/sites/default/files/images/pdf-black.png);
+}
+
+.btn__export--pdf::after {
+    background-image: url(https://www.lhfatlas.org.uk/sites/default/files/images/pdf-blue.png);
+}
+
+.btn__export--csv {
+    background-image: url(https://www.lhfatlas.org.uk/sites/default/files/images/csv-black.png);
+}
+
+.btn__export--csv::after {
+    background-image: url(https://www.lhfatlas.org.uk/sites/default/files/images/csv-blue.png);
+}
+
+.btn__copy {
+    background-image: url(https://www.lhfatlas.org.uk/sites/default/files/images/url-black.png);
+}
+
+.btn__copy::after {
+    background-image: url(https://www.lhfatlas.org.uk/sites/default/files/images/url-blue.png);
+}
+
+.chart-tooltip {
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    background-color: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    border-radius: 0.25rem;
+    padding: 0.75rem 1.25rem;
+    max-width: 100vw;
+    opacity: 0;
+    transition: opacity 0.15s linear;
+}
+
+.chart-tooltip p {
+    margin-bottom: 0.5rem;
+}
+
+.chart-tooltip p:last-of-type {
+    margin-bottom: 0;
+}
+
+.chart-tooltip.show {
+    opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .chart-tooltip {
+        transition: none;
+    }
+}
+
+@media (min-width: 600px) {
+    .chart-tooltip {
+        max-width: 600px;
+    }
+}
+
+.service-types .card {
+    border: 1px solid #fff;
+}
+
+.service-types .card.active {
+    border-color: #4e79a8;
+}
+
+.service-types .card .service-type-title {
+    cursor: pointer;
+    color: #00aaff;
+}
+
+.service-types .card .service-type-title:hover,
+.service-types .card.active .service-type-title {
+    font-weight: bold;
+}
+
+.service-types .card.active .service-type-title {
+    cursor: initial;
+}
+
+.service-types .card .service-tile {
+    width: 10px;
+    height: 10px;
+    margin-right: 5px;
+    background-color: #bab0ac;
+}
+
+.service-types .card.active .service-tile {
+    background-color: #4e79a8;
+}
+
+.service-types .card .service-tile.muted {
+    opacity: 0.2;
+}
+
+.service-map .service-map-title {
+    color: #00aaff;
+    font-weight: bold;
+}
+
+.service-map svg {
+    display: block;
+}
+
+.service-map .map-path {
+    stroke: #6c757d;
+    stroke-width: 0.5;
+}
+
+.service-map .map-path.muted {
+    opacity: 0.2;
+}
+
+.service-map .legend-title {
+    color: #00aaff;
+}
+
+.service-map .legend-item {
+    width: 20px;
+    height: 20px;
+    border: 1px solid #6c757d;
+}
+
+.service-map .legend-item + .legend-item {
+    border-left: none;
+}
+
+.service-map .legend-item:nth-last-child(1),
+.service-map .legend-item:nth-last-child(2) {
+    color: #fff;
+}
+
+.service-list .service-list-title {
+    color: #00aaff;
+    font-weight: bold;
+}
+
+
+
+.service-list tr.muted {
+    opacity: 0.2;
+}
+
+.chart-tooltip .service-name,
+.chart-tooltip .borough-name {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #00aaff;
+}
+
+.chart-tooltip .service-capacity {
+    color: #ff4e80;
+    font-weight: bold;
+}
+
+.chart-tooltip span {
+    color: #4e79a8;
+}
+</style>
+<div class="container-fluid px-sm-5">
+    <div class="alert alert-danger d-none" role="alert">Failed to retrieve the data. Please try again later.</div>
+
+    <div class="row">
+        <div class="col-12" style="padding-top:3px; padding-bottom:3px">
+            <div class="chart-header d-flex align-items-center justify-content-between">
+                <!-- Image and title container -->
+                <div class="d-flex align-items-center">
+                    <img alt="icon" class="chart-header-icon" src="https://www.lhfatlas.org.uk/sites/default/files/images/health.png" />
+                    <div class="chart-title">
+                        <div class="chart-title-main">Health Services - Specialist homelessness health services by type of service</div>
+                        <div class="chart-title-sub"></div>
+                        <div class="chart-intro">Click a type of service to find out more. Hover over a borough on the map or a list item of the services list for details.</div>
+                    </div>
+                </div>
+
+                <!-- Buttons -->
+                <div class="btn-group form-group" id="buttons" style="visibility: visible">
+                    <button class="btn__export btn__export--pdf btn__svg" onclick="printPDF()" title="Export button label">Export to PDF</button>
+                    <!-- <button class="btn__export btn__export--csv btn__svg">Export Data</button> -->
+                    <button class="btn__copy btn__svg" onclick="CopyURL()" title="Copy URL label">Copy URL</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="row">
+        <div class="col-12" style="padding-top:3px; padding-bottom:3px">
+            <div class="mt-2" id="specialist-health-service-types">&nbsp;</div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12 col-lg-6">
+            <div class="mt-2" id="specialist-health-service-map">&nbsp;</div>
+        </div>
+
+        <div class="col-12 col-lg-6">
+            <div class="mt-2" id="specialist-health-service-list">&nbsp;</div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="chart-footer">LHF Atlas 2019/20 - see <a href="https://www.lhfatlas.org.uk" target="_blank">www.lhfatlas.org.uk</a> for full details</div>
+        </div>
+    </div>
+</div>
+
+<div class="chart-tooltip">&nbsp;</div>
+<script src="https://d3js.org/d3.v5.min.js"></script><script src="https://d3js.org/d3-array.v2.min.js"></script><script
+        src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"
+></script><script
+        src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"
+></script><script
+        src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+        crossorigin="anonymous"
+></script><script>
+    function copyTextToClipboard(text) {
+        var textArea = document.createElement("textarea");
+        textArea.style.position = 'fixed';
+        textArea.style.top = 0;
+        textArea.style.left = 0;
+        textArea.style.width = '2em';
+        textArea.style.height = '2em';
+        textArea.style.padding = 0;
+        textArea.style.border = 'none';
+        textArea.style.outline = 'none';
+        textArea.style.boxShadow = 'none';
+        textArea.style.background = 'transparent';
+        textArea.value = text;
+        document.body.appendChild(textArea);
+        textArea.select();
+        try {
+            var successful = document.execCommand('copy');
+            var msg = successful ? 'successful' : 'unsuccessful';
+            console.log('Copying text command was ' + msg);
+        } catch (err) {
+            console.log('Oops, unable to copy');
+        }
+
+        document.body.removeChild(textArea);
+    }
+
+    function CopyURL() {
+        copyTextToClipboard(location.href);
+        alert("URL copied!");
+    }
+
+    function printPDF() {
+    let chartRow = document.querySelector('.container-fluid');
+    if (!chartRow) {
+        console.error("Element '.container-fluid' not found.");
+        return;
+    }
+
+    html2canvas(chartRow, { useCORS: true }).then(canvas => {
+        try {
+            let pdf = new jsPDF('l', 'mm', 'a4'); // landscape orientation
+            let imgData = canvas.toDataURL('image/png');
+
+            // Adjust the dimensions for landscape
+            let pdfWidth = 297; // A4 width in mm
+            let pdfHeight = 210; // A4 height in mm
+            let imgWidth = canvas.width;
+            let imgHeight = canvas.height;
+            let ratio = Math.min(pdfWidth / imgWidth, pdfHeight / imgHeight);
+
+            let newWidth = imgWidth * ratio;
+            let newHeight = imgHeight * ratio;
+            let xOffset = (pdfWidth - newWidth) / 2;
+            let yOffset = (pdfHeight - newHeight) / 2;
+
+            pdf.addImage(imgData, 'PNG', xOffset, yOffset, newWidth, newHeight);
+            pdf.save('download.pdf');
+        } catch (e) {
+            console.error("Error generating PDF: ", e);
+        }
+    }).catch(error => {
+        console.error("Error in html2canvas: ", error);
+    });
+}
+
+</script><script>
+    (function () {
+        const BASE_URL = "https://www.illustrate.studio/sites/default/files/";
+        const LONDON_GEO_URL = "https://raw.githubusercontent.com/illustrating-impact-dev/atlas/main/boroughs.json";
+        const SERVICES_TYPES_URL = "https://raw.githubusercontent.com/illustrating-impact-dev/atlas/main/services_singlerow.json";
+        const COLORS_URL = "https://raw.githubusercontent.com/illustrating-impact-dev/atlas/main/lkp_hex_info.json";
+
+        const TRANSITION_DURATION = 250;
+        const LONDON_GSS = "E12000007";
+
+        const selected = {
+            serviceType: "Day Centre With Health Services",
+            borough: null,
+            service: null,
+        };
+
+        const touchable = isTouchDevice();
+
+        let data;
+
+        const accessor = {
+            services: {
+                id: (d) => d.id,
+                gssList: (d) => d["service_borough"].split(";"),
+                serviceType: (d) => d.healthtype_clean,
+                serviceName: (d) => d["service_name"],
+                providerName: (d) => d.service_provider,
+                website: (d) =>
+                    d.URL_link && d.URL_link !== "None"
+                        ? d.URL_link.slice(0, 4) !== "http"
+                            ? `https://${d.URL_link}`
+                            : d.URL_link
+                        : null,
+                serviceOffered: (d) => d["service_text_1"],
+            },
+            geo: {
+                id: (d) => d.properties.GSS_CODE,
+                name: (d) => d.properties.NAME,
+            },
+            colors: {
+                key: (d) => d.colour_key,
+                value: (d) => d.colour_value,
+                color: (d) => `#${d.colour_hex}`,
+            },
+        };
+
+        const dispatch = d3.dispatch("updatetop", "updatebottom");
+
+        // Init
+        const alert = setupAlert();
+        const tooltip = renderTooltip(d3.select(".chart-tooltip"));
+
+        Promise.all([
+            d3.json(SERVICES_TYPES_URL),
+            d3.json(LONDON_GEO_URL),
+            d3.json(COLORS_URL),
+        ])
+            .then(([servicesTypes, london, colors]) => {
+                data = processData(servicesTypes, london, colors);
+                renderServicesTypes();
+                renderServicesMap();
+                renderServiceList();
+                dispatch.call("updatetop");
+                dispatch.call("updatebottom");
+            })
+            .catch((err) => {
+                console.error(err);
+                alert.show();
+            });
+
+        // Service types
+        function renderServicesTypes() {
+            const container = d3
+                .select("#specialist-health-service-types")
+                .classed(
+                    "service-types row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4",
+                    true
+                );
+            const serviceItemCard = container
+                .selectAll(".col")
+                .data(
+                    Array.from(data.servicesByServiceType.entries())
+                        .map(([serviceType, services]) => ({ serviceType, services }))
+                        .sort((a, b) => d3.descending(a.services.length, b.services.length))
+                )
+                .join("div")
+                .attr("class", "col mb-1")
+                .append("div")
+                .attr("class", "service-type-card card");
+            const cardBody = serviceItemCard
+                .append("div")
+                .attr("class", "card-body pt-1 pb-2 px-2");
+            const serviceTypeTitle = cardBody
+                .append("div")
+                .attr("class", "service-type-title mb-1")
+                .text((d) => d.serviceType)
+                .on("click", serviceTypeClicked);
+            const serviceTile = cardBody
+                .append("div")
+                .attr("class", "service-tiles d-flex")
+                .selectAll(".service-tile")
+                .data((d) => d.services)
+                .join("div")
+                .attr("class", "service-tile")
+
+            serviceTile.filter(accessor.services.website).on("click", clicked);
+
+            dispatch.on("updatetop.service-types", () => {
+                serviceItemCard.classed(
+                    "active",
+                    (d) => d.serviceType === selected.serviceType
+                );
+                serviceTile.classed("muted", (d) => {
+                    if (selected.service) {
+                        return accessor.services.id(d) !== selected.service;
+                    } else if (selected.borough) {
+                        if (accessor.services.serviceType(d) !== selected.serviceType)
+                            return true;
+                        const gssList = accessor.services.gssList(d);
+                        return !(
+                            gssList.includes(LONDON_GSS) || gssList.includes(selected.borough)
+                        );
+                    } else {
+                        return false;
+                    }
+                });
+            });
+
+            function serviceTypeClicked(d) {
+                if (d.serviceType === selected.serviceType) return;
+                selected.serviceType = d.serviceType;
+                dispatch.call("updatetop");
+                dispatch.call("updatebottom");
+            }
+
+            function entered(d) {
+                selected.service = accessor.services.id(d);
+                selected.borough = null;
+                dispatch.call("updatetop");
+                tooltip.show(
+                    serviceTooltipContent(d),
+                    accessor.services.serviceType(d) === selected.serviceType
+                        ? "#4e79a8"
+                        : "#bab0ac"
+                );
+            }
+
+            function left() {
+                if (selected.service) {
+                    selected.service = null;
+                    dispatch.call("updatetop");
+                }
+                tooltip.hide();
+            }
+
+            function moved() {
+                tooltip.move();
+            }
+
+            function clicked(d) {
+                if (touchable || accessor.services.website(d) === "") return;
+                window.open(accessor.services.website(d), "_blank");
+            }
+        }
+
+        // Services map
+        function renderServicesMap() {
+            let svgWidth, svgHeight;
+            const margin = {
+                top: 8,
+                right: 8,
+                bottom: 8,
+                left: 8,
+            };
+
+            const color = d3
+                .scaleOrdinal()
+                .domain(data.colors.map(accessor.colors.value))
+                .range(data.colors.map(accessor.colors.color));
+
+            const projection = d3.geoMercator();
+            const geoPath = d3.geoPath(projection);
+
+            const container = d3
+                .select("#specialist-health-service-map")
+                .classed("service-map", true);
+            const title = container
+                .append("div")
+                .attr("class", "service-map-title mb-2");
+            const svg = container.append("svg");
+            const borough = svg
+                .append("g")
+                .attr("class", "map-paths")
+                .selectAll(".map-path")
+                .data(data.london.features, accessor.geo.id)
+                .join((enter) =>
+                    enter
+                        .append("path")
+                        .attr("class", "map-path")
+                        .attr("fill", "#fff")
+                        .on("mouseenter", entered)
+                        .on("mouseleave", left)
+                        .on("mousemove", moved)
+                );
+
+            const legend = container
+                .append("div")
+                .attr("class", "legend d-flex align-items-center");
+            legend
+                .append("div")
+                .attr("class", "legend-title mr-4")
+                .text("Number of services");
+            legend
+                .selectAll(".legend-item")
+                .data(color.domain())
+                .join("div")
+                .attr(
+                    "class",
+                    "legend-item d-flex justify-content-center align-items-center"
+                )
+                .style("background-color", color)
+                .text((d) => d);
+
+            resize();
+            window.addEventListener("resize", resize);
+
+            function resize() {
+                svgWidth = container.node().clientWidth;
+                svgHeight = Math.round((svgWidth / 390) * 300);
+                projection.fitExtent(
+                    [
+                        [margin.left, margin.top],
+                        [svgWidth - margin.right, svgHeight - margin.bottom],
+                    ],
+                    data.london
+                );
+                svg.attr("width", svgWidth).attr("height", svgHeight);
+
+                borough.attr("d", geoPath);
+            }
+
+            dispatch.on("updatebottom.services-map", () => {
+                title.text(selected.serviceType);
+
+                borough
+                    .transition()
+                    .duration(TRANSITION_DURATION)
+                    .attr("fill", (d) => color(getBoroughServices(d).length));
+                borough.classed("muted", (d) => {
+                    if (selected.service) {
+                        const services = getBoroughServices(d);
+                        const servicesIds = services.map(accessor.services.id);
+                        return !servicesIds.includes(selected.service);
+                    } else if (selected.borough) {
+                        return accessor.geo.id(d) !== selected.borough;
+                    } else {
+                        return false;
+                    }
+                });
+            });
+
+            function entered(d) {
+                const services = getBoroughServices(d);
+                if (services.length === 0) return;
+                selected.borough = accessor.geo.id(d);
+                selected.service = null;
+                dispatch.call("updatebottom");
+                tooltip.show(boroughTooltipContent(d, services), color(services.length));
+            }
+
+            function left() {
+                if (selected.borough) {
+                    selected.borough = null;
+                    dispatch.call("updatebottom");
+                }
+                tooltip.hide();
+            }
+
+            function moved() {
+                tooltip.move();
+            }
+
+            function getBoroughServices(d) {
+                const serviceByBorough = data.servicesByServiceTypeByBorough.get(
+                    selected.serviceType
+                );
+                const gss = accessor.geo.id(d);
+                const services = serviceByBorough.get(gss) || [];
+                return services;
+            }
+        }
+
+        // Service list
+        function renderServiceList() {
+            const container = d3
+                .select("#specialist-health-service-list")
+                .classed("service-list", true);
+
+            const title = container
+                .append("div")
+                .attr("class", "service-list-title mb-2");
+
+            const service = container
+                .append("table")
+                .attr("class", "table table-hover table-sm")
+                .append("tbody");
+
+            dispatch.on("updatebottom.service-list", () => {
+                const services = data.servicesByServiceType.get(selected.serviceType);
+
+                title.text(`List of the ${services.length} ${selected.serviceType}`);
+
+                service
+                    .selectAll("tr")
+                    .data(services, accessor.services.id)
+                    .join((enter) =>
+                        enter
+                            .append("tr")
+                            .call((tr) => tr.append("td").text(accessor.services.serviceName))
+                            .on("mouseenter", entered)
+                            .on("mouseleave", left)
+                            .on("mousemove", moved)
+                            .on("click", clicked)
+                    )
+                    .classed("muted", (d) => {
+                        if (selected.service) {
+                            return accessor.services.id(d) !== selected.service;
+                        } else if (selected.borough) {
+                            if (accessor.services.serviceType(d) !== selected.serviceType)
+                                return true;
+                            const gssList = accessor.services.gssList(d);
+                            return !(
+                                gssList.includes(LONDON_GSS) || gssList.includes(selected.borough)
+                            );
+                        } else {
+                            return false;
+                        }
+                    });
+            });
+
+            function clicked(d) {
+                if (touchable || accessor.services.website(d) === "") return;
+                window.open(accessor.services.website(d), "_blank");
+            }
+
+            function entered(d) {
+                selected.service = accessor.services.id(d);
+                selected.borough = null;
+                dispatch.call("updatebottom");
+                tooltip.show(serviceTooltipContent(d), "#4e79a8");
+
+            }
+
+            function left() {
+                if (selected.service) {
+                    selected.service = null;
+                    dispatch.call("updatebottom");
+                }
+                tooltip.hide();
+            }
+
+            function moved() {
+                tooltip.move();
+            }
+        }
+
+        // Process data
+        function processData(servicesTypes, london, colors) {
+            servicesTypes.forEach((d, i) => (d.id = i));
+            const servicesById = d3.group(servicesTypes, accessor.services.id);
+
+            const servicesByServiceType = d3.group(
+                servicesTypes,
+                accessor.services.serviceType
+            );
+
+            const allGSSs = london.features.map(accessor.geo.id);
+
+            const servicesByServiceTypeByBorough = new Map();
+            servicesByServiceType.forEach((values, serviceType) => {
+                const servicesByBorough = new Map();
+                values.forEach((d) => {
+                    accessor.services.gssList(d).forEach((gss) => {
+                        if (gss === LONDON_GSS) {
+                            allGSSs.forEach((gss) => {
+                                if (servicesByBorough.has(gss)) {
+                                    servicesByBorough.get(gss).push(d);
+                                } else {
+                                    servicesByBorough.set(gss, [d]);
+                                }
+                            });
+                        } else {
+                            if (servicesByBorough.has(gss)) {
+                                servicesByBorough.get(gss).push(d);
+                            } else {
+                                servicesByBorough.set(gss, [d]);
+                            }
+                        }
+                    });
+                });
+                servicesByServiceTypeByBorough.set(serviceType, servicesByBorough);
+            });
+
+            colors = colors.filter((d) => accessor.colors.key(d) === 3);
+
+            return {
+                servicesById,
+                servicesByServiceType,
+                servicesByServiceTypeByBorough,
+                london,
+                colors,
+            };
+        }
+
+        // Tooltip
+        function renderTooltip(tooltip) {
+            let width, height;
+            const padding = 8;
+
+            function show(content, color) {
+                tooltip.style("border-color", color).html(content);
+                const bcr = tooltip.node().getBoundingClientRect();
+                width = bcr.width;
+                height = bcr.height;
+                tooltip.classed("show", true);
+            }
+
+            function hide() {
+                tooltip.classed("show", false);
+            }
+
+            function move() {
+                let x = d3.event.clientX - width / 2;
+                if (x < 0) {
+                    x = 0;
+                } else if (x + width > window.innerWidth) {
+                    x = window.innerWidth - width;
+                }
+                let y = d3.event.clientY - height - padding;
+                if (y < 0) {
+                    y = 0;
+                }
+                tooltip.style("transform", `translate(${x}px,${y}px)`);
+            }
+
+            return {
+                show,
+                hide,
+                move,
+            };
+        }
+
+        function serviceTooltipContent(d) {
+            return `
+      <p class="service-name">${accessor.services.serviceName(d)}</p>
+      <p><span>${accessor.services.serviceType(
+                d
+            )}</span> - Provided by <span>${accessor.services.providerName(
+                d
+            )}</span></p>
+      <p>${accessor.services.serviceOffered(d)}</p>
+      ${touchable ? "" : "<p><em>Click to view service website</em></p>"}
+    `;
+        }
+
+        function boroughTooltipContent(d, services) {
+            return `
+      <p class="borough-name">${accessor.geo.name(d)}</p>
+      <ul class="list-unstyled mb-0">
+      ${services
+                .map((s) => `<li>${accessor.services.serviceName(s)}</li>`)
+                .join("")}
+      </ul>
+    `;
+        }
+
+        // Alert
+        function setupAlert() {
+            const alert = d3.select(".alert-danger");
+            function show() {
+                alert.classed("d-none", false);
+            }
+            function hide() {
+                alert.classed("d-none", true);
+            }
+            return {
+                show,
+                hide,
+            };
+        }
+
+        // Is touch
+        // https://github.com/airbnb/is-touch-device/blob/master/src/index.js
+        function isTouchDevice() {
+            return (
+                !!(
+                    typeof window !== "undefined" &&
+                    ("ontouchstart" in window ||
+                        (window.DocumentTouch &&
+                            typeof document !== "undefined" &&
+                            document instanceof window.DocumentTouch))
+                ) ||
+                !!(
+                    typeof navigator !== "undefined" &&
+                    (navigator.maxTouchPoints || navigator.msMaxTouchPoints)
+                )
+            );
+        }
+    })();
+
+</script><script>
+    (function () {
+        const CSV_LINKS_URL = "https://www.illustrate.studio/sites/default/files/json/csv_links_20220908.json";
+
+        const modalWidth = 320;
+
+        d3.json(CSV_LINKS_URL).then((csvLinks) => {
+            const modal = d3
+                .select("body")
+                .append("div")
+                .attr("class", "modal fade")
+                .attr("id", "csv-modal")
+                .attr("tabindex", "-1");
+
+            const modalDialog = modal
+                .append("div")
+                .attr("class", "modal-dialog m-0")
+                .style("width", `${modalWidth}px`);
+
+            const modalContent = modalDialog
+                .append("div")
+                .attr("class", "modal-content");
+
+            const modalHeader = modalContent
+                .append("div")
+                .attr("class", "modal-header")
+                .call((header) =>
+                    header.append("h6").attr("class", "modal-title").text("CSV Download")
+                )
+                .call((header) =>
+                    header
+                        .append("button")
+                        .attr("type", "button")
+                        .attr("class", "close")
+                        .attr("data-dismiss", "modal")
+                        .attr("aria-label", "Close")
+                        .append("span")
+                        .attr("aria-hidden", "true")
+                        .html("&times;")
+                );
+
+            const form = modalContent
+                .append("div")
+                .attr("class", "modal-body")
+                .append("form");
+            form
+                .append("div")
+                .attr("class", "form-group")
+                .call((group) =>
+                    group
+                        .append("label")
+                        .attr("for", "csv-source-select")
+                        .text("Which data source would you like to download?")
+                )
+                .call((group) =>
+                    group
+                        .append("select")
+                        .attr("class", "form-control custom-select custom-select-sm")
+                        .attr("id", "csv-source-select")
+                        .selectAll("option")
+                        .data(csvLinks)
+                        .join("option")
+                        .attr("value", (d) => d.url)
+                        .text((d) => d.name)
+                );
+            form
+                .append("button")
+                .attr("type", "submit")
+                .attr("class", "btn btn-sm btn-primary")
+                .text("Download")
+                .on("click", downloadCSV);
+
+            const csvButton = d3
+                .select(".btn__export--csv")
+                .attr("data-toggle", "modal")
+                .attr("data-target", "#csv-modal");
+
+            d3.select("body").append("style").text(`
+      .modal-backdrop.show {
+        opacity: 0.2;
+      }
+    `);
+
+            const {
+                width: buttonWidth,
+                height: buttonHeight,
+            } = csvButton.node().getBoundingClientRect();
+
+            $("#csv-modal").on("show.bs.modal", positionModal);
+            window.addEventListener("resize", resize);
+
+            function downloadCSV() {
+                d3.event.preventDefault();
+                const url = d3.select("#csv-source-select").node().value;
+                if (url) {
+                    window.location = url;
+                }
+            }
+
+            function positionModal() {
+                let { left, top } = csvButton.node().getBoundingClientRect();
+                left = left + buttonWidth / 2 - modalWidth / 2;
+                if (left < 0) left = 0;
+                if (left + modalWidth > window.innerWidth)
+                    left = window.innerWidth - modalWidth;
+                top = top + buttonHeight;
+                modalDialog.style("left", `${left}px`).style("top", `${top}px`);
+            }
+
+            function resize() {
+                if (modal.classed("show")) {
+                    positionModal();
+                }
+            }
+        });
+    })();
+</script>
+<script>window.Choices = {}</script>

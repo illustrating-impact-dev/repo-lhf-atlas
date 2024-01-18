@@ -1,0 +1,1134 @@
+<meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title></title>
+<link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/tabulator-tables@4.9.3/dist/css/bootstrap/tabulator_bootstrap4.min.css" rel="stylesheet" />
+<style type="text/css">body {
+    font-size: 0.875rem;
+}
+
+.container-fluid {
+    max-width: 1920px;
+    margin: 15px auto;
+}
+
+#buttons {
+    display: flex;
+    justify-content: flex-end
+}
+
+
+.btn__svg {
+    text-align: left;
+    text-indent: -9999px;
+    font-size: 0;
+    line-height: 0px;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    border: 0;
+    background-color: transparent;
+    height: 36px;
+    width: 30px;
+    padding: 0;
+    margin-right: 5px;
+    position: relative;
+}
+
+.btn__svg:hover::after {
+    opacity: 1;
+}
+
+.btn__svg::after {
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    -webkit-transition: opacity 0.1s cubic-bezier(0.3, 0.65, 0.72, 0.63);
+    -o-transition: opacity 0.1s cubic-bezier(0.3, 0.65, 0.72, 0.63);
+    transition: opacity 0.1s cubic-bezier(0.3, 0.65, 0.72, 0.63);
+    background-color: #fff;
+}
+
+.btn__export--pdf {
+    background-image: url(https://www.illustrate.studio/sites/default/files/svgicon/file-pdf.svg);
+}
+
+.btn__export--pdf::after {
+    background-image: url(https://www.illustrate.studio/sites/default/files/svgicon/file-pdf-blue.svg);
+}
+
+.btn__export--csv {
+    background-image: url(https://www.illustrate.studio/sites/default/files/svgicon/file-csv.svg);
+}
+
+.btn__export--csv::after {
+    background-image: url(https://www.illustrate.studio/sites/default/files/svgicon/file-csv-blue.svg);
+}
+
+.btn__copy {
+    background-image: url(https://www.illustrate.studio/sites/default/files/svgicon/copy-url.svg);
+}
+
+.btn__copy::after {
+    background-image: url(https://www.illustrate.studio/sites/default/files/svgicon/copy-url-blue.svg);
+}
+
+.chart-tooltip {
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    background-color: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    border-radius: 0.25rem;
+    padding: 0.75rem 1.25rem;
+    max-width: 100vw;
+    opacity: 0;
+    transition: opacity 0.15s linear;
+}
+
+.chart-tooltip p {
+    margin-bottom: 0.5rem;
+}
+
+.chart-tooltip p:last-of-type {
+    margin-bottom: 0;
+}
+
+.chart-tooltip.show {
+    opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .chart-tooltip {
+        transition: none;
+    }
+}
+
+@media (min-width: 600px) {
+    .chart-tooltip {
+        max-width: 600px;
+    }
+}
+
+.chart-tooltip .service-name {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #00aaff;
+}
+
+.chart-tooltip .service-capacity {
+    color: #ff4e80;
+    font-weight: bold;
+}
+
+.chart-tooltip span {
+    color: #4e79a8;
+}
+
+.tabulator,
+.tabulator-row .tabulator-responsive-collapse table {
+    font-size: inherit;
+}
+
+.tabulator .tabulator-header .tabulator-col .tabulator-col-content .tabulator-col-title {
+    white-space: normal;
+}
+
+.tabulator .tabulator-row {
+    min-height: unset;
+}
+
+.tabulator .tabulator-row-odd {
+    background-color: #f5f7f8;
+}
+
+.tabulator .tabulator-header .tabulator-col .tabulator-col-content {
+    padding: 0.25rem 0.5rem;
+}
+
+.tabulator .tabulator-header .tabulator-col.tabulator-sortable .tabulator-col-title {
+    padding-right: 1rem;
+}
+
+.tabulator .tabulator-row .tabulator-cell {
+    padding: 0.25rem;
+}
+
+.tabulator .tabulator-header .tabulator-calcs-holder .tabulator-row {
+    background-color: #7085a9 !important;
+}
+
+.tabulator .tabulator-header .tabulator-calcs-holder .tabulator-cell {
+    color: #fff;
+    text-transform: uppercase;
+}
+
+.tabulator .tabulator-col-title,
+.tabulator .tabulator-cell.text-color-dark {
+    color: #7085a9;
+}
+
+.tabulator .tabulator-cell.text-weight-bold {
+    font-weight: bold;
+}
+
+.tabulator .tabulator-responsive-collapse strong {
+    font-weight: normal;
+}
+
+.col-12.table-container{
+    padding: 0 !important;
+}
+.tabulator-col-title-holder, .tabulator-col-resize-handle, .tabulator-col-sorter, .tabulator-col-title  {
+    padding: 0 !important;
+}
+.tabulator-col-sorter{
+    width: 25px !important;
+    top: 25px !important;
+    right: -15px !important;
+    bottom: unset !important;
+}
+.tabulator .tabulator-header .tabulator-col .tabulator-col-content .tabulator-col-title-holder {
+    position: relative !important;
+    box-sizing: border-box !important;
+    display: block !important;
+}
+
+</style>
+<div class="container-fluid px-sm-5">
+    <div class="alert alert-danger d-none" role="alert">Failed to retrieve the data. Please try again later.</div>
+
+    <div class="row control-row">
+        <div class="col-12 col-lg-4">
+            <div class="form-group"><label for="group-by-select">Group by borough or provider?</label> <select class="form-control custom-select custom-select-sm" id="group-by-select"><option selected="selected" value="borough">Borough</option><option value="provider">Provider</option> </select></div>
+        </div>
+
+        <div class="col-12 col-lg-4">
+            <div class="form-group"><label for="view-select">Summary view or show services?</label> <select class="form-control custom-select custom-select-sm" id="view-select"><option selected="selected" value="summary">Summary View</option><option value="services">Show Services</option> </select></div>
+        </div>
+
+        <div class="col-12 col-lg-4 d-flex flex-column">
+            <div class="flex-grow-1">&nbsp;</div>
+
+            <div class="btn-group form-group" id="buttons" style="visibility: visible"><button class="btn__export btn__export--pdf btn__svg" onclick="printPDF()" title="Export button label">Export to PDF</button><button class="btn__export btn__export--csv btn__svg">Export Data</button><button class="btn__copy btn__svg" onclick="CopyURL()" title="Copy URL label">Copy URL</button></div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12 table-container">
+            <div id="table-borough-summary">&nbsp;</div>
+
+            <div id="table-provider-summary">&nbsp;</div>
+
+            <div id="table-borough-services">&nbsp;</div>
+
+            <div id="table-provider-services">&nbsp;</div>
+        </div>
+    </div>
+</div>
+
+<div class="chart-tooltip">&nbsp;</div>
+<script src="https://cdn.jsdelivr.net/npm/tabulator-tables@4.9.3/dist/js/tabulator.min.js"></script><script src="https://d3js.org/d3.v5.min.js"></script><script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+                                                                                                                                                                 integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script><script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+                                                                                                                                                                                                                                                                                              integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script><script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+                                                                                                                                                                                                                                                                                                                                                                                                                           integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+
+                                                                                                                                                                                                                                                                                                                                                                                                                           <script>
+    var params = new URLSearchParams(window.location.search.substring(1));
+    function loadData() {
+        $(".custom-select").each(function (index) {
+            if (params != "") {
+                var id = $(this).attr('id');
+                var val1 = params.get(id)
+                if (!val1) {
+                    return
+                }
+
+                //$('#'+id).val(val1).change();
+                var sortBySelect = document.querySelector('#' + id);
+                sortBySelect.value = val1;
+                sortBySelect.dispatchEvent(new Event("change"));
+                d3.select('#' + id).select('option[value="' + val1 + '"]').attr('selected', 'selected');
+            }
+        });
+    }
+
+    $('.custom-select').on('change', function () {
+
+        var parametr = '';
+
+        $(".custom-select").each(function (index) {
+            var values = jQuery(this).val(); // get selected value
+            var id = $(this).attr('id');
+            parametr += "&" + id + "=" + values;
+
+        });
+
+        var query = window.location.search.substring(1);
+
+        // is there anything there ?
+        if (query.length) {
+            // are the new history methods available ?
+            if (window.history != undefined && window.history.pushState != undefined) {
+                // if pushstate exists, add a new state to the history, this changes the url without reloading the page
+
+                window.history.pushState({}, document.title, window.location.pathname);
+
+            }
+        }
+        var location = document.URL + "?" + parametr;
+        window.history.replaceState(null, null, location);
+        if (window.self !== window.top) { // checking if it is an iframe
+            window.parent.postMessage(`{"command" : "updateQuery","value":"${parametr}"}`, '*')
+        }
+    });
+
+    function CopyURL() {
+        window.parent.postMessage(`{"command" : "copyURL"}`, '*')
+    }
+
+    function printPDF() {
+        window.print();
+    }
+
+</script><script>
+    (function () {
+        const BASE_URL = "https://www.illustrate.studio/sites/default/files/";
+        const BASE_URL_G = "https://docs.google.com/spreadsheets/u/0/d/1eJRhHKm5McKV6lYE7mJiVDGKOYaAQIReLw_XTDVB33s/export?gid==id=&format=csv";
+        const BOROUGH_SUMMARY_URL_G = "https://raw.githubusercontent.com/illustrating-impact-dev/atlas/main/services_borough_summary.json";
+        const PROVIDER_SUMMARY_URL_G = "https://raw.githubusercontent.com/illustrating-impact-dev/atlas/main/services_provider_summary.json";
+        const BOROUGH_SERVICES_URL_G = "https://raw.githubusercontent.com/illustrating-impact-dev/atlas/main/services_multirow.json";
+        const PROVIDER_SERVICES_URL_G = "https://raw.githubusercontent.com/illustrating-impact-dev/atlas/main/services_singlerow.json";
+        const METRIC_DEFS_URL_G = "https://raw.githubusercontent.com/illustrating-impact-dev/atlas/main/lkp_metric_def.json";
+
+        const selected = {
+            groupBy: "borough",
+            view: "summary",
+        };
+
+        const dispatch = d3.dispatch("update");
+
+        // Init
+        const alert = setupAlert();
+        const tooltip = renderTooltip(d3.select(".chart-tooltip"));
+
+        Tabulator.prototype.extendModule("format", "formatters", {
+            count: function (cell, formatterParams) {
+                const value = cell.getValue();
+                return value === 0 ? "" : value;
+            },
+        });
+        const bools = {
+            "false": false,
+            "true": true
+        }
+        Promise.all([
+            d3.json(BOROUGH_SUMMARY_URL_G, d3.autoType),
+            d3.json(PROVIDER_SUMMARY_URL_G, d3.autoType),
+            d3.json(BOROUGH_SERVICES_URL_G, function (d) {
+                return {
+                    "Provider": d["Provider"],
+                    "beds": +d["beds"],
+                    "la_name": d["la_name"],
+                    "mb": d["mb"] ? bools[d["mb"].toLowerCase()] : false,
+                    "service": d["service"],
+                    "service_text_1": d["service_text_1"],
+                    "service_text_2": d["service_text_2"],
+                    "service_text_3": d["service_text_3"],
+                    "service_type": d["service_type"],
+                    "shelter": +d["shelter"],
+                    "women": d["women"] ? bools[d["women"].toLowerCase()] : false,
+                    "yp": d["yp"] ? bools[d["yp"].toLowerCase()] : false,
+                }
+            }),
+            d3.json(PROVIDER_SERVICES_URL_G),
+            d3.json(METRIC_DEFS_URL_G, d3.autoType)
+        ])
+            .then(
+                ([
+                     boroughSummary,
+                     providerSummary,
+                     boroughServices,
+                     providerServices,
+                     metricDefs,
+                 ]) => {
+                    alert.hide();
+                    providerServices = providerServices.map(function (d) {
+                        return {
+                            "Provider": d["service_provider"],
+                            "beds": +d["beds"],
+                            "la_name": d["la_name"],
+                            "mb": d["mb"] ? bools[d["mb"].toLowerCase()] : false,
+                            "service": d["service_name"],
+                            "service_text_1": d["service_text_1"],
+                            "service_text_2": d["service_text_2"],
+                            "service_text_3": d["service_text_3"],
+                            "service_type": d["service_type"],
+                            "shelter": +d["shelter"],
+                            "women": d["women"] ? bools[(d["women"]+ "").toLowerCase()] : false,
+                            "yp": d["yp"] ? bools[(d["yp"]+"").toLowerCase()] : false,
+                            "test" : "66666"
+                        }
+                    })
+                    //boroughServices = boroughServices.filter(d => d.Provider)
+                    providerServices = providerServices.filter(d => d.Provider)
+
+                    metricDefs = new Map(metricDefs.map((d) => [d.col, d.description]));
+                    setupGroupBySelectControl();
+                    setupViewSelectControl();
+                    renderBoroughSummaryTable(boroughSummary, metricDefs);
+                    renderProviderSummaryTable(providerSummary, metricDefs);
+                    renderBoroughServicesTable(boroughServices);
+                    renderProviderServicesTable(providerServices);
+
+                    dispatch.on("update", toggleTable);
+
+                    dispatch.call("update");
+                    loadData();
+                }
+            )
+            .catch((err) => {
+                console.error(err);
+                alert.show();
+            });
+
+        function toggleTable() {
+            const shownId = `table-${selected.groupBy}-${selected.view}`;
+            d3.selectAll(".table-container > div").style("display", function () {
+                if (d3.select(this).attr("id") === shownId) {
+                    return "block";
+                } else {
+                    return "none";
+                }
+            });
+        }
+
+        // Controls
+        function setupGroupBySelectControl() {
+            d3.select("#group-by-select").on("change", function () {
+                selected.groupBy = this.value;
+                dispatch.call("update");
+            });
+        }
+
+        function setupViewSelectControl() {
+            d3.select("#view-select").on("change", function () {
+                selected.view = this.value;
+                dispatch.call("update");
+            });
+        }
+
+        // Tables
+        function renderBoroughSummaryTable(data, metricDefs) {
+            const filterOut = ["London Total", "GLA", "Women's services", "Young People's services"]
+            data = data.filter((d) => !filterOut.includes(d.la_name));
+            const columns = [
+                {
+                    formatter: "responsiveCollapse",
+                    width: 30,
+                    minWidth: 30,
+                    hozAlign: "center",
+                    resizable: false,
+                    headerSort: false,
+                },
+                {
+                    title: "Borough",
+                    field: "la_name",
+                    minWidth: 140,
+                    sorter: "string",
+                    responsive: 0,
+                    hozAlign: "left",
+                    vertAlign: "center",
+                    topCalc: () => "London Total",
+                    cssClass: "text-color-dark",
+                    headerFilter: "input",
+                },
+                {
+                    title: "Region",
+                    field: "housing_subregion",
+                    width: 90,
+                    sorter: (a, b, aRow, bRow, column, dir, sorterParams) => {
+                        const ordered = [
+                            "East",
+                            "North",
+                            "South East",
+                            "South West",
+                            "West",
+                            "Pan-London",
+                        ];
+                        const aIndex = ordered.indexOf(a);
+                        const bIndex = ordered.indexOf(b);
+                        if (dir === "asc") return aIndex - bIndex;
+                        if (dir === "desc") return bIndex - aIndex;
+                    },
+                    hozAlign: "left",
+                    vertAlign: "center",
+                },
+                {
+                    title: "Clearing House",
+                    field: "ch_band",
+                    width: 100,
+                    hozAlign: "left",
+                    vertAlign: "center",
+                },
+                {
+                    title: "Outreach Commission",
+                    field: "outreach",
+                    width: 130,
+                    sorter: "string",
+                    hozAlign: "left",
+                    vertAlign: "center",
+                },
+                {
+                    title: "Day Centres",
+                    field: "daycentreservices",
+                    width: 95,
+                    sorter: "number",
+                    hozAlign: "right",
+                    vertAlign: "center",
+                    topCalc: "sum",
+                    cssClass: "text-weight-bold",
+                    formatter: "count",
+                },
+                {
+                    title: "Assessment Services",
+                    field: "assessmentcentreservices",
+                    width: 125,
+                    sorter: "number",
+                    hozAlign: "right",
+                    vertAlign: "center",
+                    topCalc: "sum",
+                    cssClass: "text-weight-bold",
+                    formatter: "count",
+                },
+                {
+                    title: "Housing First units",
+                    field: "hfunits",
+                    width: 110,
+                    sorter: "number",
+                    hozAlign: "right",
+                    vertAlign: "center",
+                    topCalc: "sum",
+                    cssClass: "text-weight-bold",
+                    formatter: "count",
+                },
+                {
+                    title: "Winter Spaces",
+                    field: "shelterspaces",
+                    width: 90,
+                    sorter: "number",
+                    hozAlign: "right",
+                    vertAlign: "center",
+                    topCalc: "sum",
+                    cssClass: "text-weight-bold",
+                    formatter: "count",
+                },
+                {
+                    title: "Accomm. Bed Spaces",
+                    field: "accomspaces",
+                    width: 120,
+                    sorter: "number",
+                    hozAlign: "right",
+                    vertAlign: "center",
+                    topCalc: "sum",
+                    cssClass: "text-weight-bold",
+                    formatter: "count",
+                },
+                {
+                    title: "Accomm. Services",
+                    field: "accomservices",
+                    width: 105,
+                    sorter: "number",
+                    hozAlign: "right",
+                    vertAlign: "center",
+                    topCalc: "sum",
+                    cssClass: "text-weight-bold",
+                    formatter: "count",
+                },
+            ];
+            const table = new Tabulator("#table-borough-summary", {
+                data,
+                layout: "fitColumns",
+                responsiveLayout: "collapse",
+                pagination: "local",
+                paginationSize: 20,
+                columns,
+                initialSort: [
+                    { column: "la_name", dir: "asc" },
+                    { column: "housing_subregion", dir: "asc" },
+                ],
+                tableBuilt: () => {
+                    d3.select(
+                        "#table-borough-summary .tabulator-header-filter input"
+                    ).classed("form-control form-control-sm", true);
+                    d3.select("#table-borough-summary")
+                        .selectAll(".tabulator-col-title")
+                        .data(columns)
+                        .filter((d) => metricDefs.has(d.field))
+                        .on("mouseover", (d) => {
+                            tooltip.show(metricDefs.get(d.field));
+                        })
+                        .on("mouseleave", tooltip.hide)
+                        .on("mousemove", () => {
+                            tooltip.move(d3.event);
+                        });
+                },
+            });
+        }
+
+        function renderProviderSummaryTable(data, metricDefs) {
+            data = data.filter((d) => d.provider !== "London Total");
+            const columns = [
+                {
+                    formatter: "responsiveCollapse",
+                    width: 30,
+                    minWidth: 30,
+                    hozAlign: "center",
+                    resizable: false,
+                    headerSort: false,
+                },
+                {
+                    title: "Provider",
+                    field: "provider",
+                    sorter: "string",
+                    responsive: 0,
+                    minWidth: 200,
+                    hozAlign: "left",
+                    vertAlign: "center",
+                    topCalc: () => "London Total",
+                    cssClass: "text-color-dark",
+                    headerFilter: "input",
+                },
+                {
+                    title: "Day Centres",
+                    field: "daycentreservices",
+                    width: 105,
+                    sorter: "number",
+                    hozAlign: "right",
+                    vertAlign: "center",
+                    topCalc: "sum",
+                    cssClass: "text-weight-bold",
+                    formatter: "count",
+                },
+                {
+                    title: "Assessment Services",
+                    field: "assessmentcentreservices",
+                    width: 135,
+                    sorter: "number",
+                    hozAlign: "right",
+                    vertAlign: "center",
+                    topCalc: "sum",
+                    cssClass: "text-weight-bold",
+                    formatter: "count",
+                },
+                {
+                    title: "Housing First units",
+                    field: "hfunits",
+                    width: 120,
+                    sorter: "number",
+                    hozAlign: "right",
+                    vertAlign: "center",
+                    topCalc: "sum",
+                    cssClass: "text-weight-bold",
+                    formatter: "count",
+                },
+                {
+                    title: "Winter Spaces",
+                    field: "shelterspaces",
+                    width: 100,
+                    sorter: "number",
+                    hozAlign: "right",
+                    vertAlign: "center",
+                    topCalc: "sum",
+                    cssClass: "text-weight-bold",
+                    formatter: "count",
+                },
+                {
+                    title: "Accomm. Bed Spaces",
+                    field: "accomspaces",
+                    width: 130,
+                    sorter: "number",
+                    hozAlign: "right",
+                    vertAlign: "center",
+                    topCalc: "sum",
+                    cssClass: "text-weight-bold",
+                    formatter: "count",
+                },
+                {
+                    title: "Accomm. Services",
+                    field: "accomservices",
+                    width: 115,
+                    sorter: "number",
+                    hozAlign: "right",
+                    vertAlign: "center",
+                    topCalc: "sum",
+                    cssClass: "text-weight-bold",
+                    formatter: "count",
+                },
+            ];
+            const table = new Tabulator("#table-provider-summary", {
+                data,
+                layout: "fitColumns",
+                responsiveLayout: "collapse",
+                pagination: "local",
+                paginationSize: 20,
+                columns,
+                initialSort: [{ column: "provider", dir: "asc" }],
+                tableBuilt: () => {
+                    d3.select(
+                        "#table-provider-summary .tabulator-header-filter input"
+                    ).classed("form-control form-control-sm", true);
+                    d3.select("#table-provider-summary")
+                        .selectAll(".tabulator-col-title")
+                        .data(columns)
+                        .filter((d) => metricDefs.has(d.field))
+                        .on("mouseover", (d) => {
+                            tooltip.show(metricDefs.get(d.field));
+                        })
+                        .on("mouseleave", tooltip.hide)
+                        .on("mousemove", () => {
+                            tooltip.move(d3.event);
+                        });
+                },
+            });
+        }
+
+        function renderBoroughServicesTable(data) {
+            data.forEach((d) => (d.service_type = d.service_type.split("_").join(" ")));
+            const table = new Tabulator("#table-borough-services", {
+                data,
+                layout: "fitColumns",
+                responsiveLayout: "collapse",
+                pagination: "local",
+                paginationSize: 20,
+                groupBy: "la_name",
+                groupStartOpen: false,
+                groupToggleElement: "header",
+                columns: [
+                    {
+                        formatter: "responsiveCollapse",
+                        width: 30,
+                        minWidth: 30,
+                        hozAlign: "center",
+                        resizable: false,
+                        headerSort: false,
+                    },
+                    {
+                        title: "Service",
+                        field: "service",
+                        sorter: "string",
+                        headerFilter: "input",
+                        hozAlign: "left",
+                        bottomCalc: () => "TOTAL",
+                        headerSort: false,
+                    },
+                    {
+                        title: "Borough",
+                        field: "la_name",
+                        sorter: "string",
+                        headerFilter: "input",
+                        width: 180,
+                        hozAlign: "left",
+                    },
+                    {
+                        title: "Provider",
+                        field: "Provider",
+                        width: 150,
+                        responsive: 0,
+                        sorter: "string",
+                        headerFilter: "input",
+                        hozAlign: "left",
+                        headerSort: false,
+                    },
+                    {
+                        title: "Type",
+                        field: "service_type",
+                        width: 150,
+                        responsive: 0,
+                        sorter: "string",
+                        hozAlign: "left",
+                        headerSort: false,
+                    },
+                    {
+                        title: "Multi- Borough?",
+                        field: "mb",
+                        formatter: "tick",
+                        width: 100,
+                        sorter: "boolean",
+                        hozAlign: "center",
+                        headerSort: false,
+                    },
+                    {
+                        title: "Women's Service?",
+                        field: "women",
+                        formatter: "tick",
+                        width: 100,
+                        headerSort: false,
+                        hozAlign: "center",
+                    },
+                    {
+                        title: "Young People?",
+                        field: "yp",
+                        formatter: "tick",
+                        width: 100,
+                        headerSort: false,
+                        hozAlign: "center",
+                    },
+                    {
+                        title: "Capacity/ Units",
+                        field: "beds",
+                        width: 110,
+                        sorter: "number",
+                        hozAlign: "right",
+                        cssClass: "text-weight-bold",
+                        formatter: "count",
+                        bottomCalc: "sum",
+                        headerSort: false,
+                    },
+                ],
+                initialSort: [{ column: "la_name", dir: "asc" }],
+                rowMouseEnter: function (e, row) {
+                    const d = row.getData();
+                    if (d.service === "TOTAL") return;
+                    tooltip.show(serviceByBoroughTooltipContent(d));
+                },
+                rowMouseLeave: function (e, row) {
+                    tooltip.hide();
+                },
+                rowMouseMove: function (e, row) {
+                    tooltip.move(e);
+                },
+                tableBuilt: () => {
+                    d3.selectAll(
+                        "#table-borough-services .tabulator-header-filter input"
+                    ).classed("form-control form-control-sm", true);
+                },
+            });
+        }
+
+        function renderProviderServicesTable(data) {
+            data.forEach((d) => (d.service_type = d.service_type.split("_").join(" ")));
+            const table = new Tabulator("#table-provider-services", {
+                data,
+                layout: "fitColumns",
+                responsiveLayout: "collapse",
+                pagination: "local",
+                paginationSize: 20,
+                groupBy: "Provider",
+                groupStartOpen: false,
+                groupToggleElement: "header",
+                columns: [
+                    {
+                        formatter: "responsiveCollapse",
+                        width: 30,
+                        minWidth: 30,
+                        hozAlign: "center",
+                        resizable: false,
+                        headerSort: false,
+                    },
+                    {
+                        title: "Service",
+                        field: "service",
+                        sorter: "string",
+                        headerFilter: "input",
+                        minWidth: 180,
+                        hozAlign: "left",
+                        bottomCalc: () => "TOTAL",
+                        headerSort: false,
+                    },
+                    {
+                        title: "Provider",
+                        field: "Provider",
+                        sorter: "string",
+                        headerFilter: "input",
+                        width: 180,
+                        hozAlign: "left",
+                    },
+                    {
+                        title: "Borough",
+                        field: "la_name",
+                        sorter: "string",
+                        headerFilter: "input",
+                        width: 170,
+                        hozAlign: "left",
+                        headerSort: false,
+                    },
+                    {
+                        title: "Type",
+                        field: "service_type",
+                        width: 150,
+                        responsive: 0,
+                        sorter: "string",
+                        hozAlign: "left",
+                        headerSort: false,
+                    },
+                    {
+                        title: "Multi- Borough?",
+                        field: "mb",
+                        formatter: "tick",
+                        width: 100,
+                        sorter: "boolean",
+                        hozAlign: "center",
+                        headerSort: false,
+                    },
+                    {
+                        title: "Women's Service?",
+                        field: "women",
+                        formatter: "tick",
+                        width: 100,
+                        headerSort: false,
+                        hozAlign: "center",
+                    },
+                    {
+                        title: "Young People?",
+                        field: "yp",
+                        formatter: "tick",
+                        width: 100,
+                        headerSort: false,
+                        hozAlign: "center",
+                    },
+                    {
+                        title: "Accomm. Beds",
+                        field: "beds",
+                        width: 110,
+                        sorter: "number",
+                        hozAlign: "right",
+                        cssClass: "text-weight-bold",
+                        formatter: "count",
+                        bottomCalc: "sum",
+                        headerSort: false,
+                    },
+                ],
+                initialSort: [{ column: "Provider", dir: "asc" }],
+                rowMouseEnter: function (e, row) {
+                    const d = row.getData();
+                    if (d["LHF Atlas Service Level Name"] === "TOTAL") return;
+                    tooltip.show(serviceByProviderTooltipContent(d));
+                },
+                rowMouseLeave: function (e, row) {
+                    tooltip.hide();
+                },
+                rowMouseMove: function (e, row) {
+                    tooltip.move(e);
+                },
+                tableBuilt: () => {
+                    d3.selectAll(
+                        "#table-borough-services .tabulator-header-filter input"
+                    ).classed("form-control form-control-sm", true);
+                },
+            });
+        }
+
+        // Tooltip
+        function renderTooltip(tooltip) {
+            let width, height;
+            const padding = 8;
+
+            function show(content, color) {
+                tooltip.style("border-color", color).html(content);
+                const bcr = tooltip.node().getBoundingClientRect();
+                width = bcr.width;
+                height = bcr.height;
+                tooltip.classed("show", true);
+            }
+
+            function hide() {
+                tooltip.classed("show", false);
+            }
+
+            function move(event) {
+                let x = event.clientX - width / 2;
+                if (x < 0) {
+                    x = 0;
+                } else if (x + width > window.innerWidth) {
+                    x = window.innerWidth - width;
+                }
+                let y = event.clientY - height - padding;
+                if (y < 0) {
+                    y = event.clientY + padding;
+                }
+                tooltip.style("transform", `translate(${x}px,${y}px)`);
+            }
+
+            return {
+                show,
+                hide,
+                move,
+            };
+        }
+
+        function serviceByBoroughTooltipContent(d) {
+            const texts = [d.service_text_1, d.service_text_2, d.service_text_3];
+            const capacity = texts[0];
+            return `
+      <p class="service-name">${d.service}</p>
+      <p>${d.service_type} - Provided in <span>${d.la_name}</span> by <span>${d.Provider
+            }</span></p>
+      ${texts
+                .filter((e) => e)
+                .map(
+                    (e) =>
+                        `<p ${e == capacity ? `class="service-capacity"` : ""}>${e}</p>`
+                )
+                .join("")}
+    `;
+        }
+
+        function serviceByProviderTooltipContent(d) {
+            const texts = [d.service_text_1, d.service_text_2, d.service_text_3];
+            const capacity = texts[0];
+            return `
+      <p class="service-name">${d.service}</p>
+      <p>${d.service_type} - Provided in <span>${d.la_name}</span> by <span>${d.Provider
+            }</span></p>
+      ${texts
+                .filter((e) => e)
+                .map(
+                    (e) =>
+                        `<p ${e == capacity ? `class="service-capacity"` : ""}>${e}</p>`
+                )
+                .join("")}
+    `;
+        }
+
+        // Alert
+        function setupAlert() {
+            const alert = d3.select(".alert-danger");
+            function show() {
+                alert.classed("d-none", false);
+            }
+            function hide() {
+                alert.classed("d-none", true);
+            }
+            return {
+                show,
+                hide,
+            };
+        }
+    })();
+</script><script>
+    (function () {
+        const CSV_LINKS_URL = "https://www.illustrate.studio/sites/default/files/json/csv_links_20220908.json";
+
+        const modalWidth = 320;
+
+        d3.json(CSV_LINKS_URL).then((csvLinks) => {
+            const modal = d3
+                .select("body")
+                .append("div")
+                .attr("class", "modal fade")
+                .attr("id", "csv-modal")
+                .attr("tabindex", "-1");
+
+            const modalDialog = modal
+                .append("div")
+                .attr("class", "modal-dialog m-0")
+                .style("width", `${modalWidth}px`);
+
+            const modalContent = modalDialog
+                .append("div")
+                .attr("class", "modal-content");
+
+            const modalHeader = modalContent
+                .append("div")
+                .attr("class", "modal-header")
+                .call((header) =>
+                    header.append("h6").attr("class", "modal-title").text("CSV Download")
+                )
+                .call((header) =>
+                    header
+                        .append("button")
+                        .attr("type", "button")
+                        .attr("class", "close")
+                        .attr("data-dismiss", "modal")
+                        .attr("aria-label", "Close")
+                        .append("span")
+                        .attr("aria-hidden", "true")
+                        .html("&times;")
+                );
+
+            const form = modalContent
+                .append("div")
+                .attr("class", "modal-body")
+                .append("form");
+            form
+                .append("div")
+                .attr("class", "form-group")
+                .call((group) =>
+                    group
+                        .append("label")
+                        .attr("for", "csv-source-select")
+                        .text("Which data source would you like to download?")
+                )
+                .call((group) =>
+                    group
+                        .append("select")
+                        .attr("class", "form-control custom-select custom-select-sm")
+                        .attr("id", "csv-source-select")
+                        .selectAll("option")
+                        .data(csvLinks)
+                        .join("option")
+                        .attr("value", (d) => d.url)
+                        .text((d) => d.name)
+                );
+            form
+                .append("button")
+                .attr("type", "submit")
+                .attr("class", "btn btn-sm btn-primary")
+                .text("Download")
+                .on("click", downloadCSV);
+
+            const csvButton = d3
+                .select(".btn__export--csv")
+                .attr("data-toggle", "modal")
+                .attr("data-target", "#csv-modal");
+
+            d3.select("body").append("style").text(`
+      .modal-backdrop.show {
+        opacity: 0.2;
+      }
+    `);
+
+            const {
+                width: buttonWidth,
+                height: buttonHeight,
+            } = csvButton.node().getBoundingClientRect();
+
+            $("#csv-modal").on("show.bs.modal", positionModal);
+            window.addEventListener("resize", resize);
+
+            function downloadCSV() {
+                d3.event.preventDefault();
+                const url = d3.select("#csv-source-select").node().value;
+                if (url) {
+                    window.location = url;
+                }
+            }
+
+            function positionModal() {
+                let { left, top } = csvButton.node().getBoundingClientRect();
+                left = left + buttonWidth / 2 - modalWidth / 2;
+                if (left < 0) left = 0;
+                if (left + modalWidth > window.innerWidth)
+                    left = window.innerWidth - modalWidth;
+                top = top + buttonHeight;
+                modalDialog.style("left", `${left}px`).style("top", `${top}px`);
+            }
+
+            function resize() {
+                if (modal.classed("show")) {
+                    positionModal();
+                }
+            }
+        });
+    })();
+</script>
+<script>window.Choices = {}</script>

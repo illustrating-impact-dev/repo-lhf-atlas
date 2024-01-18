@@ -1,0 +1,1540 @@
+<title></title>
+<meta charset="UTF-8"/>
+<link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" rel="stylesheet" />
+<script src="https://unpkg.com/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js"></script>
+<style type="text/css">
+body {
+    font-size: 0.875rem;
+}
+
+.container-fluid {
+    max-width: 1920px;
+    margin: 15px auto;
+}
+
+.chart-title-main,
+.map-text {
+    font-size: 1rem;
+    color: #00aaff;
+}
+
+.map-text {
+    font-weight: bold;
+}
+
+.metric-name {
+    color: #00aaff;
+}
+
+.chart-title-sub,
+.chart-footer,
+.map-legend,
+.chart-svg {
+    font-size: 0.75rem;
+}
+
+.form-label {
+    font-weight: bold;
+}
+
+.chart-title-sub,
+.chart-footer {
+    color: #6c757d;
+}
+
+.btn__svg {
+    text-align: left;
+    text-indent: -9999px;
+    font-size: 0;
+    line-height: 0px;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    border: 0;
+    background-color: transparent;
+    height: 36px;
+    width: 30px;
+    padding: 0;
+    margin-right: 5px;
+    position: relative;
+}
+
+.btn__svg:hover::after {
+    opacity: 1;
+}
+
+.btn__svg::after {
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    -webkit-transition: opacity 0.1s cubic-bezier(0.3, 0.65, 0.72, 0.63);
+    -o-transition: opacity 0.1s cubic-bezier(0.3, 0.65, 0.72, 0.63);
+    transition: opacity 0.1s cubic-bezier(0.3, 0.65, 0.72, 0.63);
+    background-color: #fff;
+}
+
+.btn__export--pdf {
+    background-image: url(https://www.illustrate.studio/sites/default/files/svgicon/file-pdf.svg);
+}
+
+.btn__export--pdf::after {
+    background-image: url(https://www.illustrate.studio/sites/default/files/svgicon/file-pdf-blue.svg);
+}
+
+.btn__export--csv {
+    background-image: url(https://www.illustrate.studio/sites/default/files/svgicon/file-csv.svg);
+}
+
+.btn__export--csv::after {
+    background-image: url(https://www.illustrate.studio/sites/default/files/svgicon/file-csv-blue.svg);
+}
+
+.btn__copy {
+    background-image: url(https://www.illustrate.studio/sites/default/files/svgicon/copy-url.svg);
+}
+
+.btn__copy::after {
+    background-image: url(https://www.illustrate.studio/sites/default/files/svgicon/copy-url-blue.svg);
+}
+
+.chart-header {
+    display: flex;
+    align-items: flex-start;
+}
+
+.chart-header-icon {
+    width: 36px;
+    height: 36px;
+    margin-top: 4px;
+    margin-right: 8px;
+}
+
+.chart-svg {
+    display: block;
+    width: 100%;
+    cursor: grab;
+}
+
+.chart-svg.panning {
+    cursor: grabbing;
+}
+
+.map-path {
+    stroke: #6c757d;
+    stroke-width: 0.5;
+    stroke-linejoin: round;
+    stroke-linecap: round;
+}
+
+.map-label {
+    pointer-events: none;
+}
+
+.map-label,
+.bar-value {
+    fill: currentColor;
+    stroke: #fff;
+    stroke-width: 3px;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.bar-value .circle-item {
+    fill: #febe7d;
+}
+
+.bar-value,
+.map-label-value {
+    font-weight: bold;
+}
+
+.map-location {
+    fill-opacity: 0.8;
+    stroke: #fff;
+    stroke-width: 0.5;
+    cursor: pointer;
+}
+
+.map-circle {
+    fill: none;
+    stroke: #febe7d;
+    stroke-width: 2;
+}
+
+.map-path.highlighted,
+.bar-rect.highlighted,
+.map-location.highlighted {
+    stroke: #212529;
+    stroke-width: 2;
+}
+
+#lines-container {
+    position: relative;
+    margin-bottom: 16px;
+    margin-top: 16px;
+    margin-left: 70px;
+    height: 450px;
+}
+
+.map-control {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    border: 2px solid rgba(0, 0, 0, 0.2);
+    background-clip: padding-box;
+    border-radius: 4px;
+}
+
+.map-control .map-zoom-in,
+.map-control .map-zoom-out {
+    display: flex;
+    width: 30px;
+    height: 30px;
+    background-color: #fff;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    color: black;
+    font: bold 22px "Lucida Console", Monaco, monospace;
+}
+
+.map-control .map-zoom-in:hover,
+.map-control .map-zoom-out:hover {
+    background-color: #f4f4f4;
+}
+
+.map-control .map-zoom-in {
+    border-top-left-radius: 2px;
+    border-top-right-radius: 2px;
+    border-bottom: 1px solid #ccc;
+}
+
+.map-control .map-zoom-out {
+    border-bottom-left-radius: 2px;
+    border-bottom-right-radius: 2px;
+}
+
+.legend-items {
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.legend-title {
+    text-transform: uppercase;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    margin-right: 16px;
+}
+
+.legend-swatch {
+    width: 12px;
+    height: 12px;
+    border: 1px solid #6c757d;
+    margin-right: 8px;
+}
+
+.legend-item.circle-item .legend-swatch {
+    border-radius: 50%;
+    border-width: 2px;
+    border-color: #febe7d;
+}
+
+.chart-tooltip {
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    background-color: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    border-radius: 0.25rem;
+    padding: 0.75rem 1.25rem;
+    max-width: 100vw;
+    opacity: 0;
+    transition: opacity 0.15s linear;
+}
+
+.chart-tooltip p {
+    margin-bottom: 0.5rem;
+}
+
+.chart-tooltip p:last-of-type {
+    margin-bottom: 0;
+}
+
+.chart-tooltip.show {
+    opacity: 1;
+}
+
+.polygon-background {
+    background-color: #F0F6FA;
+    position: relative;
+}
+
+@media (min-width: 992px) {
+    .polygon-background::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -36px;
+        width: 36px;
+        height: 100%;
+        background-image: linear-gradient(to top left,
+        #f0f6fa 50%,
+        transparent 50%);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .chart-tooltip {
+        transition: none;
+    }
+}
+
+@media (min-width: 480px) {
+    .chart-tooltip {
+        max-width: 480px;
+    }
+}
+
+@media (min-width: 800px) {
+    #london-map-map {
+        position: relative;
+    }
+
+    .map-label {
+        display: inline;
+    }
+
+    .map-text {
+        position: absolute;
+        right: 3rem;
+        top: 2rem;
+        max-width: 240px;
+        text-align: right;
+        z-index: 100;
+    }
+
+    .map-legend {
+        position: absolute;
+        left: 8px;
+        bottom: 8px;
+        z-index: 100;
+    }
+
+    .legend-items {
+        display: block;
+    }
+}
+
+#borough-select {
+    pointer-events: none;
+}
+
+#select-popup-container {
+    position: fixed;
+    width: 100%;
+    background: white;
+    box-shadow: 4px 4px 12px rgba(228, 231, 234, 0.3);
+    border-radius: 6px;
+    border: 1px solid #E4E7EA;
+    display: none;
+    z-index: 999999;
+}
+
+#select-popup-list {
+    overflow-y: auto;
+    max-height: 350px;
+}
+
+.select-popup-header {
+    padding: 4px 8px;
+    font-weight: normal;
+    border-bottom: 2px solid #E4E7EA;
+    box-shadow: 4px 4px 12px rgba(228, 231, 234, 0.3);
+    pointer-events: none;
+}
+
+.select-popup-list-item {
+    padding: 4px 8px;
+    /* padding-bottom: 4px; */
+    padding-right: 12px;
+    cursor: pointer;
+    font-weight: normal;
+    transition: background-color 0.2s ease-in-out;
+    border-bottom: 1px solid #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.select-popup-list-item:hover {
+    background-color: #F0F6FA;
+}
+
+.chart-title-main.table-title {
+    margin-top: 50px;
+
+}
+
+.chart-title-main.table-title-2018 {
+    margin-top: 32px;
+}
+
+.select-popup-list-item:last-of-type {
+    border-bottom: none;
+}
+
+.decrease {
+    color: #6FAEA7
+}
+
+.increase {
+    color: #C868AE
+}
+
+.check-img {
+    content: url("data:image/svg+xml,%3Csvg width='14' height='10' viewBox='0 0 14 10' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4.59244 7.90963L1.72894 5.04613C1.65865 4.97606 1.56345 4.93671 1.46419 4.93671C1.36494 4.93671 1.26974 4.97606 1.19944 5.04613L0.666943 5.57488C0.631908 5.60973 0.604106 5.65116 0.585134 5.69679C0.566163 5.74241 0.556396 5.79134 0.556396 5.84076C0.556396 5.89017 0.566163 5.9391 0.585134 5.98473C0.604106 6.03035 0.631908 6.07178 0.666943 6.10663L4.32769 9.76738C4.36253 9.8023 4.40391 9.83001 4.44947 9.84892C4.49503 9.86782 4.54387 9.87755 4.59319 9.87755C4.64252 9.87755 4.69136 9.86782 4.73692 9.84892C4.78248 9.83001 4.82386 9.8023 4.85869 9.76738L13.3269 1.29688C13.3972 1.22656 13.4367 1.13119 13.4367 1.03176C13.4367 0.932319 13.3972 0.836954 13.3269 0.766631L12.8019 0.241631C12.7316 0.171329 12.6363 0.131836 12.5368 0.131836C12.4374 0.131836 12.342 0.171329 12.2717 0.241631L4.59244 7.90963Z' fill='%23606780' /%3E%3C/svg%3E");
+}
+
+.change-table {
+    background: #f0f6fa;
+    padding-inline-start: 0;
+    margin: 0 16px;
+}
+
+.change-table:last-of-type {
+    margin-bottom: 32px;
+}
+
+.change-table-list-item {
+    padding: 0.3rem;
+    font-weight: bold;
+    color: #72777a;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row !important;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid lightgrey;
+    margin-bottom: 16px;
+}
+
+tr {
+    display: flex;
+}
+
+table.lower {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid white;
+    margin-bottom: 16px;
+    background: #ffffff;
+}
+
+tr.lower {
+    display: flex;
+}
+
+table.lower th {
+    flex: 1;
+    padding: 0.2rem;
+    font-weight: bold;
+    color: #51a7f9;
+    border: 1px solid white;
+    background: #ffffff;
+    text-align: center;
+    font-size: 15px;
+}
+
+th:nth-child(1){
+    width:180px;
+}
+
+table.lower th:first-of-type {
+    text-align: left;
+    padding-left: 8px;
+    border-collapse: collapse;
+
+}
+
+table.lower tr {
+    font-weight: normal;
+    border-collapse: collapse;
+    background: #ffffff;
+}
+
+table.lower td {
+    flex: 1;
+    padding: 0.2rem;
+    border: 1px solid white;
+    font-size: 12px;
+    background: #ffffff;
+    text-align: center;
+    cursor: pointer;
+    font-weight: bold;
+    border-collapse: collapse;
+}
+
+table.lower tbody tr:hover {
+    background: #F0F6FA;
+    font-weight: bold !important;
+}
+
+table.lower td:first-of-type {
+    text-align: left;
+    padding-left: 8px;
+}
+
+.main-chart-container {
+    padding-right: 64px;
+}
+
+
+/*add print media query*/
+@media print {
+    .main-chart-container {
+        padding-right: 0;
+    }
+
+
+    #chart-svg {
+        position: relative;
+    }
+
+    #table-container {
+        margin-top: 12px !important;
+        position: relative;
+        clear: both;
+
+    }
+
+    #lines-container {
+        height: 500px;
+    }
+    .page-break {display: none !important;}
+}
+
+.tick line {
+    stroke: grey;
+    opacity: 0.5;
+}
+
+.tick text {
+    fill: grey;
+    font-size: 14px;
+}
+
+.y.axis .tick line {
+    opacity: .3;
+}
+
+.domain {
+    opacity: 0.5;
+}
+
+body {
+    background: white;
+}
+/*.chosen-container{*/
+/*    width: 100% !important;*/
+/*    background: #fff url(data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='4' height='5' viewBox='0 0 4 5'%3e%3cpath fill='%23343a40' d='M2 0L0 2h4zm0 5L0 3h4z'/%3e%3c/svg%3e) no-repeat right 0.75rem center/8px 10px;*/
+/*}*/
+.page-break {display: none !important;}
+#change-over-time{
+    display: flex;
+    height:100%;
+    align-items: center;
+    flex-direction:column;
+    justify-content: center;
+}
+</style>
+<div class="container-fluid px-sm-5">
+    <div class="alert alert-danger d-none" role="alert">Failed to retrieve the data. Please try again later.</div>
+
+    <div class="row control-row">
+        <div class="col-12 col-lg-4" style="padding-top:3px; padding-bottom:3px">
+            <div class="form-group form-label"><label for="metric-select">Select main measure for line and bar chart:</label> <select class="form-control custom-select custom-select-sm" id="metric-select"></select></div>
+        </div>
+
+        <div class="col-12 col-lg-4" style="padding-top:3px; padding-bottom:3px">
+            <div class="form-group form-label"><label>Select areas to show (max 5 areas): </label>
+
+                <div class="select-mobile-container" style="flex: 1;"><select class="multiple-select" id="multiple-select" max_selected_options="5" multiple="true" style="width: 400px;"> </select></div>
+            </div>
+        </div>
+
+        <div class="col-12 col-lg-4 d-flex flex-column" style="padding-top:3px; padding-bottom:3px">
+            <div class="flex-grow-1">&nbsp;</div>
+
+            <div class="btn-group form-group" id="buttons" style="visibility: visible">
+                <button class="btn__export btn__export--pdf btn__svg" onclick="printPDF()" title="Export button label">Export to PDF</button>
+                <!-- <button class="btn__export btn__export--csv btn__svg">Export Data</button> -->
+                <button class="btn__copy btn__svg" onclick="CopyURL()" title="Copy URL label">Copy URL</button></div>
+        </div>
+    </div>
+
+    <div class="row chart-row d-none">
+        <div class="col-12 col-lg-9 main-chart-container" style="padding-top:3px; padding-bottom:3px">
+            <div class="chart-header"><img alt="metric icon" class="chart-header-icon" />
+                <div class="chart-title">
+                    <div class="chart-title-main">&nbsp;</div>
+
+                    <div class="chart-title-sub">&nbsp;</div>
+                </div>
+            </div>
+
+            <div id="london-map-map">
+                <div class="map-text">&nbsp;</div>
+
+                <div id="lines-container"><svg class="chart-svg"></svg></div>
+
+                <div id="table-container">
+                    <table class="lower">
+                        <thead>
+                        <tr id="table-header">
+                        </tr>
+                        </thead>
+                        <tbody id="tbody">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="chart-footer">&nbsp;</div>
+        </div>
+
+        <div class="page-break">&nbsp;</div>
+
+        <div class="col-12 col-lg-3 mt-3 mt-lg-0 py-2 polygon-background page-break-before">
+            <div id="change-over-time">
+                <div class="chart-title-sub"><b>Note: Accommodation bedspaces data is provided to Homeless Link by local authorities and accommodation providers. Changes can occur for a range of reasons. For example, a strategic review of services may result in additional spaces or fewer spaces being commissioned by the local authority to respond to changing needs in the area. Not all accommodation is commissioned by the borough it is located in.</b></div>
+
+                <div class="borough-table-container">
+                    <h5 class="chart-title-main table-title">Boroughs with biggest change since last year</h5>
+
+                    <ul class="change-table" id="change-over-time-last-year">
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="chart-tooltip">&nbsp;</div>
+</div>
+<script>window.Choices = class Choices{constructor(a,b){}}</script>
+<script src="https://d3js.org/d3.v5.min.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    var $jq = jQuery.noConflict();
+</script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.4.2/chosen.min.css" rel="stylesheet" />
+
+<script>
+
+    jQuery().ready(function (){
+        var jQuery = $jq;
+        var $ = $jq;
+        var params = new URLSearchParams(window.location.search.substring(1));
+        var $ = jQuery
+
+        function loadData() {
+
+            $(".custom-select").each(function (index) {
+                if (params != "") {
+                    var id = $(this).attr('id');
+                    var val1 = params.get(id)
+                    if (!val1) {
+                        return
+                    }
+
+                    var sortBySelect = document.querySelector('#' + id);
+                    sortBySelect.value = val1;
+                    sortBySelect.dispatchEvent(new Event("change"));
+                    d3.select('#' + id).select('option[value="' + val1 + '"]').attr('selected', 'selected');
+                }
+            });
+        }
+
+        $('.custom-select').on('change', function () {
+
+            var parametr = '';
+
+            $(".custom-select").each(function (index) {
+                var values = jQuery(this).val();
+                var id = $(this).attr('id');
+                parametr += "&" + id + "=" + values;
+
+            });
+
+            var query = window.location.search.substring(1);
+
+            if (query.length) {
+                if (window.history != undefined && window.history.pushState != undefined) {
+
+                    window.history.pushState({}, document.title, window.location.pathname);
+
+                }
+            }
+            var location = document.URL + "?" + parametr;
+            window.history.replaceState(null, null, location);
+            if (window.self !== window.top) {
+                window.parent.postMessage(`{"command" : "updateQuery","value":"${parametr}"}`, '*')
+            }
+        });
+
+
+        const MAXIMUM_BOROUGH_COUNT = 5;
+        const BASE_URL = "https://www.illustrate.studio/sites/default/files/";
+        const METRICS_URL = "https://raw.githubusercontent.com/illustrating-impact-dev/atlas/main/metrics_json.json";
+        const METRICS_DATA_URL = "https://raw.githubusercontent.com/illustrating-impact-dev/atlas/main/timeseries_full.json";
+        const TABLE_DATA_URL = "https://raw.githubusercontent.com/illustrating-impact-dev/atlas/main/timeseries_highlights.json";
+
+    
+        const METRICS_GROUPS = [
+            {group: "ROUGH SLEEPING", metricIds: [51, 58]},{group: "SERVICES", metricIds: [59, 60]},
+        ];
+
+
+        const LONDON_GSS = "E12000007";
+
+        let selected = {
+            metric: null,
+            service: null,
+            borough: [LONDON_GSS],
+            get withCircle() {
+                return this.metric && accessor.metrics.id(this.metric) === 7;
+            },
+            get withNoNumValue() {
+                return (
+                    this.metric &&
+                    (accessor.metrics.id(this.metric) === 2 ||
+                        accessor.metrics.id(this.metric) === 7)
+                );
+            },
+            get withTextLabel() {
+                return this.metric && accessor.metrics.id(this.metric) === 2;
+            },
+        };
+        let options = {
+            metrics: [],
+            services: [],
+        };
+        let data = {
+            metrics: {},
+            services: {},
+        };
+
+        const accessor = {
+            metrics: {
+                id: (d) => d.ID,
+                name: (d) => d.metric_name,
+                measure: (d) => d.measure,
+                json: (d) => d.json_url,
+                image: (d) => d.image_url.replace(/#/, ""),
+                source: (d) => d.datasource,
+                footnote: (d) => d.footnote,
+            },
+            metric: {
+                borough_name: (d) => d.borough_name,
+                borough_gss: (d) => d.borough_gss,
+                id: (d) => d.borough_gss,
+                color: (d) =>
+                    (d.hex && `#${d.hex}`) ||
+                    (d.Hex && `#${d.Hex}`) ||
+                    (d.colour_hex && `#${d.colour_hex}`),
+                key: (d) => d.value_keycolour || d.value_text,
+                valueText: (d) => d.value_text,
+                shortName: (d) => d.borough_shortname,
+                name: (d) => d.borough_name,
+                value: (d) => d.value_num,
+            },
+            table: {
+                borough_name: (d) => d.borough_name,
+                change: (d) => d.change,
+                measure: (d) => d.measure,
+                type: (d) => d.type,
+                type2: (d) => d.type2,
+            }
+        };
+
+        const formatCount = d3.format(",");
+
+        const gssToName = {
+            [LONDON_GSS]: "London",
+        };
+
+        const dispatch = d3.dispatch(
+            "entermetric",
+            "leavemetric",
+            "enterservice",
+            "leaveservice",
+            "move"
+        );
+
+        let metricsData;
+        let tableData;
+        let boroughsData;
+        let metricsLookup;
+
+        function metrics_data(d) {
+            
+            return {
+                borough_name: d['Borough_name__c'],
+                borough_gss: d['Gss_Code__c'],
+                measure: d['Measure__c'],
+                name: d['Name'],
+                year: (d['Year_Text__c'] + "" || "").split('/')[0],
+                value: d['Value__c'],
+            }
+        }
+
+        function table_data(d) {
+           
+            return {
+                borough_name: d['Borough_name__c'],
+                change: d['Change'],
+                measure: d['Measure__c'],
+                type: d['Type'],
+                type2: d['Type2'],
+            }
+        }
+
+        const alert = setupAlert();
+        Promise.all([
+            d3.json(METRICS_URL, d3.autoType),
+            d3.json(METRICS_DATA_URL, metrics_data),
+            d3.json(TABLE_DATA_URL, table_data),
+        ])
+            .then(([metrics, metricsD, tableD]) => {
+                console.log('log1',[metrics, metricsD, tableD]);
+                alert.hide();
+                metricsD = metricsD.map(d => metrics_data(d));
+
+                // Apply the table_data function to each item in the tableD array
+                tableD = tableD.map(d => table_data(d));
+
+                console.log([metrics, metricsD, tableD]);
+
+                metrics = metrics.filter((d) => d.name_timeseries);
+                console.log(metrics);
+
+                metricsLookup = d3.nest().key(accessor.metrics.id).rollup(v => v[0]).object(metrics);
+                console.log(metricsLookup);
+
+                const metricsKeys = metrics.map(d => d.name_timeseries);
+
+                metricsD = metricsD.filter(d => {
+                    return metricsKeys.includes(d.measure)
+                })
+
+                boroughsData = d3.nest().key(accessor.metrics.measure).rollup(values => {
+                    values = values.map(d => {
+                        gssToName[d.borough_gss] = d.borough_name;
+                        return d.borough_gss
+                        console.log(d.borough_gss);
+                    })
+                    const uniqueValues = d3.set(values).values().map(d => {
+                        return {
+                            borough_name: gssToName[d],
+                            borough_gss: d,
+                        }
+                    })
+                    return uniqueValues
+                }).object(metricsD);
+
+                metricsData = d3.nest().key(accessor.metrics.measure).object(metricsD);
+                tableData = d3.nest().key(accessor.table.measure).object(tableD);
+
+                options.metrics = metrics;
+                d3.select(".chart-row").classed("d-none", false);
+
+                const tooltip = renderTooltip(d3.select(".chart-tooltip"));
+                const headerFooter = renderHeaderFooter();
+                const lines = renderLines(d3.select('#lines-container'), tooltip);
+                const linesTable = renderLinesTable();
+                const table = renderTables()
+
+                d3.select("#metric-select")
+                    .call((select) =>
+                        select
+                            .selectAll("optgroup")
+                            .data(METRICS_GROUPS)
+                            .join("optgroup")
+                            .attr("label", (d) => d.group)
+                            .selectAll("option")
+                            .data((d) =>
+                                d.metricIds.map((id) =>
+                                    options.metrics.find((e) => accessor.metrics.id(e) === id)
+                                )
+                            )
+                            .join("option")
+                            .attr("value", accessor.metrics.id)
+                            .text(accessor.metrics.name)
+                    )
+                    .on("change", function () {
+                        tooltip.hide();
+                        selected.metric = options.metrics.find(
+                            (d) => accessor.metrics.id(d) == this.value
+                        );
+                        alert.hide();
+                        headerFooter.update();
+                        const key = metricsLookup[this.value].name_timeseries
+                        console.log(boroughsData)
+                        console.log(boroughsData[key])
+                        renderBoroughDropdown(boroughsData[key], lines, linesTable, table)
+                    })
+                    .each(function (index) {
+                        this.dispatchEvent(new Event("change"));
+                    });
+
+
+                loadData();
+            })
+            .catch((err) => {
+                console.error(err);
+                alert.show();
+            });
+
+        function setupAlert() {
+            const alert = d3.select(".alert-danger");
+
+            function show() {
+                alert.classed("d-none", false);
+            }
+
+            function hide() {
+                alert.classed("d-none", true);
+            }
+
+            return {
+                show,
+                hide,
+            };
+        }
+
+        function hidePopup() {
+            document.querySelectorAll(".select-popup-container").forEach(el => {
+                el.style.display = "none";
+            });
+        }
+
+        function renderBoroughDropdown(data, lines, linesTable, table) {
+            
+            data.sort((a, b) => a.borough_name.localeCompare(b.borough_name));
+            var optionsArray = data.map(accessor.metric.borough_name);
+            var gssCodeArray = data.map(accessor.metric.borough_gss);
+            var $ = jQuery
+
+            console.log("HER", jQuery.fn.jquery)
+
+            if(!window.multiSelect) {
+                jQuery(function($){
+                    window.multiSelect = $("#multiple-select").chosen({max_selected_options: 5});
+                    window.multiSelect.change(function () {
+                        var gssCodes = window.multiSelect.val();
+                        if (gssCodes.length === 0) {
+                            window.multiSelect.val([LONDON_GSS]).trigger("chosen:updated").change()
+                            return
+                        }
+                        updateCharts(gssCodes)
+                    });
+                    buildDropDown()
+                    window.multiSelect.val([LONDON_GSS]).trigger("chosen:updated").change()
+                });
+                // $(document).ready(function () {
+                //     window.multiSelect = $(".multiple-select").chosen({max_selected_options: 5});
+                //     window.multiSelect.change(function () {
+                //         var gssCodes = window.multiSelect.val();
+                //         if (gssCodes.length === 0) {
+                //             window.multiSelect.val([LONDON_GSS]).trigger("chosen:updated").change()
+                //             return
+                //         }
+                //         updateCharts(gssCodes)
+                //     });
+                //     buildDropDown()
+                //     window.multiSelect.val([LONDON_GSS]).trigger("chosen:updated").change()
+                // });
+                return
+            }
+
+            function buildDropDown(){
+                var dropDown = $("#multiple-select")
+                dropDown.empty();
+                optionsArray.forEach(function (option, index) {
+                    dropDown.append(`<option value="${gssCodeArray[index]}">${option}</option>`)
+                })
+            }
+
+            var boroughGSS = window.multiSelect.val()||[];
+            if(boroughGSS.length === 0){
+                boroughGSS = [LONDON_GSS]
+            }
+            buildDropDown()
+            window.multiSelect.val(boroughGSS).trigger("chosen:updated").change()
+
+            function updateCharts(gssCodes) {
+                selected.boroughs = gssCodes;
+                var allData = metricsData[selected.metric.name_timeseries];
+                var filteredData = allData.filter(function (d) {
+                    return gssCodes.includes(d.borough_gss);
+                });
+                lines.update(filteredData)
+                linesTable.update(filteredData, lines)
+                table.update(tableData[selected.metric.name_timeseries])
+            }
+        }
+
+
+        document.addEventListener('click', function () {
+            hidePopup();
+        })
+
+        document.addEventListener('scroll', function (e) {
+            hidePopup();
+        });
+
+        function renderLines(container,tooltip) {
+            let {width, height} = container.node().getBoundingClientRect();
+            const margin = {top: 20, right: 50, bottom: 50, left: 52};
+
+            const svg = container.select("svg")
+                .attr("width", "100%")
+                .attr("height", height)
+                .attr("viewBox", "0 0 " + (width + margin.left + margin.right) + " " + (height + margin.top + margin.bottom))
+                .attr("preserveAspectRatio", "xMidYMid meet")
+                .attr("class", "lines-svg");
+
+            const g = svg.append("g")
+                .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+            function drawLines(data, gssCode, x, y, color) {
+                var lastData = data[data.length - 1];
+                var line = d3.line()
+                    .x(function (d) {
+                        return x(d.date)
+                    })
+                    .y(function (d) {
+                        return y(d.value)
+                    });
+                const lineG = g.append('g')
+                    .classed('metric-line-g ' + 'metric-line-g-' + gssCode.toLowerCase(), true)
+                    .style('cursor', 'pointer')
+                    .on('mouseover', function (d) {
+                        g.selectAll('.metric-line-g').style('opacity', .4);
+                        d3.select(this).style('opacity', 1);
+                        const tr = d3.select('tr[data-gsscode="' + gssCode + '"]').node();
+                        tr.style['font-weight'] = 'bold';
+                    })
+                    .on('mouseout', function (d) {
+                        g.selectAll('.metric-line-g').style('opacity', 1);
+                        const tr = d3.select('tr[data-gsscode="' + gssCode + '"]').node();
+                        tr.style['font-weight'] = 'normal';
+                    })
+                lineG.append("path")
+                    .attr("class", "metric-line line-" + gssCode.toLowerCase())
+                    .datum(data)
+                    .attr("d", line)
+                    .style("stroke-width", 3)
+                    .style("fill", "none")
+                    .style('stroke', color)
+
+                lineG.selectAll('circle')
+                    .data(data)
+                    .enter()
+                    .append('circle')
+                    .attr('cx', function (d) {
+                        return x(d.date)
+                    })
+                    .attr('cy', function (d) {
+                        return y(d.value)
+                    })
+                    .attr('r', 3)
+                    .style('fill', color)
+                    .on('mouseover', function (d) {
+                        const that = d3.select(this)
+                        that.attr('r', 6);
+                        const color = that.style('fill')
+                        const content =`
+                          <div>${d3.format(',')(d.value)}</div>
+                        `
+                        tooltip.show(content, color)
+                    })
+                    .on('mousemove', function (d) {
+                        tooltip.move()
+                    }).on('mouseout', function (d) {
+                    d3.select(this).attr('r', 3);
+                    tooltip.hide()
+                })
+
+                lineG.append('text')
+                    .attr('x', x(lastData.date) + 10)
+                    .attr('y', y(lastData.value) + 5)
+                    .text(lastData.borough_name)
+                    .attr("class", "label label-" + gssCode.toLowerCase())
+                    .style("font-size", "12px")
+            }
+
+
+            function update(data) {
+                console.log(selected.metric.metric_name)
+                // Determine the min and max date to be used by the x-axis
+                let dateMonth = '01/01/'
+                switch(selected.metric.metric_name){
+                    case 'Rough sleeping (CHAIN)':
+                        dateMonth = '03/31/';
+                        break;
+                    case 'Rough sleeping (Street counts/estimates)':
+                        dateMonth = '10/11/'
+                        break;
+                    case 'Winter shelter spaces':
+                        dateMonth = '01/02/'
+                        break;
+                    case 'Accommodation (hostels/supported) bed spaces':
+                        dateMonth = '01/02/'
+                }
+                
+                const minYear = d3.min(data, d=>+d.year);
+                const maxYear = d3.max(data, d=>+d.year);
+                const minDate  =  new Date('01/07/' + (+minYear-1))
+                const maxDate  =  new Date('01/07/' + (+maxYear+1))
+
+                data.forEach(function (d) {
+                    d.date = new Date( dateMonth + d.year);
+                });
+                g.html('');
+                const x = d3.scaleTime()
+                    .domain([minDate, maxDate])
+                    .range([0, width]);
+
+                const y = d3.scaleLinear()
+                    .domain([0, d3.max(data, d => d.value)])
+                    .range([height, 0]);
+
+                // determine the tick values
+                const tickValues = [];
+                for(let year = minYear; year <= maxYear; year++)
+                    tickValues.push(new Date('01/01/' +  year))
+
+                const xAxis = d3.axisBottom(x)
+                    .tickPadding(10)
+                    .tickValues(tickValues)
+                    .tickFormat(d3.timeFormat('%Y'))
+                    .ticks(tickValues.length);
+
+                const yAxis = d3.axisLeft(y)
+                    .tickSize(-width)
+                    .tickPadding(10)
+                    .tickFormat(formatCount);
+
+                g.append("g")
+                    .attr("class", "x axis")
+                    .attr("transform", "translate(0," + height + ")")
+                    .call(xAxis)
+                    .select('.domain').style('stroke-width', '3')
+                    .style('stroke', 'grey');
+
+                g.append("g")
+                    .attr("class", "y axis")
+                    .call(yAxis)
+                    .select('.domain').remove()
+
+                g.append('line')
+                    .attr('x1', x(new Date('04/01/2020')))
+                    .attr('y1', y(0))
+                    .attr('x2', x(new Date('04/01/2020')))
+                    .attr('y2', y(y.domain()[1]))
+                    .style('stroke', 'grey')
+                    .style('stroke-width', '2')
+                    .style('stroke-dasharray', '5,5')
+
+                g.append('text')
+                    .attr('x', x(new Date('04/01/2020')) + 10)
+                    .attr('y', y(y.domain()[1]) + 25)
+                    .text('COVID-19 starts')
+                    .style('font-size', '12px')
+                    .style('fill', 'grey')
+
+                const boroughs = d3.nest()
+                    .key(function (d) {
+                        return d.borough_gss;
+                    })
+                    .entries(data);
+                var colors = ['#b361b2', '#f9608b', '#f8b11f', '#f9608b', '#b361b2', '#55aaff']
+                var colorIndex = 0;
+                boroughs.forEach(function (d) {
+                    d.values.sort(function (a, b) {
+                        return a.date - b.date;
+                    });
+                    var color = d.key === LONDON_GSS ? '#55aaff' : colors[colorIndex++];
+                    drawLines(d.values, d.key, x, y, color);
+                })
+
+
+            }
+
+            function updateHover(gssCode) {
+                g.selectAll('.metric-line-g').style('opacity', .4);
+                d3.select('.metric-line-g-' + gssCode.toLowerCase()).style('opacity', 1);
+            }
+
+            function updateHoverOut(gssCode) {
+                g.selectAll('.metric-line-g').style('opacity', 1);
+                d3.select('.metric-line-g-' + gssCode.toLowerCase()).style('opacity', 1);
+            }
+
+            return {
+                update,
+                updateHover,
+                updateHoverOut
+            }
+        }
+
+        function renderLinesTable() {
+            function update(data, lines) {
+                const minMaxDate = d3.extent(data, d=>+d.year).map(d=>+d);
+                const years = [];
+                for(let year = minMaxDate[0]; year <= minMaxDate[1]; year++)
+                    years.push(year)
+
+                var groupedData = d3.nest()
+                    .key(function (d) {
+                        return d.borough_name;
+                    })
+                    .key(function (d) {
+                        return d.year;
+                    })
+                    .rollup(function (v) {
+                        return v[0].value;
+                    })
+                    .object(data);
+
+                const tableHeader = d3.select("#table-header");
+                const tableContent = ["Borough", ...years].map(d=>`<th>${d}</th>`).join("")
+                tableHeader.html(tableContent)
+
+                var boroughs = Object.keys(groupedData);
+                var boroughDataByYear = [];
+                boroughs.forEach((borough) => {
+                    var boroughData = [borough];
+                    years.forEach((year) => {
+                        var value = groupedData[borough][year];
+                        if (value) {
+                            value = formatCount(value);
+                        }
+                        boroughData.push(String(value || '&nbsp;'));
+                    })
+                    boroughDataByYear.push(boroughData)
+                })
+                const emptyRows = years.map(()=>'&nbsp;')
+                for (let i = boroughs.length; i < MAXIMUM_BOROUGH_COUNT; i++) {
+                    boroughDataByYear.push(emptyRows)
+                }
+                var tbody = document.getElementById('tbody');
+                tbody.innerHTML = '';
+                boroughDataByYear.forEach((boroughData, index) => {
+                    var tr = document.createElement('tr');
+                    tbody.appendChild(tr);
+                    if (data[index]) {
+                        tr.setAttribute('data-gssCode', data[index].borough_gss);
+                        tr.addEventListener('mouseenter', function (event) {
+                            lines.updateHover(this.getAttribute('data-gssCode'))
+                            event.stopPropagation();
+                        })
+                        tr.addEventListener('mouseleave', function (event) {
+                            lines.updateHoverOut(this.getAttribute('data-gssCode'))
+                            event.stopPropagation();
+                        })
+                    }
+                    boroughData.forEach((data) => {
+                        var td = document.createElement('td');
+                        td.innerHTML = data;
+                        tr.appendChild(td);
+                    })
+                })
+            }
+
+            return {
+                update
+            }
+        }
+
+        function renderTables() {
+            function extraDataWithType(data, type) {
+                const dataForPY = data.filter(d => d.type === type);
+                const dataForPYIncrease = dataForPY.filter(d => d.type2 === 'Increase');
+                dataForPYIncrease.sort(function (a, b) {
+                    return b.change - a.change;
+                });
+                const dataForPYDecrease = dataForPY.filter(d => d.type2 === 'Decrease');
+                dataForPYDecrease.sort(function (a, b) {
+                    return a.change - b.change;
+                });
+                return dataForPYDecrease.concat(dataForPYIncrease);
+            }
+
+            function addListItems(container, data) {
+                container.innerHTML = "";
+                data.forEach(function (item) {
+                    var li = document.createElement('li');
+                    container.appendChild(li);
+                    const sign = item.change > 0 ? '+' : '';
+                    li.classList.add("change-table-list-item")
+                    var div1 = document.createElement('div');
+                    div1.innerText = item.borough_name
+                    li.appendChild(div1)
+
+                    var div2 = document.createElement('div');
+                    div2.innerText = (sign + item.change)
+                    div2.classList.add(item.type2.toLowerCase())
+                    li.appendChild(div2)
+
+                })
+            }
+
+            function update(data) {
+                const sincePY = extraDataWithType(data, 'SincePY')
+                addListItems(document.getElementById('change-over-time-last-year'), sincePY)
+            }
+
+            return {
+                update
+            }
+        }
+
+        function renderHeaderFooter() {
+            const headerIcon = d3.select(".chart-header-icon");
+            const headerMainTitle = d3.select(".chart-title-main");
+            const headerSubTitle = d3.select(".chart-title-sub");
+            const footer = d3.select(".chart-footer");
+
+            function update() {
+                if (!selected.metric) return;
+                headerIcon.attr("src", accessor.metrics.image(selected.metric));
+                headerMainTitle.text(accessor.metrics.name(selected.metric));
+                headerSubTitle.text(
+                    `Data Source: ${accessor.metrics.source(
+                        selected.metric
+                    )}`
+                );
+                footer.text(accessor.metrics.footnote(selected.metric));
+            }
+
+            return {
+                update,
+            };
+        }
+
+        function renderTooltip(tooltip) {
+            let width, height;
+            const padding = 8;
+
+            function show(content, color) {
+                tooltip.style("border-color", color).html(content);
+                const bcr = tooltip.node().getBoundingClientRect();
+                width = bcr.width;
+                height = bcr.height;
+                tooltip.classed("show", true);
+            }
+
+            function hide() {
+                tooltip.classed("show", false);
+            }
+
+            function move() {
+                let x = d3.event.clientX - width / 2;
+                if (x < 0) {
+                    x = 0;
+                } else if (x + width > window.innerWidth) {
+                    x = window.innerWidth - width;
+                }
+                let y = d3.event.clientY - height - padding;
+                if (y < 0) {
+                    y = 0;
+                }
+                tooltip.style("transform", `translate(${x}px,${y}px)`);
+            }
+
+            return {
+                show,
+                hide,
+                move,
+            };
+        }
+    })
+
+    function printPDF() {
+    let chartRow = document.querySelector('.row.chart-row');
+    if (!chartRow) {
+        console.error("Element '.row.chart-row' not found.");
+        return;
+    }
+
+    html2canvas(chartRow, { useCORS: true }).then(canvas => {
+        try {
+            let pdf = new jsPDF('l', 'mm', 'a4'); // landscape orientation
+            let imgData = canvas.toDataURL('image/png');
+
+            // Adjust the dimensions for landscape
+            let pdfWidth = 297; // A4 width in mm
+            let pdfHeight = 210; // A4 height in mm
+            let imgWidth = canvas.width;
+            let imgHeight = canvas.height;
+            let ratio = Math.min(pdfWidth / imgWidth, pdfHeight / imgHeight);
+
+            let newWidth = imgWidth * ratio;
+            let newHeight = imgHeight * ratio;
+            let xOffset = (pdfWidth - newWidth) / 2;
+            let yOffset = (pdfHeight - newHeight) / 2;
+
+            pdf.addImage(imgData, 'PNG', xOffset, yOffset, newWidth, newHeight);
+            pdf.save('download.pdf');
+        } catch (e) {
+            console.error("Error generating PDF: ", e);
+        }
+    }).catch(error => {
+        console.error("Error in html2canvas: ", error);
+    });
+}
+</script>
+<script>
+    jQuery().ready(function () {
+        const CSV_LINKS_URL = "https://www.illustrate.studio/sites/default/files/json/csv_links_20220908.json";
+
+        const modalWidth = 320;
+
+        d3.json(CSV_LINKS_URL).then((csvLinks) => {
+            const modal = d3
+                .select("body")
+                .append("div")
+                .attr("class", "modal fade")
+                .attr("id", "csv-modal")
+                .attr("tabindex", "-1");
+
+            const modalDialog = modal
+                .append("div")
+                .attr("class", "modal-dialog m-0")
+                .style("width", `${modalWidth}px`);
+
+            const modalContent = modalDialog
+                .append("div")
+                .attr("class", "modal-content");
+
+            const modalHeader = modalContent
+                .append("div")
+                .attr("class", "modal-header")
+                .call((header) =>
+                    header.append("h6").attr("class", "modal-title").text("CSV Download")
+                )
+                .call((header) =>
+                    header
+                        .append("button")
+                        .attr("type", "button")
+                        .attr("class", "close")
+                        .attr("data-dismiss", "modal")
+                        .attr("aria-label", "Close")
+                        .append("span")
+                        .attr("aria-hidden", "true")
+                        .html("&times;")
+                );
+
+            const form = modalContent
+                .append("div")
+                .attr("class", "modal-body")
+                .append("form");
+            form
+                .append("div")
+                .attr("class", "form-group")
+                .call((group) =>
+                    group
+                        .append("label")
+                        .attr("for", "csv-source-select")
+                        .text("Which data source would you like to download?")
+                )
+                .call((group) =>
+                    group
+                        .append("select")
+                        .attr("class", "form-control custom-select custom-select-sm")
+                        .attr("id", "csv-source-select")
+                        .selectAll("option")
+                        .data(csvLinks)
+                        .join("option")
+                        .attr("value", (d) => d.url)
+                        .text((d) => d.name)
+                );
+            form
+                .append("button")
+                .attr("type", "submit")
+                .attr("class", "btn btn-sm btn-primary")
+                .text("Download")
+                .on("click", downloadCSV);
+
+            const csvButton = d3
+                .select(".btn__export--csv")
+                .attr("data-toggle", "modal")
+                .attr("data-target", "#csv-modal");
+
+            d3.select("body").append("style").text(`
+      .modal-backdrop.show {
+        opacity: 0.2;
+      }
+    `);
+
+            const {
+                width: buttonWidth,
+                height: buttonHeight,
+            } = csvButton.node().getBoundingClientRect();
+
+            $("#csv-modal").on("show.bs.modal", positionModal);
+            window.addEventListener("resize", resize);
+
+            function downloadCSV() {
+                d3.event.preventDefault();
+                const url = d3.select("#csv-source-select").node().value;
+                if (url) {
+                    window.location = url;
+                }
+            }
+
+            function positionModal() {
+                let {left, top} = csvButton.node().getBoundingClientRect();
+                left = left + buttonWidth / 2 - modalWidth / 2;
+                if (left < 0) left = 0;
+                if (left + modalWidth > window.innerWidth)
+                    left = window.innerWidth - modalWidth;
+                top = top + buttonHeight;
+                modalDialog.style("left", `${left}px`).style("top", `${top}px`);
+            }
+
+            function resize() {
+                if (modal.classed("show")) {
+                    positionModal();
+                }
+            }
+        });
+    });
+</script>
+
+
+</script><script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.jquery.min.js">
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

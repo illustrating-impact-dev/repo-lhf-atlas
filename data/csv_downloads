@@ -1,0 +1,17 @@
+[
+ {
+   "ID": 1,
+   "name": "London and borough totals",
+   "url": "https://docs.google.com/spreadsheets/d/e/2PACX-1vS-ZMeZHb4yopIVoY2n0brOKkkOQr1e7fnAozYEQh1Wq4p428TAt55Z6fWz11w2hctYXDA9RZH-5GMb/pub?gid=0&single=true&output=csv"
+ },
+ {
+   "ID": 2,
+   "name": "Service level data",
+   "url": "https://raw.githubusercontent.com/illustrating-impact-dev/atlas/main/services_singlerow.json"
+ },
+ {
+   "ID": 3,
+   "name": "Service provider totals",
+   "url": "https://docs.google.com/spreadsheets/d/e/2PACX-1vS-ZMeZHb4yopIVoY2n0brOKkkOQr1e7fnAozYEQh1Wq4p428TAt55Z6fWz11w2hctYXDA9RZH-5GMb/pub?gid=358745362&single=true&output=csv"
+ }
+]

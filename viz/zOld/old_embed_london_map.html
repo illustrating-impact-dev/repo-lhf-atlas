@@ -1,0 +1,65 @@
+<iframe id="frame" src='https://www.illustrate.studio/node/291' frameborder='0' scrolling='no' style='width:100%;'></iframe><div style='width:100%!;margin-top:4px!important;text-align:right!important;'></div>
+
+<script>
+    var iframe = document.getElementById('frame');
+    var startParam =   window.location.search
+    var iframeSRC = "https://www.illustrate.studio/node/291" + startParam;
+    iframe.setAttribute('src', iframeSRC);
+
+	window.onload = initializeViz;
+	function initializeViz() {
+
+	var w = window.innerWidth
+	var y = document.getElementById("frame").height
+	console.log(y);
+	if (w > 600) {
+	console.log(w);
+	document.getElementById("frame").height = "850";
+	}
+	else {
+	document.getElementById("frame").height = "2500";
+	}
+	}
+
+
+
+    function copyTextToClipboard(text) {
+        var textArea = document.createElement("textarea");
+        textArea.style.position = 'fixed';
+        textArea.style.top = 0;
+        textArea.style.left = 0;
+        textArea.style.width = '2em';
+        textArea.style.height = '2em';
+        textArea.style.padding = 0;
+        textArea.style.border = 'none';
+        textArea.style.outline = 'none';
+        textArea.style.boxShadow = 'none';
+        textArea.style.background = 'transparent';
+        textArea.value = text;
+        document.body.appendChild(textArea);
+        textArea.select();
+        try {
+            var successful = document.execCommand('copy');
+            var msg = successful ? 'successful' : 'unsuccessful';
+            console.log('Copying text command was ' + msg);
+        } catch (err) {
+            console.log('Oops, unable to copy');
+        }
+
+        document.body.removeChild(textArea);
+    }
+
+    window.addEventListener("message", (event) => {
+        if(!event.data)
+            return ;
+        const data = JSON.parse(event.data);
+        if(data.command === 'updateQuery'){
+            var location=window.location.pathname.split('?')[0] + '?' +  data.value;
+            window.history.replaceState(null, null, location);
+        }else if(data.command === 'copyURL'){
+            copyTextToClipboard(window.location.href);
+            alert("URL copied!");
+        }
+    }, false);
+
+</script>
