@@ -333,10 +333,9 @@
 </script>
 <script>
     (function () {
-        const BASE_URL = "https://www.illustrate.studio/sites/default/files/";
 
-        const HOUSING_OPTIONS = "https://raw.githubusercontent.com/illustrating-impact-dev/atlas/main/housingoptions.json"
-        const GEO_JSON = `${BASE_URL}json/output.json`;
+        const HOUSING_OPTIONS = "https://raw.githubusercontent.com/illustrating-impact-dev/repo-lhf-atlas/main/housingoptions_sf.json"
+        const GEO_JSON = "https://raw.githubusercontent.com/illustrating-impact-dev/repo-lhf-atlas/main/data/boroughs.json";
 
         const ATTR_URL = "data-url"
 
@@ -350,19 +349,19 @@
 
         let accessor = {
             boroughs: {
-                gssCode: (d) => d["ge_code"],
+                gssCode: (d) => d["geo_code"],
                 name: (d) => d["la_name"],
             },
 
             housingOptions: {
-                dutyToReferUrl: (d) => d["dutytorefer_url"],
-                gssCode: (d) => d["gss"],
-                image_url: (d) => d["image_url"],
-                immediateriskUrl: (d) => d["immeadiaterisk_url"],
-                name: (d) => d["la_name"],
+                dutyToReferUrl: (d) => d["dutytorefer_url__c"],
+                gssCode: (d) => d["GSS_Code__c"],
+                image_url: (d) => d["image_url__c"],
+                immediateriskUrl: (d) => d["immeadiaterisk_url__c"],
+                name: (d) => d["Local_Authority__c"],
                 lead: (d) => d["lead"],
                 lead_email: (d) => d["lead_email"],
-                outOfHoursURL: (d) => d["outofhours_url"],
+                outOfHoursURL: (d) => d["outofhours_url__c"],
             },
             geo: {
                 id: (d) => d.properties.GSS_CODE,
@@ -418,7 +417,7 @@
                     const gssCode = accessor.housingOptions.gssCode(d);
                     const borough = {
                         la_name: name,
-                        ge_code: gssCode,
+                        geo_code: gssCode,
                     }
                     gssToName[gssCode] = {
                         name: name,
