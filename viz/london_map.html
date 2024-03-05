@@ -533,17 +533,17 @@
 
 <script>
     (function () {
-        const METRICS_URL = "https://raw.githubusercontent.com/illustrating-impact-dev/atlas/main/metrics_json.json";
-        const METRICS_DATA_URL = "https://raw.githubusercontent.com/illustrating-impact-dev/atlas/main/services_borough_summ_long.json";
-        const METRICS_MAP_TEXT_URL = "https://raw.githubusercontent.com/illustrating-impact-dev/atlas/main/londonmap_totals.json";
-        const METRICS_MAP_LEGEND = "https://raw.githubusercontent.com/illustrating-impact-dev/atlas/main/map_color_legend.json";
-        const SERVICES_URL = "https://raw.githubusercontent.com/illustrating-impact-dev/atlas/main/services_json.json";
-        const SERVICES_DATA_URL = "https://raw.githubusercontent.com/illustrating-impact-dev/atlas/main/services_singlerow.json";
-        const LONDON_GEO_URL = "https://raw.githubusercontent.com/illustrating-impact-dev/atlas/main/boroughs.json";
+        const METRICS_URL = "https://raw.githubusercontent.com/illustrating-impact-dev/repo-lhf-atlas/main/metrics_json.json";
+        const METRICS_DATA_URL = "https://raw.githubusercontent.com/illustrating-impact-dev/repo-lhf-atlas/main/services_borough_summ_long.json";
+        const METRICS_MAP_TEXT_URL = "https://raw.githubusercontent.com/illustrating-impact-dev/repo-lhf-atlas/main/londonmap_totals.json";
+        const METRICS_MAP_LEGEND = "https://raw.githubusercontent.com/illustrating-impact-dev/repo-lhf-atlas/main/map_color_legend.json";
+        const SERVICES_URL = "https://raw.githubusercontent.com/illustrating-impact-dev/repo-lhf-atlas/main/services_json.json";
+        const SERVICES_DATA_URL = "https://raw.githubusercontent.com/illustrating-impact-dev/repo-lhf-atlas/main/services_singlerow.json";
+        const LONDON_GEO_URL = "https://raw.githubusercontent.com/illustrating-impact-dev/repo-lhf-atlas/main/data/boroughs.json";
 
         const METRICS_GROUPS = [
             { group: "ROUGH SLEEPING", metricIds: [0, 16, 8, 14] },
-            { group: "SERVICES", metricIds: [1, 7, 6, 3, 15, 2, 10, 11] },
+            { group: "SERVICES", metricIds: [1, 7, 6, 3, 15, 2, 61,10, 11] },
         ];
 
         const LONDON_GSS = "E12000007";
@@ -560,11 +560,13 @@
                 return (
                     this.metric &&
                     (accessor.metrics.id(this.metric) === 2 ||
-                        accessor.metrics.id(this.metric) === 7)
+                        accessor.metrics.id(this.metric) === 7||
+                        accessor.metrics.id(this.metric) === 61)
                 );
             },
             get withTextLabel() {
-                return this.metric && accessor.metrics.id(this.metric) === 2;
+                return this.metric && (accessor.metrics.id(this.metric) === 2||
+                        accessor.metrics.id(this.metric) === 61);
             },
         };
         let options = {
@@ -1359,7 +1361,7 @@
 
 <script>
     (function () {
-        const CSV_LINKS_URL = "https://raw.githubusercontent.com/illustrating-impact-dev/atlas/main/csv_downloads";
+        const CSV_LINKS_URL = "https://raw.githubusercontent.com/illustrating-impact-dev/repo-lhf-atlas/main/csv_downloads";
 
         const modalWidth = 320;
 
