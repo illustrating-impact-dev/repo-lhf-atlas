@@ -28,13 +28,13 @@
     }
 
     .chart-title-main {
-        font-size:1.7rem;
+        font-size: 1.7rem;
         color: #00aaff;
         font-weight: bold;
     }
 
     .chart-intro {
-        font-size:1rem;
+        font-size: 1rem;
     }
 
     .chart-title-main span {
@@ -244,7 +244,7 @@
 
 
     .service-list tr.muted {
-        opacity: 0.2;
+        opacity: 1;
     }
 
     .chart-tooltip .service-name,
@@ -364,11 +364,11 @@
 
     <div class="rowq">
         <div class="column">
-            <div class="top">42</div>
+            <div class="top">32</div>
             <div class="bottom">services in London for 2023/24</div>
         </div>
         <div class="column">
-            <div class="top">372</div>
+            <div class="top">490</div>
             <div class="bottom">spaces in these services</div>
         </div>
     </div>
@@ -474,15 +474,15 @@
 <script>
     (function () {
 
-        const LONDON_GEO_URL = "https://raw.githubusercontent.com/illustrating-impact-dev/atlas/main/boroughs.json";
-        const SERVICES_TYPES_URL = "https://raw.githubusercontent.com/illustrating-impact-dev/atlas/main/services_singlerow.json";
-        const COLORS_URL = "https://raw.githubusercontent.com/illustrating-impact-dev/atlas/main/lkp_hex_info.json";
+        const LONDON_GEO_URL = "https://raw.githubusercontent.com/illustrating-impact-dev/repo-lhf-atlas/main/data/boroughs.json";
+        const SERVICES_TYPES_URL = "https://raw.githubusercontent.com/illustrating-impact-dev/repo-lhf-atlas/main/services_singlerow.json";
+        const COLORS_URL = "https://raw.githubusercontent.com/illustrating-impact-dev/repo-lhf-atlas/main/data/lkp_hex_info.json";
 
         const TRANSITION_DURATION = 250;
         const LONDON_GSS = "E12000007";
 
         const selected = {
-            serviceType: "Night Shelter or Winter Shelter 22_23",
+            serviceType: "Night Shelter or Winter Shelter",
             borough: null,
             service: null,
         };
@@ -639,7 +639,7 @@
             }
         }
 
-        let highlightedGSS = "E09000003";
+        let highlightedGSS = "E09000007";
 
         // Services map
         function renderServicesMap() {
@@ -861,9 +861,11 @@
             dispatch.on("updatebottom.service-list", () => {
                 // Filter services by the highlighted GSS code
 
-                const filteredServices = data.servicesByServiceType.get(selected.serviceType).filter(service =>
-                    accessor.services.gssList(service).includes(highlightedGSS)
-                );
+                const filteredServices = data.servicesByServiceType.get(selected.serviceType).filter(service => {
+                    const gssList = accessor.services.gssList(service);
+                    return gssList.includes(highlightedGSS) || gssList.includes("E12000007");
+                });
+
 
                 console.log(filteredServices);
 
@@ -878,7 +880,7 @@
                     return acc + curr.shelter;
                 }, 0); // Start with an initial sum of 0
 
-                
+
 
                 if (filteredServices.length > 0) {
                     laSummary.text(`${filteredServices.length} services with a total of ${totalShelterSpaces} spaces.`);
@@ -891,7 +893,7 @@
                 } else {
                     title.text(""); // Fallback text if there are no services
                 }
-                
+
 
                 // Bind the filtered services to the table rows
                 serviceTableBody

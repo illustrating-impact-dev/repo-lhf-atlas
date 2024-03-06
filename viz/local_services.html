@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>My Webpage</title>
+    <title>LHF health</title>
     <script src="https://d3js.org/d3.v6.min.js"></script>
 
     <style>
@@ -222,7 +222,7 @@
                 .attr("class", "tooltip")
                 .style("opacity", 0);
 
-            d3.json('https://raw.githubusercontent.com/illustrating-impact-dev/atlas/main/boroughs.json').then(function (geojson) {
+            d3.json('https://raw.githubusercontent.com/illustrating-impact-dev/repo-lhf-atlas/main/data/boroughs.json').then(function (geojson) {
                 svg.selectAll("path")
                     .data(geojson.features)
                     .enter().append("path")
@@ -257,7 +257,7 @@
             // Initialize Choices.js dropdown
             const dropdownElement = document.getElementById('laDropdown');
             Promise.all([
-                fetch('https://raw.githubusercontent.com/illustrating-impact-dev/atlas/main/dropdown.json')
+                fetch('https://raw.githubusercontent.com/illustrating-impact-dev/repo-lhf-atlas/main/data/dropdown.json')
                     .then(response => response.json()),
                 fetch('https://raw.githubusercontent.com/illustrating-impact-dev/atlas/main/charter.json')
                     .then(response => response.json())
