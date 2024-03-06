@@ -1,4 +1,3 @@
-
 <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
     integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" rel="stylesheet" />
 <style type="text/css">
@@ -74,7 +73,7 @@
     .chart-title-sub,
     .sub-region-title-sub,
     .sleeping-title-sub {
-        
+
         font-size: 12px;
         line-height: 14px;
         color: #666666;
@@ -84,7 +83,7 @@
     }
 
     .summary-container {
-        font-size: .75em;
+        font-size: 0.9em;
         color: #262626;
         padding: 16px;
     }
@@ -113,15 +112,19 @@
         font-size: 1.6em;
         font-weight: bold;
     }
-    #assessment_centre_services, #assessment_centre_services_plural {
-        color:  rgb(184, 203, 42);
+
+    #assessment_centre_services,
+    #assessment_centre_services_plural {
+        color: rgb(184, 203, 42);
         font-size: 1.6em;
         font-weight: bold;
     }
-    .d-none{
+
+    .d-none {
         display: none !important;
     }
-    #assessment-centre{
+
+    #assessment-centre {
         font-size: 1em;
         color: #262626;
     }
@@ -137,20 +140,20 @@
         font-size: 1.6em;
         font-weight: bold;
     }
-	
-		  #e_in {
+
+    #e_in {
         color: #2a6153;
         font-size: 1.6em;
         font-weight: bold;
     }
-	
-	  #e_in2 {
+
+    #e_in2 {
         color: #2a6153;
         font-size: 1.6em;
         font-weight: bold;
     }
-	
-	  #e_in3 {
+
+    #e_in3 {
         color: #2a6153;
         font-size: 1.6em;
         font-weight: bold;
@@ -169,7 +172,7 @@
 
     .map-description {
 
-        font-size: .75em;
+        font-size: 0.9em;
         line-height: 18px;
         color: rgb(0, 170, 255);
         font-weight: normal;
@@ -186,7 +189,8 @@
 
     .table-item {
         display: flex;
-        font-size: .7em;
+        font-size: .9em;
+        border-bottom: 1px solid #ccd0d0;
     }
 
     .table-item-key {
@@ -523,7 +527,7 @@
         bottom: -9999px;
         margin: auto;
         width: 25px;
-         height: 25px;
+        height: 25px;
     }
 
     .pagebreak {
@@ -560,10 +564,27 @@
     }
 
     /* Add this new rule */
-.grid .no-padding, .no-padding {
-    padding: 3px;
+    .grid .no-padding,
+    .no-padding {
+        padding: 3px;
+    }
+
+    .day-centres-header {
+  font-size: 1.1em; /* Example size, adjust as needed */
+  color: #B07AA1; /* Dark text color, adjust as needed */
+  padding-bottom: 5px; /* Spacing above and below the text */
+  font-weight: bold;
+  /* Add more styling here as needed */
 }
 
+/* Styles for the 'Accommodation' header */
+.accommodation-header {
+  font-size: 1.1em; /* Example size, adjust as needed */
+  color:  #31B6C1; /* Dark text color, adjust as needed */
+  padding: 10px 0; /* Spacing above and below the text */
+  font-weight: bold;
+  /* Add more styling here as needed */
+}
 </style>
 <script src='https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js'></script>
 <link href="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css" rel="stylesheet" />
@@ -571,173 +592,195 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js"></script>
 <div class="container-fluid">
     <div class="my-embedded-content">
-    <div class="alert alert-danger d-none" role="alert">Failed to retrieve the data. Please try again later.</div>
+        <div class="alert alert-danger d-none" role="alert">Failed to retrieve the data. Please try again later.</div>
 
-    <div class="row"  style="padding-top:3px; padding-bottom:3px">
-        <div class="col-12 col-lg-4" style="padding-top:3px; padding-bottom:3px">
-            <div class="form-group"><label class="drop-down-title" for="borough-select">Select a Borough to focus
-                    on:</label> <select class="form-control custom-select custom-select-sm"
-                    id="borough-select"></select></div>
-        </div>
+        <div class="row" style="padding-top:3px; padding-bottom:3px">
+            <div class="col-12 col-lg-4" style="padding-top:3px; padding-bottom:3px">
+                <div class="form-group"><label class="drop-down-title" for="borough-select">Select a Borough to focus
+                        on:</label> <select class="form-control custom-select custom-select-sm"
+                        id="borough-select"></select></div>
+            </div>
 
-        <div class="col-12 col-lg-4" style="padding-top:3px; padding-bottom:3px">
-            <div class="form-group"><label class="drop-down-title" for="service-select">On map show services that
-                    are:</label> <select class="form-control custom-select custom-select-sm"
-                    id="service-select"></select></div>
-        </div>
+            <div class="col-12 col-lg-4" style="padding-top:3px; padding-bottom:3px">
+                <div class="form-group"><label class="drop-down-title" for="service-select">On map show services that
+                        are:</label> <select class="form-control custom-select custom-select-sm"
+                        id="service-select"></select></div>
+            </div>
 
-        <div class="col-12 col-lg-4 d-flex flex-column" style="padding-top:3px; padding-bottom:3px">
-            <div class="flex-grow-1">&nbsp;</div>
+            <div class="col-12 col-lg-4 d-flex flex-column" style="padding-top:3px; padding-bottom:3px">
+                <div class="flex-grow-1">&nbsp;</div>
 
-            <div class="btn-group form-group" id="buttons" style="visibility: visible"><button
-                    class="btn__export btn__export--pdf btn__svg" onclick="printPDF()"
-                    title="Export button label">Export to PDF</button>
+                <div class="btn-group form-group" id="buttons" style="visibility: visible"><button
+                        class="btn__export btn__export--pdf btn__svg" onclick="printPDF()"
+                        title="Export button label">Export to PDF</button>
                     <!-- <button class="btn__export btn__export--csv btn__svg">Export Data</button> -->
-                    <button class="btn__copy btn__svg"
-                    onclick="CopyURL()" title="Copy URL label">Copy URL</button></div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-12 col-lg-8">
-            <div class="header-embed">
-                <div class="chart-header">
-                    <img class="chart-header-icon" alt="metric icon" src="https://www.illustrate.studio/sites/default/files/img/Accom_Icon.png"><div class="chart-title">
-                        <div class="chart-title-main"><span class="selected-borough">Barking and Dagenham</span> homelessness
-                            services
-                            summary</div>
-                        <div class="chart-title-sub">Data source: Latest data from Homeless Link, DLUHC and London Councils</div>
-                    </div>
-                </div>
-                <div class="row summary-container"   style="padding-top:3px; padding-bottom:3px">
-                    <div class=" summary-item col-12 col-lg-4 order-lg-first order-last"style="padding-top:3px; padding-bottom:8px">
-                        <div>
-                            <span id="day_centres"></span> day centres
-                        </div>
-                        <div>
-                            <span id="beds"></span> beds in <span id="beds_services"></span> accommodation
-                            services
-                        </div>
-						<div>
-                            <span id="e_in2"></span> in 'Everyone In' emergency accommodation June '20
-                        </div>
-                    </div>
-                    <div class="summary-item col-12 col-lg-4 order-sm-12" style="padding-top:3px; padding-bottom:8px">
-                        <div>
-                            <span id="shelter_spaces"></span> Winter Shelter spaces
-                        </div>
-                        <div>
-                            <span id="house_flats"></span> Clearing House flats
-                        </div>
-                        <div id="assessment_centre_services-container" class="d-none">
-                            <span id="assessment_centre_services" ></span> Assessment Centre
-                        </div>
-                        <div id="assessment_centre_services_plural-container" class="d-none">
-                            <span id="assessment_centre_services_plural"></span> Assessment Centres
-                        </div>
-						
-                    </div>
-                    <div class="col-12 summary-item col-lg-4  order-lg-last order-first" style="padding-top:3px; padding-bottom:8px">
-                        <div>
-                            Outreach -&nbsp;<span id="outreach"></span>
-                        </div>
-                        <div style="margin-top: .4em;">
-                            <span id="hf_units"></span> Housing First units
-                        </div>
-					
-                    </div>
+                    <button class="btn__copy btn__svg" onclick="CopyURL()" title="Copy URL label">Copy URL</button>
                 </div>
             </div>
-
-            <div class="row">
-                <div class="col-12"  style="padding-top:3px; padding-bottom:3px">
-                    <div class="map-description">Day centres, and accommodations with <span
-                            style="color:#B382A6">capacity</span>. These are shown on the map unless they are a
-                        confidential location.</div>
-                </div>
-            </div>
-
-            <div class="row style="margin-top: 12px;">
-                <div class="col-lg-5 col-sm-12 map-container order-last order-lg-first"  style="padding-top:3px; padding-bottom:3px">
-                    <div id="map-table">&nbsp;</div>
-                </div>
-
-                <div class="col-lg-7 col-sm-12 map-container order-first order-lg-last" style="padding-top:3px; padding-bottom:3px">
-                    <div id="map" style="width: 100%; height: 492px;">&nbsp;</div>
-                </div>
-            </div>
-
-            <div class="chart-footer">© LHF Atlas 2023 - see <a href="https://www.lhfatlas.org.uk"
-                    target="_blank">www.lhfatlas.org.uk </a>for full details</div>
         </div>
 
-        <div class="pagebreak">&nbsp;</div>
-
-        <div class="col-12 col-lg-4 right-parents">
-            <div class="right-container right-container-parent" style="padding-left: 5px">
-                <div class="sleeping-container">&nbsp;</div>
-
-                <div class="sleeping-content">
-                    <div class="header-embed">
-                        <div class="sleeping-header"><img alt="sleeping icon" class="sleeping-header-icon" />
-                            <div class="sleeping-title">
-                                <div class="sleeping-title-main">Rough sleeping in this borough</div>
-
-                                <div class="sleeping-title-sub">CHAIN data for 2017/18 to 2022/23</div>
+        <div class="row">
+            <div class="col-12 col-lg-8">
+                <div class="header-embed">
+                    <div class="chart-header">
+                        <img class="chart-header-icon" alt="metric icon"
+                            src="https://www.illustrate.studio/sites/default/files/img/Accom_Icon.png">
+                        <div class="chart-title">
+                            <div class="chart-title-main"><span class="selected-borough">Barking and Dagenham</span>
+                                homelessness
+                                services
+                                summary</div>
+                            <div class="chart-title-sub">Data source: Latest data from Homeless Link, DLUHC and London
+                                Councils</div>
+                        </div>
+                    </div>
+                    <div class="row summary-container" style="padding-top:3px; padding-bottom:0px">
+                        <!-- First column with 2 divs -->
+                        <div class="summary-item col-12 col-lg-4 order-lg-first order-last" style="padding-top:3px; padding-bottom:8px">
+                            <div>
+                                <span id="day_centres"></span> day centres
+                            </div>
+                            <div>
+                                <span id="beds"></span> beds available in <br><span id="beds_services"></span> accommodation services
+                            </div>
+                        </div>
+                    
+                        <!-- Second column with 3 divs -->
+                        <div class="summary-item col-12 col-lg-4 order-sm-12" style="padding-top:3px; padding-bottom:8px">
+                            <div>
+                                <span id="shelter_spaces"></span> Winter Shelter spaces
+                            </div>
+                            <div>
+                                <span id="house_flats"></span> Clearing House flats
+                            </div>
+                            <div id="assessment_centre_services-container" class="d-none">
+                                <span id="assessment_centre_services"></span> Assessment Centre
+                            </div>
+                            <div id="assessment_centre_services_plural-container" class="d-none">
+                                <span id="assessment_centre_services_plural"></span> Assessment Centres
+                            </div>
+                        </div>
+                    
+                        <!-- Third column with 2 divs -->
+                        <div class="summary-item col-12 col-lg-4 order-lg-last order-first" style="padding-top:3px; padding-bottom:8px">
+                            <div>
+                                <span id="e_in2"></span> RSAP units
+                            </div>
+                            <div style="margin-top: .4em;">
+                                <span id="hf_units"></span> Housing First units
                             </div>
                         </div>
                     </div>
-
-                    <div class="row" style="margin-right: 12px;">
-                        <div class="col-9" id="chain-line-chart">&nbsp;</div>
-
-                        <div class="col-3 year-difference" style="padding-top:60px; padding-bottom:3px; padding-left:3px; padding-right:3px;">
-                            <div id="yoy_diff">&nbsp;</div>
-
-                            <div>compared to<br />
-                                prior year</div>
+                    
+                    <!-- New row for Outreach div taking the full width -->
+                    <div class="row" style="padding-left:15px;">
+                        <div class="col-12" style="padding-left:17px; padding-top:0px; padding-bottom:12px">
+                            Outreach by &nbsp;<span id="outreach"></span>
                         </div>
+                    </div>
+                    
+                </div>
+
+                <div class="row">
+                    <div class="col-12" style="padding-top:3px; padding-bottom:3px">
+                        <div class="map-description">Day centres, and accommodations with <span
+                                style="color:#B382A6">capacity</span>. These are shown on the map unless they are a
+                            confidential location.</div>
                     </div>
                 </div>
-            </div>
 
-            <div class="right-container right-container-parent">
-                <div class="sub-region-container">&nbsp;</div>
-
-                <div class="sub-region-content">
-                    <div class="header-embed">
-                        <div class="sub-region-header"><img alt="sub-region icon" class="sub-region-header-icon" />
-                            <div class="sub-region-title">
-                                <div class="sub-region-title-main">Explore within same sub-region</div>
-
-                                <div class="sub-region-title-sub"></div>
-                            </div>
-                        </div>
+                <div class="row style=" margin-top: 12px;">
+                    <div class="col-lg-5 col-sm-12 map-container order-last order-lg-first"
+                        style="padding-top:3px; padding-bottom:3px">
+                        <div id="map-table"></div>
                     </div>
 
-                    <div class="row">
-                        <div class="col-12" style="padding-top:3px; padding-bottom:3px;">
-                            <div class="form-group change-data">
-                                <div class="row" style="padding-right: 12px; padding-top:0px; padding-bottom:0px;">
-                                    <div class="col-lg-4 col-sm-12" style=" line-height: 34px; padding-top:0px; padding-bottom:0px; padding-left:0px; padding-right:3px;">Change data</div>
+                    <div class="col-lg-7 col-sm-12 map-container order-first order-lg-last"
+                        style="padding-top:3px; padding-bottom:3px">
+                        <div id="map" style="width: 100%; height: 492px;">&nbsp;</div>
+                    </div>
+                </div>
 
-                                    <div class="col-lg-8 col-sm-12" style="padding-top:0px; padding-bottom:0px; padding-left:1px; padding-right:1px;"><select class="form-control" id="sub-region-select"
-                                            style="font-size: .875em; margin-right: 2px; padding-top:0px; padding-bottom:0px"> </select></div>
+                <div class="chart-footer">© LHF Atlas 2023 - see <a href="https://www.lhfatlas.org.uk"
+                        target="_blank">www.lhfatlas.org.uk </a>for full details</div>
+            </div>
+
+            <div class="pagebreak">&nbsp;</div>
+
+            <div class="col-12 col-lg-4 right-parents">
+                <div class="right-container right-container-parent" style="padding-left: 5px">
+                    <div class="sleeping-container">&nbsp;</div>
+
+                    <div class="sleeping-content">
+                        <div class="header-embed">
+                            <div class="sleeping-header"><img alt="sleeping icon" class="sleeping-header-icon" />
+                                <div class="sleeping-title">
+                                    <div class="sleeping-title-main">Rough sleeping in this borough</div>
+
+                                    <div class="sleeping-title-sub">CHAIN data for 2017/18 to 2022/23</div>
                                 </div>
                             </div>
                         </div>
+
+                        <div class="row" style="margin-right: 12px;">
+                            <div class="col-9" id="chain-line-chart">&nbsp;</div>
+
+                            <div class="col-3 year-difference"
+                                style="padding-top:60px; padding-bottom:3px; padding-left:3px; padding-right:3px;">
+                                <div id="yoy_diff">&nbsp;</div>
+
+                                <div>compared to<br />
+                                    prior year</div>
+                            </div>
+                        </div>
                     </div>
+                </div>
 
-                    <div class="row" style="padding-right: 18px; overflow: hidden;">
-                        <div class="col-6 col-sm-6" id="borough-list" style="padding-top:3px; padding-bottom:3px; padding-left:3px; padding-right:15px;"></div>
+                <div class="right-container right-container-parent">
+                    <div class="sub-region-container">&nbsp;</div>
 
-                        <div class="col-6 col-sm-6" id="borough-bars" style="padding-top:3px; padding-bottom:3px; padding-left:3px; padding-right:15px;"></div>
+                    <div class="sub-region-content">
+                        <div class="header-embed">
+                            <div class="sub-region-header"><img alt="sub-region icon" class="sub-region-header-icon" />
+                                <div class="sub-region-title">
+                                    <div class="sub-region-title-main">Explore within same sub-region</div>
+                                    <div class="sub-region-title-sub"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12" style="padding-top:3px; padding-bottom:3px;">
+                                <div class="form-group change-data">
+                                    <div class="row" style="padding-right: 12px; padding-top:0px; padding-bottom:0px;">
+                                        <div class="col-lg-3 col-sm-12"
+                                            style=" line-height: 34px; padding-top:0px; padding-bottom:0px; padding-left:0px; padding-right:3px;">
+                                            Change data</div>
+
+                                        <div class="col-lg-9 col-sm-12"
+                                            style="padding-top:0px; padding-bottom:0px; padding-left:1px; padding-right:15px;">
+                                            <select class="form-control" id="sub-region-select"
+                                                style="font-size: .875em; margin-right: 2px; padding-top:0px; padding-bottom:0px">
+                                            </select></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row" style="padding-right: 18px; overflow: hidden;">
+                            <div class="col-6 col-sm-6" id="borough-list"
+                                style="padding-top:3px; padding-bottom:3px; padding-left:3px; padding-right:15px;">
+                            </div>
+
+                            <div class="col-6 col-sm-6" id="borough-bars"
+                                style="padding-top:3px; padding-bottom:3px; padding-left:3px; padding-right:15px;">
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 </div>
 
 <div class="chart-tooltip">&nbsp;</div>
@@ -806,59 +849,57 @@
         window.parent.postMessage(`{"command" : "copyURL"}`, '*')
     }
 
-    
+
     function printPDF() {
-    let chartRow = document.querySelector('.my-embedded-content');
-    if (!chartRow) {
-        console.error("Element '.my-embedded-content' not found.");
-        return;
-    }
-
-    html2canvas(chartRow, { useCORS: true }).then(canvas => {
-        try {
-            let pdf = new jsPDF('l', 'mm', 'a4'); // landscape orientation
-            let imgData = canvas.toDataURL('image/png');
-
-            // Adjust the dimensions for landscape
-            let pdfWidth = 297; // A4 width in mm
-            let pdfHeight = 210; // A4 height in mm
-            let imgWidth = canvas.width;
-            let imgHeight = canvas.height;
-            let ratio = Math.min(pdfWidth / imgWidth, pdfHeight / imgHeight);
-
-            let newWidth = imgWidth * ratio;
-            let newHeight = imgHeight * ratio;
-            let xOffset = (pdfWidth - newWidth) / 2;
-            let yOffset = (pdfHeight - newHeight) / 2;
-
-            pdf.addImage(imgData, 'PNG', xOffset, yOffset, newWidth, newHeight);
-            pdf.save('download.pdf');
-        } catch (e) {
-            console.error("Error generating PDF: ", e);
+        let chartRow = document.querySelector('.my-embedded-content');
+        if (!chartRow) {
+            console.error("Element '.my-embedded-content' not found.");
+            return;
         }
-    }).catch(error => {
-        console.error("Error in html2canvas: ", error);
-    });
-}
+
+        html2canvas(chartRow, { useCORS: true }).then(canvas => {
+            try {
+                let pdf = new jsPDF('l', 'mm', 'a4'); // landscape orientation
+                let imgData = canvas.toDataURL('image/png');
+
+                // Adjust the dimensions for landscape
+                let pdfWidth = 297; // A4 width in mm
+                let pdfHeight = 210; // A4 height in mm
+                let imgWidth = canvas.width;
+                let imgHeight = canvas.height;
+                let ratio = Math.min(pdfWidth / imgWidth, pdfHeight / imgHeight);
+
+                let newWidth = imgWidth * ratio;
+                let newHeight = imgHeight * ratio;
+                let xOffset = (pdfWidth - newWidth) / 2;
+                let yOffset = (pdfHeight - newHeight) / 2;
+
+                pdf.addImage(imgData, 'PNG', xOffset, yOffset, newWidth, newHeight);
+                pdf.save('download.pdf');
+            } catch (e) {
+                console.error("Error generating PDF: ", e);
+            }
+        }).catch(error => {
+            console.error("Error in html2canvas: ", error);
+        });
+    }
 
 </script>
 <script>
     (function () {
-        const BASE_URL = "https://www.illustrate.studio/sites/default/files/";
-        const BASE_URL_G = "https://docs.google.com/spreadsheets/u/0/d/1eJRhHKm5McKV6lYE7mJiVDGKOYaAQIReLw_XTDVB33s/export?gid==id=&format=csv";
         const HOME_IMAGE_URL = "https://www.lhfatlas.org.uk/sites/default/files/images/accom_icon.png";
         const ROUGH_SLEEPING_IMAGE_URL = "https://www.lhfatlas.org.uk/sites/default/files/images/rsblue.png";
         const SUB_REGION_IMAGE_URL = "https://www.lhfatlas.org.uk/sites/default/files/images/areagrey.png";
-        
-        const GEO_JSON = "https://raw.githubusercontent.com/illustrating-impact-dev/atlas/main/boroughs.json";
 
-        const SLEEPING_DATA = "https://raw.githubusercontent.com/illustrating-impact-dev/atlas/main/rs_sf.json";
-        const MAP_DATA = "https://raw.githubusercontent.com/illustrating-impact-dev/atlas/main/bf_map.json";
-        const SUMMARY = "https://raw.githubusercontent.com/illustrating-impact-dev/atlas/main/services_borough_summary.json";
+        const GEO_JSON = "https://raw.githubusercontent.com/illustrating-impact-dev/repo-lhf-atlas/main/data/boroughs.json";
+
+        const SLEEPING_DATA = "https://raw.githubusercontent.com/illustrating-impact-dev/repo-lhf-atlas/main/rs_sf.json";
+        const MAP_DATA = "https://raw.githubusercontent.com/illustrating-impact-dev/repo-lhf-atlas/main/bf_map.json";
+        const SUMMARY = "https://raw.githubusercontent.com/illustrating-impact-dev/repo-lhf-atlas/main/services_borough_summary.json";
 
 
         const PURPLE_MARKER = "https://www.lhfatlas.org.uk/sites/default/files/images/marker_purple.png";
-        const BLUE_MARKER ="https://www.lhfatlas.org.uk/sites/default/files/images/blue_marker.png";
+        const BLUE_MARKER = "https://www.lhfatlas.org.uk/sites/default/files/images/blue_marker.png";
         const GREY_MARKER = "https://www.lhfatlas.org.uk/sites/default/files/images/grey_marker.png";
 
         const PURPLE_ID = '012A00000012r8lIAA';
@@ -1031,7 +1072,7 @@
                 sortType: 'value'
             },
             {
-                name: "Rough sleeping (Street counts/estimates 2022)",
+                name: "Rough sleeping (Street counts/estimates 2023)",
                 key: "roughsleeping_count",
                 source: 'MHCLG',
                 sortType: 'value'
@@ -1117,9 +1158,9 @@
                 assessmentCentreServices: d => d['assessmentcentreservices'],
                 outreach: d => d['outreach'],
                 housingFirstUnit: d => d['hfunits'],
-				e_in: d => d['EverybodyIn_Settled_and_Supported_Jan_21'],
-				e_in2: d => d['EverybodyIn_Emergency_26_06_20'],
-				e_in3: d => d['EverybodyIn_Emergency_04_02_21'],
+                e_in: d => d['EverybodyIn_Settled_and_Supported_Jan_21'],
+                e_in2: d => d['rsap_band'],
+                e_in3: d => d['EverybodyIn_Emergency_04_02_21'],
                 name: d => d['la_name']
             },
             map: {
@@ -1185,10 +1226,10 @@
         const alert = setupAlert();
         let tooltip;
         Promise.all([
-        d3.json(SLEEPING_DATA),
-        d3.json(GEO_JSON),
-        d3.json(MAP_DATA),
-        d3.json(SUMMARY),
+            d3.json(SLEEPING_DATA),
+            d3.json(GEO_JSON),
+            d3.json(MAP_DATA),
+            d3.json(SUMMARY),
         ]).then(([sleepData, locationData, mapData, summary]) => {
             sleepData = d3.nest().key(d => d.Measure__c).object(sleepData)["chain_roughsleeping"];
             sleepData = sleepData.map(d => {
@@ -1347,9 +1388,9 @@
             const assessmentCentrePluralContainer = d3.select('#assessment_centre_services_plural-container');
             const outreach = d3.select('#outreach');
             const housingFirstUnit = d3.select('#hf_units');
-			const e_in = d3.select('#e_in');
-			const e_in2 = d3.select('#e_in2');
-			const e_in3 = d3.select('#e_in3');
+            const e_in = d3.select('#e_in');
+            const e_in2 = d3.select('#e_in2');
+            const e_in3 = d3.select('#e_in3');
             function update() {
                 if (!selected.borough || !selected.service) return;
                 const name = accessor.boroughs.name(selected.borough);
@@ -1358,24 +1399,24 @@
                 const summaryData = data.summary.find(d => accessor.summary.gssCode(d) === gssCode)
                 dayCentres.text(accessor.summary.dayCenter(summaryData));
                 beds.text(accessor.summary.beds(summaryData));
-				
-				e_in2.text(accessor.summary.e_in2(summaryData));
-				
+
+                e_in2.text(accessor.summary.e_in2(summaryData));
+
                 bedsServices.text(accessor.summary.bedsServices(summaryData));
                 shelterSpaces.text(accessor.summary.shelterSpaces(summaryData));
                 houseFlats.text(accessor.summary.houseFlats(summaryData));
                 const noOfAssessment = accessor.summary.assessmentCentreServices(summaryData)
-                if(noOfAssessment > 0){
-                    if(noOfAssessment > 1){
+                if (noOfAssessment > 0) {
+                    if (noOfAssessment > 1) {
                         assessmentCentrePluralContainer.classed('d-none', false);
                         assessmentCentreContainer.classed('d-none', true);
                         assessmentCentrePlural.text(`${noOfAssessment}`);
-                    }else{
+                    } else {
                         assessmentCentrePluralContainer.classed('d-none', true);
                         assessmentCentreContainer.classed('d-none', false);
                         assessmentCentre.text(`${noOfAssessment}`);
                     }
-                }else{
+                } else {
                     assessmentCentreContainer.classed('d-none', true);
                     assessmentCentrePluralContainer.classed('d-none', true);
                 }
@@ -1392,8 +1433,14 @@
         function renderTable(map) {
 
             const table = d3.select('#map-table');
-            const purpleContainer = table.append('div').style('border-bottom', '1px solid black').style('margin-bottom', '16px');
-            const blueContainer = table.append('div').style('border-bottom', '1px solid black');
+
+            // Purple Container setup with header
+            const purpleContainer = table.append('div').style('margin-bottom', '16px');
+            purpleContainer.append('div').attr('class', 'day-centres-header').text('Day centres');
+
+            // Blue Container setup with header
+            const blueContainer = table.append('div');
+            blueContainer.append('div').attr('class', 'accommodation-header').text('Accommodation');
 
             function update() {
                 if (!selected.borough || !selected.service) return;
@@ -1800,7 +1847,7 @@
             const width = svg.node().getBoundingClientRect().width - margin.right;
             svg = svg.append('g')
                 .attr('transform', `translate(${margin.left},${margin.top})`);
-            const x = d3.scaleBand().range([width,0])
+            const x = d3.scaleBand().range([width, 0])
 
             const xAxis = svg.append("g")
                 .attr('class', 'x-axis')
@@ -1813,10 +1860,10 @@
             function update() {
                 const gssCode = accessor.boroughs.gssCode(selected.borough);
                 let sleepData = data.sleeping[gssCode];
-                 /* 01-09-2022: Pick only the most recent 5 years */
-                 const yearsCount = Math.min(5, sleepData.length);
+                /* 01-09-2022: Pick only the most recent 5 years */
+                const yearsCount = Math.min(5, sleepData.length);
                 const mostRecentData = []
-                for(let i = sleepData.length-1; i >=  (Math.max(0, sleepData.length-yearsCount)); i--){
+                for (let i = sleepData.length - 1; i >= (Math.max(0, sleepData.length - yearsCount)); i--) {
                     mostRecentData.push(sleepData[i]);
                 }
                 sleepData = mostRecentData
@@ -1829,7 +1876,7 @@
                 yoyDiff.text(`${yoy_diff > 0 ? '+' : ''}${yoy_diff}`);
                 x.domain(sleepData.map(accessor.sleeping.yearDate))
                 y.domain([0, d3.max(sleepData, accessor.sleeping.value)]);
-            
+
                 svg.select('.x-axis').html("")
                 const xAxis = svg.select('.x-axis').call(d3.axisBottom(x).tickFormat(d => {
                     return d3.timeFormat('%Y')(d);
