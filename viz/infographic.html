@@ -534,8 +534,8 @@
     // Transform providersData
     let providers = providersData.map(d => ({
         "LHF Atlas Service Level Name": d["service_name"],
-        "Provider": d["Provider1or2"],
-        "Provider1or2": d["Provider1or2"],
+        "Provider": d["service_provider"],
+        "Provider1or2": d["service_provider"],
         "Record Type ID": d["record_type_id"],
         "ServiceText1": d["service_text_1"],
         "ServiceText2": d["service_text_2"],
@@ -1032,7 +1032,6 @@
         .domain(data.colors.map(accessor.colors.recordTypeId))
         .range(data.colors.map(accessor.colors.serviceType));
       const serviceTypeMap = {
-        "Clearing House": "Clearing_House",
         "Night Shelter or Winter Shelter": "Nightshelter_Wintershelter",
         "Housing First": "Housing_First",
         "Outreach": "Outreach",
@@ -1120,17 +1119,24 @@
             d => validServiceTypes.includes(accessor.services.serviceType(d))
         ),
         accessor.services.providerName
-    ).forEach((value, key) => {
-          if (value.length > 2) {
+        ).forEach((value, key) => {
+        if (value.length === 1) {
+            // For providers with exactly 1 service
+            value.forEach(
+              (d) => (d.providerGroupService = "PROVIDERS WITH 1 SERVICE")
+            );
+        } else if (value.length === 2) {
+            // For providers with exactly 2 services
+            value.forEach(
+              (d) => (d.providerGroupService = "PROVIDERS WITH 2 SERVICES")
+            );
+        } else {
+            // For providers with more than 2 services, handle as needed
             value.forEach(
               (d) => (d.providerGroupService = accessor.services.providerName(d))
             );
-          } else {
-            value.forEach(
-              (d) => (d.providerGroupService = "PROVIDERS WITH 1 OR 2 SERVICES")
-            );
-          }
-        });
+        }
+    });
 
         
         const servicesByProvider = d3.groups(
@@ -1153,22 +1159,29 @@
       })();
 
       const servicesByProviderSortedByBed = (() => {
-        d3.group(
-          providers.filter(
+    d3.group(
+        providers.filter(
             (d) => accessor.services.recordTypeId(d) === "012A00000012r8gIAA"
-          ),
-          accessor.services.providerName
-        ).forEach((value, key) => {
-          if (value.length > 2) {
+        ),
+        accessor.services.providerName
+    ).forEach((value, key) => {
+        if (value.length === 1) {
+            // For providers with exactly 1 service
+            value.forEach(
+              (d) => (d.providerGroupBed = "PROVIDERS WITH 1 SERVICE")
+            );
+        } else if (value.length === 2) {
+            // For providers with exactly 2 services
+            value.forEach(
+              (d) => (d.providerGroupBed = "PROVIDERS WITH 2 SERVICES")
+            );
+        } else {
+            // For providers with more than 2 services, handle as needed
             value.forEach(
               (d) => (d.providerGroupBed = accessor.services.providerName(d))
             );
-          } else {
-            value.forEach(
-              (d) => (d.providerGroupBed = "PROVIDERS WITH 1 OR 2 SERVICES")
-            );
-          }
-        });
+        }
+    });
 
         const servicesByProvider = d3
           .groups(
