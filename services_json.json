@@ -1,1 +1,13 @@
-[{"ID":1,"footnote":"Assessment service dots sourced from Homeless Link information team. Confidential locations hidden.","json_url":"https://illustrate.studio/sites/default/files/json/dotsjson_servicetypeid_4_20200929.json","marker_hex":"f64971","marker_image":"https://illustrate.studio/sites/default/files/img/map-marker-2-256x256.png","marker_opacity":93,"not_shown":44,"service_type_name":"Assessment Services","servicetypeid":4},{"ID":2,"footnote":"Accommodation dots sourced from Homeless Link information team. Confidential locations hidden.","json_url":"https://illustrate.studio/sites/default/files/json/dotsjson_servicetypeid_2_20200929.json","marker_hex":"f64971","marker_image":"https://illustrate.studio/sites/default/files/img/map-marker-2-256x256.png","marker_opacity":93,"not_shown":54,"service_type_name":"Accommodation (hostels/supported)","servicetypeid":2},{"ID":3,"footnote":"Day centre dots sourced from Homeless Link information team.","json_url":"https://illustrate.studio/sites/default/files/json/dotsjson_servicetypeid_3_20200929.json","marker_hex":"f64971","marker_image":"https://illustrate.studio/sites/default/files/img/map-marker-2-256x256.png","marker_opacity":93,"not_shown":65,"service_type_name":"Day Centre","servicetypeid":3}]
+[
+    {
+        "ID": 3,
+        "footnote": "Day centre dots sourced from Homeless Link information team.",
+        "json_url": "https://illustrate.studio/sites/default/files/json/dotsjson_servicetypeid_3_20200929.json",
+        "marker_hex": "f64971",
+        "marker_image": "https://illustrate.studio/sites/default/files/img/map-marker-2-256x256.png",
+        "marker_opacity": 93,
+        "not_shown": 65,
+        "service_type_name": "Day Centre",
+        "servicetypeid": 3
+    }
+]
