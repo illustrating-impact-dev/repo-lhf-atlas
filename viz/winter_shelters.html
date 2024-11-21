@@ -364,11 +364,11 @@
 
     <div class="rowq">
         <div class="column">
-            <div class="top">32</div>
+            <div class="top">34</div>
             <div class="bottom">services in London for 2023/24</div>
         </div>
         <div class="column">
-            <div class="top">490</div>
+            <div class="top">534</div>
             <div class="bottom">spaces in these services</div>
         </div>
     </div>
@@ -504,7 +504,7 @@
                             ? `https://${d.URL_link}`
                             : d.URL_link
                         : null,
-                serviceOffered: (d) => d["service_text_1"],
+                serviceOffered: (d) => d["service_text_2"],
                 spaces: (d) => d.shelter,
             },
             geo: {
@@ -861,17 +861,21 @@
             dispatch.on("updatebottom.service-list", () => {
                 // Filter services by the highlighted GSS code
 
+                const boroughFeature = data.london.features.find(d => accessor.geo.id(d) === highlightedGSS);
+                const boroughName = boroughFeature ? accessor.geo.name(boroughFeature) : "Select a borough";
+
+
                 const filteredServices = data.servicesByServiceType.get(selected.serviceType).filter(service => {
                     const gssList = accessor.services.gssList(service);
                     return gssList.includes(highlightedGSS) || gssList.includes("E12000007");
                 });
 
 
-                console.log(filteredServices);
+                //console.log(filteredServices);
 
                 // Update the text for the la-summary and title with the filtered services information
                 if (filteredServices.length > 0) {
-                    laName.text(filteredServices[0].la_name); // Use the 'la_name' from the first service
+                    laName.text(boroughName);
                 } else {
                     laName.text("Select a borough with at least one service"); // Fallback text if there are no services
                 }
@@ -883,19 +887,23 @@
 
 
                 if (filteredServices.length > 0) {
-                    laSummary.text(`${filteredServices.length} services with a total of ${totalShelterSpaces} spaces.`);
+                    const serviceWord = filteredServices.length === 1 ? 'service' : 'services';
+                    const spaceWord = totalShelterSpaces === 1 ? 'space' : 'spaces';
+                    laSummary.text(`${filteredServices.length} ${serviceWord} with a total of ${totalShelterSpaces} ${spaceWord}.`);
                 } else {
                     laSummary.text(""); // Fallback text if there are no services
                 }
 
                 if (filteredServices.length > 0) {
-                    title.text(`List of the ${filteredServices.length} services in the highlighted borough`);
+                    const serviceWord = filteredServices.length === 1 ? 'service' : 'services';
+                    title.text(`List of the ${filteredServices.length} ${serviceWord} in ${boroughName}`);
                 } else {
-                    title.text(""); // Fallback text if there are no services
+                    title.text(`No services currently in ${boroughName}`);
                 }
 
 
                 // Bind the filtered services to the table rows
+
                 serviceTableBody
                     .selectAll("tr")
                     .data(filteredServices, accessor.services.id)
@@ -914,15 +922,29 @@
 
                         // Third column for shelter information
                         tr.append("td")
-                            .text(d => d.shelter) // Assuming the 'shelter' info is directly on the 'd' object
+                            .text(d => d.shelter)
                             .style("width", "10%")
                             .style("text-align", "center");
+
+                        // Add cursor style for clickable rows
+                        tr.style("cursor", d => d.URL_link && d.URL_link !== "None" ? "pointer" : "default");
 
                         // Event handlers for the row
                         tr.on("mouseenter", entered)
                             .on("mouseleave", left)
                             .on("mousemove", moved)
-                            .on("click", clicked);
+                            .on("click", function (d) {
+                                // Only open URL if it exists and we're not on a touch device
+                                if (d.URL_link && d.URL_link !== "None") {
+                                    // Ensure URL has proper protocol
+                                    const url = d.URL_link.startsWith('http')
+                                        ? d.URL_link
+                                        : `https://${d.URL_link}`;
+                                    window.open(url, "_blank");
+                                }
+                            });
+
+                        return tr;
                     })
                     .classed("muted", (d) => {
                         if (selected.service) {
@@ -1052,17 +1074,6 @@
             };
         }
 
-        function serviceTooltipContent(d) {
-            return `
-      <p class="service-name">${accessor.services.serviceName(d)}</p>
-      <p></span>Provided by <span>${accessor.services.providerName(
-                d
-            )}</span></p>
-      <p>${accessor.services.serviceOffered(d)}</p>
-      ${touchable ? "" : "<p><em>Click to view service website</em></p>"}
-    `;
-        }
-
         function boroughTooltipContent(d, services) {
             return `
       <p class="borough-name">${accessor.geo.name(d)}</p>
@@ -1073,6 +1084,37 @@
       </ul>
     `;
         }
+
+        function serviceTooltipContent(d, color) {
+            // Get the borough name from the first GSS code's corresponding borough
+            const boroughList = accessor.services.gssList(d);
+            const boroughText = boroughList.includes("E12000007") ? "Pan-London" : d.la_name || "Multiple boroughs";
+
+            // Construct the content array with available information
+            const contentParts = [];
+
+            // Add service offered if available
+            if (accessor.services.serviceOffered(d)) {
+                contentParts.push(`<p>${accessor.services.serviceOffered(d)}</p>`);
+            }
+
+            // Add spaces/shelter capacity if available
+            if (accessor.services.spaces(d)) {
+                contentParts.push(`<p class="service-capacity">${accessor.services.spaces(d)} spaces available</p>`);
+            }
+
+            console.log(d.URL_link);
+            // Check if URL exists and is valid
+            const hasWebsite = d.URL_link && d.URL_link !== "None" && d.URL_link.trim() !== "";
+
+            return `
+        <p class="service-name">${accessor.services.serviceName(d)}</p>
+        <p>${accessor.services.serviceType(d).replace("_", " ")} - Provided in <span>${boroughText}</span> by <span>${accessor.services.providerName(d)}</span></p>
+        ${contentParts.join("")}
+        ${hasWebsite ? `<p><em>${"Click to view service website"}</em></p>` : ""}
+    `;
+        }
+
 
         // Alert
         function setupAlert() {
