@@ -342,20 +342,14 @@
                     <img alt="icon" class="chart-header-icon"
                         src="https://www.lhfatlas.org.uk/sites/default/files/images/ws_icon.png" />
                     <div class="chart-title">
-                        <div class="chart-title-main">Winter Shelters 2023/24</div>
+                        <div class="chart-title-main">Winter Shelters 2024/25</div>
                         <div class="chart-title-sub"></div>
-                        <div class="chart-intro">Source: Housing Justice. Hover over a borough on the map for services, click to bring up extra
+                        <div class="chart-intro">Source: Housing Justice. Hover over a borough on the map for services,
+                            click to bring up extra
                             detail.</div>
                     </div>
                 </div>
 
-                <!-- Buttons -->
-                <div class="btn-group form-group" id="buttons" style="visibility: visible">
-                    <button class="btn__export btn__export--pdf btn__svg" onclick="printPDF()"
-                        title="Export button label">Export to PDF</button>
-                    <!-- <button class="btn__export btn__export--csv btn__svg">Export Data</button> -->
-                    <button class="btn__copy btn__svg" onclick="CopyURL()" title="Copy URL label">Copy URL</button>
-                </div>
             </div>
         </div>
     </div>
@@ -364,11 +358,11 @@
 
     <div class="rowq">
         <div class="column">
-            <div class="top">34</div>
-            <div class="bottom">services in London for 2023/24</div>
+            <div class="top">32</div>
+            <div class="bottom">services in London for 2024/25</div>
         </div>
         <div class="column">
-            <div class="top">534</div>
+            <div class="top">512</div>
             <div class="bottom">spaces in these services</div>
         </div>
     </div>
@@ -910,9 +904,12 @@
                     .join((enter) => {
                         const tr = enter.append("tr");
 
-                        // First column for service name
+                        // First column for service name - now with styled pan-London indicator
                         tr.append("td")
-                            .text(d => accessor.services.serviceName(d))
+                            .html(d => {
+                                const isPanLondon = accessor.services.gssList(d).includes("E12000007");
+                                return `${accessor.services.serviceName(d)}${isPanLondon ? ' <span style="color: #42698f; font-style: italic">(Pan-London project)</span>' : ''}`;
+                            })
                             .style("width", "50%");
 
                         // Second column for service provider
@@ -926,17 +923,14 @@
                             .style("width", "10%")
                             .style("text-align", "center");
 
-                        // Add cursor style for clickable rows
+                        // Rest of your existing code for the row...
                         tr.style("cursor", d => d.URL_link && d.URL_link !== "None" ? "pointer" : "default");
 
-                        // Event handlers for the row
                         tr.on("mouseenter", entered)
                             .on("mouseleave", left)
                             .on("mousemove", moved)
                             .on("click", function (d) {
-                                // Only open URL if it exists and we're not on a touch device
                                 if (d.URL_link && d.URL_link !== "None") {
-                                    // Ensure URL has proper protocol
                                     const url = d.URL_link.startsWith('http')
                                         ? d.URL_link
                                         : `https://${d.URL_link}`;
@@ -1100,7 +1094,7 @@
 
             // Add spaces/shelter capacity if available
             if (accessor.services.spaces(d)) {
-                contentParts.push(`<p class="service-capacity">${accessor.services.spaces(d)} spaces available</p>`);
+                contentParts.push(`<p class="service-capacity">${accessor.services.spaces(d)} spaces</p>`);
             }
 
             console.log(d.URL_link);
