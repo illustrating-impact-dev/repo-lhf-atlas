@@ -11,7 +11,17 @@
     },
     {
         "ID": 1,
-        "metric_name": "Accommodation (hostels/supported) bed spaces",
+        "metric_name": "Accommodation (hostels/supported) bed spaces for rough sleepers",
+        "metric_type": 1,
+        "footnote": "LHF Atlas 2024",
+        "datasource": "Homeless Link information team.",
+        "image_url": "https://www.lhfatlas.org.uk/sites/default/files/images/accom_icon.png",
+        "json_url": "",
+        "name_timeseries": ""
+    },
+    {
+        "ID": 62,
+        "metric_name": "Accommodation (hostels/supported) bed spaces for young people",
         "metric_type": 1,
         "footnote": "LHF Atlas 2024",
         "datasource": "Homeless Link information team.",

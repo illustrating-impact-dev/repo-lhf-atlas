@@ -199,7 +199,7 @@
   .infographic-chart .pan-london-svg {
     display: block;
     width: 100%;
-    height: 60px;
+    height: 120px;
   }
 
   @media (min-width: 768px) {
@@ -272,7 +272,7 @@
 <div class="form-group"><label for="size-by-select">Focus on accommodation?</label> <select class="form-control custom-select custom-select-sm" id="size-by-select"><option value="service">No - All services</option><option value="bed">Yes - Accommodation by size</option> </select></div>
 </div>
 
-<div class="col-12 col-lg-3"  style="padding-top:3px; padding-bottom:3px">
+<div class="col-12 col-lg-3"  style="padding-top:3px; padding-bottom:3px; display:none">
 <div class="form-group"><label for="highlight-by-select">Highlight specific services:</label> <select class="form-control custom-select custom-select-sm" id="highlight-by-select"> <optgroup label="ALL SERVICES"><option value="london">All London</option> </optgroup> <optgroup label="CLIENT GROUPS"><option value="women">Women's services</option><option value="young">Young People's services</option> </optgroup> </select></div>
 </div>
 
@@ -309,7 +309,7 @@
 
 <div class="row">
 <div class="col-12">
-<div class="chart-footer">© LHF Atlas 2023 - see <a href="https://www.lhfatlas.org.uk" target="_blank">www.lhfatlas.org.uk</a> for full details</div>
+<div class="chart-footer">© LHF Atlas 2025 - see <a href="https://www.lhfatlas.org.uk" target="_blank">www.lhfatlas.org.uk</a> for full details</div>
 </div>
 </div>
 </div>
@@ -573,63 +573,89 @@
     alert.show();
 });
 
-    // Summary
-    function renderSummary() {
-      const container = d3
-        .select("#infographic-summary")
-        .classed("infographic-summary", true);
+function renderSummary() {
+  const container = d3
+    .select("#infographic-summary")
+    .classed("infographic-summary", true);
 
-      dispatch.on("update.summary", () => {
-        let highlightBy;
-        switch (selected.highlightBy) {
-          case "london":
-            highlightBy = "all London";
-            break;
-          case "women":
-            highlightBy = "women's services";
-            break;
-          case "young":
-            highlightBy = "young People's services";
-            break;
-          default:
-            break;
-        }
-        const d = data.totals[selected.highlightBy];
-        /* html */
-        container.html(`
-        <div class="summary-title">Summary of services for ${highlightBy}</div>
-        <div><span style='color: ${colorByServiceType(
-          "Day_Centre"
-        )}'>${formatCount(d.daycentreservices)}</span> day centres</div>
-        <div><span style='color: ${colorByServiceType(
-          "Assessment_Centre"
-        )}'>${formatCount(
-          d.assessmentcentreservices
-        )}</span> assessment services</div>
-        <div><span style='color: ${colorByServiceType(
-          "Housing_First"
-        )}'>${formatCount(d.hfunits)}</span> Housing First units</div>
-        <div><span style='color: ${colorByServiceType(
-          "Nightshelter_Wintershelter"
-        )}'>${formatCount(
-          d.shelterspaces
-        )}</span> spaces in Winter Shelters</div>
-        <div><span style='color: ${colorByServiceType(
-          "Clearing_House"
-        )}'>${formatCount(d.chflats)}</span> Clearing House flats</div>
-        <div><span style='color: ${colorByServiceType(
-          "Accommodation"
-        )}'>${formatCount(
-          d.accomspaces
-        )}</span> beds in <span style='color: ${colorByServiceType(
-          "Accommodation"
-        )}'>${formatCount(d.accomservices)}</span> accommodation services</div>
-      <div><span style='color: ${colorByServiceType(
-          "Outreach"
-        )}'>Outreach</span> ${d.outreach}</div>
-      `);
-      });
+  // Update CSS to maintain right alignment while keeping square first
+  const style = document.createElement('style');
+  style.textContent = `
+    .color-square {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      margin-right: 8px;
+      border: 1px solid #ddd;
     }
+    .summary-row {
+      display: flex;
+      align-items: center;
+      margin-bottom: 4px;
+      float: right;  /* Add this to right-align the whole row */
+      clear: both;   /* Ensure rows stack properly */
+    }
+    .summary-title {
+      text-align: right;  /* Right align the title too */
+    }
+  `;
+  document.head.appendChild(style);
+
+  dispatch.on("update.summary", () => {
+    let highlightBy;
+    switch (selected.highlightBy) {
+      case "london":
+        highlightBy = "all London";
+        break;
+      case "women":
+        highlightBy = "women's services";
+        break;
+      case "young":
+        highlightBy = "young People's services";
+        break;
+      default:
+        break;
+    }
+    const d = data.totals[selected.highlightBy];
+    /* html */
+    container.html(`
+      <div class="summary-title">Summary of services for ${highlightBy}</div>
+      <div class="summary-row">
+        <div class="color-square" style='background-color: ${colorByServiceType("Day_Centre")}'></div>
+        <div><span style='color: ${colorByServiceType("Day_Centre")}'>${formatCount(d.daycentreservices)}</span> day centres</div>
+      </div>
+      <div class="summary-row">
+        <div class="color-square" style='background-color: ${colorByServiceType("Assessment_Centre")}'></div>
+        <div><span style='color: ${colorByServiceType("Assessment_Centre")}'>${formatCount(d.assessmentcentreservices)}</span> assessment services</div>
+      </div>
+      <div class="summary-row">
+        <div class="color-square" style='background-color: ${colorByServiceType("Housing_First")}'></div>
+        <div><span style='color: ${colorByServiceType("Housing_First")}'>${formatCount(d.hfunits)}</span> Housing First units</div>
+      </div>
+       <div class="summary-row">
+        <div class="color-square" style='background-color: ${colorByServiceType("Clearing_House")}'></div>
+        <div><span style='color: ${colorByServiceType("Clearing_House")}'>${formatCount(d.chflats)}</span> Clearing House flats</div>
+      </div>
+      <div class="summary-row">
+        <div class="color-square" style='background-color: ${colorByServiceType("Nightshelter_Wintershelter")}'></div>
+        <div><span style='color: ${colorByServiceType("Nightshelter_Wintershelter")}'>${formatCount(d.shelterspaces)}</span> spaces in Winter Shelters</div>
+      </div>
+     
+      <div class="summary-row">
+        <div class="color-square" style='background-color: ${colorByServiceType("Accommodation")}'></div>
+        <div><span style='color: ${colorByServiceType("Accommodation")}'>${formatCount(d.accomspaces)}</span> beds in <span style='color: ${colorByServiceType("Accommodation")}'>${formatCount(d.accomservices)}</span> rough sleeping accommodation services</div>
+      </div>
+      <div class="summary-row">
+        <div class="color-square" style='background-color: ${d3.color(colorByServiceType("Accommodation")).darker(0.7)}'></div>
+        <div><span style='color: ${d3.color(colorByServiceType("Accommodation")).darker(0.7)}'>${formatCount(d.accomspaces)}</span> beds in <span style='color: ${d3.color(colorByServiceType("Accommodation")).darker(0.7)}'>${formatCount(d.accomservices)}</span> accommodation services for young people</div>
+      </div>
+      <div class="summary-row">
+        <div class="color-square" style='background-color: ${colorByServiceType("Outreach")}'></div>
+        <div><span style='color: ${colorByServiceType("Outreach")}'>Outreach</span> ${d.outreach}</div>
+      </div>
+    `);
+  });
+}
 
     // Chart
     function renderChart() {
@@ -875,23 +901,23 @@
       }
 
       function blockColor(d) {
-    
-        
-
     let highlightResult = accessor.services.highlight[selected.highlightBy](d);
    
-
-
     if (highlightResult) {
-       
-        
         if (selected.sizeBy === "service") {
-          
-            let color = colorByServiceType(accessor.services.serviceType(d));        
+            let color = colorByServiceType(accessor.services.serviceType(d));
+            // Special case for young people's accommodation
+            if (accessor.services.serviceType(d) === "Accommodation" && 
+                d["Young people's service"]) {  // Direct property access
+                return d3.color(color).darker(0.7);
+            }        
             return color;
         } else {
             let color = colorByServiceType("Accommodation");
-
+            // Special case for young people's accommodation in bed view
+            if (d["Young people's service"]) {  // Direct property access
+                return d3.color(color).darker(0.7);
+            }
             return color;
         }
     } else {
@@ -910,42 +936,58 @@
       ];
 
       function stack(items) {
-        let stacked = items.map((d) => Object.assign({}, d));
-        let acc = 0;
-        switch (selected.sizeBy) {
-          case "service":
-            stacked.sort(
-              (a, b) => d3.descending(
-                accessor.services.highlight[selected.highlightBy](a),
-                accessor.services.highlight[selected.highlightBy](b)
-              ) || d3.ascending(
-                serviceTypes.indexOf(accessor.services.serviceType(a)),
-                serviceTypes.indexOf(accessor.services.serviceType(b))
-              )
-            );
+    let stacked = items.map((d) => Object.assign({}, d));
+    let acc = 0;
+    switch (selected.sizeBy) {
+        case "service":
+            stacked.sort((a, b) => {
+                // First sort by highlight status
+                let highlightDiff = d3.descending(
+                    accessor.services.highlight[selected.highlightBy](a),
+                    accessor.services.highlight[selected.highlightBy](b)
+                );
+                if (highlightDiff !== 0) return highlightDiff;
+                
+                // Then sort by service type with special handling for young people's accommodation
+                let aType = accessor.services.serviceType(a);
+                let bType = accessor.services.serviceType(b);
+                
+                // If both are accommodation, put young people's services first
+                if (aType === "Accommodation" && bType === "Accommodation") {
+                    return d3.descending(a["Young people's service"], b["Young people's service"]);
+                }
+                
+                // Otherwise use the standard service type ordering
+                return d3.ascending(
+                    serviceTypes.indexOf(aType),
+                    serviceTypes.indexOf(bType)
+                );
+            });
             stacked.forEach((d) => (d.stack = [acc, ++acc]));
             break;
-          case "bed":
-            stacked.sort(
-              (a, b) =>
-                d3.descending(
-                  accessor.services.highlight[selected.highlightBy](a),
-                  accessor.services.highlight[selected.highlightBy](b)
-                ) ||
-                d3.descending(
-                  accessor.services.beds(a),
-                  accessor.services.beds(b)
-                )
-            );
-            stacked.forEach(
-              (d) => (d.stack = [acc, (acc += accessor.services.beds(d))])
-            );
+            
+        case "bed":
+            stacked.sort((a, b) => {
+                // First sort by highlight status
+                let highlightDiff = d3.descending(
+                    accessor.services.highlight[selected.highlightBy](a),
+                    accessor.services.highlight[selected.highlightBy](b)
+                );
+                if (highlightDiff !== 0) return highlightDiff;
+                
+                // For bed view, sort young people's accommodation first within same bed count
+                if (accessor.services.beds(a) === accessor.services.beds(b)) {
+                    return d3.descending(a["Young people's service"], b["Young people's service"]);
+                }
+                
+                // Otherwise sort by bed count
+                return d3.descending(accessor.services.beds(a), accessor.services.beds(b));
+            });
+            stacked.forEach((d) => (d.stack = [acc, (acc += accessor.services.beds(d))]));
             break;
-          default:
-            break;
-        }
-        return stacked;
-      }
+    }
+    return stacked;
+}
     }
 
     // Controls

@@ -1,1 +1,738 @@
-[{"unique":"0_1-100","id":1,"colour_key":0,"colour_value":"1-100","colour_hex":"ddefe9","note":""},{"unique":"0_101-200","id":2,"colour_key":0,"colour_value":"101-200","colour_hex":"8ad1d9","note":""},{"unique":"0_201-300","id":3,"colour_key":0,"colour_value":"201-300","colour_hex":"56b4c7","note":""},{"unique":"0_301-500","id":4,"colour_key":0,"colour_value":"301-500","colour_hex":"3d94bc","note":""},{"unique":"0_501+","id":5,"colour_key":0,"colour_value":"501+","colour_hex":"3a77b0","note":""},{"unique":"1_0 spaces","id":6,"colour_key":1,"colour_value":"0 spaces","colour_hex":"ffffff","note":""},{"unique":"1_1-100 spaces","id":7,"colour_key":1,"colour_value":"1-100 spaces","colour_hex":"f4e3b9","note":""},{"unique":"1_101-200 spaces","id":8,"colour_key":1,"colour_value":"101-200 spaces","colour_hex":"c3c55d","note":""},{"unique":"1_201-400 spaces","id":9,"colour_key":1,"colour_value":"201-400 spaces","colour_hex":"76af56","note":""},{"unique":"1_401-500 spaces","id":10,"colour_key":1,"colour_value":"401-500 spaces","colour_hex":"398a4c","note":""},{"unique":"1_501+ spaces","id":11,"colour_key":1,"colour_value":"501+ spaces","colour_hex":"146c36","note":""},{"unique":"3_0","id":12,"colour_key":3,"colour_value":0,"colour_hex":"ffffff","note":""},{"unique":"3_1","id":13,"colour_key":3,"colour_value":1,"colour_hex":"d1e2ec","note":""},{"unique":"3_2","id":14,"colour_key":3,"colour_value":2,"colour_hex":"7aa9d0","note":""},{"unique":"3_3","id":15,"colour_key":3,"colour_value":3,"colour_hex":"5486b2","note":""},{"unique":"3_4","id":16,"colour_key":3,"colour_value":4,"colour_hex":"42698f","note":""},{"unique":"4_012A00000012rBlIAI","id":18,"colour_key":4,"colour_value":"012A00000012rBlIAI","colour_hex":"f8b11f","note":"Assessment_Centre"},{"unique":"4_012A00000012rBqIAI","id":19,"colour_key":4,"colour_value":"012A00000012rBqIAI","colour_hex":"c2c8c6","note":"Clearing_House"},{"unique":"4_012A00000012r8lIAA","id":20,"colour_key":4,"colour_value":"012A00000012r8lIAA","colour_hex":"25b392","note":"Day_Centre"},{"unique":"4_0122G000001DbadQAC","id":21,"colour_key":4,"colour_value":"0122G000001DbadQAC","colour_hex":"f8b11f","note":"Health"},{"unique":"4_012A00000012rAsIAI","id":22,"colour_key":4,"colour_value":"012A00000012rAsIAI","colour_hex":"b361b2","note":"Housing_First"},{"unique":"4_012A00000012r8qIAA","id":23,"colour_key":4,"colour_value":"012A00000012r8qIAA","colour_hex":"55aaff","note":"Nightshelter_Wintershelter"},{"unique":"4_012A00000012rBWIAY","id":24,"colour_key":4,"colour_value":"012A00000012rBWIAY","colour_hex":"f9608b","note":"Outreach"},{"unique":"4_012A00000012r8gIAA","id":25,"colour_key":4,"colour_value":"012A00000012r8gIAA","colour_hex":"b8cb2a","note":"Accommodation"},{"unique":"8_1-20","id":26,"colour_key":8,"colour_value":"1-20","colour_hex":"ddefe9","note":""},{"unique":"8_21-30","id":27,"colour_key":8,"colour_value":"21-30","colour_hex":"8ad1d9","note":""},{"unique":"8_31-40","id":28,"colour_key":8,"colour_value":"31-40","colour_hex":"56b4c7","note":""},{"unique":"8_41-70","id":29,"colour_key":8,"colour_value":"41-70","colour_hex":"3d94bc","note":""},{"unique":"8_70+","id":30,"colour_key":8,"colour_value":"70+","colour_hex":"3a77b0","note":""},{"unique":"7_GLA","id":31,"colour_key":7,"colour_value":"GLA","colour_hex":"ddefe9","note":""},{"unique":"7_Borough commissioned","id":32,"colour_key":7,"colour_value":"Borough commissioned","colour_hex":"3a77b0","note":""},{"unique":"2_0","id":33,"colour_key":2,"colour_value":"0","colour_hex":"ffffff","note":0},{"unique":"2_1-25","id":34,"colour_key":2,"colour_value":"1-25","colour_hex":"e3e194","note":12},{"unique":"2_26-50","id":35,"colour_key":2,"colour_value":"26-50","colour_hex":"becf7f","note":35},{"unique":"2_51-100","id":36,"colour_key":2,"colour_value":"51-100","colour_hex":"82caa2","note":75},{"unique":"2_101-150","id":37,"colour_key":2,"colour_value":"101-150","colour_hex":"30bcad","note":125},{"unique":"2_151-200","id":38,"colour_key":2,"colour_value":"151-200","colour_hex":"1ba3c6","note":175},{"unique":"2_201-250","id":39,"colour_key":2,"colour_value":"201-250","colour_hex":"a26dc2","note":225},{"unique":"2_250+","id":40,"colour_key":2,"colour_value":"250+","colour_hex":"7873c0","note":275},{"unique":"3_0 rooms","id":41,"colour_key":3,"colour_value":"0 rooms","colour_hex":"ffffff","note":""},{"unique":"3_1-10 rooms","id":42,"colour_key":3,"colour_value":"1-10 rooms","colour_hex":"f4e3b9","note":""},{"unique":"3_11-20 rooms","id":43,"colour_key":3,"colour_value":"11-20 rooms","colour_hex":"c3c55d","note":""},{"unique":"3_21-30 rooms","id":44,"colour_key":3,"colour_value":"21-30 rooms","colour_hex":"76af56","note":""},{"unique":"3_31-40 rooms","id":45,"colour_key":3,"colour_value":"31-40 rooms","colour_hex":"398a4c","note":""},{"unique":"6_No Housing First","id":46,"colour_key":6,"colour_value":"No Housing First","colour_hex":"ffffff","note":""},{"unique":"6_Has Housing First","id":47,"colour_key":6,"colour_value":"Has Housing First","colour_hex":"a27099","note":""},{"unique":"10_0 centres","id":48,"colour_key":10,"colour_value":"0 centres","colour_hex":"ffffff","note":""},{"unique":"10_1 centres","id":49,"colour_key":10,"colour_value":"1 centres","colour_hex":"dfb1d1","note":""},{"unique":"10_2 centres","id":50,"colour_key":10,"colour_value":"2 centres","colour_hex":"cd9bbc","note":""},{"unique":"10_3 centres","id":51,"colour_key":10,"colour_value":"3 centres","colour_hex":"bc86a9","note":""},{"unique":"10_4 centres","id":52,"colour_key":10,"colour_value":"4 centres","colour_hex":"a5729b","note":""},{"unique":"10_5 centres","id":53,"colour_key":10,"colour_value":"5 centres","colour_hex":"8d608d","note":""},{"unique":"10_6 centres","id":54,"colour_key":10,"colour_value":"6 centres","colour_hex":634363,"note":""},{"unique":"11_1-20","id":1,"colour_key":11,"colour_value":"1-20","colour_hex":"f4e3b9","note":""},{"unique":"11_21-40","id":2,"colour_key":11,"colour_value":"21-40","colour_hex":"c3c55d","note":""},{"unique":"11_41-80","id":3,"colour_key":11,"colour_value":"41-80","colour_hex":"76af56","note":""},{"unique":"11_81-150","id":4,"colour_key":11,"colour_value":"81-150","colour_hex":"398a4c","note":""},{"unique":"11_150+","id":5,"colour_key":11,"colour_value":"150+","colour_hex":"146c36","note":""},{"unique":"12_1-20","id":1,"colour_key":12,"colour_value":"1-20","colour_hex":"f4e3b9","note":""},{"unique":"12_21-40","id":2,"colour_key":12,"colour_value":"21-40","colour_hex":"c3c55d","note":""},{"unique":"12_41-80","id":3,"colour_key":12,"colour_value":"41-80","colour_hex":"76af56","note":""},{"unique":"12_81-150","id":4,"colour_key":12,"colour_value":"81-150","colour_hex":"398a4c","note":""},{"unique":"12_150+","id":5,"colour_key":12,"colour_value":"150+","colour_hex":"146c36","note":""},{"unique":"13_1-20","id":1,"colour_key":13,"colour_value":"1-20","colour_hex":"f4e3b9","note":""},{"unique":"13_21-40","id":2,"colour_key":13,"colour_value":"21-40","colour_hex":"c3c55d","note":""},{"unique":"13_41-80","id":3,"colour_key":13,"colour_value":"41-80","colour_hex":"76af56","note":""},{"unique":"13_81-150","id":4,"colour_key":13,"colour_value":"81-150","colour_hex":"398a4c","note":""},{"unique":"13_150+","id":5,"colour_key":13,"colour_value":"150+","colour_hex":"146c36","note":""},{"unique":"14_1-20","id":26,"colour_key":14,"colour_value":"1-20","colour_hex":"ddefe9","note":""},{"unique":"14_21-30","id":27,"colour_key":14,"colour_value":"21-30","colour_hex":"8ad1d9","note":""},{"unique":"14_31-40","id":28,"colour_key":14,"colour_value":"31-40","colour_hex":"56b4c7","note":""},{"unique":"14_41-70","id":29,"colour_key":14,"colour_value":"41-70","colour_hex":"3d94bc","note":""},{"unique":"14_70+","id":30,"colour_key":14,"colour_value":"70+","colour_hex":"3a77b0","note":""},{"unique":"15_0 spaces","id":41,"colour_key":15,"colour_value":"0 spaces","colour_hex":"ffffff","note":""},{"unique":"15_1-10 spaces","id":42,"colour_key":15,"colour_value":"1-10 spaces","colour_hex":"f4e3b9","note":""},{"unique":"15_11-20 spaces","id":43,"colour_key":15,"colour_value":"11-20 spaces","colour_hex":"c3c55d","note":""},{"unique":"15_21-30 spaces","id":44,"colour_key":15,"colour_value":"21-30 spaces","colour_hex":"76af56","note":""},{"unique":"15_31-40 spaces","id":45,"colour_key":15,"colour_value":"31-40 spaces","colour_hex":"398a4c","note":""},{"unique":"16_1-100","id":1,"colour_key":16,"colour_value":"1-100","colour_hex":"ddefe9","note":""},{"unique":"16_101-200","id":2,"colour_key":16,"colour_value":"101-200","colour_hex":"8ad1d9","note":""},{"unique":"16_201-300","id":3,"colour_key":16,"colour_value":"201-300","colour_hex":"56b4c7","note":""},{"unique":"16_301-500","id":4,"colour_key":16,"colour_value":"301-500","colour_hex":"3d94bc","note":""},{"unique":"16_501+","id":5,"colour_key":16,"colour_value":"501+","colour_hex":"3a77b0","note":""},{"unique":"61_0","id":34,"colour_key":61,"colour_value":"0","colour_hex":"ffffff","note":""},{"unique":"61_1-25","id":35,"colour_key":61,"colour_value":"1-25","colour_hex":"e3e194","note":""},{"unique":"61_26-50","id":36,"colour_key":61,"colour_value":"26-50","colour_hex":"becf7f","note":""},{"unique":"61_51-100","id":37,"colour_key":61,"colour_value":"51-100","colour_hex":"1ba3c6","note":""},{"unique":"61_101-150","id":38,"colour_key":61,"colour_value":"101-150","colour_hex":"a26dc2","note":""},{"unique":"61_151-200","id":39,"colour_key":61,"colour_value":"151-200","colour_hex":"","note":""},{"unique":"61_201-250","id":40,"colour_key":61,"colour_value":"201-250","colour_hex":"","note":""},{"unique":"61_250+","id":"","colour_key":61,"colour_value":"250+","colour_hex":"","note":""},{"unique":"_","id":"","colour_key":"","colour_value":"","colour_hex":"","note":""}]
+[
+    {
+        "unique": "0_1-100",
+        "id": 1,
+        "colour_key": 0,
+        "colour_value": "1-100",
+        "colour_hex": "ddefe9",
+        "note": ""
+    },
+    {
+        "unique": "0_101-200",
+        "id": 2,
+        "colour_key": 0,
+        "colour_value": "101-200",
+        "colour_hex": "8ad1d9",
+        "note": ""
+    },
+    {
+        "unique": "0_201-300",
+        "id": 3,
+        "colour_key": 0,
+        "colour_value": "201-300",
+        "colour_hex": "56b4c7",
+        "note": ""
+    },
+    {
+        "unique": "0_301-500",
+        "id": 4,
+        "colour_key": 0,
+        "colour_value": "301-500",
+        "colour_hex": "3d94bc",
+        "note": ""
+    },
+    {
+        "unique": "0_501+",
+        "id": 5,
+        "colour_key": 0,
+        "colour_value": "501+",
+        "colour_hex": "3a77b0",
+        "note": ""
+    },
+    {
+        "unique": "1_0 spaces",
+        "id": 6,
+        "colour_key": 1,
+        "colour_value": "0 spaces",
+        "colour_hex": "ffffff",
+        "note": ""
+    },
+    {
+        "unique": "1_1-100 spaces",
+        "id": 7,
+        "colour_key": 1,
+        "colour_value": "1-100 spaces",
+        "colour_hex": "f4e3b9",
+        "note": ""
+    },
+    {
+        "unique": "1_101-200 spaces",
+        "id": 8,
+        "colour_key": 1,
+        "colour_value": "101-200 spaces",
+        "colour_hex": "c3c55d",
+        "note": ""
+    },
+    {
+        "unique": "1_201-400 spaces",
+        "id": 9,
+        "colour_key": 1,
+        "colour_value": "201-400 spaces",
+        "colour_hex": "76af56",
+        "note": ""
+    },
+    {
+        "unique": "1_401-500 spaces",
+        "id": 10,
+        "colour_key": 1,
+        "colour_value": "401-500 spaces",
+        "colour_hex": "398a4c",
+        "note": ""
+    },
+    {
+        "unique": "1_501+ spaces",
+        "id": 11,
+        "colour_key": 1,
+        "colour_value": "501+ spaces",
+        "colour_hex": "146c36",
+        "note": ""
+    },
+    {
+        "unique": "3_0",
+        "id": 12,
+        "colour_key": 3,
+        "colour_value": 0,
+        "colour_hex": "ffffff",
+        "note": ""
+    },
+    {
+        "unique": "3_1",
+        "id": 13,
+        "colour_key": 3,
+        "colour_value": 1,
+        "colour_hex": "d1e2ec",
+        "note": ""
+    },
+    {
+        "unique": "3_2",
+        "id": 14,
+        "colour_key": 3,
+        "colour_value": 2,
+        "colour_hex": "7aa9d0",
+        "note": ""
+    },
+    {
+        "unique": "3_3",
+        "id": 15,
+        "colour_key": 3,
+        "colour_value": 3,
+        "colour_hex": "5486b2",
+        "note": ""
+    },
+    {
+        "unique": "3_4",
+        "id": 16,
+        "colour_key": 3,
+        "colour_value": 4,
+        "colour_hex": "42698f",
+        "note": ""
+    },
+    {
+        "unique": "4_012A00000012rBlIAI",
+        "id": 18,
+        "colour_key": 4,
+        "colour_value": "012A00000012rBlIAI",
+        "colour_hex": "f8b11f",
+        "note": "Assessment_Centre"
+    },
+    {
+        "unique": "4_012A00000012rBqIAI",
+        "id": 19,
+        "colour_key": 4,
+        "colour_value": "012A00000012rBqIAI",
+        "colour_hex": "8e9996",
+        "note": "Clearing_House"
+    },
+    {
+        "unique": "4_012A00000012r8lIAA",
+        "id": 20,
+        "colour_key": 4,
+        "colour_value": "012A00000012r8lIAA",
+        "colour_hex": "25b392",
+        "note": "Day_Centre"
+    },
+    {
+        "unique": "4_0122G000001DbadQAC",
+        "id": 21,
+        "colour_key": 4,
+        "colour_value": "0122G000001DbadQAC",
+        "colour_hex": "f8b11f",
+        "note": "Health"
+    },
+    {
+        "unique": "4_012A00000012rAsIAI",
+        "id": 22,
+        "colour_key": 4,
+        "colour_value": "012A00000012rAsIAI",
+        "colour_hex": "b361b2",
+        "note": "Housing_First"
+    },
+    {
+        "unique": "4_012A00000012r8qIAA",
+        "id": 23,
+        "colour_key": 4,
+        "colour_value": "012A00000012r8qIAA",
+        "colour_hex": "55aaff",
+        "note": "Nightshelter_Wintershelter"
+    },
+    {
+        "unique": "4_012A00000012rBWIAY",
+        "id": 24,
+        "colour_key": 4,
+        "colour_value": "012A00000012rBWIAY",
+        "colour_hex": "f9608b",
+        "note": "Outreach"
+    },
+    {
+        "unique": "4_012A00000012r8gIAA",
+        "id": 25,
+        "colour_key": 4,
+        "colour_value": "012A00000012r8gIAA",
+        "colour_hex": "b8cb2a",
+        "note": "Accommodation"
+    },
+    {
+        "unique": "8_1-20",
+        "id": 26,
+        "colour_key": 8,
+        "colour_value": "1-20",
+        "colour_hex": "ddefe9",
+        "note": ""
+    },
+    {
+        "unique": "8_21-30",
+        "id": 27,
+        "colour_key": 8,
+        "colour_value": "21-30",
+        "colour_hex": "8ad1d9",
+        "note": ""
+    },
+    {
+        "unique": "8_31-40",
+        "id": 28,
+        "colour_key": 8,
+        "colour_value": "31-40",
+        "colour_hex": "56b4c7",
+        "note": ""
+    },
+    {
+        "unique": "8_41-70",
+        "id": 29,
+        "colour_key": 8,
+        "colour_value": "41-70",
+        "colour_hex": "3d94bc",
+        "note": ""
+    },
+    {
+        "unique": "8_70+",
+        "id": 30,
+        "colour_key": 8,
+        "colour_value": "70+",
+        "colour_hex": "3a77b0",
+        "note": ""
+    },
+    {
+        "unique": "7_GLA",
+        "id": 31,
+        "colour_key": 7,
+        "colour_value": "GLA",
+        "colour_hex": "ddefe9",
+        "note": ""
+    },
+    {
+        "unique": "7_Borough commissioned",
+        "id": 32,
+        "colour_key": 7,
+        "colour_value": "Borough commissioned",
+        "colour_hex": "3a77b0",
+        "note": ""
+    },
+    {
+        "unique": "2_0",
+        "id": 33,
+        "colour_key": 2,
+        "colour_value": "0",
+        "colour_hex": "ffffff",
+        "note": 0
+    },
+    {
+        "unique": "2_1-25",
+        "id": 34,
+        "colour_key": 2,
+        "colour_value": "1-25",
+        "colour_hex": "e3e194",
+        "note": 12
+    },
+    {
+        "unique": "2_26-50",
+        "id": 35,
+        "colour_key": 2,
+        "colour_value": "26-50",
+        "colour_hex": "becf7f",
+        "note": 35
+    },
+    {
+        "unique": "2_51-100",
+        "id": 36,
+        "colour_key": 2,
+        "colour_value": "51-100",
+        "colour_hex": "82caa2",
+        "note": 75
+    },
+    {
+        "unique": "2_101-150",
+        "id": 37,
+        "colour_key": 2,
+        "colour_value": "101-150",
+        "colour_hex": "30bcad",
+        "note": 125
+    },
+    {
+        "unique": "2_151-200",
+        "id": 38,
+        "colour_key": 2,
+        "colour_value": "151-200",
+        "colour_hex": "1ba3c6",
+        "note": 175
+    },
+    {
+        "unique": "2_201-250",
+        "id": 39,
+        "colour_key": 2,
+        "colour_value": "201-250",
+        "colour_hex": "a26dc2",
+        "note": 225
+    },
+    {
+        "unique": "2_250+",
+        "id": 40,
+        "colour_key": 2,
+        "colour_value": "250+",
+        "colour_hex": "7873c0",
+        "note": 275
+    },
+    {
+        "unique": "3_0 rooms",
+        "id": 41,
+        "colour_key": 3,
+        "colour_value": "0 rooms",
+        "colour_hex": "ffffff",
+        "note": ""
+    },
+    {
+        "unique": "3_1-10 rooms",
+        "id": 42,
+        "colour_key": 3,
+        "colour_value": "1-10 rooms",
+        "colour_hex": "f4e3b9",
+        "note": ""
+    },
+    {
+        "unique": "3_11-20 rooms",
+        "id": 43,
+        "colour_key": 3,
+        "colour_value": "11-20 rooms",
+        "colour_hex": "c3c55d",
+        "note": ""
+    },
+    {
+        "unique": "3_21-30 rooms",
+        "id": 44,
+        "colour_key": 3,
+        "colour_value": "21-30 rooms",
+        "colour_hex": "76af56",
+        "note": ""
+    },
+    {
+        "unique": "3_31-40 rooms",
+        "id": 45,
+        "colour_key": 3,
+        "colour_value": "31-40 rooms",
+        "colour_hex": "398a4c",
+        "note": ""
+    },
+    {
+        "unique": "6_No Housing First",
+        "id": 46,
+        "colour_key": 6,
+        "colour_value": "No Housing First",
+        "colour_hex": "ffffff",
+        "note": ""
+    },
+    {
+        "unique": "6_Has Housing First",
+        "id": 47,
+        "colour_key": 6,
+        "colour_value": "Has Housing First",
+        "colour_hex": "a27099",
+        "note": ""
+    },
+    {
+        "unique": "10_0 centres",
+        "id": 48,
+        "colour_key": 10,
+        "colour_value": "0 centres",
+        "colour_hex": "ffffff",
+        "note": ""
+    },
+    {
+        "unique": "10_1 centres",
+        "id": 49,
+        "colour_key": 10,
+        "colour_value": "1 centres",
+        "colour_hex": "dfb1d1",
+        "note": ""
+    },
+    {
+        "unique": "10_2 centres",
+        "id": 50,
+        "colour_key": 10,
+        "colour_value": "2 centres",
+        "colour_hex": "cd9bbc",
+        "note": ""
+    },
+    {
+        "unique": "10_3 centres",
+        "id": 51,
+        "colour_key": 10,
+        "colour_value": "3 centres",
+        "colour_hex": "bc86a9",
+        "note": ""
+    },
+    {
+        "unique": "10_4 centres",
+        "id": 52,
+        "colour_key": 10,
+        "colour_value": "4 centres",
+        "colour_hex": "a5729b",
+        "note": ""
+    },
+    {
+        "unique": "10_5 centres",
+        "id": 53,
+        "colour_key": 10,
+        "colour_value": "5 centres",
+        "colour_hex": "8d608d",
+        "note": ""
+    },
+    {
+        "unique": "10_6 centres",
+        "id": 54,
+        "colour_key": 10,
+        "colour_value": "6 centres",
+        "colour_hex": 634363,
+        "note": ""
+    },
+    {
+        "unique": "11_1-20",
+        "id": 1,
+        "colour_key": 11,
+        "colour_value": "1-20",
+        "colour_hex": "f4e3b9",
+        "note": ""
+    },
+    {
+        "unique": "11_21-40",
+        "id": 2,
+        "colour_key": 11,
+        "colour_value": "21-40",
+        "colour_hex": "c3c55d",
+        "note": ""
+    },
+    {
+        "unique": "11_41-80",
+        "id": 3,
+        "colour_key": 11,
+        "colour_value": "41-80",
+        "colour_hex": "76af56",
+        "note": ""
+    },
+    {
+        "unique": "11_81-150",
+        "id": 4,
+        "colour_key": 11,
+        "colour_value": "81-150",
+        "colour_hex": "398a4c",
+        "note": ""
+    },
+    {
+        "unique": "11_150+",
+        "id": 5,
+        "colour_key": 11,
+        "colour_value": "150+",
+        "colour_hex": "146c36",
+        "note": ""
+    },
+    {
+        "unique": "12_1-20",
+        "id": 1,
+        "colour_key": 12,
+        "colour_value": "1-20",
+        "colour_hex": "f4e3b9",
+        "note": ""
+    },
+    {
+        "unique": "12_21-40",
+        "id": 2,
+        "colour_key": 12,
+        "colour_value": "21-40",
+        "colour_hex": "c3c55d",
+        "note": ""
+    },
+    {
+        "unique": "12_41-80",
+        "id": 3,
+        "colour_key": 12,
+        "colour_value": "41-80",
+        "colour_hex": "76af56",
+        "note": ""
+    },
+    {
+        "unique": "12_81-150",
+        "id": 4,
+        "colour_key": 12,
+        "colour_value": "81-150",
+        "colour_hex": "398a4c",
+        "note": ""
+    },
+    {
+        "unique": "12_150+",
+        "id": 5,
+        "colour_key": 12,
+        "colour_value": "150+",
+        "colour_hex": "146c36",
+        "note": ""
+    },
+    {
+        "unique": "13_1-20",
+        "id": 1,
+        "colour_key": 13,
+        "colour_value": "1-20",
+        "colour_hex": "f4e3b9",
+        "note": ""
+    },
+    {
+        "unique": "13_21-40",
+        "id": 2,
+        "colour_key": 13,
+        "colour_value": "21-40",
+        "colour_hex": "c3c55d",
+        "note": ""
+    },
+    {
+        "unique": "13_41-80",
+        "id": 3,
+        "colour_key": 13,
+        "colour_value": "41-80",
+        "colour_hex": "76af56",
+        "note": ""
+    },
+    {
+        "unique": "13_81-150",
+        "id": 4,
+        "colour_key": 13,
+        "colour_value": "81-150",
+        "colour_hex": "398a4c",
+        "note": ""
+    },
+    {
+        "unique": "13_150+",
+        "id": 5,
+        "colour_key": 13,
+        "colour_value": "150+",
+        "colour_hex": "146c36",
+        "note": ""
+    },
+    {
+        "unique": "14_1-20",
+        "id": 26,
+        "colour_key": 14,
+        "colour_value": "1-20",
+        "colour_hex": "ddefe9",
+        "note": ""
+    },
+    {
+        "unique": "14_21-30",
+        "id": 27,
+        "colour_key": 14,
+        "colour_value": "21-30",
+        "colour_hex": "8ad1d9",
+        "note": ""
+    },
+    {
+        "unique": "14_31-40",
+        "id": 28,
+        "colour_key": 14,
+        "colour_value": "31-40",
+        "colour_hex": "56b4c7",
+        "note": ""
+    },
+    {
+        "unique": "14_41-70",
+        "id": 29,
+        "colour_key": 14,
+        "colour_value": "41-70",
+        "colour_hex": "3d94bc",
+        "note": ""
+    },
+    {
+        "unique": "14_70+",
+        "id": 30,
+        "colour_key": 14,
+        "colour_value": "70+",
+        "colour_hex": "3a77b0",
+        "note": ""
+    },
+    {
+        "unique": "15_0 spaces",
+        "id": 41,
+        "colour_key": 15,
+        "colour_value": "0 spaces",
+        "colour_hex": "ffffff",
+        "note": ""
+    },
+    {
+        "unique": "15_1-10 spaces",
+        "id": 42,
+        "colour_key": 15,
+        "colour_value": "1-10 spaces",
+        "colour_hex": "f4e3b9",
+        "note": ""
+    },
+    {
+        "unique": "15_11-20 spaces",
+        "id": 43,
+        "colour_key": 15,
+        "colour_value": "11-20 spaces",
+        "colour_hex": "c3c55d",
+        "note": ""
+    },
+    {
+        "unique": "15_21-30 spaces",
+        "id": 44,
+        "colour_key": 15,
+        "colour_value": "21-30 spaces",
+        "colour_hex": "76af56",
+        "note": ""
+    },
+    {
+        "unique": "15_31-40 spaces",
+        "id": 45,
+        "colour_key": 15,
+        "colour_value": "31-40 spaces",
+        "colour_hex": "398a4c",
+        "note": ""
+    },
+    {
+        "unique": "16_1-100",
+        "id": 1,
+        "colour_key": 16,
+        "colour_value": "1-100",
+        "colour_hex": "ddefe9",
+        "note": ""
+    },
+    {
+        "unique": "16_101-200",
+        "id": 2,
+        "colour_key": 16,
+        "colour_value": "101-200",
+        "colour_hex": "8ad1d9",
+        "note": ""
+    },
+    {
+        "unique": "16_201-300",
+        "id": 3,
+        "colour_key": 16,
+        "colour_value": "201-300",
+        "colour_hex": "56b4c7",
+        "note": ""
+    },
+    {
+        "unique": "16_301-500",
+        "id": 4,
+        "colour_key": 16,
+        "colour_value": "301-500",
+        "colour_hex": "3d94bc",
+        "note": ""
+    },
+    {
+        "unique": "16_501+",
+        "id": 5,
+        "colour_key": 16,
+        "colour_value": "501+",
+        "colour_hex": "3a77b0",
+        "note": ""
+    },
+    {
+        "unique": "61_0",
+        "id": 34,
+        "colour_key": 61,
+        "colour_value": "0",
+        "colour_hex": "ffffff",
+        "note": ""
+    },
+    {
+        "unique": "61_1-25",
+        "id": 35,
+        "colour_key": 61,
+        "colour_value": "1-25",
+        "colour_hex": "e3e194",
+        "note": ""
+    },
+    {
+        "unique": "61_26-50",
+        "id": 36,
+        "colour_key": 61,
+        "colour_value": "26-50",
+        "colour_hex": "becf7f",
+        "note": ""
+    },
+    {
+        "unique": "61_51-100",
+        "id": 37,
+        "colour_key": 61,
+        "colour_value": "51-100",
+        "colour_hex": "1ba3c6",
+        "note": ""
+    },
+    {
+        "unique": "61_101-150",
+        "id": 38,
+        "colour_key": 61,
+        "colour_value": "101-150",
+        "colour_hex": "a26dc2",
+        "note": ""
+    },
+    {
+        "unique": "61_151-200",
+        "id": 39,
+        "colour_key": 61,
+        "colour_value": "151-200",
+        "colour_hex": "",
+        "note": ""
+    },
+    {
+        "unique": "61_201-250",
+        "id": 40,
+        "colour_key": 61,
+        "colour_value": "201-250",
+        "colour_hex": "",
+        "note": ""
+    },
+    {
+        "unique": "61_250+",
+        "id": "",
+        "colour_key": 61,
+        "colour_value": "250+",
+        "colour_hex": "",
+        "note": ""
+    },
+    {
+        "unique": "_",
+        "id": "",
+        "colour_key": "",
+        "colour_value": "",
+        "colour_hex": "",
+        "note": ""
+    }
+]
