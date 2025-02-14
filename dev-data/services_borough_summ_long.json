@@ -5129,344 +5129,344 @@
     "Hex": "1ba3c6",
     "value_keycolour": "51-100"
   },
-  {
-    "metric_id": 62,
-    "borough_gss": "E09000024",
-    "borough_name": "Merton",
-    "borough_shortname": "MER",
-    "value_num": 15,
-    "value_text": "1-30 spaces",
-    "Hex": "f4e3b9",
-    "value_keycolour": "1-30 spaces"
-  },
-  {
-    "metric_id": 62,
-    "borough_gss": "E09000029",
-    "borough_name": "Sutton",
-    "borough_shortname": "SUT",
-    "value_num": 0,
-    "value_text": "0 spaces",
-    "Hex": "ffffff",
-    "value_keycolour": "0 spaces"
-  },
-  {
-    "metric_id": 62,
-    "borough_gss": "E09000002",
-    "borough_name": "Barking and Dagenham",
-    "borough_shortname": "B&D",
-    "value_num": 31,
-    "value_text": "31-50 spaces",
-    "Hex": "c3c55d",
-    "value_keycolour": "31-50 spaces"
-  },
-  {
-    "metric_id": 62,
-    "borough_gss": "E09000004",
-    "borough_name": "Bexley",
-    "borough_shortname": "BEX",
-    "value_num": 0,
-    "value_text": "0 spaces",
-    "Hex": "ffffff",
-    "value_keycolour": "0 spaces"
-  },
-  {
-    "metric_id": 62,
-    "borough_gss": "E09000006",
-    "borough_name": "Bromley",
-    "borough_shortname": "BRO",
-    "value_num": 0,
-    "value_text": "0 spaces",
-    "Hex": "ffffff",
-    "value_keycolour": "0 spaces"
-  },
-  {
-    "metric_id": 62,
-    "borough_gss": "E09000016",
-    "borough_name": "Havering",
-    "borough_shortname": "HAV",
-    "value_num": 0,
-    "value_text": "0 spaces",
-    "Hex": "ffffff",
-    "value_keycolour": "0 spaces"
-  },
-  {
-    "metric_id": 62,
-    "borough_gss": "E09000015",
-    "borough_name": "Harrow",
-    "borough_shortname": "HRW",
-    "value_num": 39,
-    "value_text": "31-50 spaces",
-    "Hex": "c3c55d",
-    "value_keycolour": "31-50 spaces"
-  },
-  {
-    "metric_id": 62,
-    "borough_gss": "E09000031",
-    "borough_name": "Waltham Forest",
-    "borough_shortname": "WAL",
-    "value_num": 33,
-    "value_text": "31-50 spaces",
-    "Hex": "c3c55d",
-    "value_keycolour": "31-50 spaces"
-  },
-  {
-    "metric_id": 62,
-    "borough_gss": "E09000021",
-    "borough_name": "Kingston upon Thames",
-    "borough_shortname": "KuT",
-    "value_num": 12,
-    "value_text": "1-30 spaces",
-    "Hex": "f4e3b9",
-    "value_keycolour": "1-30 spaces"
-  },
-  {
-    "metric_id": 62,
-    "borough_gss": "E09000003",
-    "borough_name": "Barnet",
-    "borough_shortname": "BAR",
-    "value_num": 24,
-    "value_text": "1-30 spaces",
-    "Hex": "f4e3b9",
-    "value_keycolour": "1-30 spaces"
-  },
-  {
-    "metric_id": 62,
-    "borough_gss": "E09000018",
-    "borough_name": "Hounslow",
-    "borough_shortname": "HOU",
-    "value_num": 70,
-    "value_text": "51-80 spaces",
-    "Hex": "76af56",
-    "value_keycolour": "51-80 spaces"
-  },
-  {
-    "metric_id": 62,
-    "borough_gss": "E09000027",
-    "borough_name": "Richmond upon Thames",
-    "borough_shortname": "RuT",
-    "value_num": 0,
-    "value_text": "0 spaces",
-    "Hex": "ffffff",
-    "value_keycolour": "0 spaces"
-  },
-  {
-    "metric_id": 62,
-    "borough_gss": "E09000011",
-    "borough_name": "Greenwich",
-    "borough_shortname": "GRN",
-    "value_num": 141,
-    "value_text": "141+ spaces",
-    "Hex": "146c36",
-    "value_keycolour": "141+ spaces"
-  },
-  {
-    "metric_id": 62,
-    "borough_gss": "E09000032",
-    "borough_name": "Wandsworth",
-    "borough_shortname": "WAN",
-    "value_num": 132,
-    "value_text": "81-140 spaces",
-    "Hex": "398a4c",
-    "value_keycolour": "81-140 spaces"
-  },
-  {
-    "metric_id": 62,
-    "borough_gss": "E09000010",
-    "borough_name": "Enfield",
-    "borough_shortname": "ENF",
-    "value_num": 50,
-    "value_text": "31-50 spaces",
-    "Hex": "c3c55d",
-    "value_keycolour": "31-50 spaces"
-  },
-  {
-    "metric_id": 62,
-    "borough_gss": "E09000017",
-    "borough_name": "Hillingdon",
-    "borough_shortname": "HIL",
-    "value_num": 56,
-    "value_text": "51-80 spaces",
-    "Hex": "76af56",
-    "value_keycolour": "51-80 spaces"
-  },
-  {
-    "metric_id": 62,
-    "borough_gss": "E09000023",
-    "borough_name": "Lewisham",
-    "borough_shortname": "LEW",
-    "value_num": 98,
-    "value_text": "81-140 spaces",
-    "Hex": "398a4c",
-    "value_keycolour": "81-140 spaces"
-  },
-  {
-    "metric_id": 62,
-    "borough_gss": "E09000013",
-    "borough_name": "Hammersmith and Fulham",
-    "borough_shortname": "H&F",
-    "value_num": 0,
-    "value_text": "0 spaces",
-    "Hex": "ffffff",
-    "value_keycolour": "0 spaces"
-  },
-  {
-    "metric_id": 62,
-    "borough_gss": "E09000012",
-    "borough_name": "Hackney",
-    "borough_shortname": "HCK",
-    "value_num": 80,
-    "value_text": "51-80 spaces",
-    "Hex": "76af56",
-    "value_keycolour": "51-80 spaces"
-  },
-  {
-    "metric_id": 62,
-    "borough_gss": "E09000026",
-    "borough_name": "Redbridge",
-    "borough_shortname": "RED",
-    "value_num": 0,
-    "value_text": "0 spaces",
-    "Hex": "ffffff",
-    "value_keycolour": "0 spaces"
-  },
-  {
-    "metric_id": 62,
-    "borough_gss": "E09000022",
-    "borough_name": "Lambeth",
-    "borough_shortname": "LAM",
-    "value_num": 108,
-    "value_text": "81-140 spaces",
-    "Hex": "398a4c",
-    "value_keycolour": "81-140 spaces"
-  },
-  {
-    "metric_id": 62,
-    "borough_gss": "E09000020",
-    "borough_name": "Kensington and Chelsea",
-    "borough_shortname": "K&C",
-    "value_num": 46,
-    "value_text": "31-50 spaces",
-    "Hex": "c3c55d",
-    "value_keycolour": "31-50 spaces"
-  },
-  {
-    "metric_id": 62,
-    "borough_gss": "E09000019",
-    "borough_name": "Islington",
-    "borough_shortname": "ISL",
-    "value_num": 0,
-    "value_text": "0 spaces",
-    "Hex": "ffffff",
-    "value_keycolour": "0 spaces"
-  },
-  {
-    "metric_id": 62,
-    "borough_gss": "E09000005",
-    "borough_name": "Brent",
-    "borough_shortname": "BRE",
-    "value_num": 26,
-    "value_text": "1-30 spaces",
-    "Hex": "f4e3b9",
-    "value_keycolour": "1-30 spaces"
-  },
-  {
-    "metric_id": 62,
-    "borough_gss": "E09000001",
-    "borough_name": "City of London",
-    "borough_shortname": "CTY",
-    "value_num": 0,
-    "value_text": "0 spaces",
-    "Hex": "ffffff",
-    "value_keycolour": "0 spaces"
-  },
-  {
-    "metric_id": 62,
-    "borough_gss": "E09000008",
-    "borough_name": "Croydon",
-    "borough_shortname": "CRO",
-    "value_num": 180,
-    "value_text": "141+ spaces",
-    "Hex": "146c36",
-    "value_keycolour": "141+ spaces"
-  },
-  {
-    "metric_id": 62,
-    "borough_gss": "E09000009",
-    "borough_name": "Ealing",
-    "borough_shortname": "EAL",
-    "value_num": 17,
-    "value_text": "1-30 spaces",
-    "Hex": "f4e3b9",
-    "value_keycolour": "1-30 spaces"
-  },
-  {
-    "metric_id": 62,
-    "borough_gss": "E09000030",
-    "borough_name": "Tower Hamlets",
-    "borough_shortname": "TOW",
-    "value_num": 150,
-    "value_text": "141+ spaces",
-    "Hex": "146c36",
-    "value_keycolour": "141+ spaces"
-  },
-  {
-    "metric_id": 62,
-    "borough_gss": "E09000014",
-    "borough_name": "Haringey",
-    "borough_shortname": "HGY",
-    "value_num": 68,
-    "value_text": "51-80 spaces",
-    "Hex": "76af56",
-    "value_keycolour": "51-80 spaces"
-  },
-  {
-    "metric_id": 62,
-    "borough_gss": "E09000033",
-    "borough_name": "Westminster",
-    "borough_shortname": "WES",
-    "value_num": 147,
-    "value_text": "141+ spaces",
-    "Hex": "146c36",
-    "value_keycolour": "141+ spaces"
-  },
-  {
-    "metric_id": 62,
-    "borough_gss": "LONDON",
-    "borough_name": "London",
-    "borough_shortname": "",
-    "value_num": 1753,
-    "value_text": "141+ spaces",
-    "Hex": "146c36",
-    "value_keycolour": "141+ spaces"
-  },
-  {
-    "metric_id": 62,
-    "borough_gss": "E09000025",
-    "borough_name": "Newham",
-    "borough_shortname": "NEW",
-    "value_num": 0,
-    "value_text": "0 spaces",
-    "Hex": "ffffff",
-    "value_keycolour": "0 spaces"
-  },
-  {
-    "metric_id": 62,
-    "borough_gss": "E09000028",
-    "borough_name": "Southwark",
-    "borough_shortname": "SWK",
-    "value_num": 96,
-    "value_text": "81-140 spaces",
-    "Hex": "398a4c",
-    "value_keycolour": "81-140 spaces"
-  },
-  {
-    "metric_id": 62,
-    "borough_gss": "E09000007",
-    "borough_name": "Camden",
-    "borough_shortname": "CAM",
-    "value_num": 0,
-    "value_text": "0 spaces",
-    "Hex": "ffffff",
-    "value_keycolour": "0 spaces"
-  }
+    {
+      "metric_id": 62,
+      "borough_gss": "E09000024",
+      "borough_name": "Merton",
+      "borough_shortname": "MER",
+      "value_num": 15,
+      "value_text": "",
+      "Hex": "f4e3b9",
+      "value_keycolour": "1-30 spaces"
+    },
+    {
+      "metric_id": 62,
+      "borough_gss": "E09000029",
+      "borough_name": "Sutton",
+      "borough_shortname": "SUT",
+      "value_num": 0,
+      "value_text": "",
+      "Hex": "ffffff",
+      "value_keycolour": "0 spaces"
+    },
+    {
+      "metric_id": 62,
+      "borough_gss": "E09000002",
+      "borough_name": "Barking and Dagenham",
+      "borough_shortname": "B&D",
+      "value_num": 31,
+      "value_text": "",
+      "Hex": "c3c55d",
+      "value_keycolour": "31-50 spaces"
+    },
+    {
+      "metric_id": 62,
+      "borough_gss": "E09000004",
+      "borough_name": "Bexley",
+      "borough_shortname": "BEX",
+      "value_num": 0,
+      "value_text": "",
+      "Hex": "ffffff",
+      "value_keycolour": "0 spaces"
+    },
+    {
+      "metric_id": 62,
+      "borough_gss": "E09000006",
+      "borough_name": "Bromley",
+      "borough_shortname": "BRO",
+      "value_num": 0,
+      "value_text": "",
+      "Hex": "ffffff",
+      "value_keycolour": "0 spaces"
+    },
+    {
+      "metric_id": 62,
+      "borough_gss": "E09000016",
+      "borough_name": "Havering",
+      "borough_shortname": "HAV",
+      "value_num": 0,
+      "value_text": "",
+      "Hex": "ffffff",
+      "value_keycolour": "0 spaces"
+    },
+    {
+      "metric_id": 62,
+      "borough_gss": "E09000015",
+      "borough_name": "Harrow",
+      "borough_shortname": "HRW",
+      "value_num": 39,
+      "value_text": "",
+      "Hex": "c3c55d",
+      "value_keycolour": "31-50 spaces"
+    },
+    {
+      "metric_id": 62,
+      "borough_gss": "E09000031",
+      "borough_name": "Waltham Forest",
+      "borough_shortname": "WAL",
+      "value_num": 33,
+      "value_text": "",
+      "Hex": "c3c55d",
+      "value_keycolour": "31-50 spaces"
+    },
+    {
+      "metric_id": 62,
+      "borough_gss": "E09000021",
+      "borough_name": "Kingston upon Thames",
+      "borough_shortname": "KuT",
+      "value_num": 12,
+      "value_text": "",
+      "Hex": "f4e3b9",
+      "value_keycolour": "1-30 spaces"
+    },
+    {
+      "metric_id": 62,
+      "borough_gss": "E09000003",
+      "borough_name": "Barnet",
+      "borough_shortname": "BAR",
+      "value_num": 24,
+      "value_text": "",
+      "Hex": "f4e3b9",
+      "value_keycolour": "1-30 spaces"
+    },
+    {
+      "metric_id": 62,
+      "borough_gss": "E09000018",
+      "borough_name": "Hounslow",
+      "borough_shortname": "HOU",
+      "value_num": 70,
+      "value_text": "",
+      "Hex": "76af56",
+      "value_keycolour": "51-80 spaces"
+    },
+    {
+      "metric_id": 62,
+      "borough_gss": "E09000027",
+      "borough_name": "Richmond upon Thames",
+      "borough_shortname": "RuT",
+      "value_num": 0,
+      "value_text": "",
+      "Hex": "ffffff",
+      "value_keycolour": "0 spaces"
+    },
+    {
+      "metric_id": 62,
+      "borough_gss": "E09000011",
+      "borough_name": "Greenwich",
+      "borough_shortname": "GRN",
+      "value_num": 141,
+      "value_text": "",
+      "Hex": "146c36",
+      "value_keycolour": "141+ spaces"
+    },
+    {
+      "metric_id": 62,
+      "borough_gss": "E09000032",
+      "borough_name": "Wandsworth",
+      "borough_shortname": "WAN",
+      "value_num": 132,
+      "value_text": "",
+      "Hex": "398a4c",
+      "value_keycolour": "81-140 spaces"
+    },
+    {
+      "metric_id": 62,
+      "borough_gss": "E09000010",
+      "borough_name": "Enfield",
+      "borough_shortname": "ENF",
+      "value_num": 50,
+      "value_text": "",
+      "Hex": "c3c55d",
+      "value_keycolour": "31-50 spaces"
+    },
+    {
+      "metric_id": 62,
+      "borough_gss": "E09000017",
+      "borough_name": "Hillingdon",
+      "borough_shortname": "HIL",
+      "value_num": 56,
+      "value_text": "",
+      "Hex": "76af56",
+      "value_keycolour": "51-80 spaces"
+    },
+    {
+      "metric_id": 62,
+      "borough_gss": "E09000023",
+      "borough_name": "Lewisham",
+      "borough_shortname": "LEW",
+      "value_num": 98,
+      "value_text": "",
+      "Hex": "398a4c",
+      "value_keycolour": "81-140 spaces"
+    },
+    {
+      "metric_id": 62,
+      "borough_gss": "E09000013",
+      "borough_name": "Hammersmith and Fulham",
+      "borough_shortname": "H&F",
+      "value_num": 0,
+      "value_text": "",
+      "Hex": "ffffff",
+      "value_keycolour": "0 spaces"
+    },
+    {
+      "metric_id": 62,
+      "borough_gss": "E09000012",
+      "borough_name": "Hackney",
+      "borough_shortname": "HCK",
+      "value_num": 80,
+      "value_text": "",
+      "Hex": "76af56",
+      "value_keycolour": "51-80 spaces"
+    },
+    {
+      "metric_id": 62,
+      "borough_gss": "E09000026",
+      "borough_name": "Redbridge",
+      "borough_shortname": "RED",
+      "value_num": 0,
+      "value_text": "",
+      "Hex": "ffffff",
+      "value_keycolour": "0 spaces"
+    },
+    {
+      "metric_id": 62,
+      "borough_gss": "E09000022",
+      "borough_name": "Lambeth",
+      "borough_shortname": "LAM",
+      "value_num": 108,
+      "value_text": "",
+      "Hex": "398a4c",
+      "value_keycolour": "81-140 spaces"
+    },
+    {
+      "metric_id": 62,
+      "borough_gss": "E09000020",
+      "borough_name": "Kensington and Chelsea",
+      "borough_shortname": "K&C",
+      "value_num": 46,
+      "value_text": "",
+      "Hex": "c3c55d",
+      "value_keycolour": "31-50 spaces"
+    },
+    {
+      "metric_id": 62,
+      "borough_gss": "E09000019",
+      "borough_name": "Islington",
+      "borough_shortname": "ISL",
+      "value_num": 0,
+      "value_text": "",
+      "Hex": "ffffff",
+      "value_keycolour": "0 spaces"
+    },
+    {
+      "metric_id": 62,
+      "borough_gss": "E09000005",
+      "borough_name": "Brent",
+      "borough_shortname": "BRE",
+      "value_num": 26,
+      "value_text": "",
+      "Hex": "f4e3b9",
+      "value_keycolour": "1-30 spaces"
+    },
+    {
+      "metric_id": 62,
+      "borough_gss": "E09000001",
+      "borough_name": "City of London",
+      "borough_shortname": "CTY",
+      "value_num": 0,
+      "value_text": "",
+      "Hex": "ffffff",
+      "value_keycolour": "0 spaces"
+    },
+    {
+      "metric_id": 62,
+      "borough_gss": "E09000008",
+      "borough_name": "Croydon",
+      "borough_shortname": "CRO",
+      "value_num": 180,
+      "value_text": "",
+      "Hex": "146c36",
+      "value_keycolour": "141+ spaces"
+    },
+    {
+      "metric_id": 62,
+      "borough_gss": "E09000009",
+      "borough_name": "Ealing",
+      "borough_shortname": "EAL",
+      "value_num": 17,
+      "value_text": "",
+      "Hex": "f4e3b9",
+      "value_keycolour": "1-30 spaces"
+    },
+    {
+      "metric_id": 62,
+      "borough_gss": "E09000030",
+      "borough_name": "Tower Hamlets",
+      "borough_shortname": "TOW",
+      "value_num": 150,
+      "value_text": "",
+      "Hex": "146c36",
+      "value_keycolour": "141+ spaces"
+    },
+    {
+      "metric_id": 62,
+      "borough_gss": "E09000014",
+      "borough_name": "Haringey",
+      "borough_shortname": "HGY",
+      "value_num": 68,
+      "value_text": "",
+      "Hex": "76af56",
+      "value_keycolour": "51-80 spaces"
+    },
+    {
+      "metric_id": 62,
+      "borough_gss": "E09000033",
+      "borough_name": "Westminster",
+      "borough_shortname": "WES",
+      "value_num": 147,
+      "value_text": "",
+      "Hex": "146c36",
+      "value_keycolour": "141+ spaces"
+    },
+    {
+      "metric_id": 62,
+      "borough_gss": "LONDON",
+      "borough_name": "London",
+      "borough_shortname": "",
+      "value_num": 1753,
+      "value_text": "",
+      "Hex": "146c36",
+      "value_keycolour": "141+ spaces"
+    },
+    {
+      "metric_id": 62,
+      "borough_gss": "E09000025",
+      "borough_name": "Newham",
+      "borough_shortname": "NEW",
+      "value_num": 0,
+      "value_text": "",
+      "Hex": "ffffff",
+      "value_keycolour": "0 spaces"
+    },
+    {
+      "metric_id": 62,
+      "borough_gss": "E09000028",
+      "borough_name": "Southwark",
+      "borough_shortname": "SWK",
+      "value_num": 96,
+      "value_text": "",
+      "Hex": "398a4c",
+      "value_keycolour": "81-140 spaces"
+    },
+    {
+      "metric_id": 62,
+      "borough_gss": "E09000007",
+      "borough_name": "Camden",
+      "borough_shortname": "CAM",
+      "value_num": 0,
+      "value_text": "",
+      "Hex": "ffffff",
+      "value_keycolour": "0 spaces"
+    }
 ]

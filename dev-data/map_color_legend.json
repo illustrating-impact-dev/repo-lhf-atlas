@@ -1,1 +1,590 @@
-[{"id":"1","colour_key":"1","colour_value":"1-100","colour_hex":"ddefe9","metric_id":"0"},{"id":"2","colour_key":"1","colour_value":"101-200","colour_hex":"8ad1d9","metric_id":"0"},{"id":"3","colour_key":"1","colour_value":"201-300","colour_hex":"56b4c7","metric_id":"0"},{"id":"4","colour_key":"1","colour_value":"301-500","colour_hex":"3d94bc","metric_id":"0"},{"id":"5","colour_key":"1","colour_value":"501+","colour_hex":"3a77b0","metric_id":"0"},{"id":"1","colour_key":"5","colour_value":"1-20","colour_hex":"ddefe9","metric_id":8},{"id":"2","colour_key":"5","colour_value":"21-30","colour_hex":"8ad1d9","metric_id":8},{"id":"3","colour_key":"5","colour_value":"31-40","colour_hex":"56b4c7","metric_id":8},{"id":"4","colour_key":"5","colour_value":"41-70","colour_hex":"3d94bc","metric_id":8},{"id":"5","colour_key":"5","colour_value":"70+","colour_hex":"3a77b0","metric_id":8},{"id":"1","colour_key":"2","colour_value":"0 spaces","colour_hex":"ffffff","metric_id":"1"},{"id":"2","colour_key":"2","colour_value":"1-100 spaces","colour_hex":"f4e3b9","metric_id":"1"},{"id":"3","colour_key":"2","colour_value":"101-200 spaces","colour_hex":"c3c55d","metric_id":"1"},{"id":"4","colour_key":"2","colour_value":"201-400 spaces","colour_hex":"76af56","metric_id":"1"},{"id":"5","colour_key":"2","colour_value":"401-500 spaces","colour_hex":"398a4c","metric_id":"1"},{"id":"6","colour_key":"2","colour_value":"501+ spaces","colour_hex":"146c36","metric_id":"1"},{"id":"1","colour_key":"6","colour_value":"GLA","colour_hex":"ddefe9","metric_id":7},{"id":"2","colour_key":"6","colour_value":"Borough commissioned","colour_hex":"3a77b0","metric_id":7},{"id":"1","colour_key":"9","colour_value":"No Housing First","colour_hex":"ffffff","metric_id":6},{"id":"2","colour_key":"9","colour_value":"Has Housing First","colour_hex":"a27099","metric_id":6},{"id":"1","colour_key":"8","colour_value":"0 rooms","colour_hex":"ffffff","metric_id":3},{"id":"2","colour_key":"8","colour_value":"1-10 rooms","colour_hex":"f4e3b9","metric_id":3},{"id":"3","colour_key":"8","colour_value":"11-20 rooms","colour_hex":"c3c55d","metric_id":3},{"id":"4","colour_key":"8","colour_value":"21-30 rooms","colour_hex":"76af56","metric_id":3},{"id":"5","colour_key":"8","colour_value":"31-40 rooms","colour_hex":"398a4c","metric_id":3},{"id":"1","colour_key":"7","colour_value":"0","colour_hex":"ffffff","metric_id":2},{"id":"2","colour_key":"7","colour_value":"1-25","colour_hex":"e3e194","metric_id":2},{"id":"3","colour_key":"7","colour_value":"26-50","colour_hex":"becf7f","metric_id":2},{"id":"4","colour_key":"7","colour_value":"51-100","colour_hex":"82caa2","metric_id":2},{"id":"5","colour_key":"7","colour_value":"101-150","colour_hex":"30bcad","metric_id":2},{"id":"6","colour_key":"7","colour_value":"151-200","colour_hex":"1ba3c6","metric_id":2},{"id":"7","colour_key":"7","colour_value":"201-250","colour_hex":"a26dc2","metric_id":2},{"id":"8","colour_key":"7","colour_value":"250+","colour_hex":"7873c0","metric_id":2},{"id":"1","colour_key":"10","colour_value":"0 centres","colour_hex":"ffffff","metric_id":10},{"id":"2","colour_key":"10","colour_value":"1 centre","colour_hex":"dfb1d1","metric_id":10},{"id":"3","colour_key":"10","colour_value":"2 centres","colour_hex":"cd9bbc","metric_id":10},{"id":"4","colour_key":"10","colour_value":"3 centres","colour_hex":"bc86a9","metric_id":10},{"id":"5","colour_key":"10","colour_value":"4 centres","colour_hex":"a5729b","metric_id":10},{"id":"6","colour_key":"10","colour_value":"5 centres","colour_hex":"8d608d","metric_id":10},{"id":"7","colour_key":"10","colour_value":"6 centres","colour_hex":"634363","metric_id":10},{"id":11,"colour_key":11,"colour_value":"1-20","colour_hex":"f4e3b9","metric_id":11},{"id":11,"colour_key":11,"colour_value":"21-40","colour_hex":"c3c55d","metric_id":11},{"id":11,"colour_key":11,"colour_value":"41-80","colour_hex":"76af56","metric_id":11},{"id":11,"colour_key":11,"colour_value":"81-150","colour_hex":"398a4c","metric_id":11},{"id":11,"colour_key":11,"colour_value":"150+","colour_hex":"146c36","metric_id":11},{"id":12,"colour_key":12,"colour_value":"1-20","colour_hex":"f4e3b9","metric_id":12},{"id":12,"colour_key":12,"colour_value":"21-40","colour_hex":"c3c55d","metric_id":12},{"id":12,"colour_key":12,"colour_value":"41-80","colour_hex":"76af56","metric_id":12},{"id":12,"colour_key":12,"colour_value":"81-150","colour_hex":"398a4c","metric_id":12},{"id":12,"colour_key":12,"colour_value":"150+","colour_hex":"146c36","metric_id":12},{"id":13,"colour_key":13,"colour_value":"1-20","colour_hex":"f4e3b9","metric_id":13},{"id":13,"colour_key":13,"colour_value":"21-40","colour_hex":"c3c55d","metric_id":13},{"id":13,"colour_key":13,"colour_value":"41-80","colour_hex":"76af56","metric_id":13},{"id":13,"colour_key":13,"colour_value":"81-150","colour_hex":"398a4c","metric_id":13},{"id":13,"colour_key":13,"colour_value":"150+","colour_hex":"146c36","metric_id":13},{"id":14,"colour_key":"5","colour_value":"1-20","colour_hex":"ddefe9","metric_id":14},{"id":14,"colour_key":"5","colour_value":"21-30","colour_hex":"8ad1d9","metric_id":14},{"id":14,"colour_key":"5","colour_value":"31-40","colour_hex":"56b4c7","metric_id":14},{"id":14,"colour_key":"5","colour_value":"41-70","colour_hex":"3d94bc","metric_id":14},{"id":14,"colour_key":"5","colour_value":"70+","colour_hex":"3a77b0","metric_id":14},{"id":15,"colour_key":"8","colour_value":"0 spaces","colour_hex":"ffffff","metric_id":15},{"id":15,"colour_key":"8","colour_value":"1-10 spaces","colour_hex":"f4e3b9","metric_id":15},{"id":15,"colour_key":"8","colour_value":"11-20 spaces","colour_hex":"c3c55d","metric_id":15},{"id":15,"colour_key":"8","colour_value":"21-30 spaces","colour_hex":"76af56","metric_id":15},{"id":15,"colour_key":"8","colour_value":"31-40 spaces","colour_hex":"398a4c","metric_id":15},{"id":16,"colour_key":"1","colour_value":"1-100","colour_hex":"ddefe9","metric_id":16},{"id":16,"colour_key":"1","colour_value":"101-200","colour_hex":"8ad1d9","metric_id":16},{"id":16,"colour_key":"1","colour_value":"201-300","colour_hex":"56b4c7","metric_id":16},{"id":16,"colour_key":"1","colour_value":"301-500","colour_hex":"3d94bc","metric_id":16},{"id":16,"colour_key":"1","colour_value":"501+","colour_hex":"3a77b0","metric_id":16},{"id":"1","colour_key":61,"colour_value":"0","colour_hex":"ffffff","metric_id":61},{"id":"2","colour_key":61,"colour_value":"1-25","colour_hex":"e3e194","metric_id":61},{"id":"3","colour_key":61,"colour_value":"26-50","colour_hex":"becf7f","metric_id":61},{"id":"4","colour_key":61,"colour_value":"51-100","colour_hex":"82caa2","metric_id":61},{"id":"5","colour_key":61,"colour_value":"101-150","colour_hex":"30bcad","metric_id":61},{"id":"6","colour_key":61,"colour_value":"151-200","colour_hex":"1ba3c6","metric_id":61},{"id":"7","colour_key":61,"colour_value":"201-250","colour_hex":"a26dc2","metric_id":61},{"id":"8","colour_key":61,"colour_value":"250+","colour_hex":"7873c0","metric_id":61}]
+[
+    {
+        "id": "1",
+        "colour_key": "1",
+        "colour_value": "1-100",
+        "colour_hex": "ddefe9",
+        "metric_id": "0"
+    },
+    {
+        "id": "2",
+        "colour_key": "1",
+        "colour_value": "101-200",
+        "colour_hex": "8ad1d9",
+        "metric_id": "0"
+    },
+    {
+        "id": "3",
+        "colour_key": "1",
+        "colour_value": "201-300",
+        "colour_hex": "56b4c7",
+        "metric_id": "0"
+    },
+    {
+        "id": "4",
+        "colour_key": "1",
+        "colour_value": "301-500",
+        "colour_hex": "3d94bc",
+        "metric_id": "0"
+    },
+    {
+        "id": "5",
+        "colour_key": "1",
+        "colour_value": "501+",
+        "colour_hex": "3a77b0",
+        "metric_id": "0"
+    },
+    {
+        "id": "1",
+        "colour_key": "5",
+        "colour_value": "1-20",
+        "colour_hex": "ddefe9",
+        "metric_id": 8
+    },
+    {
+        "id": "2",
+        "colour_key": "5",
+        "colour_value": "21-30",
+        "colour_hex": "8ad1d9",
+        "metric_id": 8
+    },
+    {
+        "id": "3",
+        "colour_key": "5",
+        "colour_value": "31-40",
+        "colour_hex": "56b4c7",
+        "metric_id": 8
+    },
+    {
+        "id": "4",
+        "colour_key": "5",
+        "colour_value": "41-70",
+        "colour_hex": "3d94bc",
+        "metric_id": 8
+    },
+    {
+        "id": "5",
+        "colour_key": "5",
+        "colour_value": "70+",
+        "colour_hex": "3a77b0",
+        "metric_id": 8
+    },
+    {
+        "id": "1",
+        "colour_key": "2",
+        "colour_value": "0 spaces",
+        "colour_hex": "ffffff",
+        "metric_id": "1"
+    },
+    {
+        "id": "2",
+        "colour_key": "2",
+        "colour_value": "1-100 spaces",
+        "colour_hex": "f4e3b9",
+        "metric_id": "1"
+    },
+    {
+        "id": "3",
+        "colour_key": "2",
+        "colour_value": "101-200 spaces",
+        "colour_hex": "c3c55d",
+        "metric_id": "1"
+    },
+    {
+        "id": "4",
+        "colour_key": "2",
+        "colour_value": "201-400 spaces",
+        "colour_hex": "76af56",
+        "metric_id": "1"
+    },
+    {
+        "id": "5",
+        "colour_key": "2",
+        "colour_value": "401-500 spaces",
+        "colour_hex": "398a4c",
+        "metric_id": "1"
+    },
+    {
+        "id": "6",
+        "colour_key": "2",
+        "colour_value": "501+ spaces",
+        "colour_hex": "146c36",
+        "metric_id": "1"
+    },
+    {
+        "id": "1",
+        "colour_key": "6",
+        "colour_value": "GLA",
+        "colour_hex": "ddefe9",
+        "metric_id": 7
+    },
+    {
+        "id": "2",
+        "colour_key": "6",
+        "colour_value": "Borough commissioned",
+        "colour_hex": "3a77b0",
+        "metric_id": 7
+    },
+    {
+        "id": "1",
+        "colour_key": "9",
+        "colour_value": "No Housing First",
+        "colour_hex": "ffffff",
+        "metric_id": 6
+    },
+    {
+        "id": "2",
+        "colour_key": "9",
+        "colour_value": "Has Housing First",
+        "colour_hex": "a27099",
+        "metric_id": 6
+    },
+    {
+        "id": "1",
+        "colour_key": "8",
+        "colour_value": "0 rooms",
+        "colour_hex": "ffffff",
+        "metric_id": 3
+    },
+    {
+        "id": "2",
+        "colour_key": "8",
+        "colour_value": "1-10 rooms",
+        "colour_hex": "f4e3b9",
+        "metric_id": 3
+    },
+    {
+        "id": "3",
+        "colour_key": "8",
+        "colour_value": "11-20 rooms",
+        "colour_hex": "c3c55d",
+        "metric_id": 3
+    },
+    {
+        "id": "4",
+        "colour_key": "8",
+        "colour_value": "21-30 rooms",
+        "colour_hex": "76af56",
+        "metric_id": 3
+    },
+    {
+        "id": "5",
+        "colour_key": "8",
+        "colour_value": "31-40 rooms",
+        "colour_hex": "398a4c",
+        "metric_id": 3
+    },
+    {
+        "id": "1",
+        "colour_key": "7",
+        "colour_value": "0",
+        "colour_hex": "ffffff",
+        "metric_id": 2
+    },
+    {
+        "id": "2",
+        "colour_key": "7",
+        "colour_value": "1-25",
+        "colour_hex": "e3e194",
+        "metric_id": 2
+    },
+    {
+        "id": "3",
+        "colour_key": "7",
+        "colour_value": "26-50",
+        "colour_hex": "becf7f",
+        "metric_id": 2
+    },
+    {
+        "id": "4",
+        "colour_key": "7",
+        "colour_value": "51-100",
+        "colour_hex": "82caa2",
+        "metric_id": 2
+    },
+    {
+        "id": "5",
+        "colour_key": "7",
+        "colour_value": "101-150",
+        "colour_hex": "30bcad",
+        "metric_id": 2
+    },
+    {
+        "id": "6",
+        "colour_key": "7",
+        "colour_value": "151-200",
+        "colour_hex": "1ba3c6",
+        "metric_id": 2
+    },
+    {
+        "id": "7",
+        "colour_key": "7",
+        "colour_value": "201-250",
+        "colour_hex": "a26dc2",
+        "metric_id": 2
+    },
+    {
+        "id": "8",
+        "colour_key": "7",
+        "colour_value": "250+",
+        "colour_hex": "7873c0",
+        "metric_id": 2
+    },
+    {
+        "id": "1",
+        "colour_key": "10",
+        "colour_value": "0 centres",
+        "colour_hex": "ffffff",
+        "metric_id": 10
+    },
+    {
+        "id": "2",
+        "colour_key": "10",
+        "colour_value": "1 centre",
+        "colour_hex": "dfb1d1",
+        "metric_id": 10
+    },
+    {
+        "id": "3",
+        "colour_key": "10",
+        "colour_value": "2 centres",
+        "colour_hex": "cd9bbc",
+        "metric_id": 10
+    },
+    {
+        "id": "4",
+        "colour_key": "10",
+        "colour_value": "3 centres",
+        "colour_hex": "bc86a9",
+        "metric_id": 10
+    },
+    {
+        "id": "5",
+        "colour_key": "10",
+        "colour_value": "4 centres",
+        "colour_hex": "a5729b",
+        "metric_id": 10
+    },
+    {
+        "id": "6",
+        "colour_key": "10",
+        "colour_value": "5 centres",
+        "colour_hex": "8d608d",
+        "metric_id": 10
+    },
+    {
+        "id": "7",
+        "colour_key": "10",
+        "colour_value": "6 centres",
+        "colour_hex": "634363",
+        "metric_id": 10
+    },
+    {
+        "id": 11,
+        "colour_key": 11,
+        "colour_value": "1-20",
+        "colour_hex": "f4e3b9",
+        "metric_id": 11
+    },
+    {
+        "id": 11,
+        "colour_key": 11,
+        "colour_value": "21-40",
+        "colour_hex": "c3c55d",
+        "metric_id": 11
+    },
+    {
+        "id": 11,
+        "colour_key": 11,
+        "colour_value": "41-80",
+        "colour_hex": "76af56",
+        "metric_id": 11
+    },
+    {
+        "id": 11,
+        "colour_key": 11,
+        "colour_value": "81-150",
+        "colour_hex": "398a4c",
+        "metric_id": 11
+    },
+    {
+        "id": 11,
+        "colour_key": 11,
+        "colour_value": "150+",
+        "colour_hex": "146c36",
+        "metric_id": 11
+    },
+    {
+        "id": 12,
+        "colour_key": 12,
+        "colour_value": "1-20",
+        "colour_hex": "f4e3b9",
+        "metric_id": 12
+    },
+    {
+        "id": 12,
+        "colour_key": 12,
+        "colour_value": "21-40",
+        "colour_hex": "c3c55d",
+        "metric_id": 12
+    },
+    {
+        "id": 12,
+        "colour_key": 12,
+        "colour_value": "41-80",
+        "colour_hex": "76af56",
+        "metric_id": 12
+    },
+    {
+        "id": 12,
+        "colour_key": 12,
+        "colour_value": "81-150",
+        "colour_hex": "398a4c",
+        "metric_id": 12
+    },
+    {
+        "id": 12,
+        "colour_key": 12,
+        "colour_value": "150+",
+        "colour_hex": "146c36",
+        "metric_id": 12
+    },
+    {
+        "id": 13,
+        "colour_key": 13,
+        "colour_value": "1-20",
+        "colour_hex": "f4e3b9",
+        "metric_id": 13
+    },
+    {
+        "id": 13,
+        "colour_key": 13,
+        "colour_value": "21-40",
+        "colour_hex": "c3c55d",
+        "metric_id": 13
+    },
+    {
+        "id": 13,
+        "colour_key": 13,
+        "colour_value": "41-80",
+        "colour_hex": "76af56",
+        "metric_id": 13
+    },
+    {
+        "id": 13,
+        "colour_key": 13,
+        "colour_value": "81-150",
+        "colour_hex": "398a4c",
+        "metric_id": 13
+    },
+    {
+        "id": 13,
+        "colour_key": 13,
+        "colour_value": "150+",
+        "colour_hex": "146c36",
+        "metric_id": 13
+    },
+    {
+        "id": 14,
+        "colour_key": "5",
+        "colour_value": "1-20",
+        "colour_hex": "ddefe9",
+        "metric_id": 14
+    },
+    {
+        "id": 14,
+        "colour_key": "5",
+        "colour_value": "21-30",
+        "colour_hex": "8ad1d9",
+        "metric_id": 14
+    },
+    {
+        "id": 14,
+        "colour_key": "5",
+        "colour_value": "31-40",
+        "colour_hex": "56b4c7",
+        "metric_id": 14
+    },
+    {
+        "id": 14,
+        "colour_key": "5",
+        "colour_value": "41-70",
+        "colour_hex": "3d94bc",
+        "metric_id": 14
+    },
+    {
+        "id": 14,
+        "colour_key": "5",
+        "colour_value": "70+",
+        "colour_hex": "3a77b0",
+        "metric_id": 14
+    },
+    {
+        "id": 15,
+        "colour_key": "8",
+        "colour_value": "0 spaces",
+        "colour_hex": "ffffff",
+        "metric_id": 15
+    },
+    {
+        "id": 15,
+        "colour_key": "8",
+        "colour_value": "1-10 spaces",
+        "colour_hex": "f4e3b9",
+        "metric_id": 15
+    },
+    {
+        "id": 15,
+        "colour_key": "8",
+        "colour_value": "11-20 spaces",
+        "colour_hex": "c3c55d",
+        "metric_id": 15
+    },
+    {
+        "id": 15,
+        "colour_key": "8",
+        "colour_value": "21-30 spaces",
+        "colour_hex": "76af56",
+        "metric_id": 15
+    },
+    {
+        "id": 15,
+        "colour_key": "8",
+        "colour_value": "31-40 spaces",
+        "colour_hex": "398a4c",
+        "metric_id": 15
+    },
+    {
+        "id": 16,
+        "colour_key": "1",
+        "colour_value": "1-100",
+        "colour_hex": "ddefe9",
+        "metric_id": 16
+    },
+    {
+        "id": 16,
+        "colour_key": "1",
+        "colour_value": "101-200",
+        "colour_hex": "8ad1d9",
+        "metric_id": 16
+    },
+    {
+        "id": 16,
+        "colour_key": "1",
+        "colour_value": "201-300",
+        "colour_hex": "56b4c7",
+        "metric_id": 16
+    },
+    {
+        "id": 16,
+        "colour_key": "1",
+        "colour_value": "301-500",
+        "colour_hex": "3d94bc",
+        "metric_id": 16
+    },
+    {
+        "id": 16,
+        "colour_key": "1",
+        "colour_value": "501+",
+        "colour_hex": "3a77b0",
+        "metric_id": 16
+    },
+    {
+        "id": "1",
+        "colour_key": 61,
+        "colour_value": "0",
+        "colour_hex": "ffffff",
+        "metric_id": 61
+    },
+    {
+        "id": "2",
+        "colour_key": 61,
+        "colour_value": "1-25",
+        "colour_hex": "e3e194",
+        "metric_id": 61
+    },
+    {
+        "id": "3",
+        "colour_key": 61,
+        "colour_value": "26-50",
+        "colour_hex": "becf7f",
+        "metric_id": 61
+    },
+    {
+        "id": "4",
+        "colour_key": 61,
+        "colour_value": "51-100",
+        "colour_hex": "82caa2",
+        "metric_id": 61
+    },
+    {
+        "id": "5",
+        "colour_key": 61,
+        "colour_value": "101-150",
+        "colour_hex": "30bcad",
+        "metric_id": 61
+    },
+    {
+        "id": "6",
+        "colour_key": 61,
+        "colour_value": "151-200",
+        "colour_hex": "1ba3c6",
+        "metric_id": 61
+    },
+    {
+        "id": "7",
+        "colour_key": 61,
+        "colour_value": "201-250",
+        "colour_hex": "a26dc2",
+        "metric_id": 61
+    },
+    {
+        "id": "8",
+        "colour_key": 61,
+        "colour_value": "250+",
+        "colour_hex": "7873c0",
+        "metric_id": 61
+    },
+    {
+        "id": "1",
+        "colour_key": 61,
+        "colour_value": "0 spaces",
+        "colour_hex": "ffffff",
+        "metric_id": 62
+    },
+    {
+        "id": "2",
+        "colour_key": 61,
+        "colour_value": "1-30 spaces",
+        "colour_hex": "e3e194",
+        "metric_id": 62
+    },
+    {
+        "id": "3",
+        "colour_key": 61,
+        "colour_value": "31-50 spaces",
+        "colour_hex": "becf7f",
+        "metric_id": 62
+    },
+    {
+        "id": "4",
+        "colour_key": 61,
+        "colour_value": "51-80 spaces",
+        "colour_hex": "82caa2",
+        "metric_id": 62
+    },
+    {
+        "id": "5",
+        "colour_key": 61,
+        "colour_value": "81-140 spaces",
+        "colour_hex": "30bcad",
+        "metric_id": 62
+    },
+    {
+        "id": "6",
+        "colour_key": 61,
+        "colour_value": "141+ spaces",
+        "colour_hex": "1ba3c6",
+        "metric_id": 62
+    }
+]
