@@ -699,7 +699,7 @@
                     </div>
                 </div>
 
-                <div class="chart-footer">© LHF Atlas 2023 - see <a href="https://www.lhfatlas.org.uk"
+                <div class="chart-footer">© LHF Atlas 2025 - see <a href="https://www.lhfatlas.org.uk"
                         target="_blank">www.lhfatlas.org.uk </a>for full details</div>
             </div>
 
@@ -1246,7 +1246,7 @@
             sleepData.sort((a, b) => new Date(accessor.sleeping.yearDate(a) - accessor.sleeping.yearDate(b)))
 
             //convert the data to type format
-            const dataColumns = ["id", "record_type_id", "gss", "service", "Provider", "service_text_1", "service_text_2", "service_text_3", "Website", "provided_in", "type", "longitude", "latitude"];
+            const dataColumns = ["id", "record_type_id", "gss", "service", "Provider", "service_text_1", "service_text_2", "service_text_3", "Website", "provided_in", "type", "longitude", "latitude", "yp"];
             const dataColumnOld = ["id", "Record Type ID", "gss code", "service", "Provider", "service_text_1", "service_text_2", "service_text_3", "Website", "provided_in", "type", "Longitude", "Latitude"];
             const sampleObject = mapData[0];
             const boroughs = Object.keys(sampleObject).filter(key => !dataColumns.includes(key));
@@ -1428,157 +1428,118 @@
         }
 
         //render map table
-        function renderTable(map) {
+        //render map table
+function renderTable(map) {
+    const table = d3.select('#map-table');
 
-            const table = d3.select('#map-table');
+    // Purple Container setup with header (Day centres)
+    const purpleContainer = table.append('div').style('margin-bottom', '16px');
+    purpleContainer.append('div').attr('class', 'day-centres-header').text('Day centres');
 
-            // Purple Container setup with header
-            const purpleContainer = table.append('div').style('margin-bottom', '16px');
-            purpleContainer.append('div').attr('class', 'day-centres-header').text('Day centres');
+    // Blue Container setup with header (Regular Accommodation)
+    const blueContainer = table.append('div').style('margin-bottom', '16px');
+    blueContainer.append('div').attr('class', 'accommodation-header').text('Accommodation');
 
-            // Blue Container setup with header
-            const blueContainer = table.append('div');
-            blueContainer.append('div').attr('class', 'accommodation-header').text('Accommodation');
+    // Young People Container setup with header
+    const ypContainer = table.append('div');
+    ypContainer.append('div').attr('class', 'accommodation-header').text('Young People\'s Accommodation');
 
-            function update() {
-                if (!selected.borough || !selected.service) return;
-                const gssCode = accessor.boroughs.gssCode(selected.borough);
-                const tableData = data.mapData[gssCode]
-                const serviceGroup = accessor.services.group(selected.service);
-                let filteredData = accessor.map.tableData(tableData,
-                    accessor.map.type
-                    , serviceGroup);
-                const purpleData = filteredData.filter(d => accessor.map.recordTypeID(d) === PURPLE_ID).sort(function (a, b) {
-                    return accessor.map.provider(a) > accessor.map.provider(b) ? 1 : -1;
-                });
+    function update() {
+        if (!selected.borough || !selected.service) return;
+        const gssCode = accessor.boroughs.gssCode(selected.borough);
+        const tableData = data.mapData[gssCode];
+        const serviceGroup = accessor.services.group(selected.service);
+        let filteredData = accessor.map.tableData(tableData,
+            accessor.map.type,
+            serviceGroup);
 
-                purpleContainer.selectAll('.table-item')
-                    .data(purpleData)
-                    .join((enter) => {
-                        const item = enter.append('div')
-                            .attr('class', 'table-item')
-                            .on("mouseenter", (d) => {
-                                if (accessor.map.longitude(d) && accessor.map.latitude(d)) {
-                                    map.showHighlight(d);
-                                }
-                                tooltip.show(boroughToolTipContent(d), d);
-                            })
-                            .on("mouseleave", () => {
-                                dispatch.call("leaveborough", this);
-                                map.resetMarker();
-                            })
-                            .on("mousemove", (d) => {
-                                dispatch.call("move", this);
-                            })
-                            .on(
-                                "touchstart",
-                                (d) => {
-                                    tooltip.show(boroughToolTipContent(d), d);
-                                },
-                                { passive: true }
-                            )
-                            .on("touchend", () => {
-                                dispatch.call("leaveborough", this);
-                            }).on('click', (d) => {
-                                const website = accessor.map.website(d);
-                                if (website) {
-                                    let prefix = ""
-                                    if (!website.includes('://')) {
-                                        prefix = "//"
-                                    }
-                                    window.open(prefix + website, '_blank')
-                                }
-                            });
-                        item.append('div')
-                            .attr('class', 'table-item-key').text(accessor.map.service);
-                        item.append('div')
-                            .attr('class', (d) => {
-                                return `table-item-value-capacity ${accessor.map.mapTableID(d)}-value`
-                            }).text(accessor.map.serviceTextValue)
+        // Purple data (Day centres)
+        const purpleData = filteredData.filter(d => accessor.map.recordTypeID(d) === PURPLE_ID)
+            .sort((a, b) => accessor.map.provider(a) > accessor.map.provider(b) ? 1 : -1);
 
+        // Split blue data based on yp field
+        const blueData = filteredData.filter(d => accessor.map.recordTypeID(d) === BLUE_ID);
+        
+        // Regular accommodation (non-YP)
+        const regularAccom = blueData.filter(d => !d.yp)
+            .sort((a, b) => accessor.map.provider(a) > accessor.map.provider(b) ? 1 : -1);
 
+        // Young People's accommodation
+        const ypAccom = blueData.filter(d => d.yp)
+            .sort((a, b) => accessor.map.provider(a) > accessor.map.provider(b) ? 1 : -1);
 
-                    }, (update) => {
-                        update.select('.table-item-key').text(accessor.map.service);
-                        update.select('.table-item-value-capacity').text(accessor.map.serviceTextValue);
+        // Update Purple Container (Day centres)
+        updateContainer(purpleContainer, purpleData, map);
 
-                    }, (exit) => {
-                        exit.remove();
-                    });
+        // Update Blue Container (Regular Accommodation)
+        updateContainer(blueContainer, regularAccom, map);
 
-                const blueData = filteredData.filter(d => accessor.map.recordTypeID(d) === BLUE_ID).sort(function (a, b) {
-                    return accessor.map.provider(a) > accessor.map.provider(b) ? 1 : -1;
-                });
-                blueContainer.selectAll('.table-item')
-                    .data(blueData)
-                    .join((enter) => {
-                        const item = enter.append('div')
-                            .attr('class', 'table-item')
-                            .on("mouseenter", (d) => {
-                                if (accessor.map.longitude(d) && accessor.map.latitude(d)) {
-                                    map.showHighlight(d);
-                                }
-                                tooltip.show(boroughToolTipContent(d), d);
-                            })
-                            .on("mouseleave", () => {
-                                dispatch.call("leaveborough", this);
-                                map.resetMarker();
-                            })
-                            .on("mousemove", () => {
-                                dispatch.call("move", this);
-                            })
-                            .on(
-                                "touchstart",
-                                (d) => {
-                                    tooltip.show(boroughToolTipContent(d), d);
-                                },
-                                { passive: true }
-                            )
-                            .on("touchend", () => {
-                                dispatch.call("leaveborough", this);
-                            }).on('click', (d) => {
-                                const website = accessor.map.website(d);
-                                if (website) {
-                                    let prefix = ""
-                                    if (!website.includes('://')) {
-                                        prefix = "//"
-                                    }
-                                    window.open(prefix + website, '_blank')
-                                }
-                            });
-                        item.append('div')
-                            .attr('class', 'table-item-key').text(accessor.map.service);
-                        item.append('div')
-                            .attr('class', (d) => {
-                                return `table-item-value-spaces ${accessor.map.mapTableID(d)}-value`
-                            }).text(accessor.map.serviceTextValue)
+        // Update YP Container (Young People's Accommodation)
+        updateContainer(ypContainer, ypAccom, map);
 
+        // Show/hide containers based on data availability
+        const hasAnyData = purpleData.length > 0 || regularAccom.length > 0 || ypAccom.length > 0;
+        purpleContainer.style('opacity', hasAnyData ? 1 : 0);
+        blueContainer.style('opacity', regularAccom.length > 0 ? 1 : 0);
+        ypContainer.style('opacity', ypAccom.length > 0 ? 1 : 0);
 
+        // Filter out invalid locations and update map
+        filteredData = filteredData.filter(d => accessor.map.longitude(d) && accessor.map.latitude(d));
+        map.update(filteredData);
+    }
 
-                    }, (update) => {
-                        update.select('.table-item-key').text(accessor.map.service);
-                        update.select('.table-item-value-spaces').text(accessor.map.serviceTextValue);
+    function updateContainer(container, data, map) {
+        container.selectAll('.table-item')
+            .data(data)
+            .join(
+                enter => {
+                    const item = enter.append('div')
+                        .attr('class', 'table-item')
+                        .on("mouseenter", (d) => {
+                            if (accessor.map.longitude(d) && accessor.map.latitude(d)) {
+                                map.showHighlight(d);
+                            }
+                            tooltip.show(boroughToolTipContent(d), d);
+                        })
+                        .on("mouseleave", () => {
+                            dispatch.call("leaveborough", this);
+                            map.resetMarker();
+                        })
+                        .on("mousemove", () => {
+                            dispatch.call("move", this);
+                        })
+                        .on("touchstart", (d) => {
+                            tooltip.show(boroughToolTipContent(d), d);
+                        }, { passive: true })
+                        .on("touchend", () => {
+                            dispatch.call("leaveborough", this);
+                        })
+                        .on('click', (d) => {
+                            const website = accessor.map.website(d);
+                            if (website) {
+                                let prefix = website.includes('://') ? '' : '//';
+                                window.open(prefix + website, '_blank');
+                            }
+                        });
 
-                    }, (exit) => {
-                        exit.remove();
-                    });
-                //if both data are not available, hide the borders
-                if (purpleData.length < 1 && blueData.length < 1) {
-                    purpleContainer.style('opacity', 0);
-                    blueContainer.style('opacity', 0);
-                } else {
-                    purpleContainer.style('opacity', 1);
-                    blueContainer.style('opacity', 1);
-                }
-                //remove invalid location from the data
-                filteredData = filteredData.filter(d => accessor.map.longitude(d) && accessor.map.latitude(d))
-                map.update(filteredData)
-            }
+                    item.append('div')
+                        .attr('class', 'table-item-key')
+                        .text(accessor.map.service);
 
-            return {
-                update
-            }
-        }
+                    item.append('div')
+                        .attr('class', d => `table-item-value-capacity ${accessor.map.mapTableID(d)}-value`)
+                        .text(accessor.map.serviceTextValue);
+                },
+                update => {
+                    update.select('.table-item-key').text(accessor.map.service);
+                    update.select('.table-item-value-capacity').text(accessor.map.serviceTextValue);
+                },
+                exit => exit.remove()
+            );
+    }
+
+    return { update };
+}
 
 
         //render map

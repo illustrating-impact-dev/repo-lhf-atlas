@@ -365,11 +365,11 @@
     <div class="alert alert-danger d-none" role="alert">Failed to retrieve the data. Please refresh the page to reload.</div>
 
     <div class="row control-row">
-        <div class="col-12 col-lg-4" style="padding-top:3px; padding-bottom:3px">
+        <div class="col-12 col-lg-5" style="padding-top:3px; padding-bottom:3px">
             <div class="form-group"><label for="metric-select">Select main measure for map and bar chart:</label> <select class="form-control custom-select custom-select-sm" id="metric-select"></select></div>
         </div>
 
-        <div class="col-12 col-lg-4" style="padding-top:3px; padding-bottom:3px">
+        <div class="col-12 col-lg-3" style="padding-top:3px; padding-bottom:3px">
             <div class="form-group"><label for="service-select">Show locations on map (optional):</label> <select class="form-control custom-select custom-select-sm" id="service-select"></select></div>
         </div>
 
@@ -534,9 +534,9 @@
 <script>
     (function () {
         const METRICS_URL = "https://raw.githubusercontent.com/illustrating-impact-dev/repo-lhf-atlas/main/dev-data/metrics_json.json";
-        const METRICS_DATA_URL = "https://raw.githubusercontent.com/illustrating-impact-dev/repo-lhf-atlas/main/services_borough_summ_long.json";
-        const METRICS_MAP_TEXT_URL = "https://raw.githubusercontent.com/illustrating-impact-dev/repo-lhf-atlas/main/londonmap_totals.json";
-        const METRICS_MAP_LEGEND = "https://raw.githubusercontent.com/illustrating-impact-dev/repo-lhf-atlas/main/map_color_legend.json";
+        const METRICS_DATA_URL = "https://raw.githubusercontent.com/illustrating-impact-dev/repo-lhf-atlas/main/dev-data/services_borough_summ_long.json";
+        const METRICS_MAP_TEXT_URL = "https://raw.githubusercontent.com/illustrating-impact-dev/repo-lhf-atlas/main/dev-data/londonmap_totals.json";
+        const METRICS_MAP_LEGEND = "https://raw.githubusercontent.com/illustrating-impact-dev/repo-lhf-atlas/main/dev-data/map_color_legend.json";
         const SERVICES_URL = "https://raw.githubusercontent.com/illustrating-impact-dev/repo-lhf-atlas/main/services_json.json";
         const SERVICES_DATA_URL = "https://raw.githubusercontent.com/illustrating-impact-dev/repo-lhf-atlas/main/services_singlerow.json";
         const LONDON_GEO_URL = "https://raw.githubusercontent.com/illustrating-impact-dev/repo-lhf-atlas/main/data/boroughs.json";
