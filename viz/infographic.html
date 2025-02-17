@@ -3,49 +3,55 @@
 <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" rel="stylesheet" />
 <script src="https://unpkg.com/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js"></script>
-<style type="text/css">body {
+<style type="text/css">/* Base styles */
+/* Base styles */
+/* Base styles */
+body {
     font-size: 0.875rem;
-  }
+}
 
-  .container-fluid {
+.container-fluid {
     max-width: 1920px;
     margin: 15px auto;
-  }
+}
 
-  .chart-header {
+/* Chart header styles */
+.chart-header {
     display: flex;
     align-items: flex-start;
-  }
+}
 
-  .chart-header-icon {
+.chart-header-icon {
     width: 36px;
     height: 36px;
     margin-top: 4px;
     margin-right: 8px;
-  }
+}
 
-  .chart-title-main {
+.chart-title-main {
     font-size: 1rem;
     color: #00aaff;
     font-weight: bold;
-  }
+}
 
-  .chart-title-main span {
+.chart-title-main span {
     font-weight: normal;
     font-style: italic;
-  }
+}
 
-  .chart-title-sub,
-  .chart-footer {
+.chart-title-sub,
+.chart-footer {
     font-size: 0.75rem;
-  }
-
-  .chart-title-sub,
-  .chart-footer {
     color: #6c757d;
-  }
+}
 
-  .btn__svg {
+/* Button styles */
+#buttons {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.btn__svg {
     text-align: left;
     text-indent: -9999px;
     font-size: 0;
@@ -60,13 +66,13 @@
     padding: 0;
     margin-right: 5px;
     position: relative;
-  }
+}
 
-  .btn__svg:hover::after {
+.btn__svg:hover::after {
     opacity: 1;
-  }
+}
 
-  .btn__svg::after {
+.btn__svg::after {
     background-position: center center;
     background-repeat: no-repeat;
     background-size: contain;
@@ -78,44 +84,37 @@
     width: 100%;
     height: 100%;
     opacity: 0;
-    -webkit-transition: opacity 0.1s cubic-bezier(0.3, 0.65, 0.72, 0.63);
-    -o-transition: opacity 0.1s cubic-bezier(0.3, 0.65, 0.72, 0.63);
     transition: opacity 0.1s cubic-bezier(0.3, 0.65, 0.72, 0.63);
     background-color: #fff;
-  }
-  
-   #buttons {
-    display: flex;
-    justify-content: flex-end
-  }
+}
 
+/* Button specific images */
+.btn__export--pdf {
+    background-image: url(https://www.lhfatlas.org.uk/sites/default/files/images/pdf-black.png);
+}
 
-  
-  .btn__export--pdf {
-        background-image: url(https://www.lhfatlas.org.uk/sites/default/files/images/pdf-black.png);
-    }
+.btn__export--pdf::after {
+    background-image: url(https://www.lhfatlas.org.uk/sites/default/files/images/pdf-blue.png);
+}
 
-    .btn__export--pdf::after {
-        background-image: url(https://www.lhfatlas.org.uk/sites/default/files/images/pdf-blue.png);
-    }
+.btn__export--csv {
+    background-image: url(https://www.lhfatlas.org.uk/sites/default/files/images/csv-black.png);
+}
 
-    .btn__export--csv {
-        background-image: url(https://www.lhfatlas.org.uk/sites/default/files/images/csv-black.png);
-    }
+.btn__export--csv::after {
+    background-image: url(https://www.lhfatlas.org.uk/sites/default/files/images/csv-blue.png);
+}
 
-    .btn__export--csv::after {
-        background-image: url(https://www.lhfatlas.org.uk/sites/default/files/images/csv-blue.png);
-    }
+.btn__copy {
+    background-image: url(https://www.lhfatlas.org.uk/sites/default/files/images/url-black.png);
+}
 
-    .btn__copy {
-        background-image: url(https://www.lhfatlas.org.uk/sites/default/files/images/url-black.png);
-    }
+.btn__copy::after {
+    background-image: url(https://www.lhfatlas.org.uk/sites/default/files/images/url-blue.png);
+}
 
-    .btn__copy::after {
-        background-image: url(https://www.lhfatlas.org.uk/sites/default/files/images/url-blue.png);
-    }
-
-  .chart-tooltip {
+/* Tooltip styles */
+.chart-tooltip {
     position: fixed;
     top: 0;
     left: 0;
@@ -127,136 +126,283 @@
     max-width: 100vw;
     opacity: 0;
     transition: opacity 0.15s linear;
-  }
+}
 
-  .chart-tooltip p {
+.chart-tooltip p {
     margin-bottom: 0.5rem;
-  }
+}
 
-  .chart-tooltip p:last-of-type {
+.chart-tooltip p:last-of-type {
     margin-bottom: 0;
-  }
+}
 
-  .chart-tooltip.show {
+.chart-tooltip.show {
     opacity: 1;
-  }
+}
 
-  @media (prefers-reduced-motion: reduce) {
-    .chart-tooltip {
-      transition: none;
-    }
-  }
-
-  @media (min-width: 600px) {
-    .chart-tooltip {
-      max-width: 600px;
-    }
-  }
-
-  .chart-container,
-  .infographic-chart {
-    position: relative;
-  }
-
-  .infographic-summary .summary-title {
+.chart-tooltip .service-name {
     font-size: 1rem;
     font-weight: bold;
-  }
+    color: #00aaff;
+}
 
-  .infographic-summary span {
+.chart-tooltip .service-capacity {
+    color: #ff4e80;
+    font-weight: bold;
+}
+
+.chart-tooltip span {
+    color: #4e79a8;
+}
+
+/* Chart and Infographic styles */
+.chart-container,
+.infographic-chart {
+    position: relative;
+}
+
+.infographic-summary .summary-title {
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.infographic-summary span {
     font-size: 1.25rem;
     font-weight: bold;
-  }
+}
 
-  .infographic-chart .blocks-col {
-    line-height: 0;
-  }
-
-  .infographic-chart .label-col {
-    line-height: 15px!important;
-  }
-
-  .infographic-chart .block {
+/* Block styles */
+.infographic-chart .block {
     stroke-width: 1;
     stroke: #fff;
-  }
+}
 
-  .infographic-chart .block:hover {
+.infographic-chart .block:hover {
     stroke-width: 2;
     stroke: #000;
-  }
+}
 
-  .infographic-chart .pan-london-container {
-    width: 120px;
-  }
+/* Pan London styles */
+.pan-london-container {
+    width: 100%;
+    margin-top: 1rem;
+}
 
-  .infographic-chart .pan-london-label {
+.pan-london-label {
     color: #00aaff;
     font-weight: bold;
     line-height: 1.1;
-  }
+}
 
-  .infographic-chart .pan-london-svg {
+.pan-london-svg {
     display: block;
     width: 100%;
     height: 120px;
-  }
+}
 
-  @media (min-width: 768px) {
-    .infographic-chart .pan-london-container {
-      position: absolute;
-      left: 50%;
-      bottom: 10%;
-    }
-  }
-
-  @media (min-width: 1200px) {
-    .infographic-summary {
-      position: absolute;
-      right: 0;
-      bottom: 0;
-      text-align: right;
-    }
-  }
-
-  .chart-tooltip .service-name {
-    font-size: 1rem;
-    font-weight: bold;
-    color: #00aaff;
-  }
-
-  .chart-tooltip .service-capacity {
-    color: #ff4e80;
-    font-weight: bold;
-  }
-
-  .chart-tooltip span {
-    color: #4e79a8;
-  }
-
-      /* Add this new rule */
+/* Embedded content styles */
 .my-embedded-content {
-    padding: 3px!important;
+    padding: 3px !important;
 }
 
-.blocks-col.col-12.col-md {
-  padding-top : 0px;
-  padding-bottom : 0px;
-  padding-right : 5px;
+/* Mobile-first Layout (below 1200px) */
+.infographic-chart {
+    display: flex;
+    flex-direction: column;
 }
 
-.label-col.col-auto.d-flex.justify-content-between {
-  padding-top : 0px;
-  padding-bottom : 0px;
-  padding-right : 5px;
+.infographic-chart-row {
+    width: 100%;
+    margin-bottom: 0.25rem;
+    display: flex;
+    flex-direction: column;  /* Default for mobile */
 }
 
-.infographic-chart-header-unit.label-col.col-auto.text-right {
-  padding-top : 0px;
-  padding-bottom : 3px;
-  padding-right : 0px;
+.label-col {
+    width: 100%;
+    padding: 0;
+    margin-bottom: 0.25rem;
+    display: flex;
+    justify-content: space-between;
 }
 
+.blocks-col {
+    width: 100%;
+    padding: 0;
+    line-height: 0;
+}
+
+/* Stack order for mobile */
+.infographic-summary {
+    order: 1;
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+#infographic-chart {
+    order: 2;
+}
+
+.pan-london-container {
+    order: 3;
+}
+
+/* Desktop Layout (1200px and above) */
+/* Base mobile styles */
+.chart-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Give enough room for all elements */
+}
+
+/* Mobile layout ordering and spacing */
+@media (max-width: 1199px) {
+    .infographic-summary {
+        position: static !important;
+        order: 1;
+        margin-bottom: 2rem;
+        width: 100%;
+    }
+
+    #infographic-chart {
+        position: static !important;
+        order: 2;
+        margin-bottom: 2rem;
+        width: 100%;
+    }
+
+    .pan-london-container {
+        position: static !important;
+        order: 3;
+        width: 100%;
+        margin-top: 2rem;
+    }
+
+    /* Right align borough names in mobile */
+    .infographic-chart-row .label-col {
+        text-align: left;
+    }
+
+    .infographic-chart-row .label-col .row-name {
+        text-align: left;
+    }
+}
+
+/* Desktop layout */
+@media (min-width: 1200px) {
+    .infographic-chart-row.row {
+        flex-direction: row !important;
+        flex-wrap: nowrap !important;
+        align-items: center !important;
+        margin: 0 0 0rem 0 !important;
+    }
+
+    .infographic-chart-row .label-col.col-auto {
+        width: 240px !important;
+        min-width: 240px !important;
+        flex: 0 0 240px !important;
+        max-width: 240px !important;
+        margin-bottom: 0 !important;
+    }
+
+    .infographic-chart-row .blocks-col.col-12.col-md {
+        flex: 1 1 auto !important;
+        width: auto !important;
+        max-width: none !important;
+        padding-left: 15px !important;
+    }
+
+    .infographic-summary {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        width: auto;
+    }
+
+    .pan-london-container {
+        position: absolute;
+        left: 50%;
+        bottom: 10%;
+        width: 120px;
+    }
+}
+
+    .label-col {
+        width: 240px;
+        flex-shrink: 0;
+    }
+
+    .blocks-col {
+        flex-grow: 1;
+    }
+
+    .infographic-summary {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        width: auto;
+        text-align: right;
+    }
+
+    .pan-london-container {
+        position: absolute;
+        left: 50%;
+        bottom: 10%;
+        width: 120px;
+    }
+
+
+/* Media query adjustments */
+@media (min-width: 600px) {
+    .chart-tooltip {
+        max-width: 600px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .chart-tooltip {
+        transition: none;
+    }
+}
+
+/* Modal backdrop */
+.modal-backdrop.show {
+    opacity: 0.2;
+}
+
+/* Utility classes */
+.d-flex {
+    display: flex;
+}
+
+.justify-content-between {
+    justify-content: space-between;
+}
+
+.align-items-center {
+    align-items: center;
+}
+
+.color-square {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      margin-right: 8px;
+      border: 1px solid #ddd;
+    }
+
+    .summary-row {
+      display: flex;
+      align-items: center;
+      margin-bottom: 4px;
+      float: right;  /* Add this to right-align the whole row */
+      clear: both;   /* Ensure rows stack properly */
+    }
+    .summary-title {
+      text-align: right;  /* Right align the title too */
+    }
+ 
 
 </style>
 <div class="my-embedded-content">
@@ -411,7 +557,7 @@
   (function () {
     const SERVICES_URL = "https://raw.githubusercontent.com/illustrating-impact-dev/repo-lhf-atlas/main/services_multirow.json";
     const PROVIDERS_URL = "https://raw.githubusercontent.com/illustrating-impact-dev/repo-lhf-atlas/main/services_singlerow.json";
-    const TOTALS_URL = "https://raw.githubusercontent.com/illustrating-impact-dev/repo-lhf-atlas/main/services_borough_summary.json";
+    const TOTALS_URL = "https://raw.githubusercontent.com/illustrating-impact-dev/repo-lhf-atlas/main/dev-data/services_borough_summary.json";
     const COLORS_URL = "https://raw.githubusercontent.com/illustrating-impact-dev/repo-lhf-atlas/main/lkp_colours.json";
     const COLORS_URL_G = "https://raw.githubusercontent.com/illustrating-impact-dev/repo-lhf-atlas/main/lkp_colours.json";
     const TRANSITION_DURATION = 750;
@@ -578,29 +724,6 @@ function renderSummary() {
     .select("#infographic-summary")
     .classed("infographic-summary", true);
 
-  // Update CSS to maintain right alignment while keeping square first
-  const style = document.createElement('style');
-  style.textContent = `
-    .color-square {
-      display: inline-block;
-      width: 12px;
-      height: 12px;
-      margin-right: 8px;
-      border: 1px solid #ddd;
-    }
-    .summary-row {
-      display: flex;
-      align-items: center;
-      margin-bottom: 4px;
-      float: right;  /* Add this to right-align the whole row */
-      clear: both;   /* Ensure rows stack properly */
-    }
-    .summary-title {
-      text-align: right;  /* Right align the title too */
-    }
-  `;
-  document.head.appendChild(style);
-
   dispatch.on("update.summary", () => {
     let highlightBy;
     switch (selected.highlightBy) {
@@ -647,7 +770,7 @@ function renderSummary() {
       </div>
       <div class="summary-row">
         <div class="color-square" style='background-color: ${d3.color(colorByServiceType("Accommodation")).darker(0.7)}'></div>
-        <div><span style='color: ${d3.color(colorByServiceType("Accommodation")).darker(0.7)}'>${formatCount(d.accomspaces)}</span> beds in <span style='color: ${d3.color(colorByServiceType("Accommodation")).darker(0.7)}'>${formatCount(d.accomservices)}</span> accommodation services for young people</div>
+        <div><span style='color: ${d3.color(colorByServiceType("Accommodation")).darker(0.7)}'>${formatCount(d.ypspaces)}</span> beds in <span style='color: ${d3.color(colorByServiceType("Accommodation")).darker(0.7)}'>${formatCount(d.ypservices)}</span> accommodation services for young people</div>
       </div>
       <div class="summary-row">
         <div class="color-square" style='background-color: ${colorByServiceType("Outreach")}'></div>

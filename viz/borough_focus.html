@@ -202,7 +202,6 @@
         min-width: 50px;
         text-align: center;
         cursor: pointer;
-        color: #C59DBB;
         display: table-cell;
         vertical-align: middle;
     }
@@ -892,8 +891,8 @@
         const GEO_JSON = "https://raw.githubusercontent.com/illustrating-impact-dev/repo-lhf-atlas/main/data/boroughs.json";
 
         const SLEEPING_DATA = "https://raw.githubusercontent.com/illustrating-impact-dev/repo-lhf-atlas/main/rs_sf.json";
-        const MAP_DATA = "https://raw.githubusercontent.com/illustrating-impact-dev/repo-lhf-atlas/main/bf_map.json";
-        const SUMMARY = "https://raw.githubusercontent.com/illustrating-impact-dev/repo-lhf-atlas/main/services_borough_summary.json";
+        const MAP_DATA = "https://raw.githubusercontent.com/illustrating-impact-dev/repo-lhf-atlas/main/dev-data/bf_map.json";
+        const SUMMARY = "https://raw.githubusercontent.com/illustrating-impact-dev/repo-lhf-atlas/main/dev-data/services_borough_summary.json";
 
 
         const PURPLE_MARKER = "https://www.lhfatlas.org.uk/sites/default/files/images/marker_purple.png";
@@ -1076,7 +1075,7 @@
                 sortType: 'value'
             },
             {
-                name: "Accommodation (hostels/supported) bed spaces",
+                name: "Accommodation bed spaces (Rough sleepers - hostels/supported)",
                 key: "accomspaces",
                 source: 'Homeless Link information team',
                 sortType: 'value'
@@ -1247,7 +1246,7 @@
 
             //convert the data to type format
             const dataColumns = ["id", "record_type_id", "gss", "service", "Provider", "service_text_1", "service_text_2", "service_text_3", "Website", "provided_in", "type", "longitude", "latitude", "yp"];
-            const dataColumnOld = ["id", "Record Type ID", "gss code", "service", "Provider", "service_text_1", "service_text_2", "service_text_3", "Website", "provided_in", "type", "Longitude", "Latitude"];
+            const dataColumnOld = ["id", "Record Type ID", "gss code", "service", "Provider", "service_text_1", "service_text_2", "service_text_3", "Website", "provided_in", "type", "Longitude", "Latitude", "yp"];
             const sampleObject = mapData[0];
             const boroughs = Object.keys(sampleObject).filter(key => !dataColumns.includes(key));
             console.log(boroughs)
@@ -1436,46 +1435,55 @@ function renderTable(map) {
     const purpleContainer = table.append('div').style('margin-bottom', '16px');
     purpleContainer.append('div').attr('class', 'day-centres-header').text('Day centres');
 
+     // Young People Container setup with header
+     const ypContainer = table.append('div');
+    ypContainer.append('div').attr('class', 'accommodation-header').text('Accommodation (Young People)');
+
     // Blue Container setup with header (Regular Accommodation)
     const blueContainer = table.append('div').style('margin-bottom', '16px');
-    blueContainer.append('div').attr('class', 'accommodation-header').text('Accommodation');
+    blueContainer.append('div').attr('class', 'accommodation-header').text('Accommodation (Rough Sleepers)');
 
-    // Young People Container setup with header
-    const ypContainer = table.append('div');
-    ypContainer.append('div').attr('class', 'accommodation-header').text('Young People\'s Accommodation');
+   
 
     function update() {
-        if (!selected.borough || !selected.service) return;
-        const gssCode = accessor.boroughs.gssCode(selected.borough);
-        const tableData = data.mapData[gssCode];
-        const serviceGroup = accessor.services.group(selected.service);
-        let filteredData = accessor.map.tableData(tableData,
-            accessor.map.type,
-            serviceGroup);
+    if (!selected.borough || !selected.service) return;
+    const gssCode = accessor.boroughs.gssCode(selected.borough);
+    const tableData = data.mapData[gssCode];
+    const serviceGroup = accessor.services.group(selected.service);
+    let filteredData = accessor.map.tableData(tableData,
+        accessor.map.type,
+        serviceGroup);
 
-        // Purple data (Day centres)
-        const purpleData = filteredData.filter(d => accessor.map.recordTypeID(d) === PURPLE_ID)
-            .sort((a, b) => accessor.map.provider(a) > accessor.map.provider(b) ? 1 : -1);
+    // Helper function to check if a record is for young people
+    const isYPRecord = (record) => {
+        console.log(record.yp);
+        return record.yp === true || record.yp === "TRUE";
+    };
 
-        // Split blue data based on yp field
-        const blueData = filteredData.filter(d => accessor.map.recordTypeID(d) === BLUE_ID);
-        
-        // Regular accommodation (non-YP)
-        const regularAccom = blueData.filter(d => !d.yp)
-            .sort((a, b) => accessor.map.provider(a) > accessor.map.provider(b) ? 1 : -1);
+    // Purple data (Day centres)
+    const purpleData = filteredData.filter(d => accessor.map.recordTypeID(d) === PURPLE_ID)
+        .sort((a, b) => accessor.map.provider(a) > accessor.map.provider(b) ? 1 : -1);
 
-        // Young People's accommodation
-        const ypAccom = blueData.filter(d => d.yp)
-            .sort((a, b) => accessor.map.provider(a) > accessor.map.provider(b) ? 1 : -1);
+    // Split blue data based on yp field
+    const blueData = filteredData.filter(d => accessor.map.recordTypeID(d) === BLUE_ID);
+    
+    // Regular accommodation (non-YP)
+    const regularAccom = blueData.filter(d => !isYPRecord(d))
+        .sort((a, b) => accessor.map.provider(a) > accessor.map.provider(b) ? 1 : -1);
 
-        // Update Purple Container (Day centres)
-        updateContainer(purpleContainer, purpleData, map);
+    // Young People's accommodation
+    const ypAccom = blueData.filter(d => isYPRecord(d))
+        .sort((a, b) => accessor.map.provider(a) > accessor.map.provider(b) ? 1 : -1);
 
-        // Update Blue Container (Regular Accommodation)
-        updateContainer(blueContainer, regularAccom, map);
+    // Update Purple Container (Day centres)
+    updateContainer(purpleContainer, purpleData, map);
 
-        // Update YP Container (Young People's Accommodation)
-        updateContainer(ypContainer, ypAccom, map);
+    // Update Blue Container (Regular Accommodation)
+    updateContainer(blueContainer, regularAccom, map);
+
+    // Update YP Container (Young People's Accommodation)
+    updateContainer(ypContainer, ypAccom, map);
+
 
         // Show/hide containers based on data availability
         const hasAnyData = purpleData.length > 0 || regularAccom.length > 0 || ypAccom.length > 0;
@@ -2184,7 +2192,7 @@ function renderTable(map) {
 </script>
 <script>
         (function () {
-            const CSV_LINKS_URL = "https://www.illustrate.studio/sites/default/files/json/csv_links_20220908.json";
+            const CSV_LINKS_URL = "";
 
             const modalWidth = 320;
 

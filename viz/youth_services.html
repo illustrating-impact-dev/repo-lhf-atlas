@@ -222,7 +222,7 @@
     }
 
     .service-map .legend-item {
-        width: 20px;
+        width: 50px;
         height: 20px;
         border: 1px solid #6c757d;
     }
@@ -241,7 +241,16 @@
         font-weight: bold;
     }
 
-
+    .map-label,
+    .bar-value {
+        fill: currentColor;
+        font-weight: bold;
+        stroke: #fff;
+        stroke-width: 3px;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        paint-order: stroke;
+    }
 
     .service-list tr.muted {
         opacity: 1;
@@ -340,11 +349,12 @@
                 <!-- Image and title container -->
                 <div class="d-flex align-items-center">
                     <img alt="icon" class="chart-header-icon"
-                        src="https://www.lhfatlas.org.uk/sites/default/files/images/ws_icon.png" />
+                        src="https://www.lhfatlas.org.uk/sites/default/files/images/accom_icon.png" />
                     <div class="chart-title">
-                        <div class="chart-title-main">Winter Shelters 2024/25</div>
+                        <div class="chart-title-main">Specialist Accommodation for Young People 2024/25</div>
                         <div class="chart-title-sub"></div>
-                        <div class="chart-intro">Source: Housing Justice. Hover over a borough on the map for services,
+                        <div class="chart-intro">Source: Homeless Link information team. Hover over a borough on the map
+                            for services,
                             click to bring up extra
                             detail.</div>
                     </div>
@@ -358,11 +368,11 @@
 
     <div class="rowq">
         <div class="column">
-            <div class="top">32</div>
+            <div class="top">76</div>
             <div class="bottom">services in London for 2024/25</div>
         </div>
         <div class="column">
-            <div class="top">512</div>
+            <div class="top">1,753</div>
             <div class="bottom">spaces in these services</div>
         </div>
     </div>
@@ -380,7 +390,7 @@
 
     <div class="row">
         <div class="col-12">
-            <div class="chart-footer">LHF Atlas 2019/20 - see <a href="https://www.lhfatlas.org.uk"
+            <div class="chart-footer">Copyright LHF Atlas 2025 - see <a href="https://www.lhfatlas.org.uk"
                     target="_blank">www.lhfatlas.org.uk</a> for full details</div>
         </div>
     </div>
@@ -476,7 +486,7 @@
         const LONDON_GSS = "E12000007";
 
         const selected = {
-            serviceType: "Night Shelter or Winter Shelter",
+            serviceType: "Accommodation",
             borough: null,
             service: null,
         };
@@ -633,7 +643,7 @@
             }
         }
 
-        let highlightedGSS = "E09000007";
+        let highlightedGSS = "E09000033";
 
         // Services map
         function renderServicesMap() {
@@ -647,10 +657,33 @@
                 left: 8,
             };
 
-            const color = d3
-                .scaleOrdinal()
-                .domain(data.colors.map(accessor.colors.value))
-                .range(data.colors.map(accessor.colors.color));
+            function createColorScale(data) {
+                // Get all bed counts
+                const bedCounts = Array.from(data.servicesByServiceTypeByBorough.get(selected.serviceType).values())
+                    .map(services => services.reduce((sum, service) => sum + accessor.services.beds(service), 0));
+
+                // Filter out zeros and sort remaining values
+                const nonZeroBedCounts = bedCounts.filter(count => count > 0).sort((a, b) => a - b);
+
+                // If we have no non-zero values, return a simple function that always returns the first color
+                if (nonZeroBedCounts.length === 0) {
+                    return d => '#f7fbff';
+                }
+
+                // Calculate quartiles for non-zero values
+                const q1 = d3.quantile(nonZeroBedCounts, 0.25);
+                const q2 = d3.quantile(nonZeroBedCounts, 0.5);
+                const q3 = d3.quantile(nonZeroBedCounts, 0.75);
+                const max = d3.max(nonZeroBedCounts);
+
+                // Create a threshold scale
+                return d3.scaleThreshold()
+                    .domain([0.1, q1, q2, q3]) // Use 0.1 as the first threshold to separate 0 from non-zero values
+                    .range(['#f7fbff', '#c6dbef', '#6baed6', '#2171b5', '#084594']);
+            }
+
+            // Replace the existing color scale with:
+            const color = createColorScale(data);
 
             let projection = d3.geoMercator();
             let geoPath = d3.geoPath(projection);
@@ -708,50 +741,89 @@
             });
 
 
-            //svg.append("g")
-            //    .attr("class", "labels")
-            //    .selectAll("text")
-            //    .data(data.london.features)
-            //    .enter()
-            //    .append("text")
-            //   .attr("transform", (d) => `translate(${geoPath.centroid(d)})`)
-            //    .attr("dy", ".35em")
-            //    .style("text-anchor", "middle")
-            //    .text(function (d) {
-            //        const services = getBoroughServices(d);
-            //        return services.length; // Display the number of services
-            //    });
+            const labels = svg
+                .append("g")
+                .attr("class", "map-labels")
+                .selectAll(".map-label")
+                .data(data.london.features)
+                .join(enter =>
+                    enter
+                        .append("text")
+                        .attr("class", "map-label")
+                        .attr("text-anchor", "middle")
+                        .attr("dy", ".35em")
+                        .style("font-size", "10px")
+                        .style("fill", "#000")
+                        .style("pointer-events", "none")
+                        .attr("transform", d => `translate(${geoPath.centroid(d)})`)
+                );
 
+            labels.append("tspan")
+                .attr("class", "map-label-value")
+                .text(d => {
+                    const services = getBoroughServices(d);
+                    const totalBeds = services.reduce((sum, service) =>
+                        sum + accessor.services.beds(service), 0);
+                    return totalBeds > 0 ? totalBeds : '';
+                });
 
 
             const legend = container
                 .append("div")
                 .attr("class", "legend d-flex align-items-center");
+
             legend
                 .append("div")
                 .attr("class", "legend-title mr-4")
-                .text("Number of services");
+                .text("Number of spaces");
+
+
+
+            // Create range labels
+            const ranges = [
+                '0',
+                `1-${Math.round(color.domain()[1])}`,
+                `${Math.round(color.domain()[1] + 1)}-${Math.round(color.domain()[2])}`,
+                `${Math.round(color.domain()[2] + 1)}-${Math.round(color.domain()[3])}`,
+                `${Math.round(color.domain()[3] + 1)}+`
+            ];
+
+            // Create legend items with ranges
             legend
                 .selectAll(".legend-item")
-                .data(color.domain())
+                .data(ranges)
                 .join("div")
-                .attr(
-                    "class",
-                    "legend-item d-flex justify-content-center align-items-center"
-                )
-                .style("background-color", color)
-                .text((d) => d);
+                .attr("class", "legend-item d-flex justify-content-center align-items-center")
+                .style("background-color", (d, i) => color.range()[i])
+                .text(d => d);
 
             resize();
             window.addEventListener("resize", resize);
 
 
 
+            // Update the labels positioning
+            function updateLabels() {
+                svg.selectAll(".map-label")
+                    .attr("transform", d => {
+                        const centroid = geoPath.centroid(d);
+                        // Only show label if it has a valid centroid
+                        if (isNaN(centroid[0]) || isNaN(centroid[1])) {
+                            return "translate(-1000,-1000)"; // Move far off-screen if invalid
+                        }
+                        return `translate(${centroid[0]},${centroid[1]})`;
+                    })
+                    .style("display", d => {
+                        const centroid = geoPath.centroid(d);
+                        return isNaN(centroid[0]) || isNaN(centroid[1]) ? "none" : "block";
+                    });
+            }
+
+            // Update the resize function to include label updates
             function resize() {
                 svgWidth = container.node().clientWidth;
                 svgHeight = Math.round((svgWidth / 390) * 300);
 
-                // Update projection with the new size
                 projection.fitExtent(
                     [
                         [margin.left, margin.top],
@@ -760,18 +832,12 @@
                     data.london
                 );
 
-                // Update the geoPath with the new projection
                 geoPath = d3.geoPath().projection(projection);
-
-                // Update the SVG size
                 svg.attr("width", svgWidth).attr("height", svgHeight);
-
-                // Redraw the borough paths with the updated geoPath
                 borough.attr("d", geoPath);
 
-                // Also, update the labels' positions based on the new centroids
-                svg.selectAll(".labels text")
-                    .attr("transform", (d) => `translate(${geoPath.centroid(d)})`);
+                // Update labels with new positions
+                updateLabels();
             }
 
             dispatch.on("updatebottom.services-map", () => {
@@ -780,7 +846,13 @@
                 borough
                     .transition()
                     .duration(TRANSITION_DURATION)
-                    .attr("fill", (d) => color(getBoroughServices(d).length));
+                    .attr("fill", (d) => {
+                        const services = getBoroughServices(d);
+                        const totalBeds = services.reduce((sum, service) =>
+                            sum + accessor.services.beds(service), 0);
+                        return color(totalBeds);
+                    });
+
                 borough.classed("muted", (d) => {
                     if (selected.service) {
                         const services = getBoroughServices(d);
@@ -796,11 +868,23 @@
 
             function entered(d) {
                 const services = getBoroughServices(d);
-                if (services.length === 0) return;
                 selected.borough = accessor.geo.id(d);
                 selected.service = null;
                 dispatch.call("updatebottom");
-                tooltip.show(boroughTooltipContent(d, services), color(services.length));
+
+                // Create tooltip content for all boroughs, even those without services
+                const tooltipContent = `
+        <p class="borough-name">${accessor.geo.name(d)}</p>
+        ${services.length > 0 ? `
+        <ul class="list-unstyled mb-0">
+            ${services.map((s) => `<li>${accessor.services.serviceName(s)}</li>`).join("")}
+        </ul>
+        ` : '<p>No dedicated services in this borough</p>'}
+    `;
+
+                // Use appropriate color based on whether there are services
+                const tooltipColor = services.length > 0 ? color(services.length) : '#6c757d';
+                tooltip.show(tooltipContent, tooltipColor);
             }
 
             function left() {
@@ -853,58 +937,74 @@
                 .append("tbody");
 
             dispatch.on("updatebottom.service-list", () => {
-                // Filter services by the highlighted GSS code
-
                 const boroughFeature = data.london.features.find(d => accessor.geo.id(d) === highlightedGSS);
                 const boroughName = boroughFeature ? accessor.geo.name(boroughFeature) : "Select a borough";
 
+                laName.text(boroughName);
 
-                const filteredServices = data.servicesByServiceType.get(selected.serviceType).filter(service => {
+                // Get services and separate pan-London services
+                let filteredServices = data.servicesByServiceType.get(selected.serviceType).filter(service => {
                     const gssList = accessor.services.gssList(service);
                     return gssList.includes(highlightedGSS) || gssList.includes("E12000007");
                 });
 
+                // Sort services to put pan-London at the bottom
+                filteredServices.sort((a, b) => {
+                    const aIsPanLondon = accessor.services.gssList(a).includes("E12000007");
+                    const bIsPanLondon = accessor.services.gssList(b).includes("E12000007");
+                    if (aIsPanLondon && !bIsPanLondon) return 1;
+                    if (!aIsPanLondon && bIsPanLondon) return -1;
+                    return 0;
+                });
 
-                //console.log(filteredServices);
+                const localServices = filteredServices.filter(s => !accessor.services.gssList(s).includes("E12000007"));
+                const panLondonServices = filteredServices.filter(s => accessor.services.gssList(s).includes("E12000007"));
 
-                // Update the text for the la-summary and title with the filtered services information
-                if (filteredServices.length > 0) {
-                    laName.text(boroughName);
-                } else {
-                    laName.text("Select a borough with at least one service"); // Fallback text if there are no services
-                }
-                const totalShelterSpaces = filteredServices.reduce((acc, curr) => {
-                    // Assuming d.shelter is a number. If it's a string, you might need to use parseInt(curr.shelter, 10) or parseFloat(curr.shelter) depending on the format
-                    return acc + curr.shelter;
-                }, 0); // Start with an initial sum of 0
-
-
-
-                if (filteredServices.length > 0) {
-                    const serviceWord = filteredServices.length === 1 ? 'service' : 'services';
-                    const spaceWord = totalShelterSpaces === 1 ? 'space' : 'spaces';
-                    laSummary.text(`${filteredServices.length} ${serviceWord} with a total of ${totalShelterSpaces} ${spaceWord}.`);
-                } else {
-                    laSummary.text(""); // Fallback text if there are no services
-                }
+                const localBeds = localServices.reduce((acc, curr) => acc + accessor.services.beds(curr), 0);
+                const panLondonBeds = panLondonServices.reduce((acc, curr) => acc + accessor.services.beds(curr), 0);
 
                 if (filteredServices.length > 0) {
-                    const serviceWord = filteredServices.length === 1 ? 'service' : 'services';
-                    title.text(`List of the ${filteredServices.length} ${serviceWord} in ${boroughName}`);
+                    let summaryText = '';
+
+                    // Add local services line if any exist
+                    if (localServices.length > 0) {
+                        const localServiceWord = localServices.length === 1 ? 'dedicated service' : 'dedicated services';
+                        const localBedWord = localBeds === 1 ? 'space' : 'spaces';
+                        summaryText += `${localServices.length} ${localServiceWord} with a total of ${localBeds} ${localBedWord}.`;
+                    } else {
+                        summaryText += 'No dedicated services in this borough';
+                    }
+
+                    // Add pan-London services line if any exist
+                    if (panLondonServices.length > 0) {
+                        const panLondonServiceWord = panLondonServices.length === 1 ? 'service' : 'services';
+                        const panLondonBedWord = panLondonBeds === 1 ? 'space' : 'spaces';
+                        summaryText += `\nThere ${panLondonServices.length === 1 ? 'is' : 'are'} also ${panLondonServices.length} Pan-London ${panLondonServiceWord} with a total of ${panLondonBeds} ${panLondonBedWord}.`;
+                    }
+
+                    // Use HTML line break for proper formatting
+                    laSummary.html(summaryText.replace('\n', '<br>'));
                 } else {
-                    title.text(`No services currently in ${boroughName}`);
+                    laSummary.text("No services available in this borough");
                 }
 
-
-                // Bind the filtered services to the table rows
-
+                // Update table
                 serviceTableBody
                     .selectAll("tr")
                     .data(filteredServices, accessor.services.id)
                     .join((enter) => {
-                        const tr = enter.append("tr");
+                        const tr = enter.append("tr")
+                            .style("cursor", d => accessor.services.website(d) ? "pointer" : "default")
+                            .on("mouseenter", entered)
+                            .on("mouseleave", left)
+                            .on("mousemove", moved)
+                            .on("click", function (d) {
+                                if (accessor.services.website(d)) {
+                                    window.open(accessor.services.website(d), "_blank");
+                                }
+                            });
 
-                        // First column for service name - now with styled pan-London indicator
+                        // Service name column with pan-London indicator
                         tr.append("td")
                             .html(d => {
                                 const isPanLondon = accessor.services.gssList(d).includes("E12000007");
@@ -912,47 +1012,18 @@
                             })
                             .style("width", "50%");
 
-                        // Second column for service provider
+                        // Provider column
                         tr.append("td")
                             .text(d => accessor.services.providerName(d))
                             .style("width", "40%");
 
-                        // Third column for shelter information
+                        // Beds column
                         tr.append("td")
-                            .text(d => d.shelter)
+                            .text(d => accessor.services.beds(d))
                             .style("width", "10%")
                             .style("text-align", "center");
 
-                        // Rest of your existing code for the row...
-                        tr.style("cursor", d => d.URL_link && d.URL_link !== "None" ? "pointer" : "default");
-
-                        tr.on("mouseenter", entered)
-                            .on("mouseleave", left)
-                            .on("mousemove", moved)
-                            .on("click", function (d) {
-                                if (d.URL_link && d.URL_link !== "None") {
-                                    const url = d.URL_link.startsWith('http')
-                                        ? d.URL_link
-                                        : `https://${d.URL_link}`;
-                                    window.open(url, "_blank");
-                                }
-                            });
-
                         return tr;
-                    })
-                    .classed("muted", (d) => {
-                        if (selected.service) {
-                            return accessor.services.id(d) !== selected.service;
-                        } else if (selected.borough) {
-                            if (accessor.services.serviceType(d) !== selected.serviceType)
-                                return true;
-                            const gssList = accessor.services.gssList(d);
-                            return !(
-                                gssList.includes(LONDON_GSS) || gssList.includes(selected.borough)
-                            );
-                        } else {
-                            return false;
-                        }
                     });
             });
 
@@ -984,6 +1055,10 @@
 
         // Process data
         function processData(servicesTypes, london, colors) {
+            // Filter for young people services first
+            servicesTypes = servicesTypes.filter(service => service.yp === true);
+
+            // Continue with existing processing
             servicesTypes.forEach((d, i) => (d.id = i));
             const servicesById = d3.group(servicesTypes, accessor.services.id);
 
@@ -999,20 +1074,15 @@
                 const servicesByBorough = new Map();
                 values.forEach((d) => {
                     accessor.services.gssList(d).forEach((gss) => {
-                        if (gss === LONDON_GSS) {
-                            allGSSs.forEach((gss) => {
-                                if (servicesByBorough.has(gss)) {
-                                    servicesByBorough.get(gss).push(d);
-                                } else {
-                                    servicesByBorough.set(gss, [d]);
-                                }
-                            });
+                        // Skip pan-London services for borough-specific counts
+                        if (accessor.services.gssList(d).includes(LONDON_GSS)) {
+                            return;
+                        }
+
+                        if (servicesByBorough.has(gss)) {
+                            servicesByBorough.get(gss).push(d);
                         } else {
-                            if (servicesByBorough.has(gss)) {
-                                servicesByBorough.get(gss).push(d);
-                            } else {
-                                servicesByBorough.set(gss, [d]);
-                            }
+                            servicesByBorough.set(gss, [d]);
                         }
                     });
                 });
@@ -1029,6 +1099,10 @@
                 colors,
             };
         }
+
+        // Update accessor for beds
+        accessor.services.beds = (d) => d.beds || 0;
+
 
         // Tooltip
         function renderTooltip(tooltip) {
@@ -1097,7 +1171,7 @@
                 contentParts.push(`<p class="service-capacity">${accessor.services.spaces(d)} spaces</p>`);
             }
 
-            console.log(d.URL_link);
+            // console.log(d.URL_link);
             // Check if URL exists and is valid
             const hasWebsite = d.URL_link && d.URL_link !== "None" && d.URL_link.trim() !== "";
 
@@ -1147,7 +1221,7 @@
 </script>
 <script>
     (function () {
-        const CSV_LINKS_URL = "https://www.illustrate.studio/sites/default/files/json/csv_links_20220908.json";
+        const CSV_LINKS_URL = "";
 
         const modalWidth = 320;
 
