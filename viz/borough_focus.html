@@ -569,21 +569,27 @@
     }
 
     .day-centres-header {
-  font-size: 1.1em; /* Example size, adjust as needed */
-  color: #B07AA1; /* Dark text color, adjust as needed */
-  padding-bottom: 5px; /* Spacing above and below the text */
-  font-weight: bold;
-  /* Add more styling here as needed */
-}
+        font-size: 1.1em;
+        /* Example size, adjust as needed */
+        color: #B07AA1;
+        /* Dark text color, adjust as needed */
+        padding-bottom: 5px;
+        /* Spacing above and below the text */
+        font-weight: bold;
+        /* Add more styling here as needed */
+    }
 
-/* Styles for the 'Accommodation' header */
-.accommodation-header {
-  font-size: 1.1em; /* Example size, adjust as needed */
-  color:  #31B6C1; /* Dark text color, adjust as needed */
-  padding: 10px 0; /* Spacing above and below the text */
-  font-weight: bold;
-  /* Add more styling here as needed */
-}
+    /* Styles for the 'Accommodation' header */
+    .accommodation-header {
+        font-size: 1.1em;
+        /* Example size, adjust as needed */
+        color: #31B6C1;
+        /* Dark text color, adjust as needed */
+        padding: 10px 0;
+        /* Spacing above and below the text */
+        font-weight: bold;
+        /* Add more styling here as needed */
+    }
 </style>
 <script src='https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js'></script>
 <link href="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css" rel="stylesheet" />
@@ -633,49 +639,80 @@
                                 Councils</div>
                         </div>
                     </div>
+                    <!-- First row for rough sleeper accommodation -->
                     <div class="row summary-container" style="padding-top:3px; padding-bottom:0px">
-                        <!-- First column with 2 divs -->
-                        <div class="summary-item col-12 col-lg-4 order-lg-first order-last" style="padding-top:3px; padding-bottom:8px">
+                        <div class="col-12" style="padding-top:3px; padding-bottom:3px">
                             <div>
-                                <span id="day_centres"></span> day centres
-                            </div>
-                            <div>
-                                <span id="beds"></span> beds available in <br><span id="beds_services"></span> accommodation services
+                                <span id="beds" style="color: #2DB5C0; font-size: 1.6em; font-weight: bold;"></span>
+                                beds available in
+                                <span id="beds_services"
+                                    style="color: #2DB5C0; font-size: 1.6em; font-weight: bold;"></span> accommodation
+                                services for rough sleepers
                             </div>
                         </div>
-                    
-                        <!-- Second column with 3 divs -->
-                        <div class="summary-item col-12 col-lg-4 order-sm-12" style="padding-top:3px; padding-bottom:8px">
+                    </div>
+
+                    <!-- Second row for young people's accommodation -->
+                    <div class="row summary-container" style="padding-top:3px; padding-bottom:0px">
+                        <div class="col-12" style="padding-top:3px; padding-bottom:3px">
                             <div>
-                                <span id="shelter_spaces"></span> Winter Shelter spaces
+                                <span id="yp_beds" style="color: #2DB5C0; font-size: 1.6em; font-weight: bold;"></span>
+                                beds available in
+                                <span id="yp_beds_services"
+                                    style="color: #2DB5C0; font-size: 1.6em; font-weight: bold;"></span> accommodation
+                                services for young people
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Third row for other services in grid format -->
+                    <div class="row summary-container" style="padding-top:3px; padding-bottom:0px">
+                        <!-- First column -->
+                        <div class="col-12 col-lg-4" style="padding-top:3px; padding-bottom:8px">
+                            <div>
+                                <span id="day_centres"
+                                    style="color: #B07AA1; font-size: 1.6em; font-weight: bold;"></span> day centres
                             </div>
                             <div>
-                                <span id="house_flats"></span> Clearing House flats
+                                <span id="house_flats"
+                                    style="color: #E74BCD; font-size: 1.6em; font-weight: bold;"></span> Clearing House
+                                flats
+                            </div>
+                        </div>
+                        <!-- Second column -->
+                        <div class="col-12 col-lg-4" style="padding-top:3px; padding-bottom:8px">
+                            <div>
+                                <span id="shelter_spaces"
+                                    style="color: #F28E2C; font-size: 1.6em; font-weight: bold;"></span> Winter Shelter
+                                spaces
                             </div>
                             <div id="assessment_centre_services-container" class="d-none">
-                                <span id="assessment_centre_services"></span> Assessment Centre
+                                <span id="assessment_centre_services"
+                                    style="color: rgb(184, 203, 42); font-size: 1.6em; font-weight: bold;"></span>
+                                Assessment Centre
                             </div>
                             <div id="assessment_centre_services_plural-container" class="d-none">
-                                <span id="assessment_centre_services_plural"></span> Assessment Centres
+                                <span id="assessment_centre_services_plural"
+                                    style="color: rgb(184, 203, 42); font-size: 1.6em; font-weight: bold;"></span>
+                                Assessment Centres
                             </div>
                         </div>
-                    
-                        <!-- Third column with 2 divs -->
-                        <div class="summary-item col-12 col-lg-4 order-lg-last order-first" style="padding-top:3px; padding-bottom:8px">
-                            
-                            <div style="margin-top: .4em;">
-                                <span id="hf_units"></span> Housing First units
+                        <!-- Third column -->
+                        <div class="col-12 col-lg-4" style="padding-top:3px; padding-bottom:8px">
+                            <div>
+                                <span id="hf_units" style="color: #E25759; font-size: 1.6em; font-weight: bold;"></span>
+                                Housing First units
                             </div>
                         </div>
                     </div>
-                    
-                    <!-- New row for Outreach div taking the full width -->
+
+                    <!-- Fourth row for outreach -->
                     <div class="row" style="padding-left:15px;">
                         <div class="col-12" style="padding-left:17px!important; padding-top:0px; padding-bottom:12px">
-                            Outreach by &nbsp;<span id="outreach"></span>
+                            Outreach by &nbsp;<span id="outreach" style="color: #4E79A7; font-weight: bold;"></span>
                         </div>
                     </div>
-                    
+
                 </div>
 
                 <div class="row">
@@ -758,7 +795,8 @@
                                             style="padding-top:0px; padding-bottom:0px; padding-left:1px; padding-right:15px;">
                                             <select class="form-control" id="sub-region-select"
                                                 style="font-size: .875em; margin-right: 2px; padding-top:0px; padding-bottom:0px">
-                                            </select></div>
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -1374,9 +1412,17 @@
             const headerIcon = d3.select(".chart-header-icon")
                 .attr("src", HOME_IMAGE_URL);
             const selectedBorough = d3.select(".selected-borough");
-            const dayCentres = d3.select('#day_centres');
+
+            // Rough sleeper accommodation elements (using existing fields)
             const beds = d3.select('#beds');
             const bedsServices = d3.select('#beds_services');
+
+            // Young people's accommodation elements (using ypspaces and ypservices)
+            const ypBeds = d3.select('#yp_beds');
+            const ypBedsServices = d3.select('#yp_beds_services');
+
+            // Other service elements
+            const dayCentres = d3.select('#day_centres');
             const shelterSpaces = d3.select('#shelter_spaces');
             const houseFlats = d3.select('#house_flats');
             const assessmentCentre = d3.select('#assessment_centre_services');
@@ -1385,23 +1431,28 @@
             const assessmentCentrePluralContainer = d3.select('#assessment_centre_services_plural-container');
             const outreach = d3.select('#outreach');
             const housingFirstUnit = d3.select('#hf_units');
-            const e_in = d3.select('#e_in');
-            const e_in2 = d3.select('#e_in2');
-            const e_in3 = d3.select('#e_in3');
+
             function update() {
                 if (!selected.borough || !selected.service) return;
                 const name = accessor.boroughs.name(selected.borough);
                 const gssCode = accessor.boroughs.gssCode(selected.borough);
                 selectedBorough.text(name);
                 const summaryData = data.summary.find(d => accessor.summary.gssCode(d) === gssCode)
-                dayCentres.text(accessor.summary.dayCenter(summaryData));
+
+                // Update RS accommodation (using existing fields)
                 beds.text(accessor.summary.beds(summaryData));
-
-                e_in2.text(accessor.summary.e_in2(summaryData));
-
                 bedsServices.text(accessor.summary.bedsServices(summaryData));
+
+                // Update YP accommodation (using ypspaces and ypservices fields)
+                ypBeds.text(summaryData.ypspaces || 0);
+                ypBedsServices.text(summaryData.ypservices || 0);
+
+                // Update other services
+                dayCentres.text(accessor.summary.dayCenter(summaryData));
                 shelterSpaces.text(accessor.summary.shelterSpaces(summaryData));
                 houseFlats.text(accessor.summary.houseFlats(summaryData));
+
+                // Handle Assessment Centre display
                 const noOfAssessment = accessor.summary.assessmentCentreServices(summaryData)
                 if (noOfAssessment > 0) {
                     if (noOfAssessment > 1) {
@@ -1417,10 +1468,12 @@
                     assessmentCentreContainer.classed('d-none', true);
                     assessmentCentrePluralContainer.classed('d-none', true);
                 }
-                outreach.text(accessor.summary.outreach(summaryData))
-                housingFirstUnit.text(accessor.summary.housingFirstUnit(summaryData))
 
+                // Update outreach
+                outreach.text(accessor.summary.outreach(summaryData));
+                housingFirstUnit.text(accessor.summary.housingFirstUnit(summaryData));
             }
+
             return {
                 update,
             };
@@ -1428,126 +1481,126 @@
 
         //render map table
         //render map table
-function renderTable(map) {
-    const table = d3.select('#map-table');
+        function renderTable(map) {
+            const table = d3.select('#map-table');
 
-    // Purple Container setup with header (Day centres)
-    const purpleContainer = table.append('div').style('margin-bottom', '16px');
-    purpleContainer.append('div').attr('class', 'day-centres-header').text('Day centres');
+            // Purple Container setup with header (Day centres)
+            const purpleContainer = table.append('div').style('margin-bottom', '16px');
+            purpleContainer.append('div').attr('class', 'day-centres-header').text('Day centres');
 
-     // Young People Container setup with header
-     const ypContainer = table.append('div');
-    ypContainer.append('div').attr('class', 'accommodation-header').text('Accommodation (Young People)');
+            // Young People Container setup with header
+            const ypContainer = table.append('div');
+            ypContainer.append('div').attr('class', 'accommodation-header').text('Accommodation (Young People)');
 
-    // Blue Container setup with header (Regular Accommodation)
-    const blueContainer = table.append('div').style('margin-bottom', '16px');
-    blueContainer.append('div').attr('class', 'accommodation-header').text('Accommodation (Rough Sleepers)');
-
-   
-
-    function update() {
-    if (!selected.borough || !selected.service) return;
-    const gssCode = accessor.boroughs.gssCode(selected.borough);
-    const tableData = data.mapData[gssCode];
-    const serviceGroup = accessor.services.group(selected.service);
-    let filteredData = accessor.map.tableData(tableData,
-        accessor.map.type,
-        serviceGroup);
-
-    // Helper function to check if a record is for young people
-    const isYPRecord = (record) => {
-        console.log(record.yp);
-        return record.yp === true || record.yp === "TRUE";
-    };
-
-    // Purple data (Day centres)
-    const purpleData = filteredData.filter(d => accessor.map.recordTypeID(d) === PURPLE_ID)
-        .sort((a, b) => accessor.map.provider(a) > accessor.map.provider(b) ? 1 : -1);
-
-    // Split blue data based on yp field
-    const blueData = filteredData.filter(d => accessor.map.recordTypeID(d) === BLUE_ID);
-    
-    // Regular accommodation (non-YP)
-    const regularAccom = blueData.filter(d => !isYPRecord(d))
-        .sort((a, b) => accessor.map.provider(a) > accessor.map.provider(b) ? 1 : -1);
-
-    // Young People's accommodation
-    const ypAccom = blueData.filter(d => isYPRecord(d))
-        .sort((a, b) => accessor.map.provider(a) > accessor.map.provider(b) ? 1 : -1);
-
-    // Update Purple Container (Day centres)
-    updateContainer(purpleContainer, purpleData, map);
-
-    // Update Blue Container (Regular Accommodation)
-    updateContainer(blueContainer, regularAccom, map);
-
-    // Update YP Container (Young People's Accommodation)
-    updateContainer(ypContainer, ypAccom, map);
+            // Blue Container setup with header (Regular Accommodation)
+            const blueContainer = table.append('div').style('margin-bottom', '16px');
+            blueContainer.append('div').attr('class', 'accommodation-header').text('Accommodation (Rough Sleepers)');
 
 
-        // Show/hide containers based on data availability
-        const hasAnyData = purpleData.length > 0 || regularAccom.length > 0 || ypAccom.length > 0;
-        purpleContainer.style('opacity', hasAnyData ? 1 : 0);
-        blueContainer.style('opacity', regularAccom.length > 0 ? 1 : 0);
-        ypContainer.style('opacity', ypAccom.length > 0 ? 1 : 0);
 
-        // Filter out invalid locations and update map
-        filteredData = filteredData.filter(d => accessor.map.longitude(d) && accessor.map.latitude(d));
-        map.update(filteredData);
-    }
+            function update() {
+                if (!selected.borough || !selected.service) return;
+                const gssCode = accessor.boroughs.gssCode(selected.borough);
+                const tableData = data.mapData[gssCode];
+                const serviceGroup = accessor.services.group(selected.service);
+                let filteredData = accessor.map.tableData(tableData,
+                    accessor.map.type,
+                    serviceGroup);
 
-    function updateContainer(container, data, map) {
-        container.selectAll('.table-item')
-            .data(data)
-            .join(
-                enter => {
-                    const item = enter.append('div')
-                        .attr('class', 'table-item')
-                        .on("mouseenter", (d) => {
-                            if (accessor.map.longitude(d) && accessor.map.latitude(d)) {
-                                map.showHighlight(d);
-                            }
-                            tooltip.show(boroughToolTipContent(d), d);
-                        })
-                        .on("mouseleave", () => {
-                            dispatch.call("leaveborough", this);
-                            map.resetMarker();
-                        })
-                        .on("mousemove", () => {
-                            dispatch.call("move", this);
-                        })
-                        .on("touchstart", (d) => {
-                            tooltip.show(boroughToolTipContent(d), d);
-                        }, { passive: true })
-                        .on("touchend", () => {
-                            dispatch.call("leaveborough", this);
-                        })
-                        .on('click', (d) => {
-                            const website = accessor.map.website(d);
-                            if (website) {
-                                let prefix = website.includes('://') ? '' : '//';
-                                window.open(prefix + website, '_blank');
-                            }
-                        });
+                // Helper function to check if a record is for young people
+                const isYPRecord = (record) => {
+                    console.log(record.yp);
+                    return record.yp === true || record.yp === "TRUE";
+                };
 
-                    item.append('div')
-                        .attr('class', 'table-item-key')
-                        .text(accessor.map.service);
+                // Purple data (Day centres)
+                const purpleData = filteredData.filter(d => accessor.map.recordTypeID(d) === PURPLE_ID)
+                    .sort((a, b) => accessor.map.provider(a) > accessor.map.provider(b) ? 1 : -1);
 
-                    item.append('div')
-                        .attr('class', d => `table-item-value-capacity ${accessor.map.mapTableID(d)}-value`)
-                        .text(accessor.map.serviceTextValue);
-                },
-                update => {
-                    update.select('.table-item-key').text(accessor.map.service);
-                    update.select('.table-item-value-capacity').text(accessor.map.serviceTextValue);
-                },
-                exit => exit.remove()
-            );
-    }
+                // Split blue data based on yp field
+                const blueData = filteredData.filter(d => accessor.map.recordTypeID(d) === BLUE_ID);
 
-    return { update };
-}
+                // Regular accommodation (non-YP)
+                const regularAccom = blueData.filter(d => !isYPRecord(d))
+                    .sort((a, b) => accessor.map.provider(a) > accessor.map.provider(b) ? 1 : -1);
+
+                // Young People's accommodation
+                const ypAccom = blueData.filter(d => isYPRecord(d))
+                    .sort((a, b) => accessor.map.provider(a) > accessor.map.provider(b) ? 1 : -1);
+
+                // Update Purple Container (Day centres)
+                updateContainer(purpleContainer, purpleData, map);
+
+                // Update Blue Container (Regular Accommodation)
+                updateContainer(blueContainer, regularAccom, map);
+
+                // Update YP Container (Young People's Accommodation)
+                updateContainer(ypContainer, ypAccom, map);
+
+
+                // Show/hide containers based on data availability
+                const hasAnyData = purpleData.length > 0 || regularAccom.length > 0 || ypAccom.length > 0;
+                purpleContainer.style('opacity', hasAnyData ? 1 : 0);
+                blueContainer.style('opacity', regularAccom.length > 0 ? 1 : 0);
+                ypContainer.style('opacity', ypAccom.length > 0 ? 1 : 0);
+
+                // Filter out invalid locations and update map
+                filteredData = filteredData.filter(d => accessor.map.longitude(d) && accessor.map.latitude(d));
+                map.update(filteredData);
+            }
+
+            function updateContainer(container, data, map) {
+                container.selectAll('.table-item')
+                    .data(data)
+                    .join(
+                        enter => {
+                            const item = enter.append('div')
+                                .attr('class', 'table-item')
+                                .on("mouseenter", (d) => {
+                                    if (accessor.map.longitude(d) && accessor.map.latitude(d)) {
+                                        map.showHighlight(d);
+                                    }
+                                    tooltip.show(boroughToolTipContent(d), d);
+                                })
+                                .on("mouseleave", () => {
+                                    dispatch.call("leaveborough", this);
+                                    map.resetMarker();
+                                })
+                                .on("mousemove", () => {
+                                    dispatch.call("move", this);
+                                })
+                                .on("touchstart", (d) => {
+                                    tooltip.show(boroughToolTipContent(d), d);
+                                }, { passive: true })
+                                .on("touchend", () => {
+                                    dispatch.call("leaveborough", this);
+                                })
+                                .on('click', (d) => {
+                                    const website = accessor.map.website(d);
+                                    if (website) {
+                                        let prefix = website.includes('://') ? '' : '//';
+                                        window.open(prefix + website, '_blank');
+                                    }
+                                });
+
+                            item.append('div')
+                                .attr('class', 'table-item-key')
+                                .text(accessor.map.service);
+
+                            item.append('div')
+                                .attr('class', d => `table-item-value-capacity ${accessor.map.mapTableID(d)}-value`)
+                                .text(accessor.map.serviceTextValue);
+                        },
+                        update => {
+                            update.select('.table-item-key').text(accessor.map.service);
+                            update.select('.table-item-value-capacity').text(accessor.map.serviceTextValue);
+                        },
+                        exit => exit.remove()
+                    );
+            }
+
+            return { update };
+        }
 
 
         //render map
