@@ -61,7 +61,7 @@
     },
     {
         "ID": 8,
-        "metric_name": "Rough sleeping (Street counts/estimates 2023)",
+        "metric_name": "Rough sleeping (Street counts/estimates 2024)",
         "metric_type": 1,
         "footnote": "LHF Atlas 2024",
         "datasource": "DLUHC.",
@@ -111,7 +111,7 @@
     },
     {
         "ID": 14,
-        "metric_name": "Rough sleeping (Street counts/estimates 2022)",
+        "metric_name": "Rough sleeping (Street counts/estimates 2023)",
         "metric_type": 1,
         "footnote": "LHF Atlas 2024",
         "datasource": "DLUHC.",
