@@ -368,11 +368,11 @@
 
     <div class="rowq">
         <div class="column">
-            <div class="top">76</div>
+            <div class="top">106</div>
             <div class="bottom">services in London for 2024/25</div>
         </div>
         <div class="column">
-            <div class="top">1,753</div>
+            <div class="top">2,002</div>
             <div class="bottom">spaces in these services</div>
         </div>
     </div>
@@ -879,7 +879,7 @@
         <ul class="list-unstyled mb-0">
             ${services.map((s) => `<li>${accessor.services.serviceName(s)}</li>`).join("")}
         </ul>
-        ` : '<p>No dedicated services in this borough</p>'}
+        ` : '<p>Borough did not report on Young People’s services in 2024/25</p>'}
     `;
 
                 // Use appropriate color based on whether there are services
@@ -911,152 +911,179 @@
 
         // Service list
         function renderServiceList() {
-            const container = d3
-                .select("#specialist-health-service-list")
-                .classed("service-list", true);
+    const container = d3
+        .select("#specialist-health-service-list")
+        .classed("service-list", true);
 
-            // Add the new 'la-name' div above the title
-            const laName = container
-                .append("div")
-                .attr("class", "la-name")
-                .text("Islington"); // Set the text for 'la-name'
+    // Add the new 'la-name' div above the title
+    const laName = container
+        .append("div")
+        .attr("class", "la-name")
+        .text("Islington"); // Set the text for 'la-name'
 
-            // Add the new 'la-summary' div below 'la-name' and above the title
-            const laSummary = container
-                .append("div")
-                .attr("class", "la-summary")
-                .text("4 services with a total of 100 spaces"); // Set the text for 'la-summary'
+    // Add the new 'la-summary' div below 'la-name' and above the title
+    const laSummary = container
+        .append("div")
+        .attr("class", "la-summary")
+        .text("4 services with a total of 100 spaces"); // Set the text for 'la-summary'
 
-            const title = container
-                .append("div")
-                .attr("class", "service-list-title mb-2");
+    const title = container
+        .append("div")
+        .attr("class", "service-list-title mb-2");
 
-            const serviceTableBody = container
-                .append("table")
-                .attr("class", "table table-hover table-sm")
-                .append("tbody");
+    const serviceTableBody = container
+        .append("table")
+        .attr("class", "table table-hover table-sm")
+        .append("tbody");
 
-            dispatch.on("updatebottom.service-list", () => {
-                const boroughFeature = data.london.features.find(d => accessor.geo.id(d) === highlightedGSS);
-                const boroughName = boroughFeature ? accessor.geo.name(boroughFeature) : "Select a borough";
+    dispatch.on("updatebottom.service-list", () => {
+        const boroughFeature = data.london.features.find(d => accessor.geo.id(d) === highlightedGSS);
+        const boroughName = boroughFeature ? accessor.geo.name(boroughFeature) : "Select a borough";
 
-                laName.text(boroughName);
+        laName.text(boroughName);
 
-                // Get services and separate pan-London services
-                let filteredServices = data.servicesByServiceType.get(selected.serviceType).filter(service => {
-                    const gssList = accessor.services.gssList(service);
-                    return gssList.includes(highlightedGSS) || gssList.includes("E12000007");
-                });
+        // Get services and separate pan-London services
+        let filteredServices = data.servicesByServiceType.get(selected.serviceType).filter(service => {
+            const gssList = accessor.services.gssList(service);
+            return gssList.includes(highlightedGSS) || gssList.includes("E12000007");
+        });
 
-                // Sort services to put pan-London at the bottom
-                filteredServices.sort((a, b) => {
-                    const aIsPanLondon = accessor.services.gssList(a).includes("E12000007");
-                    const bIsPanLondon = accessor.services.gssList(b).includes("E12000007");
-                    if (aIsPanLondon && !bIsPanLondon) return 1;
-                    if (!aIsPanLondon && bIsPanLondon) return -1;
-                    return 0;
-                });
+        // Sort services to put pan-London at the bottom
+        filteredServices.sort((a, b) => {
+            const aIsPanLondon = accessor.services.gssList(a).includes("E12000007");
+            const bIsPanLondon = accessor.services.gssList(b).includes("E12000007");
+            if (aIsPanLondon && !bIsPanLondon) return 1;
+            if (!aIsPanLondon && bIsPanLondon) return -1;
+            return 0;
+        });
 
-                const localServices = filteredServices.filter(s => !accessor.services.gssList(s).includes("E12000007"));
-                const panLondonServices = filteredServices.filter(s => accessor.services.gssList(s).includes("E12000007"));
+        const localServices = filteredServices.filter(s => !accessor.services.gssList(s).includes("E12000007"));
+        const panLondonServices = filteredServices.filter(s => accessor.services.gssList(s).includes("E12000007"));
 
-                const localBeds = localServices.reduce((acc, curr) => acc + accessor.services.beds(curr), 0);
-                const panLondonBeds = panLondonServices.reduce((acc, curr) => acc + accessor.services.beds(curr), 0);
+        const localBeds = localServices.reduce((acc, curr) => acc + accessor.services.beds(curr), 0);
+        const panLondonBeds = panLondonServices.reduce((acc, curr) => acc + accessor.services.beds(curr), 0);
 
-                if (filteredServices.length > 0) {
-                    let summaryText = '';
+        if (filteredServices.length > 0) {
+            let summaryText = '';
 
-                    // Add local services line if any exist
-                    if (localServices.length > 0) {
-                        const localServiceWord = localServices.length === 1 ? 'dedicated service' : 'dedicated services';
-                        const localBedWord = localBeds === 1 ? 'space' : 'spaces';
-                        summaryText += `${localServices.length} ${localServiceWord} with a total of ${localBeds} ${localBedWord}.`;
-                    } else {
-                        summaryText += 'No dedicated services in this borough';
-                    }
-
-                    // Add pan-London services line if any exist
-                    if (panLondonServices.length > 0) {
-                        const panLondonServiceWord = panLondonServices.length === 1 ? 'service' : 'services';
-                        const panLondonBedWord = panLondonBeds === 1 ? 'space' : 'spaces';
-                        summaryText += `\nThere ${panLondonServices.length === 1 ? 'is' : 'are'} also ${panLondonServices.length} Pan-London ${panLondonServiceWord} with a total of ${panLondonBeds} ${panLondonBedWord}.`;
-                    }
-
-                    // Use HTML line break for proper formatting
-                    laSummary.html(summaryText.replace('\n', '<br>'));
-                } else {
-                    laSummary.text("No services available in this borough");
-                }
-
-                // Update table
-                serviceTableBody
-                    .selectAll("tr")
-                    .data(filteredServices, accessor.services.id)
-                    .join((enter) => {
-                        const tr = enter.append("tr")
-                            .style("cursor", d => accessor.services.website(d) ? "pointer" : "default")
-                            .on("mouseenter", entered)
-                            .on("mouseleave", left)
-                            .on("mousemove", moved)
-                            .on("click", function (d) {
-                                if (accessor.services.website(d)) {
-                                    window.open(accessor.services.website(d), "_blank");
-                                }
-                            });
-
-                        // Service name column with pan-London indicator
-                        tr.append("td")
-                            .html(d => {
-                                const isPanLondon = accessor.services.gssList(d).includes("E12000007");
-                                return `${accessor.services.serviceName(d)}${isPanLondon ? ' <span style="color: #42698f; font-style: italic">(Pan-London project)</span>' : ''}`;
-                            })
-                            .style("width", "50%");
-
-                        // Provider column
-                        tr.append("td")
-                            .text(d => accessor.services.providerName(d))
-                            .style("width", "40%");
-
-                        // Beds column
-                        tr.append("td")
-                            .text(d => accessor.services.beds(d))
-                            .style("width", "10%")
-                            .style("text-align", "center");
-
-                        return tr;
-                    });
-            });
-
-            function clicked(d) {
-                if (touchable || accessor.services.website(d) === "") return;
-                window.open(accessor.services.website(d), "_blank");
+            // Add local services line if any exist
+            if (localServices.length > 0) {
+                const localServiceWord = localServices.length === 1 ? 'local service' : 'local services';
+                const localBedWord = localBeds === 1 ? 'space' : 'spaces';
+                summaryText += `${localServices.length} ${localServiceWord} with a total of ${localBeds} ${localBedWord}.`;
+            } else {
+                summaryText += 'Borough did not report on Young People’s services in 2024/25';
             }
 
-            function entered(d) {
-                selected.service = accessor.services.id(d);
-                selected.borough = null;
-                dispatch.call("updatebottom");
-                tooltip.show(serviceTooltipContent(d), "#4e79a8");
-
+            // Add pan-London services line if any exist
+            if (panLondonServices.length > 0) {
+                const panLondonServiceWord = panLondonServices.length === 1 ? 'service' : 'services';
+                const panLondonBedWord = panLondonBeds === 1 ? 'space' : 'spaces';
+                summaryText += `\nThere ${panLondonServices.length === 1 ? 'is' : 'are'} also ${panLondonServices.length} Pan-London ${panLondonServiceWord} with a total of ${panLondonBeds} ${panLondonBedWord}.`;
             }
 
-            function left() {
-                if (selected.service) {
-                    selected.service = null;
-                    dispatch.call("updatebottom");
-                }
-                tooltip.hide();
-            }
-
-            function moved() {
-                tooltip.move();
-            }
+            // Use HTML line break for proper formatting
+            laSummary.html(summaryText.replace('\n', '<br>'));
+        } else {
+            laSummary.text("No services available in this borough");
         }
+
+        // Create a new array that adds a divider between local and pan-London services if needed
+        let combinedData = [];
+        if (localServices.length > 0) {
+            combinedData = localServices.slice();
+        }
+        if (panLondonServices.length > 0) {
+            if (localServices.length > 0) {
+                // Insert a special divider row object
+                combinedData.push({ divider: true });
+            }
+            combinedData = combinedData.concat(panLondonServices);
+        }
+
+        // Update table: use the combinedData array.
+        serviceTableBody
+            .selectAll("tr")
+            .data(combinedData, d => d.divider ? "divider" : accessor.services.id(d))
+            .join(
+                enter => enter.append("tr")
+                    .each(function(d) {
+                        let tr = d3.select(this);
+                        if (d.divider) {
+                            // Render the divider row with one cell spanning all columns and a thick top border.
+                            tr.append("td")
+                                .attr("colspan", "3")
+                                .style("padding", "0")
+                                .style("border-top", "4px solid #000");
+                        } else {
+                            // Render normal service rows exactly as before.
+                            tr.style("cursor", accessor.services.website(d) ? "pointer" : "default")
+                                .on("mouseenter", entered)
+                                .on("mouseleave", left)
+                                .on("mousemove", moved)
+                                .on("click", function(d) {
+                                    if (accessor.services.website(d)) {
+                                        window.open(accessor.services.website(d), "_blank");
+                                    }
+                                });
+
+                            // Service name column with pan-London indicator
+                            tr.append("td")
+                                .html(function() {
+                                    const isPanLondon = accessor.services.gssList(d).includes("E12000007");
+                                    return `${accessor.services.serviceName(d)}${isPanLondon ? ' <span style="color: #42698f; font-style: italic">(Pan-London project)</span>' : ''}`;
+                                })
+                                .style("width", "50%");
+
+                            // Provider column
+                            tr.append("td")
+                                .text(() => accessor.services.providerName(d))
+                                .style("width", "40%");
+
+                            // Beds column
+                            tr.append("td")
+                                .text(() => accessor.services.beds(d))
+                                .style("width", "10%")
+                                .style("text-align", "center");
+                        }
+                    }),
+                update => update,
+                exit => exit.remove()
+            );
+    });
+
+    function clicked(d) {
+        if (touchable || accessor.services.website(d) === "") return;
+        window.open(accessor.services.website(d), "_blank");
+    }
+
+    function entered(d) {
+        selected.service = accessor.services.id(d);
+        selected.borough = null;
+        dispatch.call("updatebottom");
+        tooltip.show(serviceTooltipContent(d), "#4e79a8");
+    }
+
+    function left() {
+        if (selected.service) {
+            selected.service = null;
+            dispatch.call("updatebottom");
+        }
+        tooltip.hide();
+    }
+
+    function moved() {
+        tooltip.move();
+    }
+}
 
         // Process data
         function processData(servicesTypes, london, colors) {
             // Filter for young people services first
-            servicesTypes = servicesTypes.filter(service => service.yp === true);
+            servicesTypes = servicesTypes.filter(service => 
+                service.yp === true ||
+                (service.service_type === "Day Centre" && service.service_name === "New Horizon Youth Centre")
+                );
 
             // Continue with existing processing
             servicesTypes.forEach((d, i) => (d.id = i));

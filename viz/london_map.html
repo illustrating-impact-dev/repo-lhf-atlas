@@ -1,14 +1,15 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title></title>
-<link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" rel="stylesheet" />
+<link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" rel="stylesheet" />
 
 <style type="text/css">
     body {
         font-size: 0.875rem;
     }
 
-  
+
     .container-fluid {
         max-width: 1920px;
         margin: 15px auto;
@@ -343,80 +344,89 @@
             display: block;
         }
     }
+
     .btn:after {
         content: "";
         display: inline-block !important;
         position: relative !important;
         width: 82px !important;
         height: 32px !important;
-        transition: opacity .1s cubic-bezier(.3,.65,.72,.63);
+        transition: opacity .1s cubic-bezier(.3, .65, .72, .63);
         background-color: #fff
     }
 
     .no-grid-padding .grid [class*=col-] {
-    padding: 0px!important; /* Or set it to the specific padding you need */
-    }   
-
+        padding: 0px !important;
+        /* Or set it to the specific padding you need */
+    }
 </style>
-<script>window.$searchInput = {autocomplete:function(){}}
+<script>window.$searchInput = { autocomplete: function () { } }
 </script>
 <div class="container-fluid px-sm-5 no-grid-padding">
     <div class="embedded no-grid-padding">
-    <div class="alert alert-danger d-none" role="alert">Failed to retrieve the data. Please refresh the page to reload.</div>
+        <div class="alert alert-danger d-none" role="alert">Failed to retrieve the data. Please refresh the page to
+            reload.</div>
 
-    <div class="row control-row">
-        <div class="col-12 col-lg-5" style="padding-top:3px; padding-bottom:3px">
-            <div class="form-group"><label for="metric-select">Select main measure for map and bar chart:</label> <select class="form-control custom-select custom-select-sm" id="metric-select"></select></div>
-        </div>
-
-        <div class="col-12 col-lg-3" style="padding-top:3px; padding-bottom:3px">
-            <div class="form-group"><label for="service-select">Show locations on map (optional):</label> <select class="form-control custom-select custom-select-sm" id="service-select"></select></div>
-        </div>
-
-        <div class="col-12 col-lg-4 d-flex flex-column" style="padding-top:3px; padding-bottom:3px">
-            <div class="flex-grow-1">&nbsp;</div>
-            <div class="btn-group form-group" id="buttons" style="visibility: visible">
-                <button class="btn__export btn__export--pdf btn__svg" onclick="printPDF()" title="Export button label">Export to PDF</button>
-                <!-- <button class="btn__export btn__export--csv btn__svg">Export Data</button> -->
-                <button class="btn__copy btn__svg" onclick="CopyURL()" title="Copy URL label">Copy URL</button></div>
-        </div>
-    </div>
-
-    <div class="row chart-row d-none">
-        <div class="col-12 col-lg-8" style="padding-top:3px; padding-bottom:3px">
-            <div class="chart-header">
-                <img alt="metric icon" class="chart-header-icon" />
-                <div class="chart-title">
-                    <div class="chart-title-main">&nbsp;</div>
-
-                    <div class="chart-title-sub">&nbsp;</div>
+        <div class="row control-row">
+            <div class="col-12 col-lg-5" style="padding-top:3px; padding-bottom:3px">
+                <div class="form-group"><label for="metric-select">Select main measure for map and bar chart:</label>
+                    <select class="form-control custom-select custom-select-sm" id="metric-select"></select>
                 </div>
             </div>
 
-            <div id="london-map-map">
-                <div class="map-text">&nbsp;</div>
-
-                <div class="map-container">
-                    <svg class="chart-svg"></svg>
-
-                    <div class="map-control"><a aria-label="Zoom in" class="map-zoom-in" href="#" role="button" title="zoom-in">+</a> <a aria-label="Zoom out" class="map-zoom-out" href="#" role="button" title="zoom-out">-</a></div>
-                </div>
-
-                <div class="map-legend">
-                    <div class="legend-title">Key</div>
-
-                    <div class="legend-items">&nbsp;</div>
-                </div>
+            <div class="col-12 col-lg-3" style="padding-top:3px; padding-bottom:3px">
+                <div class="form-group"><label for="service-select">Show locations on map (optional):</label> <select
+                        class="form-control custom-select custom-select-sm" id="service-select"></select></div>
             </div>
 
-            <div class="chart-footer">&nbsp;</div>
+            <div class="col-12 col-lg-4 d-flex flex-column" style="padding-top:3px; padding-bottom:3px">
+                <div class="flex-grow-1">&nbsp;</div>
+                <div class="btn-group form-group" id="buttons" style="visibility: visible">
+                    <button class="btn__export btn__export--pdf btn__svg" onclick="printPDF()"
+                        title="Export button label">Export to PDF</button>
+                    <!-- <button class="btn__export btn__export--csv btn__svg">Export Data</button> -->
+                    <button class="btn__copy btn__svg" onclick="CopyURL()" title="Copy URL label">Copy URL</button>
+                </div>
+            </div>
         </div>
 
-        <div class="col-12 col-lg-4 mt-3 mt-lg-0 py-2 polygon-background">
-            <div id="london-map-bar-chart"><svg class="chart-svg"></svg></div>
+        <div class="row chart-row d-none">
+            <div class="col-12 col-lg-8" style="padding-top:3px; padding-bottom:3px">
+                <div class="chart-header">
+                    <img alt="metric icon" class="chart-header-icon" />
+                    <div class="chart-title">
+                        <div class="chart-title-main">&nbsp;</div>
+
+                        <div class="chart-title-sub">&nbsp;</div>
+                    </div>
+                </div>
+
+                <div id="london-map-map">
+                    <div class="map-text">&nbsp;</div>
+
+                    <div class="map-container">
+                        <svg class="chart-svg"></svg>
+
+                        <div class="map-control"><a aria-label="Zoom in" class="map-zoom-in" href="#" role="button"
+                                title="zoom-in">+</a> <a aria-label="Zoom out" class="map-zoom-out" href="#"
+                                role="button" title="zoom-out">-</a></div>
+                    </div>
+
+                    <div class="map-legend">
+                        <div class="legend-title">Key</div>
+
+                        <div class="legend-items">&nbsp;</div>
+                    </div>
+                </div>
+
+                <div class="chart-footer">&nbsp;</div>
+            </div>
+
+            <div class="col-12 col-lg-4 mt-3 mt-lg-0 py-2 polygon-background">
+                <div id="london-map-bar-chart"><svg class="chart-svg"></svg></div>
+            </div>
         </div>
     </div>
-</div>
 </div>
 
 <div class="chart-tooltip">&nbsp;</div>
@@ -424,12 +434,15 @@
 
 <script src="https://d3js.org/d3.v5.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
-        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+    crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
-        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
-        <script src="https://unpkg.com/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+    integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+    crossorigin="anonymous"></script>
+<script src="https://unpkg.com/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js"></script>
 <script>
     var params = new URLSearchParams(window.location.search.substring(1));
@@ -494,38 +507,38 @@
 
 
     function printPDF() {
-    let chartRow = document.querySelector('.row.chart-row');
-    if (!chartRow) {
-        console.error("Element '.row.chart-row' not found.");
-        return;
-    }
-
-    html2canvas(chartRow, { useCORS: true }).then(canvas => {
-        try {
-            let pdf = new jsPDF('l', 'mm', 'a4'); // landscape orientation
-            let imgData = canvas.toDataURL('image/png');
-
-            // Adjust the dimensions for landscape
-            let pdfWidth = 297; // A4 width in mm
-            let pdfHeight = 210; // A4 height in mm
-            let imgWidth = canvas.width;
-            let imgHeight = canvas.height;
-            let ratio = Math.min(pdfWidth / imgWidth, pdfHeight / imgHeight);
-
-            let newWidth = imgWidth * ratio;
-            let newHeight = imgHeight * ratio;
-            let xOffset = (pdfWidth - newWidth) / 2;
-            let yOffset = (pdfHeight - newHeight) / 2;
-
-            pdf.addImage(imgData, 'PNG', xOffset, yOffset, newWidth, newHeight);
-            pdf.save('download.pdf');
-        } catch (e) {
-            console.error("Error generating PDF: ", e);
+        let chartRow = document.querySelector('.row.chart-row');
+        if (!chartRow) {
+            console.error("Element '.row.chart-row' not found.");
+            return;
         }
-    }).catch(error => {
-        console.error("Error in html2canvas: ", error);
-    });
-}
+
+        html2canvas(chartRow, { useCORS: true }).then(canvas => {
+            try {
+                let pdf = new jsPDF('l', 'mm', 'a4'); // landscape orientation
+                let imgData = canvas.toDataURL('image/png');
+
+                // Adjust the dimensions for landscape
+                let pdfWidth = 297; // A4 width in mm
+                let pdfHeight = 210; // A4 height in mm
+                let imgWidth = canvas.width;
+                let imgHeight = canvas.height;
+                let ratio = Math.min(pdfWidth / imgWidth, pdfHeight / imgHeight);
+
+                let newWidth = imgWidth * ratio;
+                let newHeight = imgHeight * ratio;
+                let xOffset = (pdfWidth - newWidth) / 2;
+                let yOffset = (pdfHeight - newHeight) / 2;
+
+                pdf.addImage(imgData, 'PNG', xOffset, yOffset, newWidth, newHeight);
+                pdf.save('download.pdf');
+            } catch (e) {
+                console.error("Error generating PDF: ", e);
+            }
+        }).catch(error => {
+            console.error("Error in html2canvas: ", error);
+        });
+    }
 
 
 
@@ -543,7 +556,7 @@
 
         const METRICS_GROUPS = [
             { group: "ROUGH SLEEPING", metricIds: [0, 16, 8, 14] },
-            { group: "SERVICES", metricIds: [1,62, 6, 3, 15, 2,10] },
+            { group: "SERVICES", metricIds: [1, 62, 6, 3, 15, 2, 10] },
         ];
 
         const LONDON_GSS = "E12000007";
@@ -560,13 +573,13 @@
                 return (
                     this.metric &&
                     (accessor.metrics.id(this.metric) === 2 ||
-                        accessor.metrics.id(this.metric) === 7||
+                        accessor.metrics.id(this.metric) === 7 ||
                         accessor.metrics.id(this.metric) === 61)
                 );
             },
             get withTextLabel() {
-                return this.metric && (accessor.metrics.id(this.metric) === 2||
-                        accessor.metrics.id(this.metric) === 61);
+                return this.metric && (accessor.metrics.id(this.metric) === 2 ||
+                    accessor.metrics.id(this.metric) === 61);
             },
         };
         let options = {
@@ -931,6 +944,8 @@
             }
 
             function updateMetric({ data, mapLegend, mapText }) {
+
+
                 gPath
                     .selectAll(".map-path")
                     .each(function (d) {
@@ -972,12 +987,14 @@
                         )
                         .call((text) =>
                             text.select(".map-label-value").text(() => {
+                                // If metric 62 is selected and the value is 0, show nothing.
+                                if (accessor.metrics.id(selected.metric) === 62 && e && accessor.metric.value(e) === 0) {
+                                    return "";
+                                }
                                 if (selected.withTextLabel) {
                                     return accessor.metric.valueText(e);
                                 } else {
-                                    return e
-                                        ? formatCount(accessor.metric.value(e))
-                                        : formatCount(0);
+                                    return e ? formatCount(accessor.metric.value(e)) : "";
                                 }
                             })
                         );
@@ -1224,28 +1241,28 @@
                             .attr("text-anchor", selected.withNoNumValue ? "middle" : "end")
                             .attr("x", selected.withNoNumValue ? x(0.5) : -8)
                             .html((d) => {
+                                // If metric 62 is selected and the value is 0, show nothing.
+                                if (accessor.metrics.id(selected.metric) === 62 && accessor.metric.value(d) === 0) {
+                                    return "";
+                                }
                                 const text = accessor.metric.valueText(d);
                                 if (text) {
                                     if (selected.withCircle) {
                                         const plusIndex = text.indexOf("+");
                                         if (plusIndex !== -1) {
-                                            return `<tspan>${text.slice(
-                                                0,
-                                                plusIndex
-                                            )}<tspan><tspan class="circle-item">${text.slice(
-                                                plusIndex
-                                            )}<tspan>`;
+                                            return `<tspan>${text.slice(0, plusIndex)}</tspan><tspan class="circle-item">${text.slice(plusIndex)}</tspan>`;
                                         } else {
-                                            return `<tspan>${text}<tspan>`;
+                                            return `<tspan>${text}</tspan>`;
                                         }
                                     } else {
-                                        return `<tspan>${text}<tspan>`;
+                                        return `<tspan>${text}</tspan>`;
                                     }
                                 } else {
-                                    return `<tspan>${formatCount(accessor.metric.value(d))}<tspan>`;
+                                    return `<tspan>${formatCount(accessor.metric.value(d))}</tspan>`;
                                 }
                             })
                     )
+
                     .call((g) =>
                         g
                             .select(".bar-rect")
@@ -1335,7 +1352,7 @@
       <p>${accessor.metric.name(d)}</p>
       <p class="metric-name">${accessor.metrics.name(selected.metric)}</p>
       <p>${accessor.metric.valueText(d) || formatCount(accessor.metric.value(d))
-            }</p>
+                }</p>
     `;
         }
 
@@ -1345,13 +1362,13 @@
             return `
       <p style="color: ${color}">${accessor.service.name(d)}</p>
       <p>${accessor.service.provider(d)} in ${gssToName[accessor.service.borough(d)]
-            }</p>
+                }</p>
       ${texts
-                .filter((e) => e)
-                .map(
-                    (e) => `<p ${e == capacity ? `style="color: ${color}"` : ""}>${e}</p>`
-                )
-                .join("")}
+                    .filter((e) => e)
+                    .map(
+                        (e) => `<p ${e == capacity ? `style="color: ${color}"` : ""}>${e}</p>`
+                    )
+                    .join("")}
       <p><em>Click dot to view service website</em></p>
     `;
         }
@@ -1516,7 +1533,7 @@
 
 </script>
 <script>
-class Choices{
-constructor(selector, options){}
-}
+    class Choices {
+        constructor(selector, options) { }
+    }
 </script>

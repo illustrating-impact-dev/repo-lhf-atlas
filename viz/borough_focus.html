@@ -635,7 +635,7 @@
                                 homelessness
                                 services
                                 summary</div>
-                            <div class="chart-title-sub">Data source: Latest data from Homeless Link, DLUHC and London
+                            <div class="chart-title-sub">Data source: Latest data from Homeless Link, MHCLG and London
                                 Councils</div>
                         </div>
                     </div>
@@ -653,7 +653,8 @@
                     </div>
 
                     <!-- Second row for young people's accommodation -->
-                    <div class="row summary-container" style="padding-top:3px; padding-bottom:0px">
+                    <div class="row summary-container yp-accommodation-section"
+                        style="padding-top:3px; padding-bottom:0px">
                         <div class="col-12" style="padding-top:3px; padding-bottom:3px">
                             <div>
                                 <span id="yp_beds" style="color: #2DB5C0; font-size: 1.6em; font-weight: bold;"></span>
@@ -1432,6 +1433,8 @@
             const outreach = d3.select('#outreach');
             const housingFirstUnit = d3.select('#hf_units');
 
+            const ypAccommodationSection = d3.select(".yp-accommodation-section");
+
             function update() {
                 if (!selected.borough || !selected.service) return;
                 const name = accessor.boroughs.name(selected.borough);
@@ -1446,6 +1449,13 @@
                 // Update YP accommodation (using ypspaces and ypservices fields)
                 ypBeds.text(summaryData.ypspaces || 0);
                 ypBedsServices.text(summaryData.ypservices || 0);
+
+                // Hide or show YP accommodation section based on ypservices value
+                if ((summaryData.ypservices || 0) === 0) {
+                    ypAccommodationSection.classed('d-none', true);
+                } else {
+                    ypAccommodationSection.classed('d-none', false);
+                }
 
                 // Update other services
                 dayCentres.text(accessor.summary.dayCenter(summaryData));
@@ -1494,7 +1504,7 @@
 
             // Blue Container setup with header (Regular Accommodation)
             const blueContainer = table.append('div').style('margin-bottom', '16px');
-            blueContainer.append('div').attr('class', 'accommodation-header').text('Accommodation (Rough Sleepers)');
+            blueContainer.append('div').attr('class', 'accommodation-header').text('Accommodation (Rough Sleeping)');
 
 
 
