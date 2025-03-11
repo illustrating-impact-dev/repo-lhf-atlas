@@ -1223,7 +1223,7 @@
 
             return `
         <p class="service-name">${accessor.services.serviceName(d)}</p>
-        <p>${accessor.services.serviceType(d).replace("_", " ")} - Provided in <span>${boroughText}</span> by <span>${accessor.services.providerName(d)}</span></p>
+        <p>Provided in <span>${boroughText}</span> by <span>${accessor.services.providerName(d)}</span></p>
         ${contentParts.join("")}
         ${hasWebsite ? `<p><em>${"Click to view service website"}</em></p>` : ""}
     `;
