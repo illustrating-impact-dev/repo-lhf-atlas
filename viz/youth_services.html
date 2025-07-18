@@ -222,7 +222,7 @@
     }
 
     .service-map .legend-item {
-        width: 50px;
+        width: 75px;
         height: 20px;
         border: 1px solid #6c757d;
     }
@@ -353,9 +353,8 @@
                     <div class="chart-title">
                         <div class="chart-title-main">Young People's Services</div>
                         <div class="chart-title-sub"></div>
-                        <div class="chart-intro">Source: Homeless Link information team. Hover over a borough on the map
-                            for services,
-                            click to bring up extra
+                        <div class="chart-intro">Source: Homeless Link information team. Change the dropdown below or
+                            click an area on the map to bring up extra
                             detail.</div>
                     </div>
                 </div>
@@ -376,7 +375,14 @@
             <div class="bottom">spaces in these services</div>
         </div>
     </div>
-
+    <div class="row">
+        <div class="col-12 col-lg-6" style="padding-top:3px; padding-bottom:3px">
+            <div class="form-group">
+                <label class="drop-down-title" for="borough-select"></label>
+                <select class="form-control custom-select custom-select-sm" id="borough-select"></select>
+            </div>
+        </div>
+    </div>
 
     <div class="row">
         <div class="col-12 col-lg-6">
@@ -540,6 +546,7 @@
                 renderServicesTypes();
                 renderServicesMap();
                 renderServiceList();
+                setupBoroughDropdown();
                 dispatch.call("updatetop");
                 dispatch.call("updatebottom");
             })
@@ -547,6 +554,90 @@
                 console.error(err);
                 alert.show();
             });
+
+
+        const BOROUGHS = [
+            { ge_code: "E09000001", la_name: "City of London" },
+            { ge_code: "E09000002", la_name: "Barking and Dagenham" },
+            { ge_code: "E09000003", la_name: "Barnet" },
+            { ge_code: "E09000004", la_name: "Bexley" },
+            { ge_code: "E09000005", la_name: "Brent" },
+            { ge_code: "E09000006", la_name: "Bromley" },
+            { ge_code: "E09000007", la_name: "Camden" },
+            { ge_code: "E09000008", la_name: "Croydon" },
+            { ge_code: "E09000009", la_name: "Ealing" },
+            { ge_code: "E09000010", la_name: "Enfield" },
+            { ge_code: "E09000011", la_name: "Greenwich" },
+            { ge_code: "E09000012", la_name: "Hackney" },
+            { ge_code: "E09000013", la_name: "Hammersmith and Fulham" },
+            { ge_code: "E09000014", la_name: "Haringey" },
+            { ge_code: "E09000015", la_name: "Harrow" },
+            { ge_code: "E09000016", la_name: "Havering" },
+            { ge_code: "E09000017", la_name: "Hillingdon" },
+            { ge_code: "E09000018", la_name: "Hounslow" },
+            { ge_code: "E09000019", la_name: "Islington" },
+            { ge_code: "E09000020", la_name: "Kensington and Chelsea" },
+            { ge_code: "E09000021", la_name: "Kingston upon Thames" },
+            { ge_code: "E09000022", la_name: "Lambeth" },
+            { ge_code: "E09000023", la_name: "Lewisham" },
+            { ge_code: "E09000024", la_name: "Merton" },
+            { ge_code: "E09000025", la_name: "Newham" },
+            { ge_code: "E09000026", la_name: "Redbridge" },
+            { ge_code: "E09000027", la_name: "Richmond upon Thames" },
+            { ge_code: "E09000028", la_name: "Southwark" },
+            { ge_code: "E09000029", la_name: "Sutton" },
+            { ge_code: "E09000030", la_name: "Tower Hamlets" },
+            { ge_code: "E09000031", la_name: "Waltham Forest" },
+            { ge_code: "E09000032", la_name: "Wandsworth" },
+            { ge_code: "E09000033", la_name: "Westminster" }
+        ].sort((a, b) => a.la_name.localeCompare(b.la_name));
+
+        // Update your existing selected object to include a default borough:
+
+
+        // Add this function to setup the borough dropdown:
+        function setupBoroughDropdown() {
+            const boroughSelect = d3.select("#borough-select");
+
+            // Populate dropdown with borough options
+            boroughSelect
+                .selectAll("option")
+                .data(BOROUGHS)
+                .join("option")
+                .attr("value", d => d.ge_code)
+                .text(d => d.la_name);
+
+            // Set initial selection
+            boroughSelect.property("value", highlightedGSS);
+
+            // Handle dropdown change
+            boroughSelect.on("change", function () {
+                const selectedGSS = this.value;
+                updateHighlightedBorough(selectedGSS);
+            });
+        }
+
+        // Add this function to update the highlighted borough (replaces scattered update logic):
+        function updateHighlightedBorough(newGSS) {
+            highlightedGSS = newGSS;
+
+            // Update dropdown to match (in case this was triggered by map click)
+            d3.select("#borough-select").property("value", highlightedGSS);
+
+            // Update map highlighting
+            d3.selectAll(".service-map .map-path")
+                .classed("highlighted", function (d) {
+                    return accessor.geo.id(d) === highlightedGSS;
+                });
+
+            // Move highlighted path to top
+            d3.selectAll(".service-map .map-path.highlighted").each(function () {
+                this.parentNode.appendChild(this);
+            });
+
+            // Trigger updates
+            dispatch.call("updatebottom");
+        }
 
         // Service types
         function renderServicesTypes() {
@@ -714,25 +805,8 @@
                         .on("mouseleave", left)
                         .on("mousemove", moved)
                         .on("click", function (d) {
-                            // Assuming d3.event is available in your D3 v5 setup
-                            var event = d3.event;
-
-                            // Access the GSS_CODE from the clicked path's data attribute
-                            var clickedGSSCode = this.getAttribute("data-gss-code");
-
-                            // Update the highlighted GSS based on the clicked element's GSS_CODE
-                            highlightedGSS = clickedGSSCode;
-                            dispatch.call("updatebottom");
-                            // Update the 'highlighted' class for all paths based on the new highlightedGSS
-                            d3.selectAll(".service-map .map-path")
-                                .classed("highlighted", function (d) {
-                                    return accessor.geo.id(d) === highlightedGSS;
-                                });
-
-                            // Move the newly highlighted path to the top
-                            d3.selectAll(".service-map .map-path.highlighted").each(function () {
-                                this.parentNode.appendChild(this);
-                            });
+                            const clickedGSSCode = accessor.geo.id(d);
+                            updateHighlightedBorough(clickedGSSCode);
                         })
                 );
 
@@ -884,7 +958,7 @@
 
                 // Use appropriate color based on whether there are services
                 const tooltipColor = services.length > 0 ? color(services.length) : '#6c757d';
-                tooltip.show(tooltipContent, tooltipColor);
+                //tooltip.show(tooltipContent, tooltipColor);
             }
 
             function left() {
@@ -909,6 +983,8 @@
             }
         }
 
+        // Service list
+        // Service list
         // Service list
         function renderServiceList() {
             const container = d3
@@ -970,25 +1046,17 @@
                     if (localServices.length > 0) {
                         const localServiceWord = localServices.length === 1 ? 'local service' : 'local services';
                         const localBedWord = localBeds === 1 ? 'space' : 'spaces';
-                        summaryText += `${localServices.length} ${localServiceWord} with a total of ${localBeds} ${localBedWord}.`;
+                        summaryText += `${localServices.length} ${localServiceWord} with a total of ${localBeds} ${localBedWord}`;
                     } else {
-                        summaryText += 'Borough did not report on Young People’s services in 2024/25';
+                        summaryText += 'Borough did not report on Young Peoples services in 2024/25';
                     }
 
-                    // Add pan-London services line if any exist
-                    if (panLondonServices.length > 0) {
-                        const panLondonServiceWord = panLondonServices.length === 1 ? 'service' : 'services';
-                        const panLondonBedWord = panLondonBeds === 1 ? 'space' : 'spaces';
-                        summaryText += `\nThere ${panLondonServices.length === 1 ? 'is' : 'are'} also ${panLondonServices.length} Pan-London ${panLondonServiceWord} with a total of ${panLondonBeds} ${panLondonBedWord}.`;
-                    }
-
-                    // Use HTML line break for proper formatting
-                    laSummary.html(summaryText.replace('\n', '<br>'));
+                    laSummary.text(summaryText);
                 } else {
                     laSummary.text("No services available in this borough");
                 }
 
-                // Create a new array that adds a divider between local and pan-London services if needed
+                // Create a new array that adds a divider and subheader between local and pan-London services if needed
                 let combinedData = [];
                 if (localServices.length > 0) {
                     combinedData = localServices.slice();
@@ -998,13 +1066,22 @@
                         // Insert a special divider row object
                         combinedData.push({ divider: true });
                     }
+                    // Add subheader for pan-London services with original styling
+                    combinedData.push({
+                        subheader: true,
+                        text: `There ${panLondonServices.length === 1 ? 'is' : 'are'} also ${panLondonServices.length} Pan-London ${panLondonServices.length === 1 ? 'service' : 'services'} with a total of ${panLondonBeds} ${panLondonBeds === 1 ? 'space' : 'spaces'}.`
+                    });
                     combinedData = combinedData.concat(panLondonServices);
                 }
 
                 // Update table: use the combinedData array.
                 serviceTableBody
                     .selectAll("tr")
-                    .data(combinedData, d => d.divider ? "divider" : accessor.services.id(d))
+                    .data(combinedData, d => {
+                        if (d.divider) return "divider";
+                        if (d.subheader) return "subheader";
+                        return accessor.services.id(d);
+                    })
                     .join(
                         enter => enter.append("tr")
                             .each(function (d) {
@@ -1013,8 +1090,17 @@
                                     // Render the divider row with one cell spanning all columns and a thick top border.
                                     tr.append("td")
                                         .attr("colspan", "3")
-                                        .style("padding", "0")
-                                        .style("border-top", "4px solid #000");
+                                        .style("padding", "0 0 15px 0")  // Changed: adds 10px padding-bottom for space
+                                        .style("border-top", "2px solid #000");  // Changed: from 4px to 2px
+                                } else if (d.subheader) {
+                                    // Render the subheader row with original styling
+                                    tr.append("td")
+                                        .attr("colspan", "3")
+                                        .style("padding", "5px 0")
+                                        .style("font-size", "16px")
+                                        .style("color", "#666")
+                                        .style("border-top", "none")
+                                        .text(d.text);
                                 } else {
                                     // Render normal service rows exactly as before.
                                     tr.style("cursor", accessor.services.website(d) ? "pointer" : "default")
