@@ -1,57 +1,60 @@
-<meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title></title>
-<link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" rel="stylesheet" />
+<link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+  integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" rel="stylesheet" />
 <script src="https://unpkg.com/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js"></script>
-<style type="text/css">/* Base styles */
-/* Base styles */
-/* Base styles */
-body {
+<style type="text/css">
+  /* Base styles */
+  /* Base styles */
+  /* Base styles */
+  body {
     font-size: 0.875rem;
-}
+  }
 
-.container-fluid {
+  .container-fluid {
     max-width: 1920px;
     margin: 15px auto;
-}
+  }
 
-/* Chart header styles */
-.chart-header {
+  /* Chart header styles */
+  .chart-header {
     display: flex;
     align-items: flex-start;
-}
+  }
 
-.chart-header-icon {
+  .chart-header-icon {
     width: 36px;
     height: 36px;
     margin-top: 4px;
     margin-right: 8px;
-}
+  }
 
-.chart-title-main {
+  .chart-title-main {
     font-size: 1rem;
     color: #00aaff;
     font-weight: bold;
-}
+  }
 
-.chart-title-main span {
+  .chart-title-main span {
     font-weight: normal;
     font-style: italic;
-}
+  }
 
-.chart-title-sub,
-.chart-footer {
+  .chart-title-sub,
+  .chart-footer {
     font-size: 0.75rem;
     color: #6c757d;
-}
+  }
 
-/* Button styles */
-#buttons {
+  /* Button styles */
+  #buttons {
     display: flex;
     justify-content: flex-end;
-}
+  }
 
-.btn__svg {
+  .btn__svg {
     text-align: left;
     text-indent: -9999px;
     font-size: 0;
@@ -66,13 +69,13 @@ body {
     padding: 0;
     margin-right: 5px;
     position: relative;
-}
+  }
 
-.btn__svg:hover::after {
+  .btn__svg:hover::after {
     opacity: 1;
-}
+  }
 
-.btn__svg::after {
+  .btn__svg::after {
     background-position: center center;
     background-repeat: no-repeat;
     background-size: contain;
@@ -86,35 +89,35 @@ body {
     opacity: 0;
     transition: opacity 0.1s cubic-bezier(0.3, 0.65, 0.72, 0.63);
     background-color: #fff;
-}
+  }
 
-/* Button specific images */
-.btn__export--pdf {
+  /* Button specific images */
+  .btn__export--pdf {
     background-image: url(https://www.lhfatlas.org.uk/sites/default/files/images/pdf-black.png);
-}
+  }
 
-.btn__export--pdf::after {
+  .btn__export--pdf::after {
     background-image: url(https://www.lhfatlas.org.uk/sites/default/files/images/pdf-blue.png);
-}
+  }
 
-.btn__export--csv {
+  .btn__export--csv {
     background-image: url(https://www.lhfatlas.org.uk/sites/default/files/images/csv-black.png);
-}
+  }
 
-.btn__export--csv::after {
+  .btn__export--csv::after {
     background-image: url(https://www.lhfatlas.org.uk/sites/default/files/images/csv-blue.png);
-}
+  }
 
-.btn__copy {
+  .btn__copy {
     background-image: url(https://www.lhfatlas.org.uk/sites/default/files/images/url-black.png);
-}
+  }
 
-.btn__copy::after {
+  .btn__copy::after {
     background-image: url(https://www.lhfatlas.org.uk/sites/default/files/images/url-blue.png);
-}
+  }
 
-/* Tooltip styles */
-.chart-tooltip {
+  /* Tooltip styles */
+  .chart-tooltip {
     position: fixed;
     top: 0;
     left: 0;
@@ -126,346 +129,387 @@ body {
     max-width: 100vw;
     opacity: 0;
     transition: opacity 0.15s linear;
-}
+  }
 
-.chart-tooltip p {
+  .chart-tooltip p {
     margin-bottom: 0.5rem;
-}
+  }
 
-.chart-tooltip p:last-of-type {
+  .chart-tooltip p:last-of-type {
     margin-bottom: 0;
-}
+  }
 
-.chart-tooltip.show {
+  .chart-tooltip.show {
     opacity: 1;
-}
+  }
 
-.chart-tooltip .service-name {
+  .chart-tooltip .service-name {
     font-size: 1rem;
     font-weight: bold;
     color: #00aaff;
-}
+  }
 
-.chart-tooltip .service-capacity {
+  .chart-tooltip .service-capacity {
     color: #ff4e80;
     font-weight: bold;
-}
+  }
 
-.chart-tooltip span {
+  .chart-tooltip span {
     color: #4e79a8;
-}
+  }
 
-/* Chart and Infographic styles */
-.chart-container,
-.infographic-chart {
+  /* Chart and Infographic styles */
+  .chart-container,
+  .infographic-chart {
     position: relative;
-}
+  }
 
-.infographic-summary .summary-title {
+  .infographic-summary .summary-title {
     font-size: 1rem;
     font-weight: bold;
-}
+  }
 
-.infographic-summary span {
+  .infographic-summary span {
     font-size: 1.25rem;
     font-weight: bold;
-}
+  }
 
-/* Block styles */
-.infographic-chart .block {
+  /* Block styles */
+  .infographic-chart .block {
     stroke-width: 1;
     stroke: #fff;
-}
+  }
 
-.infographic-chart .block:hover {
+  .infographic-chart .block:hover {
     stroke-width: 2;
     stroke: #000;
-}
+  }
 
-/* Pan London styles */
-.pan-london-container {
+  /* Pan London styles */
+  .pan-london-container {
     width: 100%;
     margin-top: 1rem;
-}
+  }
 
-.pan-london-label {
+  .pan-london-label {
     color: #00aaff;
     font-weight: bold;
     line-height: 1.1;
-}
+  }
 
-.pan-london-svg {
+  .pan-london-svg {
     display: block;
     width: 100%;
     height: 120px;
-}
+  }
 
-/* Embedded content styles */
-.my-embedded-content {
+  /* Embedded content styles */
+  .my-embedded-content {
     padding: 3px !important;
-}
+  }
 
-/* Mobile-first Layout (below 1200px) */
-.infographic-chart {
+  /* Mobile-first Layout (below 1200px) */
+  .infographic-chart {
     display: flex;
     flex-direction: column;
-}
+  }
 
-.infographic-chart-row {
+  .infographic-chart-row {
     width: 100%;
     margin-bottom: 0.25rem;
     display: flex;
-    flex-direction: column;  /* Default for mobile */
-}
+    flex-direction: column;
+    /* Default for mobile */
+  }
 
-.label-col {
+  .label-col {
     width: 100%;
-    padding: 0!important;
+    padding: 0 !important;
     margin-bottom: 0.25rem;
     display: flex;
     justify-content: space-between;
-}
+  }
 
-.blocks-col {
+  .blocks-col {
     width: 100%;
-    padding: 0!important;
+    padding: 0 !important;
     line-height: 0;
-}
+  }
 
-/* Stack order for mobile */
-.infographic-summary {
+  /* Stack order for mobile */
+  .infographic-summary {
     order: 1;
     width: 100%;
     margin-bottom: 1rem;
-}
+  }
 
-#infographic-chart {
+  #infographic-chart {
     order: 2;
-}
+  }
 
-.pan-london-container {
+  .pan-london-container {
     order: 3;
-}
+  }
 
-/* Desktop Layout (1200px and above) */
-/* Base mobile styles */
-.chart-container {
+  /* Desktop Layout (1200px and above) */
+  /* Base mobile styles */
+  .chart-container {
     position: relative;
     display: flex;
     flex-direction: column;
-    min-height: 100vh; /* Give enough room for all elements */
-}
+    min-height: 100vh;
+    /* Give enough room for all elements */
+  }
 
-/* Mobile layout ordering and spacing */
-@media (max-width: 1199px) {
+  /* Mobile layout ordering and spacing */
+  @media (max-width: 1199px) {
     .infographic-summary {
-        position: static !important;
-        order: 1;
-        margin-bottom: 2rem;
-        width: 100%;
+      position: static !important;
+      order: 1;
+      margin-bottom: 2rem;
+      width: 100%;
     }
 
     #infographic-chart {
-        position: static !important;
-        order: 2;
-        margin-bottom: 2rem;
-        width: 100%;
+      position: static !important;
+      order: 2;
+      margin-bottom: 2rem;
+      width: 100%;
     }
 
     .pan-london-container {
-        position: static !important;
-        order: 3;
-        width: 100%;
-        margin-top: 2rem;
+      position: static !important;
+      order: 3;
+      width: 100%;
+      margin-top: 2rem;
     }
 
     /* Right align borough names in mobile */
     .infographic-chart-row .label-col {
-        text-align: left;
+      text-align: left;
     }
 
     .infographic-chart-row .label-col .row-name {
-        text-align: left;
+      text-align: left;
     }
-}
+  }
 
-/* Desktop layout */
-@media (min-width: 1200px) {
+  /* Desktop layout */
+  @media (min-width: 1200px) {
     .infographic-chart-row.row {
-        flex-direction: row !important;
-        flex-wrap: nowrap !important;
-        align-items: center !important;
-        margin: 0 0 0rem 0 !important;
+      flex-direction: row !important;
+      flex-wrap: nowrap !important;
+      align-items: center !important;
+      margin: 0 0 0rem 0 !important;
     }
 
     .infographic-chart-row .label-col.col-auto {
-        width: 240px !important;
-        min-width: 240px !important;
-        flex: 0 0 240px !important;
-        max-width: 240px !important;
-        margin-bottom: 0 !important;
+      width: 240px !important;
+      min-width: 240px !important;
+      flex: 0 0 240px !important;
+      max-width: 240px !important;
+      margin-bottom: 0 !important;
     }
 
     .infographic-chart-row .blocks-col.col-12.col-md {
-        flex: 1 1 auto !important;
-        width: auto !important;
-        max-width: none !important;
-        padding-left: 15px !important;
+      flex: 1 1 auto !important;
+      width: auto !important;
+      max-width: none !important;
+      padding-left: 15px !important;
     }
 
     .infographic-summary {
-        position: absolute;
-        right: 0;
-        bottom: 0;
-        width: auto;
+      position: absolute;
+      right: 0;
+      top: 400px;
+      bottom: auto;
+      width: auto;
     }
 
     .pan-london-container {
-        position: absolute;
-        left: 50%;
-        bottom: 10%;
-        width: 120px;
+      position: absolute;
+      left: 50%;
+      bottom: 10%;
+      width: 120px;
     }
-}
+  }
 
-    .label-col {
-        width: 240px;
-        flex-shrink: 0;
-    }
+  .label-col {
+    width: 240px;
+    flex-shrink: 0;
+  }
 
-    .blocks-col {
-        flex-grow: 1;
-    }
+  .blocks-col {
+    flex-grow: 1;
+  }
 
-    .infographic-summary {
-        position: absolute;
-        right: 0;
-        bottom: 0;
-        width: auto;
-        text-align: right;
-    }
+  .infographic-summary {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: auto;
+    text-align: right;
+  }
 
-    .pan-london-container {
-        position: absolute;
-        left: 50%;
-        bottom: 10%;
-        width: 120px;
-    }
+  .pan-london-container {
+    position: absolute;
+    left: 50%;
+    bottom: 10%;
+    width: 120px;
+  }
 
 
-/* Media query adjustments */
-@media (min-width: 600px) {
+  /* Media query adjustments */
+  @media (min-width: 600px) {
     .chart-tooltip {
-        max-width: 600px;
+      max-width: 600px;
     }
-}
+  }
 
-@media (prefers-reduced-motion: reduce) {
+  @media (prefers-reduced-motion: reduce) {
     .chart-tooltip {
-        transition: none;
+      transition: none;
     }
-}
+  }
 
-/* Modal backdrop */
-.modal-backdrop.show {
+  /* Modal backdrop */
+  .modal-backdrop.show {
     opacity: 0.2;
-}
+  }
 
-/* Utility classes */
-.d-flex {
+  /* Utility classes */
+  .d-flex {
     display: flex;
-}
+  }
 
-.justify-content-between {
+  .justify-content-between {
     justify-content: space-between;
-}
+  }
 
-.align-items-center {
+  .align-items-center {
     align-items: center;
-}
+  }
 
-.color-square {
-      display: inline-block;
-      width: 12px;
-      height: 12px;
-      margin-right: 8px;
-      border: 1px solid #ddd;
-    }
+  .color-square {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    margin-right: 8px;
+    border: 1px solid #ddd;
+  }
 
-    .summary-row {
-      display: flex;
-      align-items: center;
-      margin-bottom: 4px;
-      float: right;  /* Add this to right-align the whole row */
-      clear: both;   /* Ensure rows stack properly */
-    }
-    .summary-title {
-      text-align: right;  /* Right align the title too */
-    }
- 
+  .summary-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 4px;
+    float: right;
+    /* Add this to right-align the whole row */
+    clear: both;
+    /* Ensure rows stack properly */
+  }
 
+  .summary-title {
+    text-align: right;
+    /* Right align the title too */
+  }
 </style>
 <div class="my-embedded-content">
-<div class="container-fluid px-sm-5">
-<div class="alert alert-danger d-none" role="alert">Failed to retrieve the data. Please try again later.</div>
+  <div class="container-fluid px-sm-5">
+    <div class="alert alert-danger d-none" role="alert">Failed to retrieve the data. Please try again later.</div>
 
-<div class="row control-row">
-<div class="col-12 col-lg-3"  style="padding-top:3px; padding-bottom:3px">
-<div class="form-group"><label for="group-by-select">Group by borough or provider?</label> <select class="form-control custom-select custom-select-sm" id="group-by-select"><option value="borough">Borough</option><option value="provider">Provider</option> </select></div>
-</div>
+    <div class="row control-row">
+      <div class="col-12 col-lg-3" style="padding-top:3px; padding-bottom:3px">
+        <div class="form-group"><label for="group-by-select">Group by borough or provider?</label> <select
+            class="form-control custom-select custom-select-sm" id="group-by-select">
+            <option value="borough">Borough</option>
+            <option value="provider">Provider</option>
+          </select></div>
+      </div>
 
-<div class="col-12 col-lg-3"  style="padding-top:3px; padding-bottom:3px">
-<div class="form-group"><label for="size-by-select">Focus on accommodation?</label> <select class="form-control custom-select custom-select-sm" id="size-by-select"><option value="service">No - All services</option><option value="bed">Yes - Accommodation by size</option> </select></div>
-</div>
+      <div class="col-12 col-lg-3" style="padding-top:3px; padding-bottom:3px">
+        <div class="form-group"><label for="size-by-select">Focus on accommodation?</label> <select
+            class="form-control custom-select custom-select-sm" id="size-by-select">
+            <option value="service">No - Show all types of services</option>
+            <option value="bed">Yes - Show accommodation by size</option>
+          </select></div>
+      </div>
+      <div class="col-12 col-lg-3" style="padding-top:3px; padding-bottom:3px">
+        <div class="form-group">
+          <label for="include-yp-select">Include accommodation for young people?</label>
+          <select class="form-control custom-select custom-select-sm" id="include-yp-select">
+            <option value="yes">Yes - Include all accommodation</option>
+            <option value="no">No - Only show rough sleeping/single homelessness accommodation</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-12 col-lg-3" style="padding-top:3px; padding-bottom:3px; display:none">
+        <div class="form-group"><label for="highlight-by-select">Highlight specific services:</label> <select
+            class="form-control custom-select custom-select-sm" id="highlight-by-select">
+            <optgroup label="ALL SERVICES">
+              <option value="london">All London</option>
+            </optgroup>
+            <optgroup label="CLIENT GROUPS">
+              <option value="women">Women's services</option>
+              <option value="young">Young People's services</option>
+            </optgroup>
+          </select></div>
+      </div>
 
-<div class="col-12 col-lg-3"  style="padding-top:3px; padding-bottom:3px; display:none">
-<div class="form-group"><label for="highlight-by-select">Highlight specific services:</label> <select class="form-control custom-select custom-select-sm" id="highlight-by-select"> <optgroup label="ALL SERVICES"><option value="london">All London</option> </optgroup> <optgroup label="CLIENT GROUPS"><option value="women">Women's services</option><option value="young">Young People's services</option> </optgroup> </select></div>
-</div>
+      <div class="col-12 col-lg-3 d-flex flex-column" style="padding-top:3px; padding-bottom:3px">
+        <div class="flex-grow-1">&nbsp;</div>
 
-<div class="col-12 col-lg-3 d-flex flex-column"  style="padding-top:3px; padding-bottom:3px">
-<div class="flex-grow-1">&nbsp;</div>
+        <div class="btn-group form-group" id="buttons" style="visibility: visible"><button
+            class="btn__export btn__export--pdf btn__svg" onclick="printPDF()" title="Export button label">Export to
+            PDF</button>
+          <!-- <button class="btn__export btn__export--csv btn__svg">Export Data</button> -->
+          <button class="btn__copy btn__svg" onclick="CopyURL()" title="Copy URL label">Copy URL</button>
+        </div>
+      </div>
+    </div>
 
-<div class="btn-group form-group" id="buttons" style="visibility: visible"><button class="btn__export btn__export--pdf btn__svg" onclick="printPDF()" title="Export button label">Export to PDF</button>
- <!-- <button class="btn__export btn__export--csv btn__svg">Export Data</button> -->
-<button class="btn__copy btn__svg" onclick="CopyURL()" title="Copy URL label">Copy URL</button></div>
-</div>
-</div>
+    <div class="row">
+      <div class="col-12" style="padding-top:3px; padding-bottom:3px">
+        <div class="chart-header"><img alt="icon" class="chart-header-icon"
+            src="https://www.lhfatlas.org.uk/sites/default/files/images/accom_icon.png" />
+          <div class="chart-title">
+            <div class="chart-title-main">&nbsp;</div>
 
-<div class="row">
-<div class="col-12"  style="padding-top:3px; padding-bottom:3px">
-<div class="chart-header"><img alt="icon" class="chart-header-icon" src="https://www.lhfatlas.org.uk/sites/default/files/images/accom_icon.png" />
-<div class="chart-title">
-<div class="chart-title-main">&nbsp;</div>
+            <div class="chart-title-sub">Data source: Services data is the latest from Homeless Link information team.
+            </div>
 
-<div class="chart-title-sub">Data source: Services data is the latest from Homeless Link information team.</div>
+            <div class="chart-intro">Hover over a block for extra information</div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-<div class="chart-intro">Hover over a block for extra information</div>
-</div>
-</div>
-</div>
-</div>
+    <div class="row">
+      <div class="col-12 chart-container" style="padding-top:3px; padding-bottom:3px">
+        <div class="mt-3" id="infographic-summary"></div>
 
-<div class="row">
-<div class="col-12 chart-container" style="padding-top:3px; padding-bottom:3px">
-<div class="mt-3" id="infographic-summary"></div>
+        <div class="mt-3" id="infographic-chart"></div>
+      </div>
+    </div>
 
-<div class="mt-3" id="infographic-chart"></div>
-</div>
-</div>
-
-<div class="row">
-<div class="col-12">
-<div class="chart-footer">© LHF Atlas 2025 - see <a href="https://www.lhfatlas.org.uk" target="_blank">www.lhfatlas.org.uk</a> for full details</div>
-</div>
-</div>
-</div>
+    <div class="row">
+      <div class="col-12">
+        <div class="chart-footer">© LHF Atlas 2025 - see <a href="https://www.lhfatlas.org.uk"
+            target="_blank">www.lhfatlas.org.uk</a> for full details</div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <div class="chart-tooltip">&nbsp;</div>
-<script src="https://d3js.org/d3.v5.min.js"></script><script src="https://d3js.org/d3-array.v2.min.js"></script><script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-  integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script><script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
-  integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script><script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
-  integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script><script>
+<script src="https://d3js.org/d3.v5.min.js"></script>
+<script src="https://d3js.org/d3-array.v2.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+  integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+  integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+  integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+<script>
   var params = new URLSearchParams(window.location.search.substring(1));
   function loadData() {
     $(".custom-select").each(function (index) {
@@ -522,38 +566,39 @@ body {
   function printPDF() {
     let chartRow = document.querySelector('.my-embedded-content');
     if (!chartRow) {
-        console.error("Element '.row.chart-row' not found.");
-        return;
+      console.error("Element '.row.chart-row' not found.");
+      return;
     }
 
     html2canvas(chartRow, { useCORS: true }).then(canvas => {
-        try {
-            let pdf = new jsPDF('l', 'mm', 'a4'); // landscape orientation
-            let imgData = canvas.toDataURL('image/png');
+      try {
+        let pdf = new jsPDF('l', 'mm', 'a4'); // landscape orientation
+        let imgData = canvas.toDataURL('image/png');
 
-            // Adjust the dimensions for landscape
-            let pdfWidth = 297; // A4 width in mm
-            let pdfHeight = 210; // A4 height in mm
-            let imgWidth = canvas.width;
-            let imgHeight = canvas.height;
-            let ratio = Math.min(pdfWidth / imgWidth, pdfHeight / imgHeight);
+        // Adjust the dimensions for landscape
+        let pdfWidth = 297; // A4 width in mm
+        let pdfHeight = 210; // A4 height in mm
+        let imgWidth = canvas.width;
+        let imgHeight = canvas.height;
+        let ratio = Math.min(pdfWidth / imgWidth, pdfHeight / imgHeight);
 
-            let newWidth = imgWidth * ratio;
-            let newHeight = imgHeight * ratio;
-            let xOffset = (pdfWidth - newWidth) / 2;
-            let yOffset = (pdfHeight - newHeight) / 2;
+        let newWidth = imgWidth * ratio;
+        let newHeight = imgHeight * ratio;
+        let xOffset = (pdfWidth - newWidth) / 2;
+        let yOffset = (pdfHeight - newHeight) / 2;
 
-            pdf.addImage(imgData, 'PNG', xOffset, yOffset, newWidth, newHeight);
-            pdf.save('download.pdf');
-        } catch (e) {
-            console.error("Error generating PDF: ", e);
-        }
+        pdf.addImage(imgData, 'PNG', xOffset, yOffset, newWidth, newHeight);
+        pdf.save('download.pdf');
+      } catch (e) {
+        console.error("Error generating PDF: ", e);
+      }
     }).catch(error => {
-        console.error("Error in html2canvas: ", error);
+      console.error("Error in html2canvas: ", error);
     });
-}
+  }
 
-</script><script>
+</script>
+<script>
   (function () {
     const SERVICES_URL = "https://raw.githubusercontent.com/illustrating-impact-dev/repo-lhf-atlas/main/services_multirow.json";
     const PROVIDERS_URL = "https://raw.githubusercontent.com/illustrating-impact-dev/repo-lhf-atlas/main/services_singlerow.json";
@@ -566,6 +611,7 @@ body {
       groupBy: "borough",
       sizeBy: "service",
       highlightBy: "london",
+      includeYP: "yes",
     };
 
     const touchable = isTouchDevice();
@@ -607,7 +653,7 @@ body {
       },
     };
 
-   
+
 
     const colorByServiceType = d3.scaleOrdinal();
     const serviceTypeByRecordTypeId = d3.scaleOrdinal().unknown("Unknown");
@@ -652,96 +698,97 @@ body {
     }
 
     Promise.all([
-    d3.json(SERVICES_URL),
-    d3.json(PROVIDERS_URL),
-    d3.json(TOTALS_URL),
-    d3.json(COLORS_URL_G)
-])
-.then(([servicesData, providersData, totalsData, colorsData]) => {
-    // Transform servicesData
-    let services = servicesData.map(d => ({
-        "LHF Atlas Service Level Name": d["service"],
-        "Provider": d["Provider"],
-        "Provider1or2": d["Provider"],
-        "Record Type ID": d["Id"],
-        "ServiceText1": d["service_text_1"],
-        "ServiceText2": d["service_text_2"],
-        "ServiceText3": d["service_text_3"],
-        "Total Bed Spaces": +d["beds"],
-        "Women's service": d["women"],
-        "Website": d["URL_link"],
-        "Young people's service": d["yp"],
-        "Shelter": +d["shelter"],
-        "geo_code": d["GSS_Code_list__c"],
-        "la_name": d["la_name"],
-        "serviceType": d['service_type']
-    }));
+      d3.json(SERVICES_URL),
+      d3.json(PROVIDERS_URL),
+      d3.json(TOTALS_URL),
+      d3.json(COLORS_URL_G)
+    ])
+      .then(([servicesData, providersData, totalsData, colorsData]) => {
+        // Transform servicesData
+        let services = servicesData.map(d => ({
+          "LHF Atlas Service Level Name": d["service"],
+          "Provider": d["Provider"],
+          "Provider1or2": d["Provider"],
+          "Record Type ID": d["Id"],
+          "ServiceText1": d["service_text_1"],
+          "ServiceText2": d["service_text_2"],
+          "ServiceText3": d["service_text_3"],
+          "Total Bed Spaces": +d["beds"],
+          "Women's service": d["women"],
+          "Website": d["URL_link"],
+          "Young people's service": d["yp"],
+          "Shelter": +d["shelter"],
+          "geo_code": d["GSS_Code_list__c"],
+          "la_name": d["la_name"],
+          "serviceType": d['service_type']
+        }));
 
-    // Transform providersData
-    let providers = providersData.map(d => ({
-        "LHF Atlas Service Level Name": d["service_name"],
-        "Provider": d["service_provider"],
-        "Provider1or2": d["service_provider"],
-        "Record Type ID": d["record_type_id"],
-        "ServiceText1": d["service_text_1"],
-        "ServiceText2": d["service_text_2"],
-        "ServiceText3": d["service_text_3"],
-        "Total Bed Spaces": +d["beds"],
-        "Website": d["URL_link"],
-        "Women's service": d["women"],
-        "Young people's service": d["yp"],
-        "geo_code": d["service_borough"],
-        "housing_subregion": d["housing_subregion"],
-        "id": d["id"],
-        "la_name": d["la_name"],
-        "serviceType": d["service_type"]
-    }));
+        // Transform providersData
+        let providers = providersData.map(d => ({
+          "LHF Atlas Service Level Name": d["service_name"],
+          "Provider": d["service_provider"],
+          "Provider1or2": d["service_provider"],
+          "Record Type ID": d["record_type_id"],
+          "ServiceText1": d["service_text_1"],
+          "ServiceText2": d["service_text_2"],
+          "ServiceText3": d["service_text_3"],
+          "Total Bed Spaces": +d["beds"],
+          "Website": d["URL_link"],
+          "Women's service": d["women"],
+          "Young people's service": d["yp"],
+          "geo_code": d["service_borough"],
+          "housing_subregion": d["housing_subregion"],
+          "id": d["id"],
+          "la_name": d["la_name"],
+          "serviceType": d["service_type"]
+        }));
 
-    // Use totalsData and colorsData as is
-    let totals = totalsData;
-    let colors = colorsData.filter(d => d.note && isNaN(d.note));
+        // Use totalsData and colorsData as is
+        let totals = totalsData;
+        let colors = colorsData.filter(d => d.note && isNaN(d.note));
 
-    // Continue with your existing logic
-    alert.hide();
-    providers = providers.filter(d => d.Provider);
-    data = processData(services, providers, totals, colors);
-    console.log(services, providers, totals, colors);
-    setupGroupBySelectControl();
-    setupSizeBySelectControl();
-    setupHighlightBySelectControl();
-    renderHeader();
-    renderSummary();
-    renderChart();
-    dispatch.call("update");
-})
-.catch((err) => {
-    console.error(err);
-    alert.show();
-});
+        // Continue with your existing logic
+        alert.hide();
+        providers = providers.filter(d => d.Provider);
+        data = processData(services, providers, totals, colors);
+        console.log(services, providers, totals, colors);
+        setupGroupBySelectControl();
+        setupSizeBySelectControl();
+        setupHighlightBySelectControl();
+        setupIncludeYPSelectControl();
+        renderHeader();
+        renderSummary();
+        renderChart();
+        dispatch.call("update");
+      })
+      .catch((err) => {
+        console.error(err);
+        alert.show();
+      });
 
-function renderSummary() {
-  const container = d3
-    .select("#infographic-summary")
-    .classed("infographic-summary", true);
+    function renderSummary() {
+      const container = d3
+        .select("#infographic-summary")
+        .classed("infographic-summary", true);
 
-  dispatch.on("update.summary", () => {
-    let highlightBy;
-    switch (selected.highlightBy) {
-      case "london":
-        highlightBy = "all London";
-        break;
-      case "women":
-        highlightBy = "women's services";
-        break;
-      case "young":
-        highlightBy = "young People's services";
-        break;
-      default:
-        break;
-    }
-    const d = data.totals[selected.highlightBy];
-    /* html */
-    container.html(`
+      dispatch.on("update.summary", () => {
+        let highlightBy;
+        switch (selected.highlightBy) {
+          case "london":
+            highlightBy = "all London";
+            break;
+          case "women":
+            highlightBy = "women's services";
+            break;
+          case "young":
+            highlightBy = "young People's services";
+            break;
+          default:
+            break;
+        }
+        const d = data.totals[selected.highlightBy];
+        /* html */
+        container.html(`
       <div class="summary-title">Summary of services for ${highlightBy}</div>
       <div class="summary-row">
         <div class="color-square" style='background-color: ${colorByServiceType("Day_Centre")}'></div>
@@ -766,7 +813,7 @@ function renderSummary() {
      
       <div class="summary-row">
         <div class="color-square" style='background-color: ${colorByServiceType("Accommodation")}'></div>
-        <div><span style='color: ${colorByServiceType("Accommodation")}'>${formatCount(d.accomspaces)}</span> beds in <span style='color: ${colorByServiceType("Accommodation")}'>${formatCount(d.accomservices)}</span> rough sleeping accommodation services</div>
+        <div><span style='color: ${colorByServiceType("Accommodation")}'>${formatCount(d.accomspaces)}</span> beds in <span style='color: ${colorByServiceType("Accommodation")}'>${formatCount(d.accomservices)}</span> rough sleeping/single homeless accommodation services</div>
       </div>
       <div class="summary-row">
         <div class="color-square" style='background-color: ${d3.color(colorByServiceType("Accommodation")).darker(0.7)}'></div>
@@ -777,8 +824,8 @@ function renderSummary() {
         <div><span style='color: ${colorByServiceType("Outreach")}'>Outreach</span> ${d.outreach}</div>
       </div>
     `);
-  });
-}
+      });
+    }
 
     // Chart
     function renderChart() {
@@ -862,13 +909,54 @@ function renderSummary() {
 
         const transition = d3.transition().duration(TRANSITION_DURATION);
 
+        // Get the raw data
         let rowsData = data.services[selected.groupBy][selected.sizeBy];
+
+        // Filter the items within each row based on YP selection
+        rowsData = rowsData.map(row => ({
+          ...row,
+          items: row.items.filter(d => selected.includeYP === "yes" || !d["Young people's service"]),
+          total: {
+            service: row.items.filter(d => selected.includeYP === "yes" || !d["Young people's service"]).length,
+            bed: d3.sum(row.items.filter(d => selected.includeYP === "yes" || !d["Young people's service"]), accessor.services.beds)
+          }
+        }));
+
+        // Filter out empty rows
+        rowsData = rowsData.filter(row => row.items.length > 0);
+
+        // Re-sort the data based on the current view
+        if (selected.groupBy === "borough") {
+          // Sort boroughs (excluding Pan-London which we'll add back at the end)
+          const panLondonRow = rowsData.find(d => d.key === "Pan-London");
+          const nonPanLondonRows = rowsData.filter(d => d.key !== "Pan-London");
+
+          nonPanLondonRows.sort((a, b) => {
+            if (selected.sizeBy === "service") {
+              return d3.descending(a.total.service, b.total.service) || d3.ascending(a.key, b.key);
+            } else {
+              return d3.descending(a.total.bed, b.total.bed) || d3.ascending(a.key, b.key);
+            }
+          });
+
+          // Reconstruct with Pan-London at the end if it exists
+          rowsData = panLondonRow ? [...nonPanLondonRows, panLondonRow] : nonPanLondonRows;
+        } else {
+          // Sort providers
+          rowsData.sort((a, b) => {
+            if (selected.sizeBy === "service") {
+              return d3.descending(a.total.service, b.total.service);
+            } else {
+              return d3.descending(a.total.bed, b.total.bed);
+            }
+          });
+        }
+
         let panLondonServiceData;
         if (selected.groupBy === "borough") {
           panLondonServiceData = rowsData[rowsData.length - 1];
           rowsData = rowsData.slice(0, -1);
         }
-
 
         x.domain([0, d3.max(rowsData, (d) => d.total[selected.sizeBy])]);
 
@@ -930,7 +1018,7 @@ function renderSummary() {
               .on("mouseleave", left)
               .on("mousemove", moved)
               .on("click", (d) => clicked(d)) // Add this line
-              
+
           )
           .transition(transition)
           .attr("width", (d) => x(d.stack[1]) - x(d.stack[0]))
@@ -942,53 +1030,119 @@ function renderSummary() {
           const svg = panLondonContainer.select(".pan-london-svg");
           const width = +svg.attr("width") - margin.left - margin.right;
           const height = +svg.attr("height") - margin.top - margin.bottom;
-          let root;
-          const items = panLondonServiceData.items.map((d) =>
-            Object.assign({}, d)
-          );
+
+          // Clear existing elements when switching between views to avoid data structure conflicts
+          svg.select("g").selectAll(".block").remove();
+
           if (selected.sizeBy === "service") {
-            root = {
-              children: d3
-                .groups(items, accessor.services.serviceType)
-                .map(([name, children]) => ({ name, children })),
-            };
+            // Grid layout for equal-sized services
+            const items = panLondonServiceData.items
+              .filter(d => selected.includeYP === "yes" || !d["Young people's service"])
+              .map((d) => Object.assign({}, d));
+
+            // Sort items by service type to group colors together
+            const serviceTypes = [
+              "Clearing_House",
+              "Nightshelter_Wintershelter",
+              "Housing_First",
+              "Outreach",
+              "Assessment_Centre",
+              "Day_Centre",
+              "Accommodation",
+            ];
+
+            items.sort((a, b) => {
+              // First sort by service type
+              const aTypeIndex = serviceTypes.indexOf(accessor.services.serviceType(a));
+              const bTypeIndex = serviceTypes.indexOf(accessor.services.serviceType(b));
+
+              if (aTypeIndex !== bTypeIndex) {
+                return aTypeIndex - bTypeIndex;
+              }
+
+              // Within same service type, put young people's accommodation first
+              if (accessor.services.serviceType(a) === "Accommodation" &&
+                accessor.services.serviceType(b) === "Accommodation") {
+                return d3.descending(a["Young people's service"], b["Young people's service"]);
+              }
+
+              return 0;
+            });
+
+            const count = items.length;
+            const cols = Math.ceil(Math.sqrt(count));
+            const rows = Math.ceil(count / cols);
+            const cellSize = Math.min(width / cols, height / rows);
+
+            svg
+              .select("g")
+              .selectAll(".block")
+              .data(items)  // Remove key function
+              .join((enter) =>
+                enter
+                  .append("rect")
+                  .attr("class", "block")
+                  .attr("fill", blockColor)
+                  .attr("x", (d, i) => (i % cols) * cellSize)
+                  .attr("y", (d, i) => Math.floor(i / cols) * cellSize)
+                  .attr("width", cellSize - 1)
+                  .attr("height", cellSize - 1)
+                  .on("mouseenter", function (d) {
+                    entered.call(this, d);
+                  })
+                  .on("mouseleave", left)
+                  .on("mousemove", moved)
+                  .on("click", clicked)
+              )
+              .transition(transition)
+              .attr("x", (d, i) => (i % cols) * cellSize)
+              .attr("y", (d, i) => Math.floor(i / cols) * cellSize)
+              .attr("width", cellSize - 1)
+              .attr("height", cellSize - 1)
+              .attr("fill", blockColor);
           } else {
-            root = {
+            // Keep existing treemap logic for bed-sized view
+            const items = panLondonServiceData.items
+              .filter(d => selected.includeYP === "yes" || !d["Young people's service"])
+              .map((d) => Object.assign({}, d));
+
+            let root = {
               children: items,
             };
-          }
-          root = d3
-            .hierarchy(root)
-            .sum((d) =>
-              selected.sizeBy === "service" ? 1 : accessor.services.beds(d)
-            )
-            .sort((a, b) => b.value - a.value);
-          d3.treemap().size([width, height]).round(true).tile(d3.treemapBinary)(
-            root
-          );
+            root = d3
+              .hierarchy(root)
+              .sum((d) => accessor.services.beds(d))
+              .sort((a, b) => b.value - a.value);
 
-          svg
-            .select("g")
-            .selectAll(".block")
-            .data(root.leaves(), (d) => accessor.services.id(d.data))
-            .join((enter) =>
-              enter
-                .append("rect")
-                .attr("class", "block")
-                .attr("fill", (d) => blockColor(d.data))
-                .on("mouseenter", function (d) {
-                  entered.call(this, d.data);
-                })
-                .on("mouseleave", (d) => left(d.data))
-                .on("mousemove", (d) => moved(d.data))
-                .on("click", (d) => clicked(d.data))
-            )
-            .transition(transition)
-            .attr("x", (d) => d.x0)
-            .attr("y", (d) => d.y0)
-            .attr("width", (d) => d.x1 - d.x0)
-            .attr("height", (d) => d.y1 - d.y0)
-            .attr("fill", (d) => blockColor(d.data));
+            d3.treemap().size([width, height]).round(true).tile(d3.treemapBinary)(root);
+
+            svg
+              .select("g")
+              .selectAll(".block")
+              .data(root.leaves())  // Remove key function
+              .join((enter) =>
+                enter
+                  .append("rect")
+                  .attr("class", "block")
+                  .attr("fill", (d) => blockColor(d.data))
+                  .attr("x", (d) => d.x0)
+                  .attr("y", (d) => d.y0)
+                  .attr("width", (d) => d.x1 - d.x0)
+                  .attr("height", (d) => d.y1 - d.y0)
+                  .on("mouseenter", function (d) {
+                    entered.call(this, d.data);
+                  })
+                  .on("mouseleave", (d) => left(d.data))
+                  .on("mousemove", (d) => moved(d.data))
+                  .on("click", (d) => clicked(d.data))
+              )
+              .transition(transition)
+              .attr("x", (d) => d.x0)
+              .attr("y", (d) => d.y0)
+              .attr("width", (d) => d.x1 - d.x0)
+              .attr("height", (d) => d.y1 - d.y0)
+              .attr("fill", (d) => blockColor(d.data));
+          }
         } else {
           panLondonContainer.classed("d-none", true);
         }
@@ -1009,9 +1163,9 @@ function renderSummary() {
 
       function clicked(d) {
         console.log(accessor.services.website(d))
-    if (accessor.services.website(d) === "") return;
-    window.open(accessor.services.website(d), "_blank");
-}
+        if (accessor.services.website(d) === "") return;
+        window.open(accessor.services.website(d), "_blank");
+      }
 
 
       function resize() {
@@ -1024,29 +1178,29 @@ function renderSummary() {
       }
 
       function blockColor(d) {
-    let highlightResult = accessor.services.highlight[selected.highlightBy](d);
-   
-    if (highlightResult) {
-        if (selected.sizeBy === "service") {
+        let highlightResult = accessor.services.highlight[selected.highlightBy](d);
+
+        if (highlightResult) {
+          if (selected.sizeBy === "service") {
             let color = colorByServiceType(accessor.services.serviceType(d));
             // Special case for young people's accommodation
-            if (accessor.services.serviceType(d) === "Accommodation" && 
-                d["Young people's service"]) {  // Direct property access
-                return d3.color(color).darker(0.7);
-            }        
+            if (accessor.services.serviceType(d) === "Accommodation" &&
+              d["Young people's service"]) {  // Direct property access
+              return d3.color(color).darker(0.7);
+            }
             return color;
-        } else {
+          } else {
             let color = colorByServiceType("Accommodation");
             // Special case for young people's accommodation in bed view
             if (d["Young people's service"]) {  // Direct property access
-                return d3.color(color).darker(0.7);
+              return d3.color(color).darker(0.7);
             }
             return color;
+          }
+        } else {
+          return "#D3D3D3";
         }
-    } else {
-        return "#D3D3D3";
-    }
-}
+      }
 
       const serviceTypes = [
         "Clearing_House",
@@ -1059,58 +1213,58 @@ function renderSummary() {
       ];
 
       function stack(items) {
-    let stacked = items.map((d) => Object.assign({}, d));
-    let acc = 0;
-    switch (selected.sizeBy) {
-        case "service":
+        let stacked = items.map((d) => Object.assign({}, d));
+        let acc = 0;
+        switch (selected.sizeBy) {
+          case "service":
             stacked.sort((a, b) => {
-                // First sort by highlight status
-                let highlightDiff = d3.descending(
-                    accessor.services.highlight[selected.highlightBy](a),
-                    accessor.services.highlight[selected.highlightBy](b)
-                );
-                if (highlightDiff !== 0) return highlightDiff;
-                
-                // Then sort by service type with special handling for young people's accommodation
-                let aType = accessor.services.serviceType(a);
-                let bType = accessor.services.serviceType(b);
-                
-                // If both are accommodation, put young people's services first
-                if (aType === "Accommodation" && bType === "Accommodation") {
-                    return d3.descending(a["Young people's service"], b["Young people's service"]);
-                }
-                
-                // Otherwise use the standard service type ordering
-                return d3.ascending(
-                    serviceTypes.indexOf(aType),
-                    serviceTypes.indexOf(bType)
-                );
+              // First sort by highlight status
+              let highlightDiff = d3.descending(
+                accessor.services.highlight[selected.highlightBy](a),
+                accessor.services.highlight[selected.highlightBy](b)
+              );
+              if (highlightDiff !== 0) return highlightDiff;
+
+              // Then sort by service type with special handling for young people's accommodation
+              let aType = accessor.services.serviceType(a);
+              let bType = accessor.services.serviceType(b);
+
+              // If both are accommodation, put young people's services first
+              if (aType === "Accommodation" && bType === "Accommodation") {
+                return d3.descending(a["Young people's service"], b["Young people's service"]);
+              }
+
+              // Otherwise use the standard service type ordering
+              return d3.ascending(
+                serviceTypes.indexOf(aType),
+                serviceTypes.indexOf(bType)
+              );
             });
             stacked.forEach((d) => (d.stack = [acc, ++acc]));
             break;
-            
-        case "bed":
+
+          case "bed":
             stacked.sort((a, b) => {
-                // First sort by highlight status
-                let highlightDiff = d3.descending(
-                    accessor.services.highlight[selected.highlightBy](a),
-                    accessor.services.highlight[selected.highlightBy](b)
-                );
-                if (highlightDiff !== 0) return highlightDiff;
-                
-                // For bed view, sort young people's accommodation first within same bed count
-                if (accessor.services.beds(a) === accessor.services.beds(b)) {
-                    return d3.descending(a["Young people's service"], b["Young people's service"]);
-                }
-                
-                // Otherwise sort by bed count
-                return d3.descending(accessor.services.beds(a), accessor.services.beds(b));
+              // First sort by highlight status
+              let highlightDiff = d3.descending(
+                accessor.services.highlight[selected.highlightBy](a),
+                accessor.services.highlight[selected.highlightBy](b)
+              );
+              if (highlightDiff !== 0) return highlightDiff;
+
+              // For bed view, sort young people's accommodation first within same bed count
+              if (accessor.services.beds(a) === accessor.services.beds(b)) {
+                return d3.descending(a["Young people's service"], b["Young people's service"]);
+              }
+
+              // Otherwise sort by bed count
+              return d3.descending(accessor.services.beds(a), accessor.services.beds(b));
             });
             stacked.forEach((d) => (d.stack = [acc, (acc += accessor.services.beds(d))]));
             break;
-    }
-    return stacked;
-}
+        }
+        return stacked;
+      }
     }
 
     // Controls
@@ -1131,6 +1285,13 @@ function renderSummary() {
     function setupHighlightBySelectControl() {
       d3.select("#highlight-by-select").on("change", function () {
         selected.highlightBy = this.value;
+        dispatch.call("update");
+      });
+    }
+
+    function setupIncludeYPSelectControl() {
+      d3.select("#include-yp-select").on("change", function () {
+        selected.includeYP = this.value;
         dispatch.call("update");
       });
     }
@@ -1217,11 +1378,12 @@ function renderSummary() {
       });
 
       const servicesByBoroughSortedByService = (() => {
-          servicesByBorough = d3.groups(
-              // Filter services based on the values in validServiceTypes
-              services.filter(d => validServiceTypes.includes(d.serviceType)),
-              accessor.services.borough
-          )
+        servicesByBorough = d3.groups(
+          // Filter services based on the values in validServiceTypes
+          services.filter(d => validServiceTypes.includes(d.serviceType))
+            .filter(d => selected.includeYP === "yes" || !d["Young people's service"]),  // Add this line
+          accessor.services.borough
+        )
           .map(([key, value]) => ({
             key,
             total: {
@@ -1251,7 +1413,8 @@ function renderSummary() {
           .groups(
             services.filter(
               (d) => accessor.services.serviceType(d) === "Accommodation"
-            ),
+            )
+              .filter(d => selected.includeYP === "yes" || !d["Young people's service"]),  // Add this line
             accessor.services.borough
           )
           .map(([key, value]) => ({
@@ -1280,36 +1443,37 @@ function renderSummary() {
 
       const servicesByProviderSortedByService = (() => {
         d3.group(
-        providers.filter(
+          providers.filter(
             d => validServiceTypes.includes(accessor.services.serviceType(d))
-        ),
-        accessor.services.providerName
+          )
+            .filter(d => selected.includeYP === "yes" || !d["Young people's service"]),  // Add this line
+          accessor.services.providerName
         ).forEach((value, key) => {
-        if (value.length === 1) {
+          if (value.length === 1) {
             // For providers with exactly 1 service
             value.forEach(
               (d) => (d.providerGroupService = "PROVIDERS WITH 1 SERVICE")
             );
-        } else if (value.length === 2) {
+          } else if (value.length === 2) {
             // For providers with exactly 2 services
             value.forEach(
               (d) => (d.providerGroupService = "PROVIDERS WITH 2 SERVICES")
             );
-        } else {
+          } else {
             // For providers with more than 2 services, handle as needed
             value.forEach(
               (d) => (d.providerGroupService = accessor.services.providerName(d))
             );
-        }
-    });
+          }
+        });
 
-        
+
         const servicesByProvider = d3.groups(
-    providers.filter(
-        d => validServiceTypes.includes(accessor.services.serviceType(d))
-    ),
-    accessor.services.providerGroup.service
-          )
+          providers.filter(
+            d => validServiceTypes.includes(accessor.services.serviceType(d))
+          ),
+          accessor.services.providerGroup.service
+        )
           .map(([key, value]) => ({
             key,
             total: {
@@ -1324,29 +1488,30 @@ function renderSummary() {
       })();
 
       const servicesByProviderSortedByBed = (() => {
-    d3.group(
-        providers.filter(
+        d3.group(
+          providers.filter(
             (d) => accessor.services.recordTypeId(d) === "012A00000012r8gIAA"
-        ),
-        accessor.services.providerName
-    ).forEach((value, key) => {
-        if (value.length === 1) {
+          )
+            .filter(d => selected.includeYP === "yes" || !d["Young people's service"]),  // Add this line
+          accessor.services.providerName
+        ).forEach((value, key) => {
+          if (value.length === 1) {
             // For providers with exactly 1 service
             value.forEach(
               (d) => (d.providerGroupBed = "PROVIDERS WITH 1 SERVICE")
             );
-        } else if (value.length === 2) {
+          } else if (value.length === 2) {
             // For providers with exactly 2 services
             value.forEach(
               (d) => (d.providerGroupBed = "PROVIDERS WITH 2 SERVICES")
             );
-        } else {
+          } else {
             // For providers with more than 2 services, handle as needed
             value.forEach(
               (d) => (d.providerGroupBed = accessor.services.providerName(d))
             );
-        }
-    });
+          }
+        });
 
         const servicesByProvider = d3
           .groups(
@@ -1451,25 +1616,25 @@ function renderSummary() {
     }
 
     function blockTooltipContent(d, color) {
-    const texts = accessor.services.text(d);
-    const capacity = texts[0];
-    return `
+      const texts = accessor.services.text(d);
+      const capacity = texts[0];
+      return `
         <p class="service-name">${accessor.services.serviceName(d)}</p>
         <p>${accessor.services
-            .serviceType(d)
-            .replace("_", " ")} - Provided in <span>${accessor.services.borough(
-              d
-            )}</span> by <span>${accessor.services.providerName(d)}</span></p>
+          .serviceType(d)
+          .replace("_", " ")} - Provided in <span>${accessor.services.borough(
+            d
+          )}</span> by <span>${accessor.services.providerName(d)}</span></p>
         ${texts
-            .filter((e) => e)
-            .map(
-                (e) =>
-                `<p ${e == capacity ? `class="service-capacity"` : ""}>${e}</p>`
-            )
-            .join("")}
+          .filter((e) => e)
+          .map(
+            (e) =>
+              `<p ${e == capacity ? `class="service-capacity"` : ""}>${e}</p>`
+          )
+          .join("")}
         <p><em>Click dot to view service website</em></p>
     `;
-}
+    }
 
     // Alert
     function setupAlert() {
@@ -1506,7 +1671,8 @@ function renderSummary() {
   })();
 
 
-</script><script>
+</script>
+<script>
   (function () {
     const CSV_LINKS_URL = "https://www.illustrate.studio/sites/default/files/json/csv_links_20220908.json";
 

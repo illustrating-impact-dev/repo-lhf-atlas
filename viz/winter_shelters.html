@@ -345,7 +345,7 @@
                         <div class="chart-title-main">Night/Winter Shelters 2024/25</div>
                         <div class="chart-title-sub"></div>
                         <div class="chart-intro">Source: Housing Justice. Hover over a borough on the map for services,
-                            click to bring up extra
+                            click an area or use the borough dropdown to bring up extra
                             detail.</div>
                     </div>
                 </div>
@@ -865,13 +865,17 @@
 
             function entered(d) {
                 const services = getBoroughServices(d);
-                if (services.length === 0) return;
                 selected.borough = accessor.geo.id(d);
                 selected.service = null;
                 dispatch.call("updatebottom");
-                tooltip.show(boroughTooltipContent(d, services), color(services.length));
-            }
 
+                // Show tooltip for all boroughs, even those without services
+                if (services.length === 0) {
+                    tooltip.show(`<p class="borough-name">${accessor.geo.name(d)}</p>`, '#6c757d');
+                } else {
+                    tooltip.show(boroughTooltipContent(d, services), color(services.length));
+                }
+            }
             function left() {
                 if (selected.borough) {
                     selected.borough = null;
@@ -940,7 +944,7 @@
                 if (filteredServices.length > 0) {
                     laName.text(boroughName);
                 } else {
-                    laName.text("Select a borough with at least one service"); // Fallback text if there are no services
+                    laName.text("Please select a borough with at least one service"); // Fallback text if there are no services
                 }
                 const totalShelterSpaces = filteredServices.reduce((acc, curr) => {
                     // Assuming d.shelter is a number. If it's a string, you might need to use parseInt(curr.shelter, 10) or parseFloat(curr.shelter) depending on the format
@@ -1054,6 +1058,12 @@
         // Process data
         function processData(servicesTypes, london, colors) {
             servicesTypes.forEach((d, i) => (d.id = i));
+            servicesTypes.forEach(service => {
+                if (service.service_name === "The Outside Project Trans Shelter") {
+                    service.service_borough = "E09000019"; // Override to Islington only
+                    service.service_name = "The Outside Project Trans Shelter (Pan-London)"; // Add Pan-London to name
+                }
+            });
             const servicesById = d3.group(servicesTypes, accessor.services.id);
 
             const servicesByServiceType = d3.group(
