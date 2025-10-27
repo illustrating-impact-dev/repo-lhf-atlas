@@ -3,10 +3,12 @@
 <title></title>
 <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
     integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
 <script src="https://unpkg.com/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js"></script>
 <style type="text/css">
     body {
+        font-family: 'Open Sans', sans-serif;
         font-size: 0.875rem;
     }
 
@@ -25,6 +27,12 @@
         height: 45px;
         margin-top: 4px;
         margin-right: 8px;
+    }
+
+    @media (max-width: 768px) {
+        .chart-header-icon {
+            display: none;
+        }
     }
 
     .chart-title-main {
@@ -120,13 +128,39 @@
         top: 0;
         left: 0;
         pointer-events: none;
-        background-color: rgba(255, 255, 255, 0.9);
+        background-color: rgb(255, 255, 255);
         border: 1px solid rgba(0, 0, 0, 0.125);
         border-radius: 0.25rem;
         padding: 0.75rem 1.25rem;
         max-width: 100vw;
         opacity: 0;
         transition: opacity 0.15s linear;
+    }
+
+    @media (max-width: 768px) {
+        .chart-tooltip {
+            pointer-events: auto;
+        }
+    }
+
+    .tooltip-close {
+        position: absolute;
+        top: 5px;
+        right: 10px;
+        background: none;
+        border: none;
+        font-size: 24px;
+        line-height: 1;
+        cursor: pointer;
+        padding: 0;
+        color: #000;
+    }
+
+    .tooltip-link {
+        color: #00aaff;
+        cursor: pointer;
+        margin-top: 0.5rem;
+        text-decoration: underline;
     }
 
     .chart-tooltip p {
@@ -344,9 +378,7 @@
                     <div class="chart-title">
                         <div class="chart-title-main">Night/Winter Shelters 2024/25</div>
                         <div class="chart-title-sub"></div>
-                        <div class="chart-intro">Source: Housing Justice. Hover over a borough on the map for services,
-                            click an area or use the borough dropdown to bring up extra
-                            detail.</div>
+                        <div class="chart-intro">Source: Housing Justice. Select a borough on the map or use the dropdown to view services and details.</div>
                     </div>
                 </div>
 
@@ -763,12 +795,26 @@
                         .attr("fill", "#fff")
                         .attr("data-gss-code", d => accessor.geo.id(d))
                         .classed("highlighted", (d) => accessor.geo.id(d) === highlightedGSS)
-                        .on("mouseenter", entered)
-                        .on("mouseleave", left)
-                        .on("mousemove", moved)
+                        .on("mouseenter", function(d) {
+                            const isMobile = window.innerWidth <= 768;
+                            if (!isMobile) entered.call(this, d);
+                        })
+                        .on("mouseleave", function(d) {
+                            const isMobile = window.innerWidth <= 768;
+                            if (!isMobile) left.call(this, d);
+                        })
+                        .on("mousemove", function(d) {
+                            const isMobile = window.innerWidth <= 768;
+                            if (!isMobile) moved.call(this, d);
+                        })
                         .on("click", function (d) {
-                            const clickedGSSCode = accessor.geo.id(d);
-                            updateHighlightedBorough(clickedGSSCode);
+                            const isMobile = window.innerWidth <= 768;
+                            if (isMobile) {
+                                entered.call(this, d);
+                            } else {
+                                const clickedGSSCode = accessor.geo.id(d);
+                                updateHighlightedBorough(clickedGSSCode);
+                            }
                         })
                 );
 
@@ -999,15 +1045,29 @@
                         // Rest of your existing code for the row...
                         tr.style("cursor", d => d.URL_link && d.URL_link !== "None" ? "pointer" : "default");
 
-                        tr.on("mouseenter", entered)
-                            .on("mouseleave", left)
-                            .on("mousemove", moved)
+                        tr.on("mouseenter", function(d) {
+                                const isMobile = window.innerWidth <= 768;
+                                if (!isMobile) entered.call(this, d);
+                            })
+                            .on("mouseleave", function(d) {
+                                const isMobile = window.innerWidth <= 768;
+                                if (!isMobile) left.call(this, d);
+                            })
+                            .on("mousemove", function(d) {
+                                const isMobile = window.innerWidth <= 768;
+                                if (!isMobile) moved.call(this, d);
+                            })
                             .on("click", function (d) {
-                                if (d.URL_link && d.URL_link !== "None") {
-                                    const url = d.URL_link.startsWith('http')
-                                        ? d.URL_link
-                                        : `https://${d.URL_link}`;
-                                    window.open(url, "_blank");
+                                const isMobile = window.innerWidth <= 768;
+                                if (isMobile) {
+                                    entered.call(this, d);
+                                } else {
+                                    if (d.URL_link && d.URL_link !== "None") {
+                                        const url = d.URL_link.startsWith('http')
+                                            ? d.URL_link
+                                            : `https://${d.URL_link}`;
+                                        window.open(url, "_blank");
+                                    }
                                 }
                             });
 
@@ -1038,7 +1098,10 @@
                 selected.service = accessor.services.id(d);
                 selected.borough = null;
                 dispatch.call("updatebottom");
-                tooltip.show(serviceTooltipContent(d), "#4e79a8");
+                const websiteUrl = d.URL_link && d.URL_link !== "None"
+                    ? (d.URL_link.startsWith('http') ? d.URL_link : `https://${d.URL_link}`)
+                    : null;
+                tooltip.show(serviceTooltipContent(d), "#4e79a8", websiteUrl);
 
             }
 
@@ -1114,8 +1177,21 @@
             let width, height;
             const padding = 8;
 
-            function show(content, color) {
-                tooltip.style("border-color", color).html(content);
+            function show(content, color, websiteUrl) {
+                const isMobile = window.innerWidth <= 768;
+
+                if (isMobile) {
+                    const closeBtn = '<button class="tooltip-close" data-close-tooltip>&times;</button>';
+                    const link = websiteUrl && websiteUrl !== "" && websiteUrl !== "None" ? `<div class="tooltip-link" onclick="window.open('${websiteUrl}', '_blank')">Visit website</div>` : '';
+                    tooltip.style("border-color", color).html(closeBtn + content + link);
+
+                    tooltip.select('.tooltip-close').on('click', function() {
+                        hide();
+                    });
+                } else {
+                    tooltip.style("border-color", color).html(content);
+                }
+
                 const bcr = tooltip.node().getBoundingClientRect();
                 width = bcr.width;
                 height = bcr.height;

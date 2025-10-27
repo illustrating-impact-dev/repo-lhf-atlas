@@ -3,6 +3,7 @@
 <title></title>
 <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
   integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
 <script src="https://unpkg.com/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js"></script>
 <style type="text/css">
@@ -10,6 +11,7 @@
   /* Base styles */
   /* Base styles */
   body {
+    font-family: 'Open Sans', sans-serif;
     font-size: 0.875rem;
   }
 
@@ -29,6 +31,16 @@
     height: 36px;
     margin-top: 4px;
     margin-right: 8px;
+  }
+
+  @media (max-width: 768px) {
+    .chart-header-icon {
+      display: none;
+    }
+
+    .chart-header {
+      align-items: flex-start;
+    }
   }
 
   .chart-title-main {
@@ -52,6 +64,12 @@
   #buttons {
     display: flex;
     justify-content: flex-end;
+  }
+
+  @media (max-width: 768px) {
+    #buttons {
+      display: none !important;
+    }
   }
 
   .btn__svg {
@@ -131,6 +149,49 @@
     transition: opacity 0.15s linear;
   }
 
+  @media (max-width: 768px) {
+    .chart-tooltip {
+      pointer-events: auto;
+      padding-top: 2rem;
+    }
+  }
+
+  .tooltip-close {
+    display: none;
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    line-height: 1;
+    cursor: pointer;
+    color: #6c757d;
+    padding: 0;
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  @media (max-width: 768px) {
+    .tooltip-close {
+      display: block;
+    }
+  }
+
+  .tooltip-link {
+    display: none;
+    margin-top: 0.5rem;
+    color: #00aaff;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+
+  @media (max-width: 768px) {
+    .tooltip-link {
+      display: block;
+    }
+  }
+
   .chart-tooltip p {
     margin-bottom: 0.5rem;
   }
@@ -164,9 +225,59 @@
     position: relative;
   }
 
+  .infographic-summary {
+    max-width: 350px;
+    margin-left: auto;
+    margin-top: -100px;
+  }
+
+  @media (max-width: 768px) {
+    .infographic-summary {
+      margin-top: 0;
+      margin-left: 0;
+      max-width: 100%;
+    }
+  }
+
   .infographic-summary .summary-title {
     font-size: 1rem;
     font-weight: bold;
+    margin-bottom: 0.75rem;
+    text-align: left;
+  }
+
+  .infographic-summary .summary-row {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    margin-bottom: 0.5rem;
+    gap: 0 !important;
+  }
+
+  .infographic-summary .summary-row .color-square {
+    flex-shrink: 0 !important;
+    flex-grow: 0 !important;
+    width: 12px !important;
+    height: 12px !important;
+    min-width: 12px !important;
+    margin-right: 10px !important;
+    margin-top: 0 !important;
+    margin-left: 0 !important;
+    margin-bottom: 0 !important;
+    display: block !important;
+    order: 1 !important;
+    align-self: center !important;
+  }
+
+  .infographic-summary .summary-row > div:last-child {
+    flex: 1 !important;
+    text-align: left !important;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    line-height: 1.4;
+    display: block !important;
+    order: 2 !important;
+    align-self: center !important;
   }
 
   .infographic-summary span {
@@ -191,16 +302,37 @@
     margin-top: 1rem;
   }
 
+  @media (max-width: 768px) {
+    .pan-london-container {
+      margin-top: 2rem;
+    }
+  }
+
   .pan-london-label {
     color: #00aaff;
     font-weight: bold;
     line-height: 1.1;
   }
 
+  @media (max-width: 768px) {
+    .pan-london-label {
+      margin-bottom: 0.25rem;
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+
   .pan-london-svg {
     display: block;
     width: 100%;
     height: 120px;
+  }
+
+  @media (max-width: 768px) {
+    .pan-london-svg {
+      width: auto !important;
+      height: auto !important;
+    }
   }
 
   /* Embedded content styles */
@@ -216,24 +348,42 @@
 
   .infographic-chart-row {
     width: 100%;
-    margin-bottom: 0.25rem;
-    display: flex;
-    flex-direction: column;
-    /* Default for mobile */
+    margin-bottom: 30px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    /* Stack label above blocks on mobile */
   }
 
   .label-col {
-    width: 100%;
+    width: 100% !important;
     padding: 0 !important;
-    margin-bottom: 0.25rem;
+    margin-bottom: 0.25rem !important;
     display: flex;
     justify-content: space-between;
+    max-width: none !important;
+  }
+
+  .label-col .row-total::after {
+    content: " services";
   }
 
   .blocks-col {
-    width: 100%;
+    width: 100% !important;
     padding: 0 !important;
     line-height: 0;
+    max-width: none !important;
+  }
+
+  .blocks-col svg {
+    width: 100% !important;
+    height: auto !important;
+  }
+
+  /* Hide "Number of services" text on mobile */
+  @media (max-width: 768px) {
+    .infographic-chart-header-unit {
+      display: none !important;
+    }
   }
 
   /* Stack order for mobile */
@@ -295,28 +445,33 @@
   }
 
   /* Desktop layout */
-  @media (min-width: 1200px) {
-    .infographic-chart-row.row {
+  @media (min-width: 769px) {
+    .infographic-chart-row {
       flex-direction: row !important;
       flex-wrap: nowrap !important;
       align-items: center !important;
-      margin: 0 0 0rem 0 !important;
+      margin-bottom: 0.25rem !important;
     }
 
-    .infographic-chart-row .label-col.col-auto {
+    .infographic-chart-row .label-col {
       width: 240px !important;
       min-width: 240px !important;
       flex: 0 0 240px !important;
       max-width: 240px !important;
       margin-bottom: 0 !important;
+      padding-right: 15px !important;
     }
 
-    .infographic-chart-row .blocks-col.col-12.col-md {
+    .infographic-chart-row .blocks-col {
       flex: 1 1 auto !important;
       width: auto !important;
       max-width: none !important;
-      padding-left: 15px !important;
     }
+
+    .label-col .row-total::after {
+      content: "" !important;
+    }
+  }
 
     .infographic-summary {
       position: absolute;
@@ -412,6 +567,19 @@
     text-align: right;
     /* Right align the title too */
   }
+
+  /* Override for infographic summary - left aligned layout */
+  .infographic-summary .summary-title {
+    float: none !important;
+    clear: none !important;
+    text-align: left !important;
+  }
+
+  .infographic-summary .summary-row {
+    float: none !important;
+    clear: none !important;
+    align-items: flex-start !important;
+  }
 </style>
 <div class="my-embedded-content">
   <div class="container-fluid px-sm-5">
@@ -437,7 +605,7 @@
         <div class="form-group">
           <label for="include-yp-select">Include accommodation for young people?</label>
           <select class="form-control custom-select custom-select-sm" id="include-yp-select">
-            <option value="yes">Yes - Include all accommodation</option>
+            <option value="yes">Yes - Show all accommodation</option>
             <option value="no">No - Only show rough sleeping/single homelessness accommodation</option>
           </select>
         </div>
@@ -477,7 +645,7 @@
             <div class="chart-title-sub">Data source: Services data is the latest from Homeless Link information team.
             </div>
 
-            <div class="chart-intro">Hover over a block for extra information</div>
+            <div class="chart-intro"><span class="hover-text">Hover over</span><span class="click-text" style="display: none;">Click</span> a block for extra information</div>
           </div>
         </div>
       </div>
@@ -493,8 +661,7 @@
 
     <div class="row">
       <div class="col-12">
-        <div class="chart-footer">© LHF Atlas 2025 - see <a href="https://www.lhfatlas.org.uk"
-            target="_blank">www.lhfatlas.org.uk</a> for full details</div>
+        <div class="chart-footer">© LHF Atlas 2025</div>
       </div>
     </div>
   </div>
@@ -666,6 +833,34 @@
     const alert = setupAlert();
     const tooltip = renderTooltip(d3.select(".chart-tooltip"));
 
+    function updateInstructionText() {
+      const isMobile = window.innerWidth <= 768;
+      const hoverText = document.querySelector('.hover-text');
+      const clickText = document.querySelector('.click-text');
+      if (hoverText && clickText) {
+        if (isMobile) {
+          hoverText.style.display = 'none';
+          clickText.style.display = 'inline';
+        } else {
+          hoverText.style.display = 'inline';
+          clickText.style.display = 'none';
+        }
+      }
+
+      // Update dropdown text for mobile
+      const sizeBySelect = document.querySelector('#size-by-select');
+      if (sizeBySelect) {
+        const bedOption = sizeBySelect.querySelector('option[value="bed"]');
+        if (bedOption) {
+          if (isMobile) {
+            bedOption.textContent = 'Yes - Show only accommodation';
+          } else {
+            bedOption.textContent = 'Yes - Show accommodation by size';
+          }
+        }
+      }
+    }
+
     function extractValues(response, func) {
       return response.feed.entry.map(d => {
         const prefix = 'gsx$';
@@ -791,37 +986,32 @@
         container.html(`
       <div class="summary-title">Summary of services for ${highlightBy}</div>
       <div class="summary-row">
-        <div class="color-square" style='background-color: ${colorByServiceType("Day_Centre")}'></div>
-        <div><span style='color: ${colorByServiceType("Day_Centre")}'>${formatCount(d.daycentreservices)}</span> day centres</div>
+        <div class="color-square" style='background-color: ${colorByServiceType("Nightshelter_Wintershelter")}'></div>
+        <div><span style='color: ${colorByServiceType("Nightshelter_Wintershelter")}'>${formatCount(d.shelterspaces)}</span> spaces in Winter Shelters</div>
+      </div>
+      <div class="summary-row">
+        <div class="color-square" style='background-color: ${colorByServiceType("Housing_First")}'></div>
+        <div><span style='color: ${colorByServiceType("Housing_First")}'>${formatCount(d.hfunits)}</span> Housing First units</div>
+      </div>
+      <div class="summary-row">
+        <div class="color-square" style='background-color: ${colorByServiceType("Outreach")}'></div>
+        <div><span style='color: ${colorByServiceType("Outreach")}'>Outreach</span> ${d.outreach}</div>
       </div>
       <div class="summary-row">
         <div class="color-square" style='background-color: ${colorByServiceType("Assessment_Centre")}'></div>
         <div><span style='color: ${colorByServiceType("Assessment_Centre")}'>${formatCount(d.assessmentcentreservices)}</span> assessment services</div>
       </div>
       <div class="summary-row">
-        <div class="color-square" style='background-color: ${colorByServiceType("Housing_First")}'></div>
-        <div><span style='color: ${colorByServiceType("Housing_First")}'>${formatCount(d.hfunits)}</span> Housing First units</div>
-      </div>
-       <div class="summary-row">
-        <div class="color-square" style='background-color: ${colorByServiceType("Clearing_House")}'></div>
-        <div><span style='color: ${colorByServiceType("Clearing_House")}'>${formatCount(d.chflats)}</span> Clearing House flats</div>
-      </div>
-      <div class="summary-row">
-        <div class="color-square" style='background-color: ${colorByServiceType("Nightshelter_Wintershelter")}'></div>
-        <div><span style='color: ${colorByServiceType("Nightshelter_Wintershelter")}'>${formatCount(d.shelterspaces)}</span> spaces in Winter Shelters</div>
-      </div>
-     
-      <div class="summary-row">
-        <div class="color-square" style='background-color: ${colorByServiceType("Accommodation")}'></div>
-        <div><span style='color: ${colorByServiceType("Accommodation")}'>${formatCount(d.accomspaces)}</span> beds in <span style='color: ${colorByServiceType("Accommodation")}'>${formatCount(d.accomservices)}</span> rough sleeping/single homeless accommodation services</div>
+        <div class="color-square" style='background-color: ${colorByServiceType("Day_Centre")}'></div>
+        <div><span style='color: ${colorByServiceType("Day_Centre")}'>${formatCount(d.daycentreservices)}</span> day centres</div>
       </div>
       <div class="summary-row">
         <div class="color-square" style='background-color: ${d3.color(colorByServiceType("Accommodation")).darker(0.7)}'></div>
         <div><span style='color: ${d3.color(colorByServiceType("Accommodation")).darker(0.7)}'>${formatCount(d.ypspaces)}</span> beds in <span style='color: ${d3.color(colorByServiceType("Accommodation")).darker(0.7)}'>${formatCount(d.ypservices)}</span> accommodation services for young people</div>
       </div>
       <div class="summary-row">
-        <div class="color-square" style='background-color: ${colorByServiceType("Outreach")}'></div>
-        <div><span style='color: ${colorByServiceType("Outreach")}'>Outreach</span> ${d.outreach}</div>
+        <div class="color-square" style='background-color: ${colorByServiceType("Accommodation")}'></div>
+        <div><span style='color: ${colorByServiceType("Accommodation")}'>${formatCount(d.accomspaces)}</span> beds in <span style='color: ${colorByServiceType("Accommodation")}'>${formatCount(d.accomservices)}</span> rough sleeping/single homeless accommodation services</div>
       </div>
     `);
       });
@@ -892,9 +1082,11 @@
         );
 
       updateDimension();
+      updateInstructionText();
 
       dispatch.on("update", update);
       window.addEventListener("resize", resize);
+      window.addEventListener("resize", updateInstructionText);
 
       function updateDimension() {
         unit.style("width", `${labelColWidth[selected.groupBy]}px`);
@@ -905,7 +1097,7 @@
 
       function update() {
         updateDimension();
-        unit.text(`# of ${selected.sizeBy}s`);
+        unit.text(`Number of ${selected.sizeBy}s`);
 
         const transition = d3.transition().duration(TRANSITION_DURATION);
 
@@ -926,13 +1118,16 @@
         rowsData = rowsData.filter(row => row.items.length > 0);
 
         // Re-sort the data based on the current view
+        const isMobile = window.innerWidth <= 768;
+        const sortBy = isMobile ? 'service' : selected.sizeBy; // Always sort by service count on mobile
+
         if (selected.groupBy === "borough") {
           // Sort boroughs (excluding Pan-London which we'll add back at the end)
           const panLondonRow = rowsData.find(d => d.key === "Pan-London");
           const nonPanLondonRows = rowsData.filter(d => d.key !== "Pan-London");
 
           nonPanLondonRows.sort((a, b) => {
-            if (selected.sizeBy === "service") {
+            if (sortBy === "service") {
               return d3.descending(a.total.service, b.total.service) || d3.ascending(a.key, b.key);
             } else {
               return d3.descending(a.total.bed, b.total.bed) || d3.ascending(a.key, b.key);
@@ -944,7 +1139,7 @@
         } else {
           // Sort providers
           rowsData.sort((a, b) => {
-            if (selected.sizeBy === "service") {
+            if (sortBy === "service") {
               return d3.descending(a.total.service, b.total.service);
             } else {
               return d3.descending(a.total.bed, b.total.bed);
@@ -988,6 +1183,8 @@
                   .attr("transform", `translate(${margin.left},${margin.top})`)
               )
           )
+
+        chartRow
           .call((div) =>
             div
               .select(".label-col")
@@ -997,33 +1194,84 @@
           .call((div) =>
             div
               .select(".row-total")
-              .text((d) => formatCount(d.total[selected.sizeBy]))
+              .text((d) => {
+                // On mobile, always show service count even in bed mode
+                const countType = isMobile ? 'service' : selected.sizeBy;
+                return formatCount(d.total[countType]);
+              })
           );
 
-        svg = chartRow.select(".blocks-svg").attr("width", svgWidth);
+        if (isMobile) {
+          // Mobile: grid layout with fixed number of columns, using sorted/stacked data
+          const cols = 12;
+          const mobileWidth = svgWidth - 50; // Account for padding/margins
 
-        svg
-          .select("g")
-          .selectAll(".block")
-          .data((d) => stack(d.items), accessor.services.id)
-          .join((enter) =>
-            enter
-              .append("rect")
-              .attr("class", "block")
-              .attr("height", height)
-              .attr("width", 0)
-              .attr("x", (d) => x(0))
-              .attr("fill", blockColor)
-              .on("mouseenter", entered)
-              .on("mouseleave", left)
-              .on("mousemove", moved)
-              .on("click", (d) => clicked(d)) // Add this line
+          svg = chartRow.select(".blocks-svg")
+            .attr("width", mobileWidth)
+            .each(function() {
+              const rowData = d3.select(this.parentNode).datum();
+              const sortedItems = stack(rowData.items);
+              const totalBlocks = sortedItems.length;
+              const rows = Math.ceil(totalBlocks / cols);
+              const cellSize = mobileWidth / cols;
 
-          )
-          .transition(transition)
-          .attr("width", (d) => x(d.stack[1]) - x(d.stack[0]))
-          .attr("x", (d) => x(d.stack[0]))
-          .attr("fill", blockColor);
+              d3.select(this).attr("height", rows * cellSize);
+            });
+
+          svg
+            .select("g")
+            .selectAll(".block")
+            .data((d) => stack(d.items), accessor.services.id)
+            .join((enter) =>
+              enter
+                .append("rect")
+                .attr("class", "block")
+                .attr("fill", blockColor)
+                .on("mouseenter", entered)
+                .on("mouseleave", left)
+                .on("mousemove", moved)
+                .on("click", (d) => clicked(d))
+            )
+            .attr("x", (d, i) => (i % cols) * (mobileWidth / cols))
+            .attr("y", (d, i) => Math.floor(i / cols) * (mobileWidth / cols))
+            .attr("width", mobileWidth / cols - 1)
+            .attr("height", mobileWidth / cols - 1)
+            .attr("fill", blockColor);
+        } else {
+          // Desktop: horizontal bar layout (original working code)
+          // Calculate width from the actual blocks column container
+          svg = chartRow.select(".blocks-svg").each(function() {
+            const actualWidth = this.parentNode.clientWidth;
+            if (actualWidth > 0) {
+              svgWidth = actualWidth;
+              width = svgWidth - margin.left - margin.right;
+              x.range([0, width]);
+              d3.select(this).attr("width", actualWidth);
+            }
+          });
+
+          svg
+            .select("g")
+            .selectAll(".block")
+            .data((d) => stack(d.items), accessor.services.id)
+            .join((enter) =>
+              enter
+                .append("rect")
+                .attr("class", "block")
+                .attr("height", height)
+                .attr("width", 0)
+                .attr("x", (d) => x(0))
+                .attr("fill", blockColor)
+                .on("mouseenter", entered)
+                .on("mouseleave", left)
+                .on("mousemove", moved)
+                .on("click", (d) => clicked(d))
+            )
+            .transition(transition)
+            .attr("width", (d) => Math.max(0, x(d.stack[1]) - x(d.stack[0])))
+            .attr("x", (d) => x(d.stack[0]))
+            .attr("fill", blockColor);
+        }
 
         if (selected.groupBy === "borough") {
           panLondonContainer.classed("d-none", false);
@@ -1070,9 +1318,16 @@
             });
 
             const count = items.length;
-            const cols = Math.ceil(Math.sqrt(count));
+            // Use 12 columns on mobile, square grid on desktop
+            const cols = isMobile ? 12 : Math.ceil(Math.sqrt(count));
             const rows = Math.ceil(count / cols);
-            const cellSize = Math.min(width / cols, height / rows);
+            const panLondonWidth = isMobile ? (svgWidth - 100) : width;
+            const cellSize = isMobile ? (panLondonWidth / cols) : Math.min(width / cols, height / rows);
+
+            // Update SVG dimensions for mobile
+            if (isMobile) {
+              svg.attr("width", panLondonWidth).attr("height", rows * cellSize);
+            }
 
             svg
               .select("g")
@@ -1149,11 +1404,15 @@
       }
 
       function entered(d) {
+        const isMobile = window.innerWidth <= 768;
+        if (isMobile) return; // On mobile, only respond to clicks
         d3.select(this).raise();
-        tooltip.show(blockTooltipContent(d), blockColor(d));
+        tooltip.show(blockTooltipContent(d), blockColor(d), accessor.services.website(d));
       }
 
       function left() {
+        const isMobile = window.innerWidth <= 768;
+        if (isMobile) return; // On mobile, tooltip stays until X is clicked
         tooltip.hide();
       }
 
@@ -1162,19 +1421,59 @@
       }
 
       function clicked(d) {
-        console.log(accessor.services.website(d))
-        if (accessor.services.website(d) === "") return;
-        window.open(accessor.services.website(d), "_blank");
+        const isMobile = window.innerWidth <= 768;
+        if (isMobile) {
+          // On mobile, first click shows tooltip with close button and link
+          d3.select(this).raise();
+          tooltip.show(blockTooltipContent(d), blockColor(d), accessor.services.website(d));
+
+          // Center the tooltip on mobile
+          const tooltipNode = document.querySelector('.chart-tooltip');
+          const bcr = tooltipNode.getBoundingClientRect();
+          const x = (window.innerWidth - bcr.width) / 2;
+          const y = (window.innerHeight - bcr.height) / 2;
+          tooltipNode.style.transform = `translate(${x}px,${y}px)`;
+        } else {
+          // On desktop, click opens website
+          console.log(accessor.services.website(d))
+          if (accessor.services.website(d) === "") return;
+          window.open(accessor.services.website(d), "_blank");
+        }
       }
 
 
       function resize() {
         updateDimension();
-        svg
-          .attr("width", svgWidth)
-          .selectAll(".block")
-          .attr("width", (d) => x(d.stack[1]) - x(d.stack[0]))
-          .attr("x", (d) => x(d.stack[0]));
+        const isMobile = window.innerWidth <= 768;
+
+        if (isMobile) {
+          // Mobile: update grid layout
+          const cols = 12;
+          const mobileWidth = svgWidth - 100;
+
+          svg.attr("width", mobileWidth).selectAll(".block").each(function(d, i, nodes) {
+            const rowData = d3.select(nodes[i].parentNode).datum();
+            const totalBlocks = rowData.items.length;
+            const rows = Math.ceil(totalBlocks / cols);
+            const cellSize = mobileWidth / cols;
+
+            d3.select(this)
+              .attr("x", (i % cols) * cellSize)
+              .attr("y", Math.floor(i / cols) * cellSize)
+              .attr("width", cellSize - 1)
+              .attr("height", cellSize - 1);
+
+            d3.select(nodes[i].parentNode.parentNode)
+              .attr("height", rows * cellSize);
+          });
+        } else {
+          // Desktop: update horizontal bar layout
+          svg
+            .attr("width", svgWidth)
+            .selectAll(".block")
+            .attr("width", (d) => Math.max(0, x(d.stack[1]) - x(d.stack[0])))
+            .attr("x", (d) => x(d.stack[0]));
+        }
       }
 
       function blockColor(d) {
@@ -1581,9 +1880,21 @@
     function renderTooltip(tooltip) {
       let width, height;
       const padding = 8;
+      const isMobile = window.innerWidth <= 768;
 
-      function show(content, color) {
-        tooltip.style("border-color", color).html(content);
+      function show(content, color, websiteUrl) {
+        if (isMobile) {
+          const closeBtn = '<button class="tooltip-close" data-close-tooltip>&times;</button>';
+          const link = websiteUrl && websiteUrl !== "" ? `<div class="tooltip-link" onclick="window.open('${websiteUrl}', '_blank')">Visit website</div>` : '';
+          tooltip.style("border-color", color).html(closeBtn + content + link);
+
+          // Add click handler for close button
+          tooltip.select('.tooltip-close').on('click', function() {
+            hide();
+          });
+        } else {
+          tooltip.style("border-color", color).html(content);
+        }
         const bcr = tooltip.node().getBoundingClientRect();
         width = bcr.width;
         height = bcr.height;
@@ -1595,6 +1906,7 @@
       }
 
       function move() {
+        if (isMobile) return;
         let x = d3.event.clientX - width / 2;
         if (x < 0) {
           x = 0;
@@ -1618,6 +1930,7 @@
     function blockTooltipContent(d, color) {
       const texts = accessor.services.text(d);
       const capacity = texts[0];
+      const isMobile = window.innerWidth <= 768;
       return `
         <p class="service-name">${accessor.services.serviceName(d)}</p>
         <p>${accessor.services
@@ -1632,7 +1945,7 @@
               `<p ${e == capacity ? `class="service-capacity"` : ""}>${e}</p>`
           )
           .join("")}
-        <p><em>Click dot to view service website</em></p>
+        ${!isMobile ? '<p><em>Click to view site</em></p>' : ''}
     `;
     }
 

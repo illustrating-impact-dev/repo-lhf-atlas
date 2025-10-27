@@ -3,10 +3,12 @@
 <title></title>
 <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
     integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
 <script src="https://unpkg.com/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js"></script>
 <style type="text/css">
     body {
+        font-family: 'Open Sans', sans-serif;
         font-size: 0.875rem;
     }
 
@@ -25,6 +27,12 @@
         height: 45px;
         margin-top: 4px;
         margin-right: 8px;
+    }
+
+    @media (max-width: 768px) {
+        .chart-header-icon {
+            display: none;
+        }
     }
 
     .chart-title-main {
@@ -120,13 +128,56 @@
         top: 0;
         left: 0;
         pointer-events: none;
-        background-color: rgba(255, 255, 255, 0.9);
+        background-color: rgb(255, 255, 255);
         border: 1px solid rgba(0, 0, 0, 0.125);
         border-radius: 0.25rem;
         padding: 0.75rem 1.25rem;
         max-width: 100vw;
         opacity: 0;
         transition: opacity 0.15s linear;
+    }
+
+    @media (max-width: 768px) {
+        .chart-tooltip {
+            pointer-events: auto;
+            padding-top: 2rem;
+        }
+    }
+
+    .tooltip-close {
+        display: none;
+        position: absolute;
+        top: 0.5rem;
+        right: 0.5rem;
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        line-height: 1;
+        cursor: pointer;
+        color: #6c757d;
+        padding: 0;
+        width: 1.5rem;
+        height: 1.5rem;
+    }
+
+    @media (max-width: 768px) {
+        .tooltip-close {
+            display: block;
+        }
+    }
+
+    .tooltip-link {
+        display: none;
+        margin-top: 0.5rem;
+        color: #00aaff;
+        text-decoration: underline;
+        cursor: pointer;
+    }
+
+    @media (max-width: 768px) {
+        .tooltip-link {
+            display: block;
+        }
     }
 
     .chart-tooltip p {
@@ -219,6 +270,18 @@
 
     .service-map .legend-title {
         color: #00aaff;
+    }
+
+    @media (max-width: 768px) {
+        .service-map .legend {
+            flex-direction: column !important;
+            align-items: flex-start !important;
+        }
+
+        .service-map .legend-title {
+            margin-bottom: 0.5rem !important;
+            margin-right: 0 !important;
+        }
     }
 
     .service-map .legend-item {
@@ -396,8 +459,7 @@
 
     <div class="row">
         <div class="col-12">
-            <div class="chart-footer">Copyright LHF Atlas 2025 - see <a href="https://www.lhfatlas.org.uk"
-                    target="_blank">www.lhfatlas.org.uk</a> for full details</div>
+            <div class="chart-footer">Copyright LHF Atlas 2025</div>
         </div>
     </div>
 </div>
@@ -712,7 +774,8 @@
                     serviceTooltipContent(d),
                     accessor.services.serviceType(d) === selected.serviceType
                         ? "#4e79a8"
-                        : "#bab0ac"
+                        : "#bab0ac",
+                    accessor.services.website(d)
                 );
             }
 
@@ -974,11 +1037,21 @@
             }
 
             function getBoroughServices(d) {
-                const serviceByBorough = data.servicesByServiceTypeByBorough.get(
-                    selected.serviceType
-                );
                 const gss = accessor.geo.id(d);
-                const services = serviceByBorough.get(gss) || [];
+                let services = [];
+
+                // Get Accommodation services
+                const accomByBorough = data.servicesByServiceTypeByBorough.get("Accommodation");
+                if (accomByBorough) {
+                    services = [...(accomByBorough.get(gss) || [])];
+                }
+
+                // Add Housing First services
+                const housingFirstByBorough = data.servicesByServiceTypeByBorough.get("Housing First");
+                if (housingFirstByBorough) {
+                    services = [...services, ...(housingFirstByBorough.get(gss) || [])];
+                }
+
                 return services;
             }
         }
@@ -1019,7 +1092,17 @@
                 laName.text(boroughName);
 
                 // Get services and separate pan-London services
-                let filteredServices = data.servicesByServiceType.get(selected.serviceType).filter(service => {
+                // Include both Accommodation and Housing_First when Accommodation is selected
+                let filteredServices = [];
+                if (selected.serviceType === "Accommodation") {
+                    const accomServices = data.servicesByServiceType.get("Accommodation") || [];
+                    const housingFirstServices = data.servicesByServiceType.get("Housing First") || [];
+                    filteredServices = [...accomServices, ...housingFirstServices];
+                } else {
+                    filteredServices = data.servicesByServiceType.get(selected.serviceType) || [];
+                }
+
+                filteredServices = filteredServices.filter(service => {
                     const gssList = accessor.services.gssList(service);
                     return gssList.includes(highlightedGSS) || gssList.includes("E12000007");
                 });
@@ -1103,13 +1186,28 @@
                                         .text(d.text);
                                 } else {
                                     // Render normal service rows exactly as before.
+                                    const isMobile = window.innerWidth <= 768;
+
                                     tr.style("cursor", accessor.services.website(d) ? "pointer" : "default")
-                                        .on("mouseenter", entered)
-                                        .on("mouseleave", left)
-                                        .on("mousemove", moved)
+                                        .on("mouseenter", function(d) {
+                                            if (!isMobile) entered.call(this, d);
+                                        })
+                                        .on("mouseleave", function(d) {
+                                            if (!isMobile) left.call(this, d);
+                                        })
+                                        .on("mousemove", function(d) {
+                                            if (!isMobile) moved.call(this, d);
+                                        })
                                         .on("click", function (d) {
-                                            if (accessor.services.website(d)) {
-                                                window.open(accessor.services.website(d), "_blank");
+                                            const isMobileCheck = window.innerWidth <= 768;
+                                            if (isMobileCheck) {
+                                                // On mobile, show tooltip with close button
+                                                entered.call(this, d);
+                                            } else {
+                                                // On desktop, open website
+                                                if (accessor.services.website(d)) {
+                                                    window.open(accessor.services.website(d), "_blank");
+                                                }
                                             }
                                         });
 
@@ -1149,7 +1247,7 @@
                 selected.service = accessor.services.id(d);
                 selected.borough = null;
                 dispatch.call("updatebottom");
-                tooltip.show(serviceTooltipContent(d), "#4e79a8");
+                tooltip.show(serviceTooltipContent(d), "#4e79a8", accessor.services.website(d));
             }
 
             function left() {
@@ -1173,7 +1271,7 @@
             const PAN_LONDON_CODE = "E12000007";
 
             servicesTypes = servicesTypes.filter(service =>
-                service.service_type === ACCOMMODATION_TYPE && service.yp === true ||
+                (service.service_type === ACCOMMODATION_TYPE || service.service_type === "Housing First") && service.yp === true ||
                 (service.service_type === "Day Centre" && service.service_name === SPECIAL_DAY_CENTRE_NAME)
             );
 
@@ -1241,8 +1339,30 @@
             let width, height;
             const padding = 8;
 
-            function show(content, color) {
-                tooltip.style("border-color", color).html(content);
+            function show(content, color, websiteUrl) {
+                const isMobile = window.innerWidth <= 768;
+
+                if (isMobile) {
+                    const closeBtn = '<button class="tooltip-close" data-close-tooltip>&times;</button>';
+                    const link = websiteUrl && websiteUrl !== "" ? `<div class="tooltip-link" onclick="window.open('${websiteUrl}', '_blank')">Visit website</div>` : '';
+                    tooltip.style("border-color", color).html(closeBtn + content + link);
+
+                    // Add click handler for close button
+                    tooltip.select('.tooltip-close').on('click', function() {
+                        hide();
+                    });
+
+                    // Center tooltip on mobile
+                    setTimeout(() => {
+                        const bcr = tooltip.node().getBoundingClientRect();
+                        const x = (window.innerWidth - bcr.width) / 2;
+                        const y = (window.innerHeight - bcr.height) / 2;
+                        tooltip.style("transform", `translate(${x}px,${y}px)`);
+                    }, 0);
+                } else {
+                    tooltip.style("border-color", color).html(content);
+                }
+
                 const bcr = tooltip.node().getBoundingClientRect();
                 width = bcr.width;
                 height = bcr.height;
@@ -1254,6 +1374,9 @@
             }
 
             function move() {
+                const isMobile = window.innerWidth <= 768;
+                if (isMobile) return; // Don't move on mobile
+
                 let x = d3.event.clientX - width / 2;
                 if (x < 0) {
                     x = 0;

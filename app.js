@@ -21,6 +21,18 @@ app.get('/youth-services', (req, res) => {
     res.sendFile(path.join(__dirname, 'viz', 'youth_services.html'));
 });
 
+app.get('/london-map', (req, res) => {
+    res.sendFile(path.join(__dirname, 'viz', 'london_map.html'));
+});
+
+app.get('/local-services', (req, res) => {
+    res.sendFile(path.join(__dirname, 'viz', 'local_services.html'));
+});
+
+app.get('/health', (req, res) => {
+    res.sendFile(path.join(__dirname, 'viz', 'health.html'));
+});
+
 // Add a basic home page that lists all available routes
 app.get('/', (req, res) => {
     res.send(`
@@ -29,6 +41,9 @@ app.get('/', (req, res) => {
             <li><a href="/winter-shelters">Winter/Night Shelters</a></li>
             <li><a href="/infographic">Infographic</a></li>
             <li><a href="/youth-services">Youth Services</a></li>
+            <li><a href="/london-map">London Map</a></li>
+            <li><a href="/local-services">Local Services</a></li>
+            <li><a href="/health">Health</a></li>
         </ul>
     `);
 });

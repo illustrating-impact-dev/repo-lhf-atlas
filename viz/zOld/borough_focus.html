@@ -1,11 +1,6 @@
 <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
     integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" rel="stylesheet" />
-<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
 <style type="text/css">
-    body {
-        font-family: 'Open Sans', sans-serif;
-    }
-
     .container-fluid {
         max-width: 1300px;
         margin: 15px auto;
@@ -27,9 +22,8 @@
     }
 
     .chart-title-main {
-        font-size: 1.15rem;
+        font-size: 1rem;
         color: #00aaff;
-
     }
 
     .sub-region-title-main {
@@ -71,9 +65,9 @@
 
 
     .selected-borough {
-        font-size: 1.25rem;
+        font-size: 1.2rem;
         color: #00aaff;
-        font-weight: bold;
+        font-weight: 500;
     }
 
     .chart-title-sub,
@@ -189,15 +183,8 @@
     #map-table {}
 
     .map-container {
-        max-height: 500px;
+        height: 500px;
         overflow: auto;
-    }
-
-    @media (max-width: 760px) {
-        .map-container {
-            max-height: none;
-            overflow: visible;
-        }
     }
 
     .table-item {
@@ -212,7 +199,7 @@
     }
 
     .table-item-value-capacity {
-        min-width: 80px;
+        min-width: 50px;
         text-align: center;
         cursor: pointer;
         display: table-cell;
@@ -324,38 +311,6 @@
         opacity: 0;
         transition: opacity 0.15s linear;
         z-index: 99999;
-    }
-
-    @media (max-width: 760px) {
-        .chart-tooltip {
-            pointer-events: auto;
-        }
-
-        .chart-tooltip.show {
-            padding: 0.75rem 2.5rem 0.75rem 1.25rem;
-        }
-    }
-
-    .tooltip-close {
-        display: none;
-        position: absolute;
-        top: 8px;
-        right: 8px;
-        background: none;
-        border: none;
-        font-size: 1.5rem;
-        line-height: 1;
-        color: #6c757d;
-        cursor: pointer;
-        padding: 0;
-        width: 24px;
-        height: 24px;
-    }
-
-    @media (max-width: 760px) {
-        .tooltip-close {
-            display: block;
-        }
     }
 
     .chart-tooltip p {
@@ -519,10 +474,6 @@
     }
 
 
-    .mapboxgl-ctrl-logo {
-        display: none !important;
-    }
-
     @media (max-width: 760px) {
         .summary-item {
             margin-top: 16px;
@@ -534,14 +485,6 @@
 
         .change-data {
             text-align: left;
-        }
-
-        #buttons {
-            display: none !important;
-        }
-
-        .mapboxgl-ctrl-top-right {
-            display: none !important;
         }
 
     }
@@ -682,7 +625,7 @@
         </div>
 
         <div class="row">
-            <div class="col-12">
+            <div class="col-12 col-lg-8">
                 <div class="header-embed">
                     <div class="chart-header">
                         <img class="chart-header-icon" alt="metric icon"
@@ -696,13 +639,8 @@
                                 Councils</div>
                         </div>
                     </div>
-
-                    <div style="margin-top: 20px; margin-bottom: 12px;">
-                        <h5 style="font-weight: bold; color: #00aaff; font-size: 1.1rem;">Overview</h5>
-                    </div>
-
                     <!-- First row for rough sleeper accommodation -->
-                    <div class="row summary-container rs-accommodation-section" style="padding-top:3px; padding-bottom:0px">
+                    <div class="row summary-container" style="padding-top:3px; padding-bottom:0px">
                         <div class="col-12" style="padding-top:3px; padding-bottom:3px">
                             <div>
                                 <span id="beds" style="color: #2DB5C0; font-size: 1.6em; font-weight: bold;"></span>
@@ -731,17 +669,20 @@
                     <!-- Third row for other services in grid format -->
                     <div class="row summary-container" style="padding-top:3px; padding-bottom:0px">
                         <!-- First column -->
-                        <div class="col-12" style="padding-top:3px; padding-bottom:8px">
-                            <div id="day-centres-container">
+                        <div class="col-12 col-lg-4" style="padding-top:3px; padding-bottom:8px">
+                            <div>
                                 <span id="day_centres"
                                     style="color: #B07AA1; font-size: 1.6em; font-weight: bold;"></span> day centres
                             </div>
-                            <div id="house-flats-container">
+                            <div>
                                 <span id="house_flats"
                                     style="color: #E74BCD; font-size: 1.6em; font-weight: bold;"></span> Clearing House
                                 flats
                             </div>
-                            <div id="shelter-spaces-container">
+                        </div>
+                        <!-- Second column -->
+                        <div class="col-12 col-lg-4" style="padding-top:3px; padding-bottom:8px">
+                            <div>
                                 <span id="shelter_spaces"
                                     style="color: #F28E2C; font-size: 1.6em; font-weight: bold;"></span> Winter Shelter
                                 spaces
@@ -756,7 +697,10 @@
                                     style="color: rgb(184, 203, 42); font-size: 1.6em; font-weight: bold;"></span>
                                 Assessment Centres
                             </div>
-                            <div id="hf-units-container">
+                        </div>
+                        <!-- Third column -->
+                        <div class="col-12 col-lg-4" style="padding-top:3px; padding-bottom:8px">
+                            <div>
                                 <span id="hf_units" style="color: #E25759; font-size: 1.6em; font-weight: bold;"></span>
                                 Housing First units
                             </div>
@@ -764,7 +708,7 @@
                     </div>
 
                     <!-- Fourth row for outreach -->
-                    <div class="row" id="outreach-container" style="padding-left:15px;">
+                    <div class="row" style="padding-left:15px;">
                         <div class="col-12" style="padding-left:17px!important; padding-top:0px; padding-bottom:12px">
                             Outreach by &nbsp;<span id="outreach" style="color: #4E79A7; font-weight: bold;"></span>
                         </div>
@@ -772,61 +716,103 @@
 
                 </div>
 
-                <div id="accommodation-section">
-                    <div style="margin-top: 24px; margin-bottom: 12px;">
-                        <h5 style="font-weight: bold; color: #00aaff; font-size: 1.1rem;">Accommodation and Day Centres</h5>
-                    </div>
-
-                    <div class="row style= margin-top: 12px;">
-                        <div class="col-lg-5 col-sm-12 map-container order-first order-lg-first"
-                            style="padding-top:3px; padding-bottom:3px">
-                            <div id="map-table"></div>
-                        </div>
-
-                        <div class="col-lg-7 col-sm-12 order-last order-lg-last"
-                            style="padding-top:3px; padding-bottom:3px">
-                            <div class="map-container" id="map-container-wrapper" style="position: relative;">
-                                <div id="map" style="width: 100%; height: 492px;">&nbsp;</div>
-                                <div style="position: absolute; bottom: 8px; right: 8px; background-color: rgba(255, 255, 255, 0.9); padding: 4px 8px; font-size: 0.7em; color: #6c757d; border-radius: 3px; z-index: 1000;">
-                                    © <a href="https://www.mapbox.com/" target="_blank" style="color: #6c757d; text-decoration: none;">Mapbox</a> © <a href="https://www.openstreetmap.org/copyright" target="_blank" style="color: #6c757d; text-decoration: none;">OpenStreetMap</a>
-                                </div>
-                            </div>
-                            <div style="padding-top:12px; padding-bottom:3px; font-size: 0.8em; color: #6c757d;">
-                                Day centres and accommodations are shown on the map unless they are a confidential location.
-                            </div>
-                        </div>
+                <div class="row">
+                    <div class="col-12" style="padding-top:3px; padding-bottom:3px">
+                        <div class="map-description">Day centres and accommodations are shown on the map unless they are a
+                            confidential location.</div>
                     </div>
                 </div>
+
+                <div class="row style= margin-top: 12px;">
+                    <div class="col-lg-5 col-sm-12 map-container order-last order-lg-first"
+                        style="padding-top:3px; padding-bottom:3px">
+                        <div id="map-table"></div>
+                    </div>
+
+                    <div class="col-lg-7 col-sm-12 map-container order-first order-lg-last"
+                        style="padding-top:3px; padding-bottom:3px">
+                        <div id="map" style="width: 100%; height: 492px;">&nbsp;</div>
+                    </div>
+                </div>
+
+                <div class="chart-footer">© LHF Atlas 2025 - see <a href="https://www.lhfatlas.org.uk"
+                        target="_blank">www.lhfatlas.org.uk </a>for full details</div>
             </div>
 
             <div class="pagebreak">&nbsp;</div>
-        </div>
 
-        <div class="row" style="margin-top: 24px;">
-            <div class="col-12">
-                <div style="margin-bottom: 12px;">
-                    <h5 style="font-weight: bold; color: #00aaff; font-size: 1.1rem;">Rough sleeping in this borough</h5>
-                    <div class="chart-title-sub">CHAIN data for 2019/20 to 2023/24</div>
-                </div>
+            <div class="col-12 col-lg-4 right-parents">
+                <div class="right-container right-container-parent" style="padding-left: 5px">
+                    <div class="sleeping-container">&nbsp;</div>
 
-                <div class="row" style="margin-top: 16px;">
-                    <div class="col-8 col-lg-6" id="chain-line-chart">&nbsp;</div>
+                    <div class="sleeping-content">
+                        <div class="header-embed">
+                            <div class="sleeping-header"><img alt="sleeping icon" class="sleeping-header-icon" />
+                                <div class="sleeping-title">
+                                    <div class="sleeping-title-main">Rough sleeping in this borough</div>
 
-                    <div class="col-4 col-lg-2 year-difference"
-                        style="padding-top:120px; padding-bottom:3px; padding-left:3px; padding-right:3px;">
-                        <div id="yoy_diff">&nbsp;</div>
+                                    <div class="sleeping-title-sub">CHAIN data for 2019/20 to 2023/24</div>
+                                </div>
+                            </div>
+                        </div>
 
-                        <div>compared to<br />
-                            prior year</div>
+                        <div class="row" style="margin-right: 12px;">
+                            <div class="col-9" id="chain-line-chart">&nbsp;</div>
+
+                            <div class="col-3 year-difference"
+                                style="padding-top:60px; padding-bottom:3px; padding-left:3px; padding-right:3px;">
+                                <div id="yoy_diff">&nbsp;</div>
+
+                                <div>compared to<br />
+                                    prior year</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
 
-        <div class="row" style="margin-top: 24px;">
-            <div class="col-12">
-                <div class="chart-footer">© LHF Atlas 2025 - see <a href="https://www.lhfatlas.org.uk"
-                        target="_blank">www.lhfatlas.org.uk </a>for full details</div>
+                <div class="right-container right-container-parent">
+                    <div class="sub-region-container">&nbsp;</div>
+
+                    <div class="sub-region-content">
+                        <div class="header-embed">
+                            <div class="sub-region-header"><img alt="sub-region icon" class="sub-region-header-icon" />
+                                <div class="sub-region-title">
+                                    <div class="sub-region-title-main">Explore within same sub-region</div>
+                                    <div class="sub-region-title-sub"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12" style="padding-top:3px; padding-bottom:3px;">
+                                <div class="form-group change-data">
+                                    <div class="row" style="padding-right: 12px; padding-top:0px; padding-bottom:0px;">
+                                        <div class="col-lg-3 col-sm-12"
+                                            style=" line-height: 34px; padding-top:0px; padding-bottom:0px; padding-left:0px; padding-right:3px;">
+                                            Change data</div>
+
+                                        <div class="col-lg-9 col-sm-12"
+                                            style="padding-top:0px; padding-bottom:0px; padding-left:1px; padding-right:15px;">
+                                            <select class="form-control" id="sub-region-select"
+                                                style="font-size: .875em; margin-right: 2px; padding-top:0px; padding-bottom:0px">
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row" style="padding-right: 18px; overflow: hidden;">
+                            <div class="col-6 col-sm-6" id="borough-list"
+                                style="padding-top:3px; padding-bottom:3px; padding-left:3px; padding-right:15px;">
+                            </div>
+
+                            <div class="col-6 col-sm-6" id="borough-bars"
+                                style="padding-top:3px; padding-bottom:3px; padding-left:3px; padding-right:15px;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -1447,12 +1433,6 @@
             const housingFirstUnit = d3.select('#hf_units');
 
             const ypAccommodationSection = d3.select(".yp-accommodation-section");
-            const rsAccommodationSection = d3.select(".rs-accommodation-section");
-            const dayCentresContainer = d3.select("#day-centres-container");
-            const houseFlatsContainer = d3.select("#house-flats-container");
-            const shelterSpacesContainer = d3.select("#shelter-spaces-container");
-            const hfUnitsContainer = d3.select("#hf-units-container");
-            const outreachContainer = d3.select("#outreach-container");
 
             function update() {
                 if (!selected.borough || !selected.service) return;
@@ -1465,13 +1445,6 @@
                 beds.text(accessor.summary.beds(summaryData));
                 bedsServices.text(accessor.summary.bedsServices(summaryData));
 
-                // Hide or show RS accommodation section based on beds value
-                if ((accessor.summary.beds(summaryData) || 0) === 0) {
-                    rsAccommodationSection.classed('d-none', true);
-                } else {
-                    rsAccommodationSection.classed('d-none', false);
-                }
-
                 // Update YP accommodation (using ypspaces and ypservices fields)
                 ypBeds.text(summaryData.ypspaces || 0);
                 ypBedsServices.text(summaryData.ypservices || 0);
@@ -1483,23 +1456,10 @@
                     ypAccommodationSection.classed('d-none', false);
                 }
 
-                // Update other services and hide if 0
-                const dayCentresValue = accessor.summary.dayCenter(summaryData) || 0;
-                dayCentres.text(dayCentresValue);
-                dayCentresContainer.style('display', dayCentresValue === 0 ? 'none' : 'block');
-
-                const shelterSpacesValue = accessor.summary.shelterSpaces(summaryData) || 0;
-                shelterSpaces.text(shelterSpacesValue);
-                shelterSpacesContainer.style('display', shelterSpacesValue === 0 ? 'none' : 'block');
-
-                const houseFlatsValue = accessor.summary.houseFlats(summaryData);
-                houseFlats.text(houseFlatsValue);
-                // Hide if empty string or 0
-                houseFlatsContainer.style('display', (!houseFlatsValue || houseFlatsValue === '0') ? 'none' : 'block');
-
-                const housingFirstValue = accessor.summary.housingFirstUnit(summaryData) || 0;
-                housingFirstUnit.text(housingFirstValue);
-                hfUnitsContainer.style('display', housingFirstValue === 0 ? 'none' : 'block');
+                // Update other services
+                dayCentres.text(accessor.summary.dayCenter(summaryData));
+                shelterSpaces.text(accessor.summary.shelterSpaces(summaryData));
+                houseFlats.text(accessor.summary.houseFlats(summaryData));
 
                 // Handle Assessment Centre display
                 const noOfAssessment = accessor.summary.assessmentCentreServices(summaryData)
@@ -1518,10 +1478,9 @@
                     assessmentCentrePluralContainer.classed('d-none', true);
                 }
 
-                // Update outreach and hide if empty
-                const outreachValue = accessor.summary.outreach(summaryData);
-                outreach.text(outreachValue);
-                outreachContainer.style('display', !outreachValue ? 'none' : 'block');
+                // Update outreach
+                outreach.text(accessor.summary.outreach(summaryData));
+                housingFirstUnit.text(accessor.summary.housingFirstUnit(summaryData));
             }
 
             return {
@@ -1594,25 +1553,8 @@
                 blueContainer.style('opacity', regularAccom.length > 0 ? 1 : 0);
                 ypContainer.style('opacity', ypAccom.length > 0 ? 1 : 0);
 
-                // Hide entire accommodation section if no data
-                const accommodationSection = d3.select('#accommodation-section');
-                if (!hasAnyData) {
-                    accommodationSection.style('display', 'none');
-                } else {
-                    accommodationSection.style('display', 'block');
-                }
-
                 // Filter out invalid locations and update map
                 filteredData = filteredData.filter(d => accessor.map.longitude(d) && accessor.map.latitude(d));
-
-                // Hide map if there are services but none with coordinates
-                const mapContainerWrapper = d3.select('#map-container-wrapper');
-                if (hasAnyData && filteredData.length === 0) {
-                    mapContainerWrapper.style('display', 'none');
-                } else {
-                    mapContainerWrapper.style('display', 'block');
-                }
-
                 map.update(filteredData);
             }
 
@@ -1637,34 +1579,16 @@
                                     dispatch.call("move", this);
                                 })
                                 .on("touchstart", (d) => {
-                                    const isMobile = window.innerWidth <= 760;
-                                    if (isMobile) {
-                                        // On mobile, just show tooltip, don't open link
-                                        tooltip.show(boroughToolTipContent(d, false), d);
-                                    } else {
-                                        tooltip.show(boroughToolTipContent(d), d);
-                                    }
+                                    tooltip.show(boroughToolTipContent(d), d);
                                 }, { passive: true })
-                                .on("touchend", (d) => {
-                                    const isMobile = window.innerWidth <= 760;
-                                    if (!isMobile) {
-                                        dispatch.call("leaveborough", this);
-                                    }
+                                .on("touchend", () => {
+                                    dispatch.call("leaveborough", this);
                                 })
                                 .on('click', (d) => {
-                                    const isMobile = window.innerWidth <= 760;
-                                    if (isMobile) {
-                                        // On mobile, show tooltip on first click
-                                        // Link in tooltip will handle second click
-                                        d3.event.preventDefault();
-                                        tooltip.show(boroughToolTipContent(d, false), d);
-                                    } else {
-                                        // On desktop, open link directly
-                                        const website = accessor.map.website(d);
-                                        if (website) {
-                                            let prefix = website.includes('://') ? '' : '//';
-                                            window.open(prefix + website, '_blank');
-                                        }
+                                    const website = accessor.map.website(d);
+                                    if (website) {
+                                        let prefix = website.includes('://') ? '' : '//';
+                                        window.open(prefix + website, '_blank');
                                     }
                                 });
 
@@ -1674,17 +1598,11 @@
 
                             item.append('div')
                                 .attr('class', d => `table-item-value-capacity ${accessor.map.mapTableID(d)}-value`)
-                                .text(d => {
-                                    const value = accessor.map.serviceTextValue(d);
-                                    return value ? value + ' spaces' : '';
-                                });
+                                .text(accessor.map.serviceTextValue);
                         },
                         update => {
                             update.select('.table-item-key').text(accessor.map.service);
-                            update.select('.table-item-value-capacity').text(d => {
-                                const value = accessor.map.serviceTextValue(d);
-                                return value ? value + ' spaces' : '';
-                            });
+                            update.select('.table-item-value-capacity').text(accessor.map.serviceTextValue);
                         },
                         exit => exit.remove()
                     );
@@ -1701,8 +1619,7 @@
                 container: 'map',
                 style: 'mapbox://styles/mapbox/light-v9',
                 center: [-0.27091, 51.50675],
-                zoom: 10,
-                attributionControl: false
+                zoom: 10
             });
             map.addControl(new mapboxgl.NavigationControl());
             let loaded = false;
@@ -1722,12 +1639,6 @@
                 map.dragRotate.disable();
                 map.doubleClickZoom.disable();
                 map.touchZoomRotate.disable();
-
-                // Disable panning and zooming on mobile
-                if (window.innerWidth <= 760) {
-                    map.dragPan.disable();
-                    map.keyboard.disable();
-                }
                 map.style.stylesheet.layers.forEach(function (layer) {
                     if (layer.type === 'symbol') {
                         map.removeLayer(layer.id);
@@ -1957,7 +1868,7 @@
             const headerIcon = d3.select(".sleeping-header-icon")
                 .attr("src", ROUGH_SLEEPING_IMAGE_URL);
             const yoyDiff = d3.select('#yoy_diff');
-            const height = 280;
+            const height = 160;
             const margin = { top: 20, right: 50, bottom: 40, left: 20 };
             let svg = d3.select('#chain-line-chart').append('svg')
                 .attr('width', '100%')
@@ -2270,17 +2181,7 @@
             const serviceText1 = accessor.map.serviceTextOne(d);
             const serviceText2 = accessor.map.serviceTextTwo(d);
             const serviceText3 = accessor.map.serviceTextThree(d);
-            const website = accessor.map.website(d);
-            const isMobile = window.innerWidth <= 760;
-
-            let clickDot = "";
-            if (fromMap && website && website.length > 0) {
-                clickDot = "Click dot to view service website";
-            } else if (!fromMap && website && website.length > 0 && isMobile) {
-                const prefix = website.includes('://') ? '' : '//';
-                clickDot = `<a href="${prefix}${website}" target="_blank" style="color:#B07AA1; text-decoration:underline; cursor:pointer;">Click here to visit site (new tab)</a>`;
-            }
-
+            const clickDot = fromMap ? (accessor.map.website(d) && accessor.map.website(d).length > 0 ? "Click dot to view service website" : "") : ""
             return `
                 <div style="text-align:center">
                 <div class="tip-header">
@@ -2316,24 +2217,13 @@
         function renderTooltip(tooltip) {
             let width, height;
             const padding = 8;
-            const isMobile = window.innerWidth <= 760;
 
             function show(content, color) {
-                // Add close button on mobile
-                if (isMobile) {
-                    content = content + '<button class="tooltip-close" onclick="this.closest(\'.chart-tooltip\').classList.remove(\'show\')">&times;</button>';
-                }
-
                 tooltip.style("border-color", color).html(content);
                 const bcr = tooltip.node().getBoundingClientRect();
                 width = bcr.width;
                 height = bcr.height;
                 tooltip.classed("show", true);
-
-                // On mobile, center the tooltip
-                if (isMobile) {
-                    tooltip.style("transform", `translate(${(window.innerWidth - width) / 2}px, 50px)`);
-                }
             }
 
             function hide() {
@@ -2341,9 +2231,6 @@
             }
 
             function move(e) {
-                // Don't move tooltip on mobile - it stays centered
-                if (isMobile) return;
-
                 let x = (e || d3.event).clientX - width * .75;
                 if (x < 0) {
                     x = 0;

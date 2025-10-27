@@ -3,9 +3,11 @@
 <title></title>
 <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
     integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
 
 <style type="text/css">
     body {
+        font-family: 'Open Sans', sans-serif;
         font-size: 0.875rem;
     }
 
@@ -46,6 +48,11 @@
         justify-content: flex-end
     }
 
+    @media (max-width: 799px) {
+        #buttons {
+            display: none !important;
+        }
+    }
 
     .btn__svg {
         text-align: left;
@@ -149,6 +156,12 @@
         pointer-events: none;
     }
 
+    @media (max-width: 799px) {
+        .map-label {
+            font-size: 0.55rem;
+        }
+    }
+
     .map-label,
     .bar-value {
         fill: currentColor;
@@ -201,6 +214,12 @@
         border: 2px solid rgba(0, 0, 0, 0.2);
         background-clip: padding-box;
         border-radius: 4px;
+    }
+
+    @media (max-width: 799px) {
+        .map-control {
+            display: none;
+        }
     }
 
     .map-control .map-zoom-in,
@@ -274,6 +293,12 @@
         transition: opacity 0.15s linear;
     }
 
+    @media (max-width: 799px) {
+        .chart-tooltip {
+            display: none !important;
+        }
+    }
+
     .chart-tooltip p {
         margin-bottom: 0.5rem;
     }
@@ -287,8 +312,13 @@
     }
 
     .polygon-background {
-        background-color: #f0f6fa;
         position: relative;
+    }
+
+    @media (min-width: 800px) {
+        .polygon-background {
+            background-color: #f0f6fa;
+        }
     }
 
     @media (min-width: 992px) {
@@ -313,6 +343,10 @@
         .chart-tooltip {
             max-width: 480px;
         }
+    }
+
+    .map-text {
+        text-align: right;
     }
 
     @media (min-width: 800px) {
@@ -419,11 +453,14 @@
                     </div>
                 </div>
 
-                <div class="chart-footer">&nbsp;</div>
             </div>
 
             <div class="col-12 col-lg-4 mt-3 mt-lg-0 py-2 polygon-background">
                 <div id="london-map-bar-chart"><svg class="chart-svg"></svg></div>
+            </div>
+
+            <div class="col-12" style="padding-top:3px; padding-bottom:3px">
+                <div class="chart-footer">&nbsp;</div>
             </div>
         </div>
     </div>
@@ -886,7 +923,27 @@
             resize();
             window.addEventListener("resize", resize);
 
-            svg.call(zoom).on("wheel.zoom", null);
+            // Enable zoom: on desktop allow drag panning, on mobile only allow touch pinch zoom
+            if (window.innerWidth >= 800) {
+                svg.call(zoom).on("wheel.zoom", null);
+            } else {
+                // On mobile: enable zoom but disable mouse/single-touch dragging
+                svg.call(zoom)
+                    .on("wheel.zoom", null)
+                    .on("mousedown.zoom", null)
+                    .on("touchstart.zoom", function() {
+                        // Only allow zoom if multi-touch (pinch)
+                        if (d3.event.touches && d3.event.touches.length < 2) {
+                            d3.event.stopImmediatePropagation();
+                        }
+                    })
+                    .on("touchmove.zoom", function() {
+                        // Only allow zoom if multi-touch (pinch)
+                        if (d3.event.touches && d3.event.touches.length < 2) {
+                            d3.event.stopImmediatePropagation();
+                        }
+                    });
+            }
             container.select(".map-zoom-in").on("click", zoomIn);
             container.select(".map-zoom-out").on("click", zoomOut);
 
@@ -1208,7 +1265,7 @@
                                     .attr("x", -margin.left)
                                     .attr("y", y.bandwidth() / 2)
                                     .attr("dy", "0.32em")
-                                    .text((d) => accessor.metric.name(d))
+                                    .text((d) => accessor.metric.name(d).replace(/ and /g, " & "))
                             )
                             .call((g) =>
                                 g

@@ -1,9 +1,11 @@
 <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title></title>
 <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
 <script src="https://unpkg.com/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js"></script>
 <style type="text/css">body {
+    font-family: 'Open Sans', sans-serif;
     font-size: 0.875rem;
 }
 
@@ -140,6 +142,42 @@
     }
 }
 
+@media (max-width: 760px) {
+    #buttons {
+        display: none !important;
+    }
+
+    .chart-tooltip {
+        pointer-events: auto;
+    }
+
+    .chart-tooltip.show {
+        padding: 0.75rem 2.5rem 0.75rem 1.25rem;
+    }
+}
+
+.tooltip-close {
+    display: none;
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    line-height: 1;
+    color: #6c757d;
+    cursor: pointer;
+    padding: 0;
+    width: 24px;
+    height: 24px;
+}
+
+@media (max-width: 760px) {
+    .tooltip-close {
+        display: block;
+    }
+}
+
 @media (min-width: 600px) {
     .chart-tooltip {
         max-width: 600px;
@@ -259,7 +297,7 @@
                     <div class="chart-title">
                         <div class="chart-title-main">Health Services - Specialist homelessness health services by type of service</div>
                         <div class="chart-title-sub"></div>
-                        <div class="chart-intro">Click a type of service to find out more. Hover over a borough on the map or a list item of the services list for details.</div>
+                        <div class="chart-intro">Click a type of service to find out more.</div>
                     </div>
                 </div>
 
@@ -293,7 +331,7 @@
 
     <div class="row">
         <div class="col-12">
-            <div class="chart-footer">LHF Atlas 2019/20 - see <a href="https://www.lhfatlas.org.uk" target="_blank">www.lhfatlas.org.uk</a> for full details</div>
+            <div class="chart-footer">LHF Atlas 2025
         </div>
     </div>
 </div>
@@ -510,6 +548,14 @@
                 selected.serviceType = d.serviceType;
                 dispatch.call("updatetop");
                 dispatch.call("updatebottom");
+
+                // On mobile, scroll to the map
+                if (window.innerWidth <= 760) {
+                    const mapElement = document.getElementById('specialist-health-service-map');
+                    if (mapElement) {
+                        mapElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                }
             }
 
             function entered(d) {
@@ -560,15 +606,26 @@
             const projection = d3.geoMercator();
             const geoPath = d3.geoPath(projection);
 
+            // Setup zoom behavior for mobile
+            const zoom = d3.zoom()
+                .scaleExtent([1, 8])
+                .on("zoom", zoomed);
+
             const container = d3
                 .select("#specialist-health-service-map")
                 .classed("service-map", true);
             const title = container
                 .append("div")
                 .attr("class", "service-map-title mb-2");
+            const subtitle = container
+                .append("div")
+                .attr("class", "mb-2")
+                .style("font-size", "0.85rem")
+                .style("color", "#6c757d")
+                .text(window.innerWidth <= 760 ? "Click a borough" : "Hover over a borough");
             const svg = container.append("svg");
-            const borough = svg
-                .append("g")
+            const g = svg.append("g");
+            const borough = g
                 .attr("class", "map-paths")
                 .selectAll(".map-path")
                 .data(data.london.features, accessor.geo.id)
@@ -577,10 +634,50 @@
                         .append("path")
                         .attr("class", "map-path")
                         .attr("fill", "#fff")
-                        .on("mouseenter", entered)
-                        .on("mouseleave", left)
-                        .on("mousemove", moved)
+                        .on("mouseenter", function(d) {
+                            if (window.innerWidth > 760) {
+                                entered(d);
+                            }
+                        })
+                        .on("mouseleave", function(d) {
+                            if (window.innerWidth > 760) {
+                                left(d);
+                            }
+                        })
+                        .on("mousemove", function(d) {
+                            if (window.innerWidth > 760) {
+                                moved(d);
+                            }
+                        })
+                        .on("click", function(d) {
+                            if (window.innerWidth <= 760) {
+                                const services = getBoroughServices(d);
+                                if (services.length === 0) return;
+                                d3.event.stopPropagation();
+                                tooltip.show(boroughTooltipContent(d, services), color(services.length));
+                            }
+                        })
                 );
+
+            // Enable zoom on mobile only
+            if (window.innerWidth <= 760) {
+                svg.call(zoom)
+                    .on("mousedown.zoom", null)
+                    .on("touchstart.zoom", function() {
+                        if (d3.event.touches && d3.event.touches.length < 2) {
+                            d3.event.stopImmediatePropagation();
+                        }
+                    })
+                    .on("touchmove.zoom", function() {
+                        if (d3.event.touches && d3.event.touches.length < 2) {
+                            d3.event.stopImmediatePropagation();
+                        }
+                    });
+            }
+
+            function zoomed() {
+                g.attr("transform", d3.event.transform);
+            }
 
             const legend = container
                 .append("div")
@@ -616,6 +713,11 @@
                 svg.attr("width", svgWidth).attr("height", svgHeight);
 
                 borough.attr("d", geoPath);
+
+                // Reset zoom on resize
+                if (window.innerWidth <= 760) {
+                    svg.call(zoom.transform, d3.zoomIdentity);
+                }
             }
 
             dispatch.on("updatebottom.services-map", () => {
@@ -648,11 +750,14 @@
             }
 
             function left() {
-                if (selected.borough) {
+                const isMobile = window.innerWidth <= 760;
+                if (!isMobile && selected.borough) {
                     selected.borough = null;
                     dispatch.call("updatebottom");
                 }
-                tooltip.hide();
+                if (!isMobile) {
+                    tooltip.hide();
+                }
             }
 
             function moved() {
@@ -679,6 +784,13 @@
                 .append("div")
                 .attr("class", "service-list-title mb-2");
 
+            const subtitle = container
+                .append("div")
+                .attr("class", "mb-2")
+                .style("font-size", "0.85rem")
+                .style("color", "#6c757d")
+                .text(window.innerWidth <= 760 ? "Click a service" : "Hover over a service");
+
             const service = container
                 .append("table")
                 .attr("class", "table table-hover table-sm")
@@ -696,9 +808,21 @@
                         enter
                             .append("tr")
                             .call((tr) => tr.append("td").text(accessor.services.serviceName))
-                            .on("mouseenter", entered)
-                            .on("mouseleave", left)
-                            .on("mousemove", moved)
+                            .on("mouseenter", function(d) {
+                                if (window.innerWidth > 760) {
+                                    entered(d);
+                                }
+                            })
+                            .on("mouseleave", function(d) {
+                                if (window.innerWidth > 760) {
+                                    left(d);
+                                }
+                            })
+                            .on("mousemove", function(d) {
+                                if (window.innerWidth > 760) {
+                                    moved(d);
+                                }
+                            })
                             .on("click", clicked)
                     )
                     .classed("muted", (d) => {
@@ -718,8 +842,15 @@
             });
 
             function clicked(d) {
-                if (touchable || accessor.services.website(d) === "") return;
-                window.open(accessor.services.website(d), "_blank");
+                const isMobile = window.innerWidth <= 760;
+                if (isMobile) {
+                    // On mobile, show tooltip with link
+                    d3.event.preventDefault();
+                    tooltip.show(serviceTooltipContent(d), "#4e79a8");
+                } else if (!touchable && accessor.services.website(d)) {
+                    // On desktop, open link directly
+                    window.open(accessor.services.website(d), "_blank");
+                }
             }
 
             function entered(d) {
@@ -731,11 +862,14 @@
             }
 
             function left() {
-                if (selected.service) {
+                const isMobile = window.innerWidth <= 760;
+                if (!isMobile && selected.service) {
                     selected.service = null;
                     dispatch.call("updatebottom");
                 }
-                tooltip.hide();
+                if (!isMobile) {
+                    tooltip.hide();
+                }
             }
 
             function moved() {
@@ -795,13 +929,24 @@
         function renderTooltip(tooltip) {
             let width, height;
             const padding = 8;
+            const isMobile = window.innerWidth <= 760;
 
             function show(content, color) {
+                // Add close button on mobile
+                if (isMobile) {
+                    content = content + '<button class="tooltip-close" onclick="this.closest(\'.chart-tooltip\').classList.remove(\'show\')">&times;</button>';
+                }
+
                 tooltip.style("border-color", color).html(content);
                 const bcr = tooltip.node().getBoundingClientRect();
                 width = bcr.width;
                 height = bcr.height;
                 tooltip.classed("show", true);
+
+                // On mobile, center the tooltip
+                if (isMobile) {
+                    tooltip.style("transform", `translate(${(window.innerWidth - width) / 2}px, 50px)`);
+                }
             }
 
             function hide() {
@@ -809,6 +954,9 @@
             }
 
             function move() {
+                // Don't move tooltip on mobile - it stays centered
+                if (isMobile) return;
+
                 let x = d3.event.clientX - width / 2;
                 if (x < 0) {
                     x = 0;
@@ -830,6 +978,16 @@
         }
 
         function serviceTooltipContent(d) {
+            const isMobile = window.innerWidth <= 760;
+            const website = accessor.services.website(d);
+            let websiteLink = "";
+
+            if (website && isMobile) {
+                websiteLink = `<p><a href="${website}" target="_blank" style="color:#00aaff; text-decoration:underline; cursor:pointer;">Click here to visit site (new tab)</a></p>`;
+            } else if (website && !touchable) {
+                websiteLink = "<p><em>Click to view service website</em></p>";
+            }
+
             return `
       <p class="service-name">${accessor.services.serviceName(d)}</p>
       <p><span>${accessor.services.serviceType(
@@ -838,7 +996,7 @@
                 d
             )}</span></p>
       <p>${accessor.services.serviceOffered(d)}</p>
-      ${touchable ? "" : "<p><em>Click to view service website</em></p>"}
+      ${websiteLink}
     `;
         }
 

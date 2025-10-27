@@ -1,24 +1,40 @@
 <head>
     <title>local services</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
     <script src="https://d3js.org/d3.v6.min.js"></script>
 
 
     <style>
         body {
             font-family: 'Open Sans', sans-serif;
+            font-size: 0.875rem;
         }
 
         .container {
             display: flex;
-        }
-
-        .container {
-            display: flex;
+            flex-wrap: wrap;
         }
 
         .column {
             flex: 1;
             padding: 10px;
+            min-width: 300px;
+            box-sizing: border-box;
+        }
+
+        .column:first-child {
+            overflow: hidden;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .column {
+                width: 100%;
+                flex: none;
+            }
         }
 
         .dropdown-container {
@@ -26,8 +42,15 @@
         }
 
         .dropdown-title {
-            font-size: 14px;
-            margin-bottom: 5px;
+            font-size: 11px;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        #laDropdown {
+            margin-bottom: 20px;
+            height: 40px;
+            font-size: 16px;
         }
 
         .map-placeholder {
@@ -42,10 +65,16 @@
         }
 
         #geojsonMap {
-            width: 450px;
-            /* Responsive width */
-            height: 400px;
-            /* Maintain aspect ratio */
+            width: 100%;
+            height: auto;
+            display: block;
+            max-width: 100%;
+            overflow: visible;
+        }
+
+        svg {
+            max-width: 100%;
+            height: auto;
         }
 
         .section-header {
@@ -60,11 +89,11 @@
             text-align: center;
             width: auto;
             height: auto;
-            padding: 2px;
-            font: 12px sans-serif;
-            background: lightsteelblue;
-            border: 0px;
-            border-radius: 8px;
+            padding: 8px 12px;
+            font-size: 0.75rem;
+            background: rgba(176, 196, 222, 0.9);
+            border: 1px solid rgba(0, 0, 0, 0.125);
+            border-radius: 4px;
             pointer-events: none;
         }
 
@@ -123,9 +152,9 @@
         }
 
         .dropdown-title {
-            font-size: 18px;
+            font-size: 1.3em;
             /* Adjust the size for the title */
-            margin-bottom: 5px;
+            margin-bottom: 15px;
         }
 
     
@@ -141,7 +170,7 @@
                 <select class="form-control custom-select custom-select-sm" id="laDropdown"></select>
             </div>
         </div>
-        <svg id="geojsonMap" width="550" height="450"></svg>
+        <svg id="geojsonMap"></svg>
     </div>
 
     <!-- Second Column -->
@@ -215,14 +244,11 @@
     document.addEventListener('DOMContentLoaded', function () {
         // Initialize the SVG map
         svg = d3.select("#geojsonMap");
-        var width = +svg.attr("width");
-        var height = +svg.attr("height");
 
-        var projection = d3.geoMercator()
-            .center([-0.00, 51.480])
-            .scale(30000)
-            .translate([width / 2, height / 2]);
+        let svgWidth, svgHeight;
+        const margin = { top: 8, right: 8, bottom: 8, left: 8 };
 
+        var projection = d3.geoMercator();
         var path = d3.geoPath().projection(projection);
 
         var tooltip = d3.select("body").append("div")
@@ -230,6 +256,28 @@
             .style("opacity", 0);
 
         d3.json('https://raw.githubusercontent.com/illustrating-impact-dev/repo-lhf-atlas/main/data/boroughs.json').then(function (geojson) {
+            // Function to resize map
+            function resize() {
+                const container = document.querySelector('#geojsonMap').parentElement;
+                // Account for padding
+                const containerWidth = container.clientWidth - 20; // subtract padding
+                svgWidth = Math.max(containerWidth, 100);
+                svgHeight = Math.round((svgWidth / 390) * 300);
+
+                projection.fitExtent(
+                    [
+                        [margin.left, margin.top],
+                        [svgWidth - margin.right, svgHeight - margin.bottom],
+                    ],
+                    { type: "FeatureCollection", features: geojson.features }
+                );
+
+                svg.attr("width", svgWidth).attr("height", svgHeight);
+                svg.attr("viewBox", `0 0 ${svgWidth} ${svgHeight}`);
+                svg.attr("preserveAspectRatio", "xMidYMid meet");
+                svg.selectAll("path").attr("d", path);
+            }
+
             svg.selectAll("path")
                 .data(geojson.features)
                 .enter().append("path")
@@ -258,6 +306,8 @@
                     updateMapHighlight(d.properties.GSS_CODE);
                 });
 
+            resize();
+            window.addEventListener("resize", resize);
             updateMapHighlight(); // Call this function after the map is fully set up
         });
 
