@@ -1196,6 +1196,13 @@
                 width = bcr.width;
                 height = bcr.height;
                 tooltip.classed("show", true);
+
+                // Center tooltip vertically and horizontally on mobile
+                if (isMobile) {
+                    const x = (window.innerWidth - width) / 2;
+                    const y = (window.innerHeight - height) / 2;
+                    tooltip.style("transform", `translate(${x}px,${y}px)`);
+                }
             }
 
             function hide() {

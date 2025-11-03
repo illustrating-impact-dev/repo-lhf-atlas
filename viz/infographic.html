@@ -1603,7 +1603,7 @@
 
         switch (selected.sizeBy) {
           case "service":
-            title += "Service";
+            title += "Services";
             break;
           case "bed":
             title += "Accommodation (hostel/supported) by bed spaces";
@@ -1612,7 +1612,7 @@
             break;
         }
 
-        title += ", divided by ";
+        title += " for each ";
 
         switch (selected.groupBy) {
           case "borough":
@@ -1620,22 +1620,6 @@
             break;
           case "provider":
             title += "provider";
-            break;
-          default:
-            break;
-        }
-
-        title += ", with summary information for ";
-
-        switch (selected.highlightBy) {
-          case "london":
-            title += "all London";
-            break;
-          case "women":
-            title += "women's services";
-            break;
-          case "young":
-            title += "young People's services";
             break;
           default:
             break;
