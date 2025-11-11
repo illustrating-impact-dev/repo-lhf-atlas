@@ -33,6 +33,10 @@ app.get('/health', (req, res) => {
     res.sendFile(path.join(__dirname, 'viz', 'health.html'));
 });
 
+app.get('/borough-focus', (req, res) => {
+    res.sendFile(path.join(__dirname, 'viz', 'borough_focus.html'));
+});
+
 // Add a basic home page that lists all available routes
 app.get('/', (req, res) => {
     res.send(`
@@ -44,6 +48,7 @@ app.get('/', (req, res) => {
             <li><a href="/london-map">London Map</a></li>
             <li><a href="/local-services">Local Services</a></li>
             <li><a href="/health">Health</a></li>
+            <li><a href="/borough-focus">Borough Focus</a></li>
         </ul>
     `);
 });
