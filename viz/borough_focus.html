@@ -825,8 +825,7 @@
 
         <div class="row" style="margin-top: 24px;">
             <div class="col-12">
-                <div class="chart-footer">© LHF Atlas 2025 - see <a href="https://www.lhfatlas.org.uk"
-                        target="_blank">www.lhfatlas.org.uk </a>for full details</div>
+                <div class="chart-footer">© LHF Atlas 2025 | Data last updated March 2025
             </div>
         </div>
     </div>
@@ -2321,10 +2320,22 @@
             function show(content, color) {
                 // Add close button on mobile
                 if (isMobile) {
-                    content = content + '<button class="tooltip-close" onclick="this.closest(\'.chart-tooltip\').classList.remove(\'show\')">&times;</button>';
+                    content = content + '<button class="tooltip-close" data-close-tooltip>&times;</button>';
                 }
 
                 tooltip.style("border-color", color).html(content);
+
+                // Add event handler for close button
+                if (isMobile) {
+                    tooltip.select('.tooltip-close').on('click', function(event) {
+                        if (event) {
+                            event.stopPropagation();
+                            event.preventDefault();
+                        }
+                        hide();
+                    });
+                }
+
                 const bcr = tooltip.node().getBoundingClientRect();
                 width = bcr.width;
                 height = bcr.height;

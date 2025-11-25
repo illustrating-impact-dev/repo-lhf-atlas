@@ -459,7 +459,7 @@
 
     <div class="row">
         <div class="col-12">
-            <div class="chart-footer">Copyright LHF Atlas 2025</div>
+            <div class="chart-footer">© LHF Atlas 2025 | Data last updated March 2025</div>
         </div>
     </div>
 </div>
@@ -1344,12 +1344,27 @@
 
                 if (isMobile) {
                     const closeBtn = '<button class="tooltip-close" data-close-tooltip>&times;</button>';
-                    const link = websiteUrl && websiteUrl !== "" ? `<div class="tooltip-link" onclick="window.open('${websiteUrl}', '_blank')">Visit website</div>` : '';
+                    const link = websiteUrl && websiteUrl !== "" ? `<div class="tooltip-link">Visit website</div>` : '';
                     tooltip.style("border-color", color).html(closeBtn + content + link);
 
                     // Add click handler for close button
-                    tooltip.select('.tooltip-close').on('click', function() {
+                    tooltip.select('.tooltip-close').on('click', function(event) {
+                        if (event) {
+                            event.stopPropagation();
+                            event.preventDefault();
+                        }
                         hide();
+                    });
+
+                    // Add click handler for link
+                    tooltip.select('.tooltip-link').on('click', function(event) {
+                        if (event) {
+                            event.stopPropagation();
+                            event.preventDefault();
+                        }
+                        if (websiteUrl && websiteUrl !== "") {
+                            window.open(websiteUrl, '_blank');
+                        }
                     });
 
                     // Center tooltip on mobile

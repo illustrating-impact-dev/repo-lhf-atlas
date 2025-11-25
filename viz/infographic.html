@@ -661,7 +661,7 @@
 
     <div class="row">
       <div class="col-12">
-        <div class="chart-footer">© LHF Atlas 2025</div>
+        <div class="chart-footer">© LHF Atlas 2025 | Data last updated March 2025</div>
       </div>
     </div>
   </div>
@@ -995,7 +995,7 @@
       </div>
       <div class="summary-row">
         <div class="color-square" style='background-color: ${colorByServiceType("Outreach")}'></div>
-        <div><span style='color: ${colorByServiceType("Outreach")}'>Outreach</span> ${d.outreach}</div>
+        <div><span style='color: ${colorByServiceType("Outreach")}'>${formatCount(d.outreach)}</span> outreach teams</div>
       </div>
       <div class="summary-row">
         <div class="color-square" style='background-color: ${colorByServiceType("Assessment_Centre")}'></div>
@@ -1423,6 +1423,12 @@
       function clicked(d) {
         const isMobile = window.innerWidth <= 768;
         if (isMobile) {
+          // Prevent event from bubbling
+          if (d3.event) {
+            d3.event.stopPropagation();
+            d3.event.preventDefault();
+          }
+
           // On mobile, first click shows tooltip with close button and link
           d3.select(this).raise();
           tooltip.show(blockTooltipContent(d), blockColor(d), accessor.services.website(d));
@@ -1837,20 +1843,33 @@
         return acc;
       }, {});
 
+      // Count unique outreach services from providers (before multi-borough split)
+      const londonOutreachCount = providers.filter(d =>
+        d.serviceType === "Outreach"
+      ).length;
+
+      const womenOutreachCount = providers.filter(d =>
+        d.serviceType === "Outreach" && d["Women's service"]
+      ).length;
+
+      const youngOutreachCount = providers.filter(d =>
+        d.serviceType === "Outreach" && d["Young people's service"]
+      ).length;
+
       Object.keys(data.totals).forEach((key) => {
         const d = data.totals[key];
         switch (key) {
           case "london":
             d.chflats = 3800;
-            d.outreach = "commissioned by individual boroughs and the GLA";
+            d.outreach = londonOutreachCount;
             break;
           case "women":
             d.chflats = 0;
-            d.outreach = "provided through standard services";
+            d.outreach = womenOutreachCount;
             break;
           case "young":
             d.chflats = 0;
-            d.outreach = "provided through standard services";
+            d.outreach = youngOutreachCount;
             break;
           default:
             break;
@@ -1869,12 +1888,27 @@
       function show(content, color, websiteUrl) {
         if (isMobile) {
           const closeBtn = '<button class="tooltip-close" data-close-tooltip>&times;</button>';
-          const link = websiteUrl && websiteUrl !== "" ? `<div class="tooltip-link" onclick="window.open('${websiteUrl}', '_blank')">Visit website</div>` : '';
+          const link = websiteUrl && websiteUrl !== "" ? `<div class="tooltip-link">Visit website</div>` : '';
           tooltip.style("border-color", color).html(closeBtn + content + link);
 
           // Add click handler for close button
-          tooltip.select('.tooltip-close').on('click', function() {
+          tooltip.select('.tooltip-close').on('click', function(event) {
+            if (event) {
+              event.stopPropagation();
+              event.preventDefault();
+            }
             hide();
+          });
+
+          // Add click handler for link
+          tooltip.select('.tooltip-link').on('click', function(event) {
+            if (event) {
+              event.stopPropagation();
+              event.preventDefault();
+            }
+            if (websiteUrl && websiteUrl !== "") {
+              window.open(websiteUrl, '_blank');
+            }
           });
         } else {
           tooltip.style("border-color", color).html(content);

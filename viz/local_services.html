@@ -177,7 +177,7 @@
 
     <!-- Second Column -->
     <div class="column">
-        <div class="section-header">Day Centres</div>
+        <div class="section-header" id="centresHeader">Day Centres</div>
         <table id="centresTable">
             <thead>
                 <tr>
@@ -190,7 +190,7 @@
             </tbody>
         </table>
 
-        <div class="section-header">Winter Shelters</div>
+        <div class="section-header" id="shelterHeader">Winter Shelters</div>
         <table id="shelterTable">
             <thead>
                 <tr>
@@ -203,8 +203,21 @@
             </tbody>
         </table>
 
-        <div class="section-header">Outreach</div>
+        <div class="section-header" id="outreachHeader">Outreach</div>
         <table id="outreachTable">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Table rows will be added here -->
+            </tbody>
+        </table>
+
+        <div class="section-header" id="housingFirstHeader">Housing First</div>
+        <table id="housingFirstTable">
             <thead>
                 <tr>
                     <th></th>
@@ -219,7 +232,7 @@
 
     <!-- Third Column -->
     <div class="column">
-        <div class="section-header">Accommodation/Assessment Centre</div>
+        <div class="section-header" id="accommodationHeader">Accommodation/Assessment Centre</div>
         <table id="accommodationTable">
             <thead>
                 <tr>
@@ -231,6 +244,12 @@
                 <!-- Table rows will be added here -->
             </tbody>
         </table>
+    </div>
+</div>
+
+<div class="container">
+    <div class="column" style="width: 100%; text-align: center; color: #6c757d; font-size: 0.75rem; padding-top: 20px;">
+        © LHF Atlas 2025 | Data last updated March 2025
     </div>
 </div>
 
@@ -305,6 +324,7 @@
                     updateOutreachTable(d.properties.GSS_CODE);
                     updateCentresTable(d.properties.GSS_CODE);
                     updateShelterTable(d.properties.GSS_CODE);
+                    updateHousingFirstTable(d.properties.GSS_CODE);
                     updateMapHighlight(d.properties.GSS_CODE);
                 });
 
@@ -374,6 +394,7 @@ const westminsterOption = dropdownElement.querySelector("option[value='E09000033
             updateOutreachTable(selectedValue);
             updateCentresTable(selectedValue);
             updateShelterTable(selectedValue);
+            updateHousingFirstTable(selectedValue);
             updateMapHighlight(selectedValue);
         });
     });
@@ -388,6 +409,7 @@ const westminsterOption = dropdownElement.querySelector("option[value='E09000033
 
     function updateAccommodationTable(value) {
         const tableBody = document.getElementById('accommodationTable').getElementsByTagName('tbody')[0];
+        const header = document.getElementById('accommodationHeader');
         tableBody.innerHTML = ''; // Clear existing rows
 
         let filteredData;
@@ -418,6 +440,13 @@ const westminsterOption = dropdownElement.querySelector("option[value='E09000033
         // Get unique providers and sort them alphabetically
         const uniqueProviders = Array.from(new Set(filteredData.map(item => item.Provider)))
             .sort((a, b) => a.localeCompare(b)); // Sorting alphabetically
+
+        // Show/hide header based on whether there are services
+        if (uniqueProviders.length === 0) {
+            header.style.display = 'none';
+        } else {
+            header.style.display = 'block';
+        }
 
         uniqueProviders.forEach(provider => {
             const providerData = filteredData.find(item => item.Provider === provider);
@@ -439,6 +468,7 @@ const westminsterOption = dropdownElement.querySelector("option[value='E09000033
 
     function updateOutreachTable(value) {
         const tableBody = document.getElementById('outreachTable').getElementsByTagName('tbody')[0];
+        const header = document.getElementById('outreachHeader');
         tableBody.innerHTML = ''; // Clear existing rows
 
         let filteredData;
@@ -468,6 +498,13 @@ const westminsterOption = dropdownElement.querySelector("option[value='E09000033
         // Get unique providers and sort them alphabetically
         const uniqueProviders = Array.from(new Set(filteredData.map(item => item.Provider)))
             .sort((a, b) => a.localeCompare(b)); // Sorting alphabetically
+
+        // Show/hide header based on whether there are services
+        if (uniqueProviders.length === 0) {
+            header.style.display = 'none';
+        } else {
+            header.style.display = 'block';
+        }
 
         uniqueProviders.forEach(provider => {
             const providerData = filteredData.find(item => item.Provider === provider);
@@ -489,6 +526,7 @@ const westminsterOption = dropdownElement.querySelector("option[value='E09000033
 
     function updateCentresTable(value) {
         const tableBody = document.getElementById('centresTable').getElementsByTagName('tbody')[0];
+        const header = document.getElementById('centresHeader');
         tableBody.innerHTML = ''; // Clear existing rows
 
         let filteredData;
@@ -518,6 +556,13 @@ const westminsterOption = dropdownElement.querySelector("option[value='E09000033
         // Get unique providers and sort them alphabetically
         const uniqueProviders = Array.from(new Set(filteredData.map(item => item.Provider)))
             .sort((a, b) => a.localeCompare(b)); // Sorting alphabetically
+
+        // Show/hide header based on whether there are services
+        if (uniqueProviders.length === 0) {
+            header.style.display = 'none';
+        } else {
+            header.style.display = 'block';
+        }
 
         uniqueProviders.forEach(provider => {
             const providerData = filteredData.find(item => item.Provider === provider);
@@ -539,6 +584,7 @@ const westminsterOption = dropdownElement.querySelector("option[value='E09000033
 
     function updateShelterTable(value) {
         const tableBody = document.getElementById('shelterTable').getElementsByTagName('tbody')[0];
+        const header = document.getElementById('shelterHeader');
         tableBody.innerHTML = ''; // Clear existing rows
 
         let filteredData;
@@ -568,6 +614,71 @@ const westminsterOption = dropdownElement.querySelector("option[value='E09000033
         // Get unique providers and sort them alphabetically
         const uniqueProviders = Array.from(new Set(filteredData.map(item => item.Provider)))
             .sort((a, b) => a.localeCompare(b)); // Sorting alphabetically
+
+        // Show/hide header based on whether there are services
+        if (uniqueProviders.length === 0) {
+            header.style.display = 'none';
+        } else {
+            header.style.display = 'block';
+        }
+
+        uniqueProviders.forEach(provider => {
+            const providerData = filteredData.find(item => item.Provider === provider);
+            const row = tableBody.insertRow();
+            const cell1 = row.insertCell(0); // Provider
+            const cell2 = row.insertCell(1); // Website
+
+
+            cell1.textContent = provider;
+
+
+            // Provider URL (only if not blank or "0")
+            const providerURL = providerData.ProviderURL;
+            if (providerURL && providerURL !== "0") {
+                cell2.innerHTML = `<a href="${providerURL}" target="_blank">View site</a>`;
+            }
+        });
+    }
+
+    function updateHousingFirstTable(value) {
+        const tableBody = document.getElementById('housingFirstTable').getElementsByTagName('tbody')[0];
+        const header = document.getElementById('housingFirstHeader');
+        tableBody.innerHTML = ''; // Clear existing rows
+
+        let filteredData;
+
+        if (value === "WOMEN") {
+            // Filter for "WOMEN" GSS code
+            filteredData = accommodationData.filter(item =>
+                item.Women === true &&
+                item.ServiceType === 'Housing First' &&
+                item.Provider.trim() !== ''
+            );
+        } else if (value === "YOUNG") {
+            // Filter for "YOUNG" GSS code
+            filteredData = accommodationData.filter(item =>
+                item.Young === true &&
+                item.ServiceType === 'Housing First' &&
+                item.Provider.trim() !== ''
+            );
+        } else {
+            // Original filter logic for other GSS codes
+            filteredData = accommodationData.filter(item =>
+                item.GSS === value &&
+                item.ServiceType === 'Housing First' &&
+                item.Provider.trim() !== ''
+            );
+        }
+        // Get unique providers and sort them alphabetically
+        const uniqueProviders = Array.from(new Set(filteredData.map(item => item.Provider)))
+            .sort((a, b) => a.localeCompare(b)); // Sorting alphabetically
+
+        // Show/hide header based on whether there are services
+        if (uniqueProviders.length === 0) {
+            header.style.display = 'none';
+        } else {
+            header.style.display = 'block';
+        }
 
         uniqueProviders.forEach(provider => {
             const providerData = filteredData.find(item => item.Provider === provider);

@@ -111,6 +111,13 @@
         padding-left: 32px;
     }
 
+    @media (max-width: 799px) {
+        body {
+            padding-right: 16px;
+            padding-left: 16px;
+        }
+    }
+
     #rough-sleeping-description {
         font-size: 0.75rem;
         border: 1px solid #cccccc;
@@ -118,10 +125,23 @@
         border-radius: 32px;
     }
 
+        @media (max-width: 799px) {
+            #rough-sleeping-description {
+                padding: 16px 20px;
+                border-radius: 16px;
+            }
+        }
+
         #rough-sleeping-description h4 {
             font-weight: 400;
             color: #000000;
             font-size: 20px;
+        }
+
+        @media (max-width: 799px) {
+            #rough-sleeping-description h4 {
+                font-size: 16px;
+            }
         }
 
         #rough-sleeping-description h1 {
@@ -129,10 +149,22 @@
             color: #0092FF;
         }
 
+        @media (max-width: 799px) {
+            #rough-sleeping-description h1 {
+                font-size: 1.75rem;
+            }
+        }
+
         #rough-sleeping-description #mail-description {
             font-weight: 200;
             color: #657274;
             font-size: 20px;
+        }
+
+        @media (max-width: 799px) {
+            #rough-sleeping-description #mail-description {
+                font-size: 14px;
+            }
         }
 
         #rough-sleeping-description div {
@@ -149,6 +181,12 @@
                 flex: 3.5;
             }
 
+            @media (max-width: 799px) {
+                #rough-sleeping-description div p {
+                    font-size: 14px;
+                }
+            }
+
         #rough-sleeping-description button {
             background-color: #0092FF;
             border: 0;
@@ -162,6 +200,16 @@
             margin-left: 36px;
         }
 
+        @media (max-width: 799px) {
+            #rough-sleeping-description button {
+                font-size: 12px;
+                margin-left: 12px;
+                padding: 6px;
+                height: auto;
+                min-height: 28px;
+            }
+        }
+
             #rough-sleeping-description button:focus {
                 outline: none;
                 box-shadow: none;
@@ -173,9 +221,21 @@
         flex-direction: column;
     }
 
+    @media (max-width: 799px) {
+        #question-section {
+            margin-top: 20px;
+        }
+    }
+
     .question-section-item {
         margin-top: 24px;
         display: flex;
+    }
+
+    @media (max-width: 799px) {
+        .question-section-item {
+            margin-top: 16px;
+        }
     }
 
     #image-container {
@@ -187,6 +247,30 @@
         height: 100px;
         margin-top: 24px;
         border: 0;
+    }
+
+    @media (max-width: 799px) {
+        #housing-option-image {
+            height: 80px;
+            margin-top: 16px;
+        }
+    }
+
+    /* Hide map on mobile */
+    @media (max-width: 799px) {
+        #london-map-map {
+            display: none !important;
+        }
+    }
+
+    .drop-down-title {
+        font-size: 0.875rem;
+    }
+
+    @media (max-width: 799px) {
+        .drop-down-title {
+            font-size: 0.8rem;
+        }
     }
 </style>
 <script src="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js"></script>
@@ -257,6 +341,12 @@
                     <img id="housing-option-image" />
                 </div>
             </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12" style="text-align: center; color: #6c757d; font-size: 0.75rem; padding-top: 20px; padding-bottom: 20px;">
+            © LHF Atlas 2025 | Data last updated March 2025
         </div>
     </div>
 </div>

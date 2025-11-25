@@ -378,7 +378,7 @@
                     <div class="chart-title">
                         <div class="chart-title-main">Night/Winter Shelters 2024/25</div>
                         <div class="chart-title-sub"></div>
-                        <div class="chart-intro">Source: Housing Justice. Select a borough on the map or use the dropdown to view services and details.</div>
+                        <div class="chart-intro">Select a borough on the map or use the dropdown to view services and details.</div>
                     </div>
                 </div>
 
@@ -419,8 +419,7 @@
 
     <div class="row">
         <div class="col-12">
-            <div class="chart-footer">LHF Atlas 2019/20 - see <a href="https://www.lhfatlas.org.uk"
-                    target="_blank">www.lhfatlas.org.uk</a> for full details</div>
+            <div class="chart-footer">© LHF Atlas 2025 | Data last updated March 2025
         </div>
     </div>
 </div>
@@ -1182,11 +1181,25 @@
 
                 if (isMobile) {
                     const closeBtn = '<button class="tooltip-close" data-close-tooltip>&times;</button>';
-                    const link = websiteUrl && websiteUrl !== "" && websiteUrl !== "None" ? `<div class="tooltip-link" onclick="window.open('${websiteUrl}', '_blank')">Visit website</div>` : '';
+                    const link = websiteUrl && websiteUrl !== "" && websiteUrl !== "None" ? `<div class="tooltip-link">Visit website</div>` : '';
                     tooltip.style("border-color", color).html(closeBtn + content + link);
 
-                    tooltip.select('.tooltip-close').on('click', function() {
+                    tooltip.select('.tooltip-close').on('click', function(event) {
+                        if (event) {
+                            event.stopPropagation();
+                            event.preventDefault();
+                        }
                         hide();
+                    });
+
+                    tooltip.select('.tooltip-link').on('click', function(event) {
+                        if (event) {
+                            event.stopPropagation();
+                            event.preventDefault();
+                        }
+                        if (websiteUrl && websiteUrl !== "" && websiteUrl !== "None") {
+                            window.open(websiteUrl, '_blank');
+                        }
                     });
                 } else {
                     tooltip.style("border-color", color).html(content);
