@@ -1457,18 +1457,24 @@
       function clicked(d) {
         const isMobile = window.innerWidth <= 768;
         if (isMobile) {
-          // On mobile, show tooltip with close button and link
-          d3.select(this).raise();
-          tooltip.show(blockTooltipContent(d), blockColor(d), accessor.services.website(d));
+          // On mobile, ALWAYS show tooltip, NEVER navigate directly
+          // Hide any existing tooltip first to ensure clean state
+          tooltip.hide();
 
-          // Center the tooltip on mobile
-          const tooltipNode = document.querySelector('.chart-tooltip');
-          if (tooltipNode) {
-            const bcr = tooltipNode.getBoundingClientRect();
-            const x = (window.innerWidth - bcr.width) / 2;
-            const y = (window.innerHeight - bcr.height) / 2;
-            tooltipNode.style.transform = `translate(${x}px,${y}px)`;
-          }
+          // Small delay to ensure hide completes and prevent any race conditions
+          setTimeout(() => {
+            d3.select(this).raise();
+            tooltip.show(blockTooltipContent(d), blockColor(d), accessor.services.website(d));
+
+            // Center the tooltip on mobile
+            const tooltipNode = document.querySelector('.chart-tooltip');
+            if (tooltipNode) {
+              const bcr = tooltipNode.getBoundingClientRect();
+              const x = (window.innerWidth - bcr.width) / 2;
+              const y = (window.innerHeight - bcr.height) / 2;
+              tooltipNode.style.transform = `translate(${x}px,${y}px)`;
+            }
+          }, 10);
         } else {
           // On desktop, click opens website
           if (accessor.services.website(d) === "") return;
@@ -1920,6 +1926,13 @@
           const link = websiteUrl && websiteUrl !== "" ? `<div class="tooltip-link">Visit website</div>` : '';
           tooltip.style("border-color", color).html(closeBtn + content + link);
 
+          // Prevent clicks on tooltip from bubbling to blocks underneath
+          tooltip.on('click', function(event) {
+            if (event) {
+              event.stopPropagation();
+            }
+          });
+
           // Add click handler for close button
           tooltip.select('.tooltip-close').on('click', function(event) {
             if (event) {
@@ -1937,6 +1950,7 @@
             }
             if (websiteUrl && websiteUrl !== "") {
               window.open(websiteUrl, '_blank');
+              hide(); // Close tooltip after opening link
             }
           });
         } else {
