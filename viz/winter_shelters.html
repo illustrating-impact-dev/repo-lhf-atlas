@@ -794,26 +794,9 @@
                         .attr("fill", "#fff")
                         .attr("data-gss-code", d => accessor.geo.id(d))
                         .classed("highlighted", (d) => accessor.geo.id(d) === highlightedGSS)
-                        .on("mouseenter", function(d) {
-                            const isMobile = window.innerWidth <= 768;
-                            if (!isMobile) entered.call(this, d);
-                        })
-                        .on("mouseleave", function(d) {
-                            const isMobile = window.innerWidth <= 768;
-                            if (!isMobile) left.call(this, d);
-                        })
-                        .on("mousemove", function(d) {
-                            const isMobile = window.innerWidth <= 768;
-                            if (!isMobile) moved.call(this, d);
-                        })
                         .on("click", function (d) {
-                            const isMobile = window.innerWidth <= 768;
-                            if (isMobile) {
-                                entered.call(this, d);
-                            } else {
-                                const clickedGSSCode = accessor.geo.id(d);
-                                updateHighlightedBorough(clickedGSSCode);
-                            }
+                            const clickedGSSCode = accessor.geo.id(d);
+                            updateHighlightedBorough(clickedGSSCode);
                         })
                 );
 
