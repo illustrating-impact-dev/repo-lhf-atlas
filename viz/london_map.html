@@ -203,6 +203,15 @@
         stroke-width: 2;
     }
 
+    .map-path.subregion-muted,
+    .bar-rect.subregion-muted {
+        fill: #d8dde3 !important;
+    }
+
+    .map-circle.subregion-muted {
+        stroke: #b8c0c8;
+    }
+
     .map-container {
         position: relative;
     }
@@ -402,7 +411,7 @@
             reload.</div>
 
         <div class="row control-row">
-            <div class="col-12 col-lg-5" style="padding-top:3px; padding-bottom:3px">
+            <div class="col-12 col-lg-4" style="padding-top:3px; padding-bottom:3px">
                 <div class="form-group"><label for="metric-select">Select main measure for map and bar chart:</label>
                     <select class="form-control custom-select custom-select-sm" id="metric-select"></select>
                 </div>
@@ -413,7 +422,12 @@
                         class="form-control custom-select custom-select-sm" id="service-select"></select></div>
             </div>
 
-            <div class="col-12 col-lg-4 d-flex flex-column" style="padding-top:3px; padding-bottom:3px">
+            <div class="col-12 col-lg-3" style="padding-top:3px; padding-bottom:3px">
+                <div class="form-group"><label for="subregion-select">Highlight sub-region:</label> <select
+                        class="form-control custom-select custom-select-sm" id="subregion-select"></select></div>
+            </div>
+
+            <div class="col-12 col-lg-2 d-flex flex-column" style="padding-top:3px; padding-bottom:3px">
                 <div class="flex-grow-1">&nbsp;</div>
                 <div class="btn-group form-group" id="buttons" style="visibility: visible">
                     <button class="btn__export btn__export--pdf btn__svg" onclick="printPDF()"
@@ -599,10 +613,82 @@
         const LONDON_GSS = "E12000007";
         const TRANSITION_DURATION = 750;
 
+        const SUB_REGION_OPTIONS = [
+            {
+                id: "",
+                name: "-",
+                boroughs: [],
+            },
+            {
+                id: "North Central",
+                name: "North Central",
+                boroughs: [
+                    "E09000003",
+                    "E09000007",
+                    "E09000010",
+                    "E09000014",
+                    "E09000019",
+                ],
+            },
+            {
+                id: "North East",
+                name: "North East",
+                boroughs: [
+                    "E09000001",
+                    "E09000002",
+                    "E09000012",
+                    "E09000016",
+                    "E09000025",
+                    "E09000026",
+                    "E09000030",
+                    "E09000031",
+                ],
+            },
+            {
+                id: "North West",
+                name: "North West",
+                boroughs: [
+                    "E09000005",
+                    "E09000009",
+                    "E09000013",
+                    "E09000015",
+                    "E09000017",
+                    "E09000018",
+                    "E09000020",
+                    "E09000033",
+                ],
+            },
+            {
+                id: "South East",
+                name: "South East",
+                boroughs: [
+                    "E09000004",
+                    "E09000006",
+                    "E09000011",
+                    "E09000022",
+                    "E09000023",
+                    "E09000028",
+                ],
+            },
+            {
+                id: "South West",
+                name: "South West",
+                boroughs: [
+                    "E09000008",
+                    "E09000021",
+                    "E09000024",
+                    "E09000027",
+                    "E09000029",
+                    "E09000032",
+                ],
+            },
+        ];
+
 
         let selected = {
             metric: null,
             service: null,
+            subRegion: null,
             get withCircle() {
                 return this.metric && accessor.metrics.id(this.metric) === 7;
             },
@@ -622,6 +708,7 @@
         let options = {
             metrics: [],
             services: [],
+            subRegions: SUB_REGION_OPTIONS,
         };
         let data = {
             metrics: {},
@@ -673,6 +760,10 @@
                 key: (d) => d.colour_value,
                 value: (d) => `#${d.colour_hex}`,
             },
+            subRegions: {
+                id: (d) => d.id,
+                name: (d) => d.name,
+            },
         };
 
         const formatCount = d3.format(",");
@@ -680,6 +771,12 @@
         const gssToName = {
             [LONDON_GSS]: "London",
         };
+
+        function isOutsideSelectedSubRegion(gssCode) {
+            return selected.subRegion &&
+                accessor.subRegions.id(selected.subRegion) &&
+                !selected.subRegion.boroughs.includes(gssCode);
+        }
 
         const dispatch = d3.dispatch(
             "entermetric",
@@ -834,6 +931,20 @@
                     .each(function () {
                         this.dispatchEvent(new Event("change"));
                     });
+
+                d3.select("#subregion-select")
+                    .call(setupSelectControl, "subRegions")
+                    .on("change", function () {
+                        tooltip.hide();
+                        selected.subRegion = options.subRegions.find(
+                            (d) => accessor.subRegions.id(d) == this.value
+                        );
+                        map.updateSubRegionHighlight();
+                        bar.updateSubRegionHighlight();
+                    })
+                    .each(function () {
+                        this.dispatchEvent(new Event("change"));
+                    });
                 loadData();
             })
             .catch((err) => {
@@ -881,7 +992,7 @@
                         selected.metric
                     )} ${accessor.services.footnote(selected.service)}`
                 );
-                footer.text(`© ${accessor.metrics.footnote(selected.metric)} | Data last updated March 2025`);
+                footer.text(`© ${accessor.metrics.footnote(selected.metric)} | Data last updated March 2026`);
             }
             return {
                 update,
@@ -1114,6 +1225,8 @@
                         div.select(".legend-swatch").style("background-color", (d) => d.value)
                     )
                     .call((div) => div.select(".legend-label").text((d) => d.key));
+
+                updateSubRegionHighlight();
             }
 
             function updateService(data) {
@@ -1146,6 +1259,19 @@
                     .transition()
                     .duration(TRANSITION_DURATION)
                     .attr("r", 5 / t.k);
+            }
+
+            function updateSubRegionHighlight() {
+                gPath
+                    .selectAll(".map-path")
+                    .classed("subregion-muted", (d) =>
+                        isOutsideSelectedSubRegion(accessor.geo.id(d))
+                    );
+                gCircle
+                    .selectAll(".map-circle")
+                    .classed("subregion-muted", (d) =>
+                        isOutsideSelectedSubRegion(accessor.geo.id(d))
+                    );
             }
 
             function highlightMetric(d) {
@@ -1197,6 +1323,7 @@
             return {
                 updateMetric,
                 updateService,
+                updateSubRegionHighlight,
                 highlightMetric,
                 resetHighlightMetric,
                 highlightService,
@@ -1351,6 +1478,14 @@
                                 }
                             })
                     );
+
+                updateSubRegionHighlight();
+            }
+
+            function updateSubRegionHighlight() {
+                g.selectAll(".bar-rect").classed("subregion-muted", (d) =>
+                    isOutsideSelectedSubRegion(accessor.metric.id(d))
+                );
             }
 
             function highlightMetric(d) {
@@ -1367,6 +1502,7 @@
 
             return {
                 updateMetric,
+                updateSubRegionHighlight,
                 highlightMetric,
                 resetHighlightMetric,
             };

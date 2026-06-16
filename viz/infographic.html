@@ -296,6 +296,87 @@
     stroke: #000;
   }
 
+  .infographic-chart-row.subregion-muted .block {
+    fill: #d8dde3 !important;
+  }
+
+  .subregion-label {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-bottom: 0.5rem;
+  }
+
+  .subregion-mode-toggle {
+    align-items: center;
+    display: inline-flex;
+    gap: 4px;
+  }
+
+  .subregion-mode-button {
+    background: #fff;
+    border: 1px solid #00aaff;
+    border-radius: 3px;
+    color: #0075a8;
+    cursor: pointer;
+    font: inherit;
+    line-height: 1.2;
+    padding: 1px 6px;
+  }
+
+  .subregion-mode-button.active {
+    background: #00aaff;
+    color: #fff;
+  }
+
+  .subregion-mode-button:focus {
+    outline: 2px solid rgba(0, 170, 255, 0.35);
+    outline-offset: 1px;
+  }
+
+  .subregion-mode-or {
+    color: #6c757d;
+  }
+
+  @media (min-width: 992px) {
+    .control-row {
+      align-items: flex-start;
+      flex-wrap: nowrap;
+      margin-left: -6px;
+      margin-right: -6px;
+    }
+
+    .control-row > [class*="control-col-"] {
+      padding-left: 6px !important;
+      padding-right: 6px !important;
+    }
+
+    .control-col-group {
+      flex: 0 0 18%;
+      max-width: 18%;
+    }
+
+    .control-col-wide {
+      flex: 0 0 22%;
+      max-width: 22%;
+    }
+
+    .control-col-subregion {
+      flex: 0 0 28%;
+      max-width: 28%;
+    }
+
+    .control-col-actions {
+      flex: 0 0 10%;
+      max-width: 10%;
+    }
+
+    .control-col-actions #buttons {
+      justify-content: flex-start;
+    }
+  }
+
   /* Pan London styles */
   .pan-london-container {
     width: 100%;
@@ -506,6 +587,16 @@
     text-align: right;
   }
 
+  @media (min-width: 769px) {
+    .infographic-summary.filter-mode {
+      bottom: auto !important;
+      margin-top: 0 !important;
+      position: absolute !important;
+      top: 190px !important;
+      z-index: 1;
+    }
+  }
+
   .pan-london-container {
     position: absolute;
     left: 50%;
@@ -586,7 +677,7 @@
     <div class="alert alert-danger d-none" role="alert">Failed to retrieve the data. Please try again later.</div>
 
     <div class="row control-row">
-      <div class="col-12 col-lg-3" style="padding-top:3px; padding-bottom:3px">
+      <div class="col-12 col-lg-2 control-col-group" style="padding-top:3px; padding-bottom:3px">
         <div class="form-group"><label for="group-by-select">Group by borough or provider?</label> <select
             class="form-control custom-select custom-select-sm" id="group-by-select">
             <option value="borough">Borough</option>
@@ -594,14 +685,14 @@
           </select></div>
       </div>
 
-      <div class="col-12 col-lg-3" style="padding-top:3px; padding-bottom:3px">
+      <div class="col-12 col-lg-3 control-col-wide" style="padding-top:3px; padding-bottom:3px">
         <div class="form-group"><label for="size-by-select">Focus on accommodation?</label> <select
             class="form-control custom-select custom-select-sm" id="size-by-select">
             <option value="service">No - Show all types of services</option>
             <option value="bed">Yes - Show accommodation by size</option>
           </select></div>
       </div>
-      <div class="col-12 col-lg-3" style="padding-top:3px; padding-bottom:3px">
+      <div class="col-12 col-lg-3 control-col-wide" style="padding-top:3px; padding-bottom:3px">
         <div class="form-group">
           <label for="include-yp-select">Include accommodation for young people?</label>
           <select class="form-control custom-select custom-select-sm" id="include-yp-select">
@@ -610,9 +701,17 @@
           </select>
         </div>
       </div>
-      <div class="col-12 col-lg-3" style="padding-top:3px; padding-bottom:3px; display:none">
-        <div class="form-group"><label for="highlight-by-select">Highlight specific services:</label> <select
-            class="form-control custom-select custom-select-sm" id="highlight-by-select">
+      <div class="col-12 col-lg-2 control-col-subregion" id="subregion-control" style="padding-top:3px; padding-bottom:3px">
+        <div class="form-group"><label class="subregion-label" for="subregion-select">
+          <span class="subregion-mode-toggle" role="group" aria-label="Sub-region display mode">
+            <button class="subregion-mode-button active" data-subregion-mode="highlight" type="button">Highlight</button>
+            <span class="subregion-mode-or">or</span>
+            <button class="subregion-mode-button" data-subregion-mode="filter" type="button">filter</button>
+          </span>
+          <span>sub-region:</span>
+        </label> <select
+            class="form-control custom-select custom-select-sm" id="subregion-select"></select></div>
+        <select class="form-control custom-select custom-select-sm d-none" id="highlight-by-select">
             <optgroup label="ALL SERVICES">
               <option value="london">All London</option>
             </optgroup>
@@ -620,10 +719,10 @@
               <option value="women">Women's services</option>
               <option value="young">Young People's services</option>
             </optgroup>
-          </select></div>
+          </select>
       </div>
 
-      <div class="col-12 col-lg-3 d-flex flex-column" style="padding-top:3px; padding-bottom:3px">
+      <div class="col-12 col-lg-2 control-col-actions d-flex flex-column" style="padding-top:3px; padding-bottom:3px">
         <div class="flex-grow-1">&nbsp;</div>
 
         <div class="btn-group form-group" id="buttons" style="visibility: visible"><button
@@ -779,11 +878,84 @@
       sizeBy: "service",
       highlightBy: "london",
       includeYP: "yes",
+      subRegion: null,
+      subRegionMode: "highlight",
     };
 
     const touchable = isTouchDevice();
 
     let data;
+
+    const SUB_REGION_OPTIONS = [
+      {
+        id: "",
+        name: "-",
+        boroughs: [],
+      },
+      {
+        id: "North Central",
+        name: "North Central",
+        boroughs: [
+          "Barnet",
+          "Camden",
+          "Enfield",
+          "Haringey",
+          "Islington",
+        ],
+      },
+      {
+        id: "North East",
+        name: "North East",
+        boroughs: [
+          "Barking and Dagenham",
+          "City of London",
+          "Hackney",
+          "Havering",
+          "Newham",
+          "Redbridge",
+          "Tower Hamlets",
+          "Waltham Forest",
+        ],
+      },
+      {
+        id: "North West",
+        name: "North West",
+        boroughs: [
+          "Brent",
+          "Ealing",
+          "Hammersmith and Fulham",
+          "Harrow",
+          "Hillingdon",
+          "Hounslow",
+          "Kensington and Chelsea",
+          "Westminster",
+        ],
+      },
+      {
+        id: "South East",
+        name: "South East",
+        boroughs: [
+          "Bexley",
+          "Bromley",
+          "Greenwich",
+          "Lambeth",
+          "Lewisham",
+          "Southwark",
+        ],
+      },
+      {
+        id: "South West",
+        name: "South West",
+        boroughs: [
+          "Croydon",
+          "Kingston upon Thames",
+          "Merton",
+          "Richmond upon Thames",
+          "Sutton",
+          "Wandsworth",
+        ],
+      },
+    ];
 
     const accessor = {
       services: {
@@ -818,7 +990,48 @@
         color: (d) => `#${d.colour_hex.slice(0, 6)}`,
         serviceType: (d) => d.note,
       },
+      subRegions: {
+        id: (d) => d.id,
+        name: (d) => d.name,
+      },
     };
+
+    function hasSelectedSubRegion() {
+      return selected.subRegion &&
+        accessor.subRegions.id(selected.subRegion);
+    }
+
+    function isServiceInSelectedSubRegion(service) {
+      return hasSelectedSubRegion() &&
+        selected.subRegion.boroughs.includes(accessor.services.borough(service));
+    }
+
+    function hasBoroughName(service) {
+      const borough = accessor.services.borough(service);
+      return borough != null && String(borough).trim() !== "";
+    }
+
+    function shouldMuteSubRegionService(service) {
+      return selected.subRegionMode === "highlight" &&
+        hasSelectedSubRegion() &&
+        !isServiceInSelectedSubRegion(service);
+    }
+
+    function shouldFilterSubRegionService(service) {
+      return selected.subRegionMode === "filter" &&
+        hasSelectedSubRegion() &&
+        !isServiceInSelectedSubRegion(service);
+    }
+
+    function shouldMuteSubRegionRow(row) {
+      return selected.subRegionMode === "highlight" &&
+        hasSelectedSubRegion() &&
+        !row.items.some(isServiceInSelectedSubRegion);
+    }
+
+    function numberOrZero(value) {
+      return value === "" || value == null ? 0 : +value || 0;
+    }
 
 
 
@@ -951,6 +1164,8 @@
         setupSizeBySelectControl();
         setupHighlightBySelectControl();
         setupIncludeYPSelectControl();
+        setupSubRegionSelectControl();
+        setupSubRegionModeControl();
         renderHeader();
         renderSummary();
         renderChart();
@@ -967,24 +1182,37 @@
         .classed("infographic-summary", true);
 
       dispatch.on("update.summary", () => {
+        container.classed(
+          "filter-mode",
+          hasSelectedSubRegion() && selected.subRegionMode === "filter"
+        );
+
         let highlightBy;
-        switch (selected.highlightBy) {
-          case "london":
-            highlightBy = "all London";
-            break;
-          case "women":
-            highlightBy = "women's services";
-            break;
-          case "young":
-            highlightBy = "young People's services";
-            break;
-          default:
-            break;
+        let summaryTitle;
+        let d;
+        if (hasSelectedSubRegion()) {
+          summaryTitle = `Summary for ${accessor.subRegions.name(selected.subRegion).toLowerCase()} subregion`;
+          d = data.subRegionTotals[accessor.subRegions.id(selected.subRegion)];
+        } else {
+          switch (selected.highlightBy) {
+            case "london":
+              highlightBy = "all London";
+              break;
+            case "women":
+              highlightBy = "women's services";
+              break;
+            case "young":
+              highlightBy = "young People's services";
+              break;
+            default:
+              break;
+          }
+          summaryTitle = `Summary of services for ${highlightBy}`;
+          d = data.totals[selected.highlightBy];
         }
-        const d = data.totals[selected.highlightBy];
         /* html */
         container.html(`
-      <div class="summary-title">Summary of services for ${highlightBy}</div>
+      <div class="summary-title">${summaryTitle}</div>
       <div class="summary-row">
         <div class="color-square" style='background-color: ${colorByServiceType("Nightshelter_Wintershelter")}'></div>
         <div><span style='color: ${colorByServiceType("Nightshelter_Wintershelter")}'>${formatCount(d.shelterspaces)}</span> spaces in Winter Shelters</div>
@@ -1100,19 +1328,34 @@
         unit.text(`Number of ${selected.sizeBy}s`);
 
         const transition = d3.transition().duration(TRANSITION_DURATION);
+        const useProviderSubRegionStats = selected.groupBy === "provider" &&
+          hasSelectedSubRegion() &&
+          selected.subRegionMode === "highlight";
 
         // Get the raw data
         let rowsData = data.services[selected.groupBy][selected.sizeBy];
 
-        // Filter the items within each row based on YP selection
-        rowsData = rowsData.map(row => ({
-          ...row,
-          items: row.items.filter(d => selected.includeYP === "yes" || !d["Young people's service"]),
-          total: {
-            service: row.items.filter(d => selected.includeYP === "yes" || !d["Young people's service"]).length,
-            bed: d3.sum(row.items.filter(d => selected.includeYP === "yes" || !d["Young people's service"]), accessor.services.beds)
-          }
-        }));
+        // Filter the items within each row based on YP and subregion selections.
+        rowsData = rowsData.map(row => {
+          const itemsAfterYPFilter = row.items
+            .filter(d => selected.includeYP === "yes" || !d["Young people's service"]);
+          const items = itemsAfterYPFilter
+            .filter(d => !shouldFilterSubRegionService(d));
+          const subRegionItems = itemsAfterYPFilter.filter(isServiceInSelectedSubRegion);
+
+          return {
+            ...row,
+            items,
+            total: {
+              service: items.length,
+              bed: d3.sum(items, accessor.services.beds)
+            },
+            subRegionTotal: {
+              service: subRegionItems.length,
+              bed: d3.sum(subRegionItems, accessor.services.beds)
+            }
+          };
+        });
 
         // Filter out empty rows
         rowsData = rowsData.filter(row => row.items.length > 0);
@@ -1139,21 +1382,26 @@
         } else {
           // Sort providers
           rowsData.sort((a, b) => {
+            if (useProviderSubRegionStats) {
+              const subRegionSort = d3.descending(a.subRegionTotal[sortBy], b.subRegionTotal[sortBy]);
+              if (subRegionSort !== 0) return subRegionSort;
+            }
+
             if (sortBy === "service") {
-              return d3.descending(a.total.service, b.total.service);
+              return d3.descending(a.total.service, b.total.service) || d3.ascending(a.key, b.key);
             } else {
-              return d3.descending(a.total.bed, b.total.bed);
+              return d3.descending(a.total.bed, b.total.bed) || d3.ascending(a.key, b.key);
             }
           });
         }
 
         let panLondonServiceData;
         if (selected.groupBy === "borough") {
-          panLondonServiceData = rowsData[rowsData.length - 1];
-          rowsData = rowsData.slice(0, -1);
+          panLondonServiceData = rowsData.find((d) => d.key === "Pan-London");
+          rowsData = rowsData.filter((d) => d.key !== "Pan-London");
         }
 
-        x.domain([0, d3.max(rowsData, (d) => d.total[selected.sizeBy])]);
+        x.domain([0, d3.max(rowsData, (d) => d.total[selected.sizeBy]) || 0]);
 
         const chartRow = chartRows
           .selectAll(".infographic-chart-row")
@@ -1197,9 +1445,11 @@
               .text((d) => {
                 // On mobile, always show service count even in bed mode
                 const countType = isMobile ? 'service' : selected.sizeBy;
-                return formatCount(d.total[countType]);
+                const total = useProviderSubRegionStats ? d.subRegionTotal : d.total;
+                return formatCount(total[countType]);
               })
-          );
+          )
+          .classed("subregion-muted", (d) => shouldMuteSubRegionRow(d));
 
         if (isMobile) {
           // Mobile: grid layout with fixed number of columns, using sorted/stacked data
@@ -1307,7 +1557,7 @@
             .attr("fill", blockColor);
         }
 
-        if (selected.groupBy === "borough") {
+        if (selected.groupBy === "borough" && !hasSelectedSubRegion() && panLondonServiceData) {
           panLondonContainer.classed("d-none", false);
           const svg = panLondonContainer.select(".pan-london-svg");
           const width = +svg.attr("width") - margin.left - margin.right;
@@ -1518,6 +1768,10 @@
       }
 
       function blockColor(d) {
+        if (shouldMuteSubRegionService(d)) {
+          return "#d8dde3";
+        }
+
         let highlightResult = accessor.services.highlight[selected.highlightBy](d);
 
         if (highlightResult) {
@@ -1558,6 +1812,14 @@
         switch (selected.sizeBy) {
           case "service":
             stacked.sort((a, b) => {
+              if (hasSelectedSubRegion() && selected.subRegionMode === "highlight") {
+                const subRegionDiff = d3.descending(
+                  isServiceInSelectedSubRegion(a),
+                  isServiceInSelectedSubRegion(b)
+                );
+                if (subRegionDiff !== 0) return subRegionDiff;
+              }
+
               // First sort by highlight status
               let highlightDiff = d3.descending(
                 accessor.services.highlight[selected.highlightBy](a),
@@ -1585,6 +1847,14 @@
 
           case "bed":
             stacked.sort((a, b) => {
+              if (hasSelectedSubRegion() && selected.subRegionMode === "highlight") {
+                const subRegionDiff = d3.descending(
+                  isServiceInSelectedSubRegion(a),
+                  isServiceInSelectedSubRegion(b)
+                );
+                if (subRegionDiff !== 0) return subRegionDiff;
+              }
+
               // First sort by highlight status
               let highlightDiff = d3.descending(
                 accessor.services.highlight[selected.highlightBy](a),
@@ -1634,6 +1904,50 @@
         selected.includeYP = this.value;
         dispatch.call("update");
       });
+    }
+
+    function setupSubRegionSelectControl() {
+      d3.select("#subregion-select")
+        .selectAll("option")
+        .data(SUB_REGION_OPTIONS)
+        .join("option")
+        .attr("value", accessor.subRegions.id)
+        .text(accessor.subRegions.name);
+
+      d3.select("#subregion-select").on("change", function () {
+        selected.subRegion = SUB_REGION_OPTIONS.find(
+          (d) => accessor.subRegions.id(d) == this.value
+        );
+        dispatch.call("update");
+      });
+
+      d3.select("#subregion-select").dispatch("change");
+    }
+
+    function setupSubRegionModeControl() {
+      const buttons = d3.selectAll(".subregion-mode-button");
+
+      function updateButtons() {
+        buttons
+          .classed("active", function () {
+            return this.dataset.subregionMode === selected.subRegionMode;
+          })
+          .attr("aria-pressed", function () {
+            return this.dataset.subregionMode === selected.subRegionMode ? "true" : "false";
+          });
+      }
+
+      buttons.on("click", function () {
+        if (d3.event) {
+          d3.event.preventDefault();
+          d3.event.stopPropagation();
+        }
+        selected.subRegionMode = this.dataset.subregionMode;
+        updateButtons();
+        dispatch.call("update");
+      });
+
+      updateButtons();
     }
 
     // Header
@@ -1705,6 +2019,7 @@
         servicesByBorough = d3.groups(
           // Filter services based on the values in validServiceTypes
           services.filter(d => validServiceTypes.includes(d.serviceType))
+            .filter(hasBoroughName)
             .filter(d => selected.includeYP === "yes" || !d["Young people's service"]),  // Add this line
           accessor.services.borough
         )
@@ -1738,6 +2053,7 @@
             services.filter(
               (d) => accessor.services.serviceType(d) === "Accommodation"
             )
+              .filter(hasBoroughName)
               .filter(d => selected.includeYP === "yes" || !d["Young people's service"]),  // Add this line
             accessor.services.borough
           )
@@ -1877,6 +2193,35 @@
         acc[cur.key] = total;
         return acc;
       }, {});
+
+      const summaryFields = [
+        "shelterspaces",
+        "hfunits",
+        "assessmentcentreservices",
+        "daycentreservices",
+        "ypspaces",
+        "ypservices",
+        "accomspaces",
+        "accomservices",
+      ];
+
+      data.subRegionTotals = SUB_REGION_OPTIONS
+        .filter((subRegion) => accessor.subRegions.id(subRegion))
+        .reduce((acc, subRegion) => {
+          const rows = totals.filter((d) => subRegion.boroughs.includes(d.la_name));
+          const total = summaryFields.reduce((row, field) => {
+            row[field] = d3.sum(rows, (d) => numberOrZero(d[field]));
+            return row;
+          }, {});
+
+          total.chflats = d3.sum(rows, (d) => numberOrZero(d.ch_num));
+          total.outreach = providers.filter((d) =>
+            d.serviceType === "Outreach" && subRegion.boroughs.includes(d.la_name)
+          ).length;
+
+          acc[accessor.subRegions.id(subRegion)] = total;
+          return acc;
+        }, {});
 
       // Count unique outreach services from providers (before multi-borough split)
       const londonOutreachCount = providers.filter(d =>
