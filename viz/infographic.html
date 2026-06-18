@@ -314,6 +314,10 @@
     gap: 4px;
   }
 
+  .subregion-mode-toggle.d-none {
+    display: none;
+  }
+
   .subregion-mode-button {
     background: #fff;
     border: 1px solid #00aaff;
@@ -703,12 +707,12 @@
       </div>
       <div class="col-12 col-lg-2 control-col-subregion" id="subregion-control" style="padding-top:3px; padding-bottom:3px">
         <div class="form-group"><label class="subregion-label" for="subregion-select">
-          <span class="subregion-mode-toggle" role="group" aria-label="Sub-region display mode">
-            <button class="subregion-mode-button active" data-subregion-mode="highlight" type="button">Highlight</button>
+          <span class="subregion-mode-toggle d-none" role="group" aria-label="Sub-region display mode">
+            <button class="subregion-mode-button" data-subregion-mode="highlight" type="button">Highlight</button>
             <span class="subregion-mode-or">or</span>
-            <button class="subregion-mode-button" data-subregion-mode="filter" type="button">filter</button>
+            <button class="subregion-mode-button active" data-subregion-mode="filter" type="button">Filter</button>
           </span>
-          <span>sub-region:</span>
+          <span class="subregion-mode-text">Filter sub-region:</span>
         </label> <select
             class="form-control custom-select custom-select-sm" id="subregion-select"></select></div>
         <select class="form-control custom-select custom-select-sm d-none" id="highlight-by-select">
@@ -879,7 +883,8 @@
       highlightBy: "london",
       includeYP: "yes",
       subRegion: null,
-      subRegionMode: "highlight",
+      subRegionMode: "filter",
+      providerSubRegionMode: "highlight",
     };
 
     const touchable = isTouchDevice();
@@ -901,6 +906,7 @@
           "Enfield",
           "Haringey",
           "Islington",
+          "Westminster",
         ],
       },
       {
@@ -928,7 +934,6 @@
           "Hillingdon",
           "Hounslow",
           "Kensington and Chelsea",
-          "Westminster",
         ],
       },
       {
@@ -1001,6 +1006,14 @@
         accessor.subRegions.id(selected.subRegion);
     }
 
+    function subRegionModeForGroup() {
+      return selected.groupBy === "provider" ? selected.providerSubRegionMode : "filter";
+    }
+
+    function syncSubRegionModeWithGroup() {
+      selected.subRegionMode = subRegionModeForGroup();
+    }
+
     function isServiceInSelectedSubRegion(service) {
       return hasSelectedSubRegion() &&
         selected.subRegion.boroughs.includes(accessor.services.borough(service));
@@ -1041,6 +1054,7 @@
     const formatCount = d3.format(",");
 
     const dispatch = d3.dispatch("update");
+    let updateSubRegionModeControlState = () => {};
 
     // Init
     const alert = setupAlert();
@@ -1881,6 +1895,8 @@
     function setupGroupBySelectControl() {
       d3.select("#group-by-select").on("change", function () {
         selected.groupBy = this.value;
+        syncSubRegionModeWithGroup();
+        updateSubRegionModeControlState();
         dispatch.call("update");
       });
     }
@@ -1926,15 +1942,27 @@
 
     function setupSubRegionModeControl() {
       const buttons = d3.selectAll(".subregion-mode-button");
+      const toggle = d3.select(".subregion-mode-toggle");
+      const modeText = d3.select(".subregion-mode-text");
 
       function updateButtons() {
+        const isProviderMode = selected.groupBy === "provider";
+        syncSubRegionModeWithGroup();
+
+        toggle.classed("d-none", !isProviderMode);
+        modeText.text(isProviderMode ? "sub-region:" : "Filter sub-region:");
+
         buttons
           .classed("active", function () {
             return this.dataset.subregionMode === selected.subRegionMode;
           })
+          .property("disabled", !isProviderMode)
+          .attr("aria-hidden", isProviderMode ? null : "true")
           .attr("aria-pressed", function () {
             return this.dataset.subregionMode === selected.subRegionMode ? "true" : "false";
           });
+
+        d3.select(".subregion-mode-or").classed("d-none", !isProviderMode);
       }
 
       buttons.on("click", function () {
@@ -1942,11 +1970,16 @@
           d3.event.preventDefault();
           d3.event.stopPropagation();
         }
-        selected.subRegionMode = this.dataset.subregionMode;
+        if (selected.groupBy !== "provider") {
+          return;
+        }
+        selected.providerSubRegionMode = this.dataset.subregionMode;
+        selected.subRegionMode = selected.providerSubRegionMode;
         updateButtons();
         dispatch.call("update");
       });
 
+      updateSubRegionModeControlState = updateButtons;
       updateButtons();
     }
 
