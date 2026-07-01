@@ -601,6 +601,7 @@
         const METRICS_DATA_URL = "https://raw.githubusercontent.com/illustrating-impact-dev/repo-lhf-atlas/main/services_borough_summ_long.json";
         const METRICS_MAP_TEXT_URL = "https://raw.githubusercontent.com/illustrating-impact-dev/repo-lhf-atlas/main/londonmap_totals.json";
         const METRICS_MAP_LEGEND = "https://raw.githubusercontent.com/illustrating-impact-dev/repo-lhf-atlas/main/map_color_legend.json";
+        const BOROUGH_SUMMARY_URL = "https://raw.githubusercontent.com/illustrating-impact-dev/repo-lhf-atlas/main/services_borough_summary.json";
         const SERVICES_URL = "https://raw.githubusercontent.com/illustrating-impact-dev/repo-lhf-atlas/main/services_json.json";
         const SERVICES_DATA_URL = "https://raw.githubusercontent.com/illustrating-impact-dev/repo-lhf-atlas/main/services_singlerow.json";
         const LONDON_GEO_URL = "https://raw.githubusercontent.com/illustrating-impact-dev/repo-lhf-atlas/main/data/boroughs.json";
@@ -612,6 +613,10 @@
 
         const LONDON_GSS = "E12000007";
         const TRANSITION_DURATION = 750;
+        const CHAIN_METRIC_TOTAL_FIELDS = {
+            0: "chain_roughsleeping",
+            16: "chain_roughsleeping_py",
+        };
 
         const SUB_REGION_OPTIONS = [
             {
@@ -778,6 +783,53 @@
                 !selected.subRegion.boroughs.includes(gssCode);
         }
 
+        function hasSelectedSubRegion() {
+            return selected.subRegion && accessor.subRegions.id(selected.subRegion);
+        }
+
+        function numericOrNull(value) {
+            const numericValue = +value;
+            return Number.isFinite(numericValue) ? numericValue : null;
+        }
+
+        function selectedChainSubRegionTotal() {
+            const metricId = selected.metric && accessor.metrics.id(selected.metric);
+            const field = CHAIN_METRIC_TOTAL_FIELDS[metricId];
+            if (!field || !hasSelectedSubRegion()) {
+                return null;
+            }
+
+            const subRegionId = accessor.subRegions.id(selected.subRegion);
+            const row = boroughSummaryData.find((d) => d.la_name === subRegionId);
+            const value = row ? numericOrNull(row[field]) : null;
+
+            return value ? value : null;
+        }
+
+        function mapTextForSelection(metricRows, londonMapText) {
+            if (!hasSelectedSubRegion()) {
+                return londonMapText || "";
+            }
+
+            const metricId = selected.metric && accessor.metrics.id(selected.metric);
+            if (CHAIN_METRIC_TOTAL_FIELDS[metricId]) {
+                const chainSubRegionTotal = selectedChainSubRegionTotal();
+                return chainSubRegionTotal ? `Sub-region Total: ${formatCount(chainSubRegionTotal)}` : "";
+            }
+
+            const selectedBoroughs = new Set(selected.subRegion.boroughs);
+            const subRegionTotal = d3.sum(
+                metricRows.filter((d) => selectedBoroughs.has(accessor.metric.id(d))),
+                (d) => {
+                    const value = accessor.metric.value(d);
+                    const numericValue = numericOrNull(value);
+                    return numericValue === null ? 0 : numericValue;
+                }
+            );
+
+            return `Sub-region Total: ${formatCount(subRegionTotal)}`;
+        }
+
         const dispatch = d3.dispatch(
             "entermetric",
             "leavemetric",
@@ -789,6 +841,7 @@
         let metricsData;
         let metricsMapText;
         let metricsMapLegend;
+        let boroughSummaryData;
         let servicesData;
         // Init
         const alert = setupAlert();
@@ -798,14 +851,16 @@
             d3.json(METRICS_DATA_URL, d3.autoType),
             d3.json(METRICS_MAP_TEXT_URL),
             d3.json(METRICS_MAP_LEGEND, d3.autoType),
+            d3.json(BOROUGH_SUMMARY_URL),
             d3.json(SERVICES_URL, d3.autoType),
             d3.json(SERVICES_DATA_URL, d3.autoType),
         ])
-            .then(([london, metrics, metricsD, metricsMapT, metricsMapL, services, servicesD]) => {
+            .then(([london, metrics, metricsD, metricsMapT, metricsMapL, boroughSummary, services, servicesD]) => {
                 alert.hide();
                 metricsData = d3.nest().key(d => d.metric_id).object(metricsD);
                 metricsMapText = d3.nest().key(d => d.metric_id).object(metricsMapT);
                 metricsMapLegend = d3.nest().key(d => d.metric_id).object(metricsMapL);
+                boroughSummaryData = boroughSummary;
                 servicesData = d3.nest().key(d => d.service_type_id).object(servicesD);
                 london.features.forEach((d) => {
                     gssToName[accessor.geo.id(d)] = accessor.geo.name(d);
@@ -1030,6 +1085,8 @@
             const gCircle = g.append("g").attr("class", "map-circles");
             const gLocation = g.append("g").attr("class", "map-locations");
             const legend = container.select(".legend-items");
+            let currentMetricRows = [];
+            let currentLondonMapText = "";
 
             resize();
             window.addEventListener("resize", resize);
@@ -1119,6 +1176,8 @@
 
             function updateMetric({ data, mapLegend, mapText }) {
 
+                currentMetricRows = data;
+                currentLondonMapText = mapText;
 
                 gPath
                     .selectAll(".map-path")
@@ -1197,7 +1256,7 @@
                     });
                 }
 
-                mapTextContainer.text(mapText);
+                updateMapText();
 
                 const legendItems = mapLegend.map((d) => ({
                     key: accessor.mapLegend.key(d),
@@ -1227,6 +1286,11 @@
                     .call((div) => div.select(".legend-label").text((d) => d.key));
 
                 updateSubRegionHighlight();
+            }
+
+            function updateMapText() {
+                const mapText = mapTextForSelection(currentMetricRows, currentLondonMapText);
+                mapTextContainer.text(mapText).classed("d-none", !mapText);
             }
 
             function updateService(data) {
@@ -1272,6 +1336,7 @@
                     .classed("subregion-muted", (d) =>
                         isOutsideSelectedSubRegion(accessor.geo.id(d))
                     );
+                updateMapText();
             }
 
             function highlightMetric(d) {
